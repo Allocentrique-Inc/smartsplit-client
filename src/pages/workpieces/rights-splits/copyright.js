@@ -30,7 +30,7 @@ import { CHART_WINDOW_RATIO } from "../../../mobX/states/UIStates/RightsSplitsPa
 const CopyrightForm = observer(() => {
 	const copyrightSplit = useRightsSplits("copyright")
 	const pageState = useSplitsPagesState("copyright")
-	const { sharesData, sharesTotal } = pageState
+	const { sharesData, shareTotal } = pageState
 	const { t } = useTranslation("rightsSplits")
 	const [styles, setStyles] = useState({})
 
@@ -89,21 +89,21 @@ const CopyrightForm = observer(() => {
 						<>
 							<Slider
 								min={0}
-								max={sharesTotal}
+								max={shareTotal}
 								color={pageState.colorByIndex(i)}
 								step={0.01}
 								value={share.shares}
 								onChange={(value) =>
-									copyrightSplit.updateShare(share.id, value)
+									copyrightSplit.updateSharesProRata(share.id, value)
 								}
 							/>
 							<PercentageInput
 								value={share.percent}
 								digits={2}
 								onChange={(percentage) =>
-									copyrightSplit.updateShare(
+									copyrightSplit.updateSharesProRata(
 										share.id,
-										(percentage * sharesTotal) / 100
+										(percentage * shareTotal) / 100
 									)
 								}
 							/>
