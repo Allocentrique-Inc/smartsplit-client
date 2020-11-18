@@ -22,31 +22,35 @@ export default class SplitPageState {
 		return this.shareColors[index % this.shareColors.length]
 	}
 
-	getStyles = (windowWidth) => ({
-		spacer:
-			windowWidth >= 1200
-				? {
-						width: 3 * Metrics.spacing.group,
-						height: 3 * Metrics.spacing.group,
-				  }
-				: {
-						width: Metrics.spacing.component,
-						height: Metrics.spacing.component,
-				  },
-		chart: {
-			position: "sticky",
-			top: Metrics.spacing.component,
-		},
-	})
+	getStyles(windowWidth) {
+		return {
+			spacer:
+				windowWidth >= 1200
+					? {
+							width: 3 * Metrics.spacing.group,
+							height: 3 * Metrics.spacing.group,
+					  }
+					: {
+							width: Metrics.spacing.component,
+							height: Metrics.spacing.component,
+					  },
+			chart: {
+				position: "sticky",
+				top: Metrics.spacing.component,
+			},
+		}
+	}
 
 	sharesToChartData(shares = null) {
 		shares = shares ? shares : this.shares
-		return shares.map((share, i) => ({
-			key: share.shareHolderId,
-			name: share.shareHolderId,
-			share: share.shares,
-			color: this.colorByIndex(i),
-		}))
+		return shares
+			.filter((share) => share.shares)
+			.map((share, i) => ({
+				key: share.shareHolderId,
+				name: share.shareHolderId,
+				share: share.shares,
+				color: this.colorByIndex(i),
+			}))
 	}
 
 	genChartProps(shares = null) {
@@ -70,8 +74,8 @@ export default class SplitPageState {
 		return this.domainState.sharesValues
 	}
 
-	@computed get sharesTotal() {
-		return this.shares.length
+	@computed get shareTotal() {
+		return this.domainState.shareTotal
 	}
 
 	@computed get chartSize() {

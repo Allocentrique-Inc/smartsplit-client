@@ -30,11 +30,17 @@ export default class CopyrightSplit extends SplitPageState {
 	 **/
 	@computed get sharesData() {
 		return this.shares.map((share) => {
+			let percent
+			if (this.shareTotal > 0 && share.shares) {
+				percent = (100 * share.shares) / this.shareTotal
+			} else {
+				percent = 0
+			}
 			return {
 				id: share.shareHolderId,
 				shares: share.shares,
 				roles: share.roles,
-				percent: share.shares > 0 ? (100 * share.shares) / this.sharesTotal : 0,
+				percent: percent,
 			}
 		})
 	}

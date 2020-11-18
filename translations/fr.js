@@ -504,6 +504,7 @@ export const rightsSplits = {
 				équitablement. Mais tu peux faire autrement.
 			</>
 		),
+		
 	},
 	performance: {
 		title: "Interprétation",
@@ -551,6 +552,28 @@ export const rightsSplits = {
 				</>
 			</>
 		),
+		functions: {
+			producer: "Producteur",
+			autoProducer: "Auto-producteur",
+			directorProducer: "Réalisateur-producteur",
+			techProducer: "Technicien-producteur",
+			studio: "Studio d'enregistrement",
+			illustratorDesigner: "Illustrateur / Graphiste",
+		},
+		functionDefs: {
+			producer:
+				"Investisseur externe (n'étant pas l'artiste ni membre du groupe).",
+			autoProducer:
+				"Artiste ou membre du groupe s'investissant dans l'enregistrement de la pièce.",
+			directorProducer:
+				"Artisan s'investissant dans la réalisation et la production de la pièce.",
+			techProducer:
+				"Technicien s'investissant dans la production de la pièce (mixeur, preneur de son).",
+			studio:
+				"Entité investissant ses ressources afin d'enregistrer la pièce, contre pourcentage.",
+			illustratorDesigner:
+				"Personne s'investissant dans la création de matériel visuel lié à la pièce (pochette, vidéo).",
+		}
 	},
 
 	radios: {
@@ -573,35 +596,14 @@ export const rightsSplits = {
 	agreement: "Durée de l'entente...",
 	remove: "Retirer ce partage",
 	roles: {
-		author: "Auteur",
-		composer: "Compositeur",
-		adapter: "Adaptateur",
-		mixer: "Arrangeur",
-		singer: "Chanteur",
-		musician: "Musicien",
+			author: "Auteur",
+			composer: "Compositeur",
+			adapter: "Adaptateur",
+			mixer: "Arrangeur",
+			singer: "Chanteur",
+			musician: "Musicien",
 	},
-
 	dropdowns: {
-		collaboratorsRecording: {
-			producer: "Producteur",
-			producerDefinition:
-				"Investisseur externe (n'étant pas l'artiste ni membre du groupe).",
-			autoProducer: "Auto-producteur",
-			autoProducerDefinition:
-				"Artiste ou membre du groupe s'investissant dans l'enregistrement de la pièce.",
-			directorProducer: "Réalisateur-producteur",
-			directorProducerDefinition:
-				"Artisan s'investissant dans la réalisation et la production de la pièce.",
-			techProducer: "Technicien-producteur",
-			techProducerDefinition:
-				"Technicien s'investissant dans la production de la pièce (mixeur, preneur de son).",
-			studio: "Studio d'enregistrement",
-			studioDefinition:
-				"Entité investissant ses ressources afin d'enregistrer la pièce, contre pourcentage.",
-			illustratorDesigner: "Illustrateur / Graphiste",
-			illustratorDesignerDefinition:
-				"Personne s'investissant dans la création de matériel visuel lié à la pièce (pochette, vidéo).",
-		},
 		duration: {
 			oneYear: "1 an, puis renouvelable d'année en année",
 			twoYears: "2 ans, puis renouvelable d'année en année",

@@ -551,6 +551,28 @@ export const rightsSplits = {
 				of the investment.
 			</>
 		),
+		functions: {
+			producer: "Producer",
+			autoProducer: "Auto-producer",
+			directorProducer: "Director-Producer",
+			techProducer: "Technician-Producer",
+			studio: "Recording Studio",
+			illustratorDesigner: "Illustrator / Graphic Designer",
+		},
+		functionDefs: {
+			producer:
+				"External investor (not being the artist or member of the group).",
+			autoProducer:
+				"Artist or group member investing in the work's recording.",
+			directorProducer:
+				"Craftsman's investment in the direction and production of the work.",
+			techProducer:
+				"Technician investing in the production of the work (mixer, sound engineer).",
+			studio:
+				"Entity investing its ressources in order to record the work, for pourcentage.",
+			illustratorDesigner:
+				"Person investing in the creation of visual material related to the work (cover, vidéo).",
+		}
 	},
 	radios: {
 		equal: "Split evenly",
@@ -580,26 +602,6 @@ export const rightsSplits = {
 		musician: "Musician",
 	},
 	dropdowns: {
-		collaborators: {
-			producer: "Producer",
-			producerDefinition:
-				"External investor (not being the artist or member of the group).",
-			autoProducer: "Auto-producer",
-			autoProducerDefinition:
-				"Artist or group member investing in the work's recording.",
-			directorProducer: "Director-Producer",
-			directorProducerDefinition:
-				"Craftsman's investment in the direction and production of the work.",
-			techProducer: "Technician-Producer",
-			techProducerDefinition:
-				"Technician investing in the production of the work (mixer, sound engineer).",
-			studio: "Recording Studio",
-			studioDefinition:
-				"Entity investing its ressources in order to record the work, for pourcentage.",
-			illustratorDesigner: "Illustrator / Graphic Designer",
-			illustratorDesignerDefinition:
-				"Person investing in the creation of visual material related to the work (cover, vidéo).",
-		},
 		duration: {
 			oneYear: "1 year, renewable year after year",
 			twoYears: "2 years, renewable year after year",

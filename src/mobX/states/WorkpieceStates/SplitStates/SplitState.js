@@ -18,6 +18,10 @@ export default class SplitState {
 		return [...this.shareHolders.values()].map((share) => share.toJS())
 	}
 
+	@computed get shareTotal() {
+		return this.sharesValues.reduce((n, current) => n + current.shares, 0)
+	}
+
 	@action removeRightHolder(id) {
 		this.shareHolders.delete(id)
 	}
@@ -108,5 +112,62 @@ export default class SplitState {
 
 	removeShare(share) {
 		return this.removeRightHolder(share.shareHolderId)
+	}
+
+	/**
+	 *	Update shareholder shares with provided id and value. Then
+	 *	update the other shareholders shares on an inverse pro rata basis
+	 **/
+	@action updateSharesProRata(id, value) {
+		if (!this.shareHolders.has(id)) {
+			throw new Error(`Error: share holder ${id} not found`)
+		}
+		// Difference between actual share and value to apply
+		// console.log("UPDATE SHARE", this.shareHolders.get(id))
+
+		const diff = value - this.shareHolders.get(id).shares.value
+		// Select other candidate shares
+		const sortedShares = [...this.shareHolders.values()]
+			.filter((share) => share.shareHolderId !== id)
+			.sort((a, b) => a.shares.value - b.shares.value)
+
+		// If diff < 0, we subtract a portion from the shareholder and then
+		// splitting it between other shareholders
+		if (diff < 0) {
+			this.applyDiffToShares(-diff / sortedShares.length, sortedShares)
+		} else {
+			//	Algorithm to split as equally as possible the
+			//	difference (value - shareholder shares)
+			//	Difference is equally subtracted to other shares as
+			//	much as the current smallest share > 0, and so on
+			//	until difference = 0
+			let toSplit = diff
+			while (toSplit > 0) {
+				// 1. Filter shares equal to 0
+				const shares = sortedShares.filter((share) => share.shares.value > 0)
+
+				// 2. Select smallest non-zero share
+				let smallestShare
+				try {
+					smallestShare = shares[0].toJS()
+				} catch (e) {
+					console.error("Error with smallest share", e, shares)
+				}
+
+				// 3. Try an equal split of toSplit
+				toSplit = toSplit - shares.length * smallestShare.shares
+
+				if (toSplit > 0) {
+					this.applyDiffToShares(-smallestShare.shares, shares)
+				} else {
+					this.applyDiffToShares(
+						-(smallestShare.shares + toSplit / shares.length),
+						shares
+					)
+				}
+			}
+		}
+
+		this.shareHolders.get(id).setValue("shares", value)
 	}
 }
