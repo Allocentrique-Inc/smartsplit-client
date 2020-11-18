@@ -15,6 +15,24 @@ const Styles = StyleSheet.create({
 		borderTopColor: Colors.stroke,
 	},
 })
+/**
+ * Autocomplete is a versatile component that works with object patterns
+ * with either a user_id with user fields
+ * or a object with an id and a name
+ * or a custom object for the list
+ *
+ * Props:
+ *
+ * @param onSelect {function} called when a selection is made
+ * @param search {string} the search string
+ * @param alwaysShowAdd {boolean} always show that add button
+ * @param onSearchChange {function} a function to execute when the search changes
+ * @param searchResults {Array<{user_id:string,firstName:string,lastName:string,artistName:string}>}
+ * @param children {component | Array<component>} for custom add button
+ * @param withAvatar {boolean} for user autocomplete. displays the avatar or initials
+ * @return {*}
+ * @constructor
+ */
 export default function Autocomplete({
 	onSelect,
 	search,

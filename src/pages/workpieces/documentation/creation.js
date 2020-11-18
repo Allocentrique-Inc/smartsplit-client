@@ -249,7 +249,7 @@ const CreationForm = observer(() => {
 					/>
 
 					{model.authors.array.map((user) => (
-						<UserTag user={user} field={model.authors} />
+						<UserTag user={user} field={model.authors} key={user.user_id} />
 					))}
 				</Column>
 
@@ -275,7 +275,7 @@ const CreationForm = observer(() => {
 						placeholder={t("document:creation.roles.addComposer")}
 					/>
 					{model.composers.array.map((user) => (
-						<UserTag user={user} field={model.composers} />
+						<UserTag user={user} field={model.composers} key={user.user_id} />
 					))}
 				</Column>
 
@@ -288,8 +288,10 @@ const CreationForm = observer(() => {
 						onSearchChange={setSearch}
 						alwaysShowAdd
 						onSelect={(selection) => {
-							//console.dir(toJS(selection))
-							//console.log(`the selection from add contributor dropdown was ^^`)
+							console.dir(toJS(selection))
+							console.log(
+								`the selection from add contributor dropdown or modal was ^^`
+							)
 							if (
 								!model.publishers.array.filter(
 									(v) => v.user_id === selection.user_id
@@ -301,7 +303,7 @@ const CreationForm = observer(() => {
 						placeholder={t("document:creation.roles.addPublisher")}
 					/>
 					{model.publishers.array.map((user) => (
-						<UserTag user={user} field={model.publishers} />
+						<UserTag user={user} field={model.publishers} key={user.user_id} />
 					))}
 				</Column>
 				<TextField

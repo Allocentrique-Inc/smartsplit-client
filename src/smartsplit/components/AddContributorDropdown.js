@@ -24,7 +24,7 @@ const Styles = StyleSheet.create({
 function AddContributorDropdown(props) {
 	const { t } = useTranslation()
 	const { contributors } = useStores()
-	//const [inviteModal, setInviteModal] = useState(false)
+	const [modalVisible, setModalVisible] = useState(false)
 	//const [terms, setTerms] = useState("")
 	//const results = useRightHolderSearch(terms)
 
@@ -36,7 +36,12 @@ function AddContributorDropdown(props) {
 				withAvatar
 				{...props}
 			>
-				<TouchableWithoutFeedback onPress={() => contributors.new()}>
+				<TouchableWithoutFeedback
+					onPress={() => {
+						contributors.new()
+						setModalVisible(true)
+					}}
+				>
 					<Row of="component" padding="component" style={Styles.actionFrame}>
 						<PlusCircle />
 						<Text bold action>
@@ -46,9 +51,13 @@ function AddContributorDropdown(props) {
 				</TouchableWithoutFeedback>
 			</Autocomplete>
 			<AddContributorModal
-				visible={contributors.adding}
-				onRequestClose={() => contributors.cancel()}
+				visible={modalVisible}
+				onRequestClose={() => {
+					contributors.cancel()
+					setModalVisible(false)
+				}}
 				onAdded={(contributor) => {
+					console.log(contributor)
 					props.onSelect(contributor)
 				}}
 			/>
