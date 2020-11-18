@@ -72,8 +72,9 @@ export default class ContributorsState extends BaseState {
 		await this.model.validate()
 		if (this.model.isValid) {
 			try {
-				await this.api.create(this.model.toJS())
-				return this.load()
+				const contributor = await this.api.create(this.model.toJS())
+				await this.load()
+				return contributor
 			} catch (e) {
 				console.error(e)
 			}

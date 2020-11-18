@@ -75,7 +75,7 @@ export function highlightMatchedStrings(str, pattern) {
 	console.log(str)
 	console.log(pattern)
 	if (pattern === "") return str
-	const regExp = new RegExp(pattern, "i")
+	const regExp = new RegExp(pattern, "gi")
 	//console.log(regExp)
 	const matchs = str.match(regExp)
 	if (!matchs) return str

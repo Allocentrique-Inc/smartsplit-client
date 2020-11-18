@@ -21,19 +21,27 @@ export function useDocsModel(workpieceId, type) {
 	return useStorePath("workpieces", "list", workpieceId, "documentation", type)
 }
 
+export const ResultsOrder = {
+	collaboratorsFirst: "collaborators",
+	contributorsFirst: "contributors",
+}
 /**
  * returns a function to be used to obtain a list people in the collaborator or contributor dropdowns
  * this function best used in conjunction with useMemo from React
  *
  * The algorithm is as follows:
- *   - first match collaborators,
- *   - then contributors
+ *   - first match collaborators and contributors -- this is easy: no API call
+ *     results likely to be less than 1000 even 100 for both for moat people
+ *     perhaps even 10
+ *   - then if order is ResultsOrder.collaborators, show collaborators first, then contributors
+ *          if order is ResultsOrder.contributors, show contributors first, then collaborators
  *   - then collaborators of collaborators
  *   - then general users
+ *   - each step we check that the maximum number has been obtained before
  *
  * @return {function(string, number=): ([])}
  */
-export function useArtistAutocomplete(): (string, number) => [] {
+export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 	const { collaborators, contributors, users } = useStores()
 	const collabList = JSON.parse(JSON.stringify(toJS(collaborators.list)))
 	//console.log(collabList)
@@ -49,7 +57,20 @@ export function useArtistAutocomplete(): (string, number) => [] {
 		return _exists
 	}
 
-	return (search: string, max: number = 10) => {
+	/**
+	 * The returned function uses the store values of ContributorState.list and CollaboratorState.list
+	 *
+	 *
+	 * @param search {string} the search entered into the add user type combo-box
+	 * @param max {number} the number of results to display
+	 * @param order {ResultsOrder} whether collaborators or contributors should come first
+	 * @return {Array<{firstName:string,lastName:string,artistName:string,user_id:guid}>}
+	 */
+	return (
+		search: string,
+		max: number = 10,
+		order: ResultsOrder = ResultsOrder.collaboratorsFirst
+	) => {
 		let returnList = []
 		if (!search) return returnList
 		//console.log(search)
@@ -62,8 +83,6 @@ export function useArtistAutocomplete(): (string, number) => [] {
 			return name.indexOf(search) > -1
 		})
 
-		returnList = filteredCollabs
-		if (returnList.length === max) return returnList
 		//console.log(returnList)
 
 		///
@@ -77,8 +96,16 @@ export function useArtistAutocomplete(): (string, number) => [] {
 				return name.indexOf(search) > -1
 			}
 		)
+		if (order === ResultsOrder.collaboratorsFirst) {
+			returnList = returnList = returnList
+				.concat(filteredCollabs)
+				.concat(filteredContribs)
+		} else {
+			returnList = returnList = returnList
+				.concat(filteredContribs)
+				.concat(filteredCollabs)
+		}
 
-		returnList = returnList.concat(filteredContribs)
 		//console.log(returnList)
 		if (returnList.length >= max) return returnList.splice(0, max)
 
@@ -91,6 +118,7 @@ export function useArtistAutocomplete(): (string, number) => [] {
 		///
 
 		let filteredUsers = Object.values(toJS(usersList))
+			.splice(0, max)
 			.map((user) => user.data)
 			.filter((user) => {
 				if (!user.lastName && !user.firstName) return false

@@ -18,6 +18,7 @@ import {
 	useArtistAutocomplete,
 	useAuthUser,
 	useDocsModel,
+	ResultsOrder,
 } from "../../../mobX/hooks"
 import { useStores } from "../../../mobX"
 import ContributorsState from "../../../mobX/states/ContributorsState"
@@ -29,6 +30,7 @@ import { CardStyles } from "../../../widgets/card"
 import UserAvatar from "../../../smartsplit/user/avatar"
 import HelpCircleFull from "../../../svg/help-circle-full"
 import XIcon from "../../../svg/x"
+import Field from "../../../mobX/BaseModel/Field"
 const Styles = StyleSheet.create({
 	category: {
 		alignItems: "center",
@@ -85,7 +87,7 @@ const CreationForm = observer(() => {
 	const getResults = useArtistAutocomplete()
 
 	//console.log(search)
-	const searchResults = getResults(search, 10)
+	const searchResults = getResults(search, 10, ResultsOrder.contributorsFirst)
 	//console.log(searchResults)
 
 	// filter them further so that ones already selected in each case
@@ -125,28 +127,69 @@ const CreationForm = observer(() => {
 			artistName: "Divine",
 		},
 	]
-	/*	const authorSearchResults = searchResults.filter((contributor) => {
-		//console.log(typeof toJS(model.authors.value))
-		if (contributor.user_id)
-			if (model.authors.value[contributor.user_id]) {
-				//console.log(`${contributor.user_id} is already in model.author`)
-				return false
-			} else {
-				//console.log(`no ${contributor.user_id} is not in model.author`)
-				return true
-			}
-		if (contributor.id)
-			if (model.authors.value[contributor.id]) {
-				//console.log(`${contributor.id} is already in model.author`)
-				return false
-			} else {
-				//console.log(`no ${contributor.id} is not in model.author`)
-				return true
-			}
-	})*/
-	const authorSearchResults = fakeSearchResults
-	const composerSearchResults = fakeSearchResults
-	const publisherSearchResults = fakeSearchResults
+
+	const results = searchResults.concat(fakeSearchResults).splice(0, 10)
+
+	/**
+	 * TEMPORARY CODE WHILE USING fakeSearchResults
+	 * We won't need it once we grab the collabs of collabs and then matching users in general
+	 */
+
+	/**
+	 * This is a filtering function to be used with the results.filter()
+	 * It filters out those entries that do not match the search term
+	 *
+	 * @param user
+	 * @return {boolean}
+	 */
+	const searchFilter = (user) => {
+		let name =
+			user.firstName +
+			" " +
+			user.lastName +
+			(user.artistName ? ` (${user.artistName})` : "")
+		return name.indexOf(search) > -1
+	}
+
+	const searchFilteredResults = results.filter(searchFilter)
+
+	/**
+	 * this is a filtering function that removes entries in the array that already exist by
+	 * returning false in the filter function on a match on the user_id
+	 *
+	 * @param v the value being checked
+	 * @param field the model's field (of type collection)
+	 * @return {boolean}
+	 */
+	const modelValueFilter = (
+		v: {
+			firstName: string,
+			lastName: string,
+			artistName: string,
+			user_id: string,
+		},
+		field: Field
+	) => {
+		let exists = false
+		field.array.forEach((selected) => {
+			if (v.user_id === selected.uid) exists = true
+		})
+		return !exists
+	}
+
+	/**
+	 * here we are filtering the results for each of the fields in rhe model
+	 * TODO: creation model should probably be refactored to use map field type but submit an array of user_ids which would greatly improve the code
+	 */
+	const authorSearchResults = searchFilteredResults.filter((result) =>
+		modelValueFilter(result, model.authors)
+	)
+	const composerSearchResults = searchFilteredResults.filter((result) =>
+		modelValueFilter(result, model.composers)
+	)
+	const publisherSearchResults = searchFilteredResults.filter((result) =>
+		modelValueFilter(result, model.composers)
+	)
 
 	//console.log(authorSearchResults)
 	/* 	const composerSearchResults = searchResults.filter(

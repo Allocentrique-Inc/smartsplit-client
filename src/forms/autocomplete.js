@@ -29,57 +29,64 @@ export default function Autocomplete({
 		return (
 			<>
 				<ScrollView style={FormStyles.select_scroll}>
-					{searchResults.length &&
-						searchResults.map((result, index) => (
-							<TouchableWithoutFeedback
-								key={index}
-								onPress={() => onSelect(result)}
-							>
-								<Layer padding="inside">
-									{typeof result === "string" ? (
-										<Text>
-											{mapFragmentChildren(
-												highlightMatchedStrings(result, search),
-												(child) => child
-											)}
-										</Text>
-									) : withAvatar ? (
-										<Row key={result.id || result.user_id} padding={"none"}>
-											<Column valign="center" align="center" padding={"tiny"}>
-												<UserAvatar size="small" user={result} />
-											</Column>
-											<Column flex={1} padding="tiny">
-												<Text bold>
-													{highlightMatchedStrings(
-														`${result.firstName} ${result.lastName} (${result.artistName})`,
+					{searchResults.length
+						? searchResults.map((result, index) => (
+								<TouchableWithoutFeedback
+									key={index}
+									onPress={() => onSelect(result)}
+								>
+									<Layer padding="inside">
+										{typeof result === "string" ? (
+											<Text>
+												{mapFragmentChildren(
+													highlightMatchedStrings(result, search),
+													(child) => child
+												)}
+											</Text>
+										) : withAvatar ? (
+											<Row key={result.id || result.user_id} padding={"none"}>
+												<Column valign="center" align="center" padding={"tiny"}>
+													<UserAvatar size="small" user={result} />
+												</Column>
+												<Column flex={1} padding="tiny">
+													<Text bold>
+														{highlightMatchedStrings(
+															`${result.firstName} ${result.lastName} ${
+																result.artistName
+																	? ` (${result.artistName})`
+																	: ""
+															}`,
+															search
+														)}
+													</Text>
+												</Column>
+											</Row>
+										) : result.name ? (
+											<Text>
+												{mapFragmentChildren(
+													highlightMatchedStrings(result.name, search),
+													(child) => child
+												)}
+											</Text>
+										) : result.firstName ? (
+											<Text>
+												{mapFragmentChildren(
+													highlightMatchedStrings(
+														`${result.firstName} ${result.lastName} ${
+															result.artistName ? ` (${result.artistName})` : ""
+														}`,
 														search
-													)}
-												</Text>
-											</Column>
-										</Row>
-									) : result.name ? (
-										<Text>
-											{mapFragmentChildren(
-												highlightMatchedStrings(result.name, search),
-												(child) => child
-											)}
-										</Text>
-									) : result.firstName ? (
-										<Text>
-											{mapFragmentChildren(
-												highlightMatchedStrings(
-													`${result.firstName} ${result.lastName} (${result.artistName})`,
-													search
-												),
-												(child) => child
-											)}
-										</Text>
-									) : (
-										result
-									)}
-								</Layer>
-							</TouchableWithoutFeedback>
-						))}
+													),
+													(child) => child
+												)}
+											</Text>
+										) : (
+											result
+										)}
+									</Layer>
+								</TouchableWithoutFeedback>
+						  ))
+						: null}
 				</ScrollView>
 				{(alwaysShowAdd || !searchResults.length) && children}
 				{!children && (alwaysShowAdd || !searchResults.length) && (

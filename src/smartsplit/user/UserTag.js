@@ -48,7 +48,9 @@ const UserTag = observer((props) => {
 			</Column>
 			<Column flex={1} padding="tiny">
 				<Text bold size="tiny">
-					{user.name ? user.name : user.firstName + " " + user.lastName}
+					{`${user.firstName} ${user.lastName} ${
+						user.artistName ? ` (${user.artistName})` : ""
+					}`}
 				</Text>
 			</Column>
 			<Column padding="tiny">

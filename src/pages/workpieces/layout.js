@@ -20,10 +20,6 @@ export default function WorkpieceLayout({
 	formNav,
 	children,
 }) {
-	const scrollRef = useRef()
-	useLayoutEffect(() => {
-		console.log(scrollRef)
-	}, [scrollRef])
 	return (
 		<Column flex={1}>
 			<Row of="component" padding="component" valign="center">
