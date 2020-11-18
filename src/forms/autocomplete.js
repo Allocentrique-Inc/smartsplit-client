@@ -37,7 +37,7 @@ export default function Autocomplete({
 	onSelect,
 	search,
 	alwaysShowAdd,
-	onSearchChange = () => {},
+	onSearchChange, // = () => {},
 	searchResults,
 	children,
 	withAvatar,
@@ -51,7 +51,10 @@ export default function Autocomplete({
 						? searchResults.map((result, index) => (
 								<TouchableWithoutFeedback
 									key={index}
-									onPress={() => onSelect(result)}
+									onPress={() => {
+										onSearchChange("")
+										onSelect(result)
+									}}
 								>
 									<Layer padding="inside">
 										{typeof result === "string" ? (
