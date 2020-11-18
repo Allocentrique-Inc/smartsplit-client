@@ -155,7 +155,6 @@ export const GeneralInfosForm = observer((props) => {
 				{/* Main Genres */}
 				<AddGenreDropdown
 					hideIcon={false}
-					label={t("document:infos.mainGenre")}
 					genres={genreResults}
 					placeholder=""
 					noFocusToggle

@@ -651,9 +651,9 @@ export const document = {
 			links: "Listening links",
 		},
 	},
+	add: "Add ",
 	help: "Help",
 	why: "Why share these informations?",
-
 	access: "Access",
 	creation: {
 		category: "CREATION",

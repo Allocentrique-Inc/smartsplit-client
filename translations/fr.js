@@ -504,7 +504,6 @@ export const rightsSplits = {
 				équitablement. Mais tu peux faire autrement.
 			</>
 		),
-		
 	},
 	performance: {
 		title: "Interprétation",
@@ -573,7 +572,7 @@ export const rightsSplits = {
 				"Entité investissant ses ressources afin d'enregistrer la pièce, contre pourcentage.",
 			illustratorDesigner:
 				"Personne s'investissant dans la création de matériel visuel lié à la pièce (pochette, vidéo).",
-		}
+		},
 	},
 
 	radios: {
@@ -596,12 +595,12 @@ export const rightsSplits = {
 	agreement: "Durée de l'entente...",
 	remove: "Retirer ce partage",
 	roles: {
-			author: "Auteur",
-			composer: "Compositeur",
-			adapter: "Adaptateur",
-			mixer: "Arrangeur",
-			singer: "Chanteur",
-			musician: "Musicien",
+		author: "Auteur",
+		composer: "Compositeur",
+		adapter: "Adaptateur",
+		mixer: "Arrangeur",
+		singer: "Chanteur",
+		musician: "Musicien",
 	},
 	dropdowns: {
 		duration: {
@@ -654,6 +653,7 @@ export const document = {
 			links: "Liens d'écoute",
 		},
 	},
+	add: "Ajouter ",
 	help: "Aide",
 	why: "Pourquoi partager ces informations ?",
 	access: "Accès",
