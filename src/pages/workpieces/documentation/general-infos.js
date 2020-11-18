@@ -14,6 +14,9 @@ import MusicNoteIcon from "../../../svg/music-note"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import AddInfluenceDropdown from "../../../smartsplit/components/add-influence-dropdown"
 import AddGenreDropdown from "../../../smartsplit/components/AddGenreDropdown"
+import { useDocsModel } from "../../../mobX/hooks"
+import { toJS } from "mobx"
+import { observer } from "mobx-react"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -82,7 +85,7 @@ export default function GeneralInfos() {
 	)
 }
 
-export function GeneralInfosForm(props) {
+export const GeneralInfosForm = observer((props) => {
 	const { t } = useTranslation()
 
 	/* const [showGenre, setShowGenre] = useState()
@@ -97,6 +100,10 @@ export function GeneralInfosForm(props) {
 		"Future Funk",
 		"Mega Funk",
 	])
+	const workpiece = useCurrentWorkpiece()
+	const workpieceId = workpiece.id
+	const model: DocCreationModel = useDocsModel(workpieceId, "infos")
+	//console.log(model.toJS()) importer puis loger dans console pour vérifier valeurs puis comment out sinon trop
 
 	const fakeSearchResults = [
 		{
@@ -122,7 +129,7 @@ export function GeneralInfosForm(props) {
 		"Apollo Brown",
 		"Daft Punk",
 	])
-
+	//console.log(model.toJS())
 	return (
 		<Row>
 			<Column of="group" flex={5}>
@@ -146,16 +153,21 @@ export function GeneralInfosForm(props) {
 				</Row>
 
 				{/* Main Genres */}
-
-				{/* This results in a bug, working on it */}
-				{/* <AddGenreDropdown
+				<AddGenreDropdown
 					hideIcon={false}
 					label={t("document:infos.mainGenre")}
 					genres={genreResults}
 					placeholder=""
 					noFocusToggle
 					tooltip=""
-				/> */}
+					error={model.validated && model.primaryGenre.error}
+					value={model.primaryGenre.value}
+					onSelect={(genre) => {
+						//console.log(genre)
+						model.primaryGenre.setValue(genre)
+						//console.log(model.toJS())
+					}}
+				/>
 
 				{/* Secondary Genres */}
 				<SearchAndTag
@@ -256,4 +268,4 @@ export function GeneralInfosForm(props) {
 			</Column>
 		</Row>
 	)
-}
+})

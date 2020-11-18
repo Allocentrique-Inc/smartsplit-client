@@ -5,6 +5,7 @@ import { labelProps } from "../../forms/label"
 import { Layer, Column } from "../../layout"
 import { Text } from "../../text"
 import FormStyles from "../../styles/forms"
+import { highlightMatchedStrings } from "../../utils/utils"
 
 export default class AddGenreDropdown extends React.PureComponent {
 	constructor(props) {
@@ -30,6 +31,7 @@ export default class AddGenreDropdown extends React.PureComponent {
 			text: value,
 			searchText: value,
 		})
+		if (this.props.onSelect) this.props.onSelect({ id: key, name: value })
 	}
 
 	handleFocus = () => {
@@ -49,23 +51,19 @@ export default class AddGenreDropdown extends React.PureComponent {
 	}
 
 	render() {
-		const genres = []
-
-		for (let key in this.state.genres) {
-			let genre = this.state.genres[key]
-
-			if (!compareGenres(genre, this.state.searchText)) continue
-
-			genres.push(
+		//filtre puis map, retournent array
+		const genres = this.state.genres
+			.filter((g) => compareGenres(g.name, this.state.searchText))
+			// i = index
+			.map((g, i) => (
 				<GenreDropdownRow
-					key={key}
-					genreKey={key}
-					value={genre}
+					key={i}
+					genreKey={g.id}
+					value={g.name}
 					onSelect={this.handleSelectionChange}
+					search={this.state.searchText}
 				/>
-			)
-		}
-
+			))
 		const addNew = (
 			<TouchableWithoutFeedback onPress={this.addSearchAsNew}>
 				<Layer padding="inside">
@@ -97,6 +95,7 @@ export default class AddGenreDropdown extends React.PureComponent {
 }
 
 export function GenreDropdownRow(props) {
+	//console.log(props)
 	function handleSelect() {
 		props.onSelect(props.genreKey, props.value)
 	}
@@ -104,12 +103,16 @@ export function GenreDropdownRow(props) {
 	return (
 		<TouchableWithoutFeedback onPress={handleSelect}>
 			<Layer padding="inside">
-				<Text>{props.value}</Text>
+				<Text>{highlightMatchedStrings(props.value, props.search)}</Text>
 			</Layer>
 		</TouchableWithoutFeedback>
 	)
 }
 
-export function compareGenres(a = "", b = "") {
+export function compareGenres(a, b) {
+	//console.log(typeof a)
+	//console.log(typeof b)
+	//console.log(a)
+	//console.log(b)
 	return a.toLowerCase().indexOf(b.toLowerCase()) > -1
 }

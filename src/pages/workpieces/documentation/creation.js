@@ -192,7 +192,7 @@ const CreationForm = observer(() => {
 						onSearchChange={setSearch}
 						alwaysShowAdd
 						onSelect={(selection) => {
-							console.dir(toJS(selection))
+							//console.dir(toJS(selection))
 							//console.log(`the selection from add contributor dropdown was ^^`)
 							if (
 								!model.authors.array.filter(
@@ -219,7 +219,7 @@ const CreationForm = observer(() => {
 						onSearchChange={setSearch}
 						alwaysShowAdd
 						onSelect={(selection) => {
-							console.dir(toJS(selection))
+							//console.dir(toJS(selection))
 							//console.log(`the selection from add contributor dropdown was ^^`)
 							if (
 								!model.composers.array.filter(
@@ -245,7 +245,7 @@ const CreationForm = observer(() => {
 						onSearchChange={setSearch}
 						alwaysShowAdd
 						onSelect={(selection) => {
-							console.dir(toJS(selection))
+							//console.dir(toJS(selection))
 							//console.log(`the selection from add contributor dropdown was ^^`)
 							if (
 								!model.publishers.array.filter(
