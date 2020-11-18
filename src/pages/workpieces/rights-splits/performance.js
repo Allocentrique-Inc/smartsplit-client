@@ -15,12 +15,11 @@ import { useSplitsPagesState } from "../../../mobX/hooks"
 import { initData } from "../../../mobX/models/workpieces/rights-splits/PerformanceSplitModel"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
-import { runInAction } from "mobx"
 import { CHART_WINDOW_RATIO } from "../../../mobX/states/UIStates/RightsSplitsPages/SplitPageState"
 
 const PerformanceForm = observer(() => {
 	const performanceSplit = useRightsSplits("performance")
-	const pageState = useSplitsPagesState().performance
+	const pageState = useSplitsPagesState("performance")
 	const { t } = useTranslation("rightsSplits")
 	const [styles, setStyles] = useState({})
 
@@ -77,10 +76,15 @@ const PerformanceForm = observer(() => {
 				>
 					<Row style={styles.checkboxesContainer}>
 						<Column of="component">
-							<CheckBoxGroupButton value="singer" label={t("roles.singer")} />
+							<CheckBoxGroupButton
+								value="singer"
+								label={t("roles.singer")}
+								style={styles.checkbox}
+							/>
 							<CheckBoxGroupButton
 								value="musician"
 								label={t("roles.musician")}
+								style={styles.checkbox}
 							/>
 						</Column>
 					</Row>

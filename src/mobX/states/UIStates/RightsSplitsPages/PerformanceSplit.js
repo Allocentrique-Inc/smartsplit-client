@@ -15,15 +15,21 @@ export default class PerformanceSplit extends SplitPageState {
 	form = PerformanceForm
 	@computed get sharesData() {
 		return this.shares.map((share) => {
-			const sharesQty =
+			const shareQty =
 				this.domainState.majorShares.length +
 				this.domainState.minorShares.length
+			let percent
+			if (shareQty && share.shares) {
+				percent = (100 * share.shares) / shareQty
+			} else {
+				percent = 0
+			}
 			return {
 				id: share.shareHolderId,
 				shares: share.shares,
 				roles: share.roles,
 				status: share.status,
-				percent: share.shares > 0 ? (100 * share.shares) / sharesQty : 0,
+				percent: percent,
 			}
 		})
 	}
