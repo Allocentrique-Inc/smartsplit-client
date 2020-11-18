@@ -1,43 +1,48 @@
 import { action, computed, observable } from "mobx"
 
 /**
- *	Base class for domain state managing share holders
+ *	Base class for domain state managing shareholders
  **/
 export default class SplitState {
-	constructor(shares, shareModel) {
+	constructor(shares, shareModel, initShareData) {
 		this.shareModel = shareModel
-		if (shares) this.initShareHolders(shares)
+		this.initShareData = initShareData
+		if (shares) this.initShareholders(shares)
 	}
 
-	@observable shareHolders = new Map()
+	@observable shareholders = new Map()
 
 	/**
+	 *	Provide a data structure that makes easier
+	 *	to access and manipulate shares field values.
+	 * 	(hence shareS valueS, because each share has
+	 *	multiple values)
 	 * 	@return: Array<{Field.value}>
 	 **/
 	@computed get sharesValues() {
-		return [...this.shareHolders.values()].map((share) => share.toJS())
+		return [...this.shareholders.values()].map((share) => share.toJS())
 	}
 
 	@computed get shareTotal() {
 		return this.sharesValues.reduce((n, current) => n + current.shares, 0)
 	}
 
-	@action removeRightHolder(id) {
-		this.shareHolders.delete(id)
+	@action removeShareholder(id) {
+		this.shareholders.delete(id)
 	}
 
-	@action updateRightHolder(id, share) {
-		!share && this.shareHolders.get(id).reset()
-		!!share && this.shareHolders.get(id).setFields(share)
+	@action updateShareholder(id, share) {
+		!share && this.shareholders.get(id).reset()
+		!!share && this.shareholders.get(id).setFields(share)
 	}
 
-	@action addRightHolder(id, share = null) {
-		if (this.shareHolders.has(id)) {
-			throw new Error("Cannot add share: this user already has a share")
+	@action addShareholder(id, share = this.initShareData) {
+		if (this.shareholders.has(id)) {
+			return
 		}
 		const newShare = new this.shareModel(id)
 		newShare.init(share)
-		this.shareHolders.set(id, newShare)
+		this.shareholders.set(id, newShare)
 	}
 
 	/**
@@ -45,31 +50,31 @@ export default class SplitState {
 	 *	a shareholder directly from the UI
 	 **/
 	@action updateShareField(id, field, value) {
-		if (!this.shareHolders.get(id)) {
+		if (!this.shareholders.get(id)) {
 			return
 		}
-		this.shareHolders.get(id).setValue(field, value)
+		this.shareholders.get(id).setValue(field, value)
 	}
 
 	/**
-	 *	Populate this.shareHolders Map with the Array<ShareModel> argument
+	 *	Populate this.shareholders Map with the Array<ShareModel> argument
 	 **/
-	@action initShareHolders(shares) {
+	@action initShareholders(shares) {
 		shares.forEach((share) => {
 			this.addShare(share)
 		})
-		// const seenShareHolders = []
+		// const seenShareholders = []
 		// shares.forEach((share) => {
-		// 	seenShareHolders.push(share.shareHolderId)
-		// 	if (this.shareHolders.has(share.shareHolderId)) {
+		// 	seenShareholders.push(share.shareholderId)
+		// 	if (this.shareholders.has(share.shareholderId)) {
 		// 		this.updateShare(share)
 		// 	} else {
 		// 		this.addShare(share)
 		// 	}
 		// })
-		// this.shareHolders.forEach(
+		// this.shareholders.forEach(
 		// 	(value, key) =>
-		// 		seenShareHolders.indexOf(key) < 0 && this.removeRightHolder(key)
+		// 		seenShareholders.indexOf(key) < 0 && this.removeShareholder(key)
 		// )
 	}
 
@@ -80,10 +85,10 @@ export default class SplitState {
 	 */
 	@action applyDiffToShares(diff, shares) {
 		shares.forEach((share) => {
-			const id = share.shareHolderId
-			if (this.shareHolders.has(id)) {
-				const newValue = this.shareHolders.get(id).shares.value + diff
-				this.shareHolders.get(id).setValue("shares", newValue)
+			const id = share.shareholderId
+			if (this.shareholders.has(id)) {
+				const newValue = this.shareholders.get(id).shares.value + diff
+				this.shareholders.get(id).setValue("shares", newValue)
 			}
 		})
 	}
@@ -92,26 +97,26 @@ export default class SplitState {
 	 *	Update all shares if no shares array are provided.
 	 *	args:
 	 *	- Array<ShareValues>: ShareValues must
-	 *	be an object with a valid shareHolderId key
+	 *	be an object with a valid shareholderId key
 	 *	- value: Value to update shares with. Default
 	 *	to 1
 	 **/
 	@action setShares(shares = this.sharesValues, value = 1) {
 		shares.forEach((share) => {
-			this.shareHolders.get(share.shareHolderId).setValue("shares", value)
+			this.shareholders.get(share.shareholderId).setValue("shares", value)
 		})
 	}
 
 	addShare(share) {
-		return this.addRightHolder(share.shareHolderId, share)
+		return this.addShareholder(share.shareholderId, share)
 	}
 
 	updateShare(share) {
-		return this.updateRightHolder(share.shareHolderId, share)
+		return this.updateShareholder(share.shareholderId, share)
 	}
 
 	removeShare(share) {
-		return this.removeRightHolder(share.shareHolderId)
+		return this.removeShareholder(share.shareholderId)
 	}
 
 	/**
@@ -119,16 +124,16 @@ export default class SplitState {
 	 *	update the other shareholders shares on an inverse pro rata basis
 	 **/
 	@action updateSharesProRata(id, value) {
-		if (!this.shareHolders.has(id)) {
+		if (!this.shareholders.has(id)) {
 			throw new Error(`Error: share holder ${id} not found`)
 		}
 		// Difference between actual share and value to apply
-		// console.log("UPDATE SHARE", this.shareHolders.get(id))
+		// console.log("UPDATE SHARE", this.shareholders.get(id))
 
-		const diff = value - this.shareHolders.get(id).shares.value
+		const diff = value - this.shareholders.get(id).shares.value
 		// Select other candidate shares
-		const sortedShares = [...this.shareHolders.values()]
-			.filter((share) => share.shareHolderId !== id)
+		const sortedShares = [...this.shareholders.values()]
+			.filter((share) => share.shareholderId !== id)
 			.sort((a, b) => a.shares.value - b.shares.value)
 
 		// If diff < 0, we subtract a portion from the shareholder and then
@@ -168,6 +173,6 @@ export default class SplitState {
 			}
 		}
 
-		this.shareHolders.get(id).setValue("shares", value)
+		this.shareholders.get(id).setValue("shares", value)
 	}
 }

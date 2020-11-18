@@ -52,9 +52,9 @@ export default class RightsSplits {
 		// Observe splits shareholders and set hasChanged to
 		// true on first change
 		this._disposers = [
-			this.copyright.shareHolders.observe(this._toggleHasChanged),
-			// this.performance.shareHolders.observe(this._toggleHasChanged),
-			// this.recording.shareHolders.observe(this._toggleHasChanged),
+			this.copyright.shareholders.observe(this._toggleHasChanged),
+			// this.performance.shareholders.observe(this._toggleHasChanged),
+			// this.recording.shareholders.observe(this._toggleHasChanged),
 		]
 	}
 

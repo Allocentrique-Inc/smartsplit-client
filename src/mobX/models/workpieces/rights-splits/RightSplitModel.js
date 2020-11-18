@@ -6,9 +6,9 @@ import BaseModel from "../../../BaseModel"
 export default class RightSplitModel extends BaseModel {
 	constructor(id) {
 		super()
-		this.shareHolderId = id
+		this.shareholderId = id
 	}
 	toJS() {
-		return { shareHolderId: this.shareHolderId, ...super.toJS() }
+		return { shareholderId: this.shareholderId, ...super.toJS() }
 	}
 }
