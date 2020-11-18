@@ -186,6 +186,7 @@ export const forms = {
 			addCollaborator: "Ajouter un collaborateur",
 			createCollaborator: "Créer un nouveau collaborateur",
 			createContributor: "Créer un nouveau contributeur",
+			addArtist: "Ajouter {{searchText}} comme nouvel artiste ou groupe",
 		},
 		defaultRoles: "Rôle(s) par défaut",
 	},
@@ -693,6 +694,7 @@ export const document = {
 		whichPerformance: "Quel type d'interprétation ?",
 		whichRole: "Quel rôle dans la pièce musicale ?",
 		addInstrument: "Ajouter un instrument...",
+		addInstrumentDropdown: "Add {{search}} as instrument",
 	},
 	recording: {
 		category: "ENREGISTREMENT",

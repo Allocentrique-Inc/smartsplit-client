@@ -62,7 +62,7 @@ class AddGenreDropdown extends React.PureComponent {
 	}
 
 	render() {
-		const { t } = this.props
+		const { t, i18n } = this.props
 		//filtre puis map, retournent array
 		const genres = this.state.genres
 			.filter((g) => compareGenres(g.name, this.state.searchText))
@@ -76,13 +76,19 @@ class AddGenreDropdown extends React.PureComponent {
 					search={this.state.searchText}
 				/>
 			))
+
+		const quotation = i18n.language === "en" ? '"' : "« "
+		const quotationEnd = i18n.language === "en" ? '"' : " »"
+
 		const addNew = (
 			<TouchableWithoutFeedback onPress={this.addSearchAsNew}>
 				<Row of="component" padding="component" style={Styles.actionFrame}>
 					<PlusCircle />
 					<Text bold action>
 						{t("document:add")}
+						{this.state.searchText ? quotation : null}
 						{this.state.searchText}
+						{this.state.searchText ? quotationEnd : null}
 					</Text>
 				</Row>
 			</TouchableWithoutFeedback>

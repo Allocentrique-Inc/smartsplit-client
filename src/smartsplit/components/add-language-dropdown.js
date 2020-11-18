@@ -56,7 +56,7 @@ export default function AddLanguageDropdown({
 			</Row>
 		)
 	}
-	console.log(nextProps)
+	//console.log(nextProps)
 	return (
 		<Column of="component">
 			<Autocomplete
@@ -75,7 +75,8 @@ export default function AddLanguageDropdown({
 					<Row of="component" padding="inside">
 						<PlusCircle />
 						<Text bold action>
-							Ajouter <Text bold>{nextProps.search}</Text>
+							{t("document:add")}
+							{nextProps.search}
 						</Text>
 					</Row>
 				</TouchableWithoutFeedback>

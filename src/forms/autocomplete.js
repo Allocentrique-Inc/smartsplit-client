@@ -1,4 +1,5 @@
 import React from "react"
+import { useTranslation } from "react-i18next"
 import TextDropdown from "./text-dropdown"
 import { Column, Layer, Row } from "../layout"
 import { ScrollView, TouchableWithoutFeedback, StyleSheet } from "react-native"
@@ -43,6 +44,7 @@ export default function Autocomplete({
 	withAvatar,
 	...nextProps
 }) {
+	const { t } = useTranslation()
 	const renderSearchResults = () => {
 		return (
 			<>
@@ -119,8 +121,7 @@ export default function Autocomplete({
 						<Row of="component" padding="component" style={Styles.actionFrame}>
 							<PlusCircle />
 							<Text bold action>
-								{/* To Do: Voir comment placer la traduction avec props entre guillemets */}
-								Ajouter <Text bold>{search}</Text>
+								{t("document:add")} <Text bold>{search}</Text>
 							</Text>
 						</Row>
 					</TouchableWithoutFeedback>

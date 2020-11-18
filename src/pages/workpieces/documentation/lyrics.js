@@ -52,9 +52,12 @@ export function LyricsForm(props) {
 	const searchResults = ["English", "Français"]
 	const [search, setSearch] = useState("")
 	const [selected, setSelected] = useState(["English", "Français"])
-	const { t } = useTranslation()
+	const { t, i18n } = useTranslation()
 	const [text, setText] = React.useState("")
 	const workpiece = useCurrentWorkpiece()
+
+	const quotation = i18n.language === "en" ? '"' : "« "
+	const quotationEnd = i18n.language === "en" ? '"' : " »"
 
 	return (
 		<>
@@ -95,6 +98,7 @@ export function LyricsForm(props) {
 						</Text>
 					</Column>
 
+					{/* To Do: Voir comment placer searchResults entre guillemets */}
 					<SearchAndTag
 						icon="none"
 						hideIcon={true}
@@ -111,6 +115,7 @@ export function LyricsForm(props) {
 						}
 						placeholder={t("document:lyrics.addLanguage")}
 					/>
+
 					<Dropdown
 						label={t("document:access")}
 						placeholder={

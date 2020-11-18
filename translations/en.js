@@ -187,6 +187,7 @@ export const forms = {
 			addCollaborator: "Add a collaborator",
 			createCollaborator: "Create a new collaborator",
 			createContributor: "Create a new contributor",
+			addArtist: "Add {{searchText}} as a new artist or group",
 		},
 		defaultRoles: "Default Role(s)",
 	},
@@ -562,8 +563,7 @@ export const rightsSplits = {
 		functionDefs: {
 			producer:
 				"External investor (not being the artist or member of the group).",
-			autoProducer:
-				"Artist or group member investing in the work's recording.",
+			autoProducer: "Artist or group member investing in the work's recording.",
 			directorProducer:
 				"Craftsman's investment in the direction and production of the work.",
 			techProducer:
@@ -572,7 +572,7 @@ export const rightsSplits = {
 				"Entity investing its ressources in order to record the work, for pourcentage.",
 			illustratorDesigner:
 				"Person investing in the creation of visual material related to the work (cover, vidéo).",
-		}
+		},
 	},
 	radios: {
 		equal: "Split evenly",
@@ -689,6 +689,7 @@ export const document = {
 		whichPerformance: "Which type of performance?",
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
+		addInstrumentDropdown: "Ajouter {{search}} comme instrument",
 	},
 
 	recording: {
