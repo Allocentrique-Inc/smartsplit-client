@@ -46,6 +46,8 @@ export default function Autocomplete({
 }) {
 	const { t } = useTranslation()
 	const renderSearchResults = () => {
+		//console.log(alwaysShowAdd)
+		console.log(children)
 		return (
 			<>
 				<ScrollView style={FormStyles.select_scroll}>
@@ -111,8 +113,8 @@ export default function Autocomplete({
 						  ))
 						: null}
 				</ScrollView>
-				{(alwaysShowAdd || !searchResults.length) && children}
-				{!children && (alwaysShowAdd || !searchResults.length) && (
+				{(alwaysShowAdd || !searchResults.length) && children ? children : null}
+				{/* {!children && (alwaysShowAdd || !searchResults.length) ? (
 					<TouchableWithoutFeedback
 						onPress={() => {
 							onSelect(search)
@@ -121,11 +123,11 @@ export default function Autocomplete({
 						<Row of="component" padding="component" style={Styles.actionFrame}>
 							<PlusCircle />
 							<Text bold action>
-								{t("document:add")} <Text bold>{search}</Text>
+								{t("document:add")} <Text bold>{search + "blabla"}</Text>
 							</Text>
 						</Row>
 					</TouchableWithoutFeedback>
-				)}
+				) : null} */}
 			</>
 		)
 	}

@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native"
 import { useHistory } from "react-router"
 import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
+import { TextInput } from "react-native"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
@@ -12,7 +13,7 @@ import { Colors, Metrics } from "../../../theme"
 import LyricsIcon from "../../../svg/feather"
 import EyeIcon from "../../../svg/eye"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
-import { TextInput } from "react-native"
+import AddLanguageDropdown from "../../../smartsplit/components/AddLanguageDropdown"
 
 const formStyle = StyleSheet.create({
 	textAreaContainer: {
@@ -52,12 +53,9 @@ export function LyricsForm(props) {
 	const searchResults = ["English", "Français"]
 	const [search, setSearch] = useState("")
 	const [selected, setSelected] = useState(["English", "Français"])
-	const { t, i18n } = useTranslation()
+	const { t } = useTranslation()
 	const [text, setText] = React.useState("")
 	const workpiece = useCurrentWorkpiece()
-
-	const quotation = i18n.language === "en" ? '"' : "« "
-	const quotationEnd = i18n.language === "en" ? '"' : " »"
 
 	return (
 		<>
@@ -99,7 +97,7 @@ export function LyricsForm(props) {
 					</Column>
 
 					{/* To Do: Voir comment placer searchResults entre guillemets */}
-					<SearchAndTag
+					<AddLanguageDropdown
 						icon="none"
 						hideIcon={true}
 						label={t("document:lyrics.language")}

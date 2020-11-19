@@ -57,7 +57,7 @@ function AddContributorDropdown(props) {
 					setModalVisible(false)
 				}}
 				onAdded={(contributor) => {
-					console.log(contributor)
+					//console.log(contributor)
 					props.onSelect(contributor)
 				}}
 			/>
