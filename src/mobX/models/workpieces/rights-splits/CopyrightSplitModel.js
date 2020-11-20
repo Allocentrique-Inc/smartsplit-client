@@ -15,7 +15,7 @@ export default class CopyrightSplitModel extends RightSplitModel {
  **/
 export const initData = {
 	shares: 1,
-	roles: [],
+	roles: ["author", "composer"],
 	comment: "",
 	vote: "undecided",
 }

@@ -1,5 +1,7 @@
 import SplitState from "./SplitState"
-import PerformanceSplitModel from "../../../models/workpieces/rights-splits/PerformanceSplitModel"
+import PerformanceSplitModel, {
+	initData,
+} from "../../../models/workpieces/rights-splits/PerformanceSplitModel"
 import { action, computed, reaction } from "mobx"
 
 /**
@@ -8,9 +10,9 @@ import { action, computed, reaction } from "mobx"
  **/
 export default class PerformanceSplit extends SplitState {
 	constructor(shares) {
-		super(shares, PerformanceSplitModel)
+		super(shares, PerformanceSplitModel, initData)
 		reaction(
-			() => this.shareHolders.size,
+			() => this.shareholders.size,
 			() => this.updateShares()
 		)
 	}
@@ -59,11 +61,11 @@ export default class PerformanceSplit extends SplitState {
 		} else if (this.mode === "80-20") {
 			this.setShares(
 				this.majorShares,
-				(0.8 * this.shareHolders.size) / this.majorShares.length
+				(0.8 * this.shareholders.size) / this.majorShares.length
 			)
 			this.setShares(
 				this.minorShares,
-				(0.2 * this.shareHolders.size) / this.minorShares.length
+				(0.2 * this.shareholders.size) / this.minorShares.length
 			)
 		}
 	}

@@ -23,7 +23,7 @@ export default class RecordingSplit extends SplitPageState {
 				percent = 0
 			}
 			return {
-				id: share.shareHolderId,
+				id: share.shareholderId,
 				shares: share.shares,
 				function: share.function,
 				percent: percent,

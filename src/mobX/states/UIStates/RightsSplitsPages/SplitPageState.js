@@ -46,8 +46,8 @@ export default class SplitPageState {
 		return shares
 			.filter((share) => share.shares)
 			.map((share, i) => ({
-				key: share.shareHolderId,
-				name: share.shareHolderId,
+				key: share.shareholderId,
+				name: share.shareholderId,
 				share: share.shares,
 				color: this.colorByIndex(i),
 			}))

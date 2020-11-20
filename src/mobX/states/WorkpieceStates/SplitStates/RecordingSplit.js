@@ -1,5 +1,7 @@
 import SplitState from "./SplitState"
-import RecordingSplitModel from "../../../models/workpieces/rights-splits/RecordingSplitModel"
+import RecordingSplitModel, {
+	initData,
+} from "../../../models/workpieces/rights-splits/RecordingSplitModel"
 import { action, observable } from "mobx"
 
 /**
@@ -7,7 +9,7 @@ import { action, observable } from "mobx"
  **/
 export default class RecordingSplit extends SplitState {
 	constructor(shares) {
-		super(shares, RecordingSplitModel)
+		super(shares, RecordingSplitModel, initData)
 	}
 	functionValues = [
 		"producer",

@@ -12,7 +12,6 @@ import CircledP from "../../../svg/circled-p"
 import { observer } from "mobx-react"
 import { useRightsSplits } from "../context"
 import { useSplitsPagesState } from "../../../mobX/hooks"
-import { initData } from "../../../mobX/models/workpieces/rights-splits/RecordingSplitModel"
 import Slider from "../../../widgets/slider"
 import { PercentageInput } from "../../../forms/percentage"
 import ProgressBar from "../../../widgets/progress-bar"
@@ -31,16 +30,10 @@ const RecordingForm = observer(() => {
 		setStyles(pageState.getStyles(window.outerWidth))
 	}, [window.outerWidth])
 
-	function addShareHolder(id) {
-		if (id && !recordingSplit.shareHolders.has(id)) {
-			recordingSplit.addRightHolder(id, initData)
-		}
-	}
-
 	//FOR TESTING PURPOSE
 	// React.useEffect(() => {
-	// 	addShareHolder("235556b5-3bbb-4c90-9411-4468d873969b")
-	// 	addShareHolder("c84d5b32-25ee-48df-9651-4584b4b78f28")
+	// 	recordingSplit.addShareholder("235556b5-3bbb-4c90-9411-4468d873969b")
+	// 	recordingSplit.addShareholder("c84d5b32-25ee-48df-9651-4584b4b78f28")
 	// }, [])
 
 	function genSelectOptions() {
@@ -62,10 +55,10 @@ const RecordingForm = observer(() => {
 		return sharesData.map((share, i) => (
 			<ShareCard
 				key={share.id}
-				shareHolderId={share.id}
+				shareholderId={share.id}
 				color={pageState.colorByIndex(i)}
 				sharePercent={share.percent}
-				onClose={() => recordingSplit.removeRightHolder(share.id)}
+				onClose={() => recordingSplit.removeShareholder(share.id)}
 				manual={recordingSplit.mode === "manual"}
 			>
 				<Select
@@ -148,7 +141,7 @@ const RecordingForm = observer(() => {
 					<Column of="component">
 						{renderShareCards()}
 						<AddCollaboratorDropdown
-							onSelect={addShareHolder}
+							onSelect={recordingSplit.addShareholder}
 							placeholder={t("addCollab")}
 						/>
 					</Column>

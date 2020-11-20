@@ -12,7 +12,7 @@ import SplitChart from "../../../smartsplit/components/split-chart"
 import { observer } from "mobx-react"
 import { useRightsSplits } from "../context"
 import { useSplitsPagesState } from "../../../mobX/hooks"
-import { initData } from "../../../mobX/models/workpieces/rights-splits/PerformanceSplitModel"
+
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
 import { CHART_WINDOW_RATIO } from "../../../mobX/states/UIStates/RightsSplitsPages/SplitPageState"
@@ -27,16 +27,10 @@ const PerformanceForm = observer(() => {
 		setStyles(pageState.getStyles(window.outerWidth))
 	}, [window.outerWidth])
 
-	function addShareHolder(id) {
-		if (id && !performanceSplit.shareHolders.has(id)) {
-			performanceSplit.addRightHolder(id, initData)
-		}
-	}
-
 	//FOR TESTING PURPOSE
 	// React.useEffect(() => {
-	// 	addShareHolder("235556b5-3bbb-4c90-9411-4468d873969b")
-	// 	addShareHolder("c84d5b32-25ee-48df-9651-4584b4b78f28")
+	// 	performanceSplit.addShareholder("235556b5-3bbb-4c90-9411-4468d873969b")
+	// 	performanceSplit.addShareholder("c84d5b32-25ee-48df-9651-4584b4b78f28")
 	// }, [])
 	function genSelectOptions() {
 		return performanceSplit.statusValues.map((status) => {
@@ -56,10 +50,10 @@ const PerformanceForm = observer(() => {
 		return pageState.sharesData.map((share, i) => (
 			<ShareCard
 				key={share.id}
-				shareHolderId={share.id}
+				shareholderId={share.id}
 				color={pageState.colorByIndex(i)}
 				sharePercent={share.percent}
-				onClose={() => performanceSplit.removeRightHolder(share.id)}
+				onClose={() => performanceSplit.removeShareholder(share.id)}
 			>
 				<Select
 					placeholder={t("status")}
@@ -124,7 +118,7 @@ const PerformanceForm = observer(() => {
 				<Column of="component">
 					{renderShareCards()}
 					<AddCollaboratorDropdown
-						onSelect={addShareHolder}
+						onSelect={performanceSplit.addShareholder}
 						placeholder={t("addCollab")}
 					/>
 				</Column>

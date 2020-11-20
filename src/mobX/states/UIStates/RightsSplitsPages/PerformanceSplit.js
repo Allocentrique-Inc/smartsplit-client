@@ -25,7 +25,7 @@ export default class PerformanceSplit extends SplitPageState {
 				percent = 0
 			}
 			return {
-				id: share.shareHolderId,
+				id: share.shareholderId,
 				shares: share.shares,
 				roles: share.roles,
 				status: share.status,
