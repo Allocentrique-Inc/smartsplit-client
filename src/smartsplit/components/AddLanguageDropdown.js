@@ -8,6 +8,8 @@ import { Row, Column, Layer } from "../../layout"
 import { Text } from "../../text"
 import { Colors, Metrics } from "../../theme"
 import PlusCircle from "../../svg/plus-circle"
+import { observer } from "mobx-react"
+import { useStores } from "../../mobX"
 
 const Styles = StyleSheet.create({
 	tag: {
@@ -24,7 +26,7 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function AddLanguageDropdown({
+function AddLanguageDropdown({
 	selection,
 	onUnselect,
 	onSelectionChange,
@@ -68,7 +70,7 @@ export default function AddLanguageDropdown({
 		)
 	}
 	//console.log(nextProps)
-	console.log(i18n.language)
+	//console.log(i18n.language)
 	return (
 		<Column of="component">
 			<Autocomplete
@@ -101,3 +103,5 @@ export default function AddLanguageDropdown({
 		</Column>
 	)
 }
+
+export default observer(AddLanguageDropdown)
