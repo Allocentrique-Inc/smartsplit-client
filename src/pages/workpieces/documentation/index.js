@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { Redirect, useHistory, useParams } from "react-router"
 import { observer } from "mobx-react"
@@ -85,6 +85,8 @@ const DocumentationPage = observer(() => {
 		type === "recording" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/performance`)
 		type === "release" &&
+			history.push(`/workpieces/${workpiece.id}/documentation/recording`)
+		type === "files" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/release`)
 		type === "infos" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/files`)
@@ -129,26 +131,24 @@ const DocumentationPage = observer(() => {
 			}
 			formNav={
 				<Row style={{ maxWidth: 464 }} flex={1}>
-					<Row flex={1}>
-						<Button
-							secondary
-							text={t("general:buttons.back")}
-							onClick={toPreviousPage}
-						/>
-						<Flex />
-						<Button
-							primary
-							text={
-								(type === "links"
-									? t("general:buttons.end")
-									: t("general:buttons.continue"),
-								type === "files"
-									? t("general:buttons.pass")
-									: t("general:buttons.continue"))
-							}
-							onClick={toNextPage}
-						/>
-					</Row>
+					<Button
+						secondary
+						text={t("general:buttons.back")}
+						onClick={toPreviousPage}
+					/>
+					<Flex />
+					<Button
+						primary
+						text={
+							(type === "links"
+								? t("general:buttons.end")
+								: t("general:buttons.continue"),
+							type === "files"
+								? t("general:buttons.pass")
+								: t("general:buttons.continue"))
+						}
+						onClick={toNextPage}
+					/>
 				</Row>
 			}
 		>

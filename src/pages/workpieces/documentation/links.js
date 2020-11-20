@@ -227,6 +227,7 @@ export function EndModal(props) {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const { workpiece_id } = useParams()
+	const workpiece = useCurrentWorkpiece()
 	function navigateToSummary() {
 		history.push(`/workpieces/${workpiece_id}`)
 	}
@@ -241,16 +242,23 @@ export function EndModal(props) {
 					<Button
 						text={t("general:buttons.seeSummary")}
 						onClick={navigateToSummary}
+						/* 						onClick={() => {
+							console.log(t("document:finalModal.title"))
+						}} */
 					/>
 				</>
 			}
 		>
-			<Group of="group" style={{ maxWidth: 560, alignSelf: "center" }}>
-				{/* To Do: Heading avec var passée dans traduction s'affiche pas dans modale */}
-				<Heading level={4}>{t("document:finalModal.title")}</Heading>
+			<Group
+				of="group"
+				style={{ maxWidth: 560, alignSelf: "center", textAlign: "center" }}
+			>
 				<View style={{ alignItems: "center" }}>
 					<HighFive />
 				</View>
+				<Heading level={4}>
+					{t("document:finalModal.title", { workpiece: workpiece.data.title })}
+				</Heading>
 				<Paragraph>{t("document:finalModal.paragraph")}</Paragraph>
 			</Group>
 		</DialogModal>

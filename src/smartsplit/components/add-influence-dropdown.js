@@ -45,8 +45,7 @@ export default function AddInfluenceDropdown({
 						<Row of="component" padding="component" style={Styles.actionFrame}>
 							<PlusCircle />
 							<Text bold action>
-								{/* To Do: Voir comment placer la traduction avec props entre guillemets */}
-								Ajouter <Text bold>{nextProps.search}</Text>
+								{t("document:add")} <Text bold>{nextProps.search}</Text>
 							</Text>
 						</Row>
 					</TouchableWithoutFeedback>

@@ -30,28 +30,43 @@ export default class CopyrightSplit extends SplitPageState {
 	 **/
 	@computed get sharesData() {
 		return this.shares.map((share) => {
+			let percent
+			if (this.shareTotal > 0 && share.shares) {
+				percent = (100 * share.shares) / this.shareTotal
+			} else {
+				percent = 0
+			}
 			return {
-				id: share.shareHolderId,
+				id: share.shareholderId,
 				shares: share.shares,
 				roles: share.roles,
-				percent: share.shares > 0 ? (100 * share.shares) / this.sharesTotal : 0,
+				percent: percent,
 			}
 		})
+	}
+
+	isMixerDisabled(roles) {
+		return !this.domainState.composerChosen && !roles.includes("mixer")
+	}
+
+	isAdapterDisabled(roles) {
+		return !this.domainState.authorChosen && !roles.includes("adapter")
 	}
 
 	genChartProps(mode) {
 		if (mode === "roles") {
 			return {
 				dataLeft: this.sharesToChartData(
-					this.shares.filter((share) => share.roles.includes("author"))
+					this.domainState.lyricsContributors.map((contrib) => ({
+						...contrib,
+						shares: 1,
+					}))
 				),
 				dataRight: this.sharesToChartData(
-					this.shares.filter(
-						(share) =>
-							share.roles.includes("composer") ||
-							share.roles.includes("mixer") ||
-							share.roles.includes("adapter")
-					)
+					this.domainState.musicContributors.map((contrib) => ({
+						...contrib,
+						shares: contrib.weighting,
+					}))
 				),
 				size: this.chartSize,
 				logo: this.logo,

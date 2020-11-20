@@ -66,11 +66,12 @@ export const general = {
 		toRefuse: "Refuse",
 		continue: "Continue",
 		back: "Back",
-		saveClose: "Save and close",
+		saveClose: "Save and Close",
 		toConsult: "Consult",
 		toBegin: "Begin",
 		pass: "Pass for now",
 		end: "Finish",
+		seeSummary: "See the Summary",
 	},
 }
 export const menu = {
@@ -186,6 +187,7 @@ export const forms = {
 			addCollaborator: "Add a collaborator",
 			createCollaborator: "Create a new collaborator",
 			createContributor: "Create a new contributor",
+			addArtist: "Add {{searchText}} as a new artist or group",
 		},
 		defaultRoles: "Default Role(s)",
 	},
@@ -196,7 +198,16 @@ export const forms = {
 		myProIds:
 			"Here, you can add your professional identifiers in connection with the collective management companies, the Unions and the sectoral Associations for which you are a member.",
 	},
-
+	options: {
+		defaultRoles: [
+			{ label: "Author", value: "author" },
+			{ label: "Composer", value: "composer" },
+			{ label: "Arranger", value: "arranger" },
+			{ label: "Mixer", value: "mixer" },
+			{ label: "Singer", value: "singer" },
+			{ label: "Musician", value: "musician" },
+		],
+	},
 	placeholders: {
 		emailExample: "name@example.com",
 		noCharacters: "8 characters minimum",
@@ -471,12 +482,12 @@ export const identity = {
 			serious violation liable to prosecution.
 		</>
 	),
-	Iaccept: (workPiece) => (
+	Iaccept: (workpiece) => (
 		<>
 			<b>I accept this right splits</b> intervened between myself and any
 			collaborator. This represents the desired agreement. I understand that
 			these percentages will now apply to any revenue split related to
-			{workPiece}.
+			{workpiece}.
 		</>
 	),
 }
@@ -541,6 +552,27 @@ export const rightsSplits = {
 				of the investment.
 			</>
 		),
+		functions: {
+			producer: "Producer",
+			autoProducer: "Auto-producer",
+			directorProducer: "Director-Producer",
+			techProducer: "Technician-Producer",
+			studio: "Recording Studio",
+			illustratorDesigner: "Illustrator / Graphic Designer",
+		},
+		functionDefs: {
+			producer:
+				"External investor (not being the artist or member of the group).",
+			autoProducer: "Artist or group member investing in the work's recording.",
+			directorProducer:
+				"Craftsman's investment in the direction and production of the work.",
+			techProducer:
+				"Technician investing in the production of the work (mixer, sound engineer).",
+			studio:
+				"Entity investing its ressources in order to record the work, for pourcentage.",
+			illustratorDesigner:
+				"Person investing in the creation of visual material related to the work (cover, vidéo).",
+		},
 	},
 	radios: {
 		equal: "Split evenly",
@@ -570,26 +602,6 @@ export const rightsSplits = {
 		musician: "Musician",
 	},
 	dropdowns: {
-		collaborators: {
-			producer: "Producer",
-			producerDefinition:
-				"External investor (not being the artist or member of the group).",
-			autoProducer: "Auto-producer",
-			autoProducerDefinition:
-				"Artist or group member investing in the work's recording.",
-			directorProducer: "Director-Producer",
-			directorProducerDefinition:
-				"Craftsman's investment in the direction and production of the work.",
-			techProducer: "Technician-Producer",
-			techProducerDefinition:
-				"Technician investing in the production of the work (mixer, sound engineer).",
-			studio: "Recording Studio",
-			studioDefinition:
-				"Entity investing its ressources in order to record the work, for pourcentage.",
-			illustratorDesigner: "Illustrator / Graphic Designer",
-			illustratorDesignerDefinition:
-				"Person investing in the creation of visual material related to the work (cover, vidéo).",
-		},
 		duration: {
 			oneYear: "1 year, renewable year after year",
 			twoYears: "2 years, renewable year after year",
@@ -639,13 +651,13 @@ export const document = {
 			links: "Listening links",
 		},
 	},
+	add: "Add ",
 	help: "Help",
 	why: "Why share these informations?",
-
 	access: "Access",
 	creation: {
 		category: "CREATION",
-		title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
+		title: "Who participated in the creation of {{workpiece}}?",
 		paragraph:
 			"Here you mention who contributed to the creation of this piece.",
 		date: "Creation Date",
@@ -656,9 +668,9 @@ export const document = {
 			composers: "Composers",
 			composersWho: "Who composed the music of this musical piece ?",
 			addComposer: "Add a composer...",
-			editors: "Editors",
-			editorsWho: "Who represent these authors and/or composers?",
-			addEditor: "Add an editor...",
+			publishers: "Publishers",
+			publishersWho: "Who represent these authors and/or composers?",
+			addPublisher: "Add a publisher...",
 		},
 		iswc: "ISWC Code",
 		what: "What's a creator?",
@@ -677,6 +689,7 @@ export const document = {
 		whichPerformance: "Which type of performance?",
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
+		addInstrumentDropdown: "Ajouter {{search}} comme instrument",
 	},
 
 	recording: {
@@ -797,13 +810,13 @@ export const document = {
 	},
 	lyrics: {
 		category: "LYRICS",
-		title: (workPiece) => <>{workPiece} contains lyrics?</>,
+		title: "{{workpiece}} contains lyrics?",
 		paragraph:
 			"Words in a song are excellent descriptive data on the work that increases its discoverability and the chances to expand your audience.",
 		undertext:
 			"Lyrics only. Do not include authors, composers, year of creation, etc.",
 		language: "Language(s)",
-		addLanguage: "Ajouter une langue...",
+		addLanguage: "Add a language...",
 		dropdown: {
 			public: "Public - Make the information public",
 		},
@@ -816,6 +829,12 @@ export const document = {
 		addLink: "Paste a link...",
 		createPlatform: "Add a platform",
 		addPlatform: "Add a platform...",
+	},
+	finalModal: {
+		header: "Documentation created!",
+		title: "{{workpiece}} is now documented!",
+		paragraph:
+			"You are one click away being able to publish the credits of this piece on a webpage and therefore increase your discoverability in data web.",
 	},
 }
 export const collaborators = {

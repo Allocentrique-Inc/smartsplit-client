@@ -5,7 +5,7 @@ import LayoutStyles from "./styles/layout"
 import LayerStyles from "./styles/layers"
 import { forEachChildren } from "./utils/react"
 import { Text } from "./text"
-
+// trivial change
 function composeView(props, ...stylesheets) {
 	const {
 		style,
@@ -58,9 +58,7 @@ function composeView(props, ...stylesheets) {
 				LayerStyles[layer || ""],
 				MetricsStyles.margin[margin || ""],
 				MetricsStyles.padding[padding || ""],
-				typeof flex === "number"
-					? { flex, flexBasis: "auto" }
-					: { flexBasis: "auto" },
+				typeof flex === "number" ? { flex: flex } : {},
 				MetricsStyles.sizes[size || ""],
 			],
 		},

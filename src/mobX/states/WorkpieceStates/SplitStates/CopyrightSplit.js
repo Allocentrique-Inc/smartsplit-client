@@ -1,105 +1,121 @@
 import SplitState from "./SplitState"
-import CopyrightSplitModel from "../../../models/workpieces/rights-splits/CopyrightSplitModel"
-import { action, observable, reaction } from "mobx"
+import CopyrightSplitModel, {
+	initData,
+} from "../../../models/workpieces/rights-splits/CopyrightSplitModel"
+import { action, computed, observable, reaction } from "mobx"
 
 /**
  *	Copyright split domain state derived from SplitState.
- *	Contains manual mode middleware logic
+ *	Contains modes (equal, roles, manual) middleware logic
  **/
 export default class CopyrightSplit extends SplitState {
 	constructor(shares) {
-		super(shares, CopyrightSplitModel)
-		/**
-		 * reaction that performs roles checking upon
-		 * mode change to or from "equal"
-		 **/
+		super(shares, CopyrightSplitModel, initData)
 		reaction(
 			() => this.mode,
-			(mode) => {
-				if (mode === "equal" && !this.equalModeInitiated) {
-					this.initEqualMode()
-				} else {
-					this.equalModeInitiated = false
-				}
-			},
-			{ fireImmediately: true }
-		)
-
-		/**
-		 * Reaction that resets this.equalModeInitiated when
-		 * adding or removing a shareholder
-		 */
-		reaction(
-			() => this.shareHolders.keys(),
 			() => {
-				if (this.mode === "equal") {
-					this.initEqualMode()
+				switch (this.mode) {
+					case "equal":
+						this.computeEqualMode()
+						break
+					case "roles":
+						this.computeRolesMode()
+						break
 				}
 			}
 		)
 	}
-
-	@observable mode = "equal"
-	@observable equalModeInitiated = false
-
-	@action initEqualMode() {
-		this.equalModeInitiated = true
-		this.shareHolders.forEach((share, _) => {
-			!share.roles.includes("author") && share.roles.push("author")
-			!share.roles.includes("composer") && share.roles.push("composer")
+	@action computeEqualMode() {
+		this.sharesValues.forEach((share) => {
+			this.updateShareField(share.shareholderId, "shares", 1)
 		})
 	}
 
-	@action updateShare(id, value) {
-		if (!this.shareHolders.has(id)) {
-			throw new Error(`Error: share holder ${id} not found`)
-		}
-		// Difference between actual share and value to apply
-		// console.log("UPDATE SHARE", this.shareHolders.get(id))
-
-		const diff = value - this.shareHolders.get(id).shares.value
-		// Select other candidate shares
-		const sortedShares = [...this.shareHolders.values()]
-			.filter((share) => share.shareHolderId !== id)
-			.sort((a, b) => a.shares.value - b.shares.value)
-
-		// If diff < 0, we subtract a portion from the shareholder and then
-		// splitting it between other shareholders
-		if (diff < 0) {
-			this.applyDiffToShares(-diff / sortedShares.length, sortedShares)
-		} else {
-			//	Algorithm to split as equally as possible the
-			//	difference (value - shareholder shares)
-			//	Difference is equally subtracted to other shares as
-			//	much as the current smallest share > 0, and so on
-			//	until difference = 0
-			let toSplit = diff
-			while (toSplit > 0) {
-				// 1. Filter shares equal to 0
-				const shares = sortedShares.filter((share) => share.shares.value > 0)
-
-				// 2. Select smallest non-zero share
-				let smallestShare
-				try {
-					smallestShare = shares[0].toJS()
-				} catch (e) {
-					console.error("Error with smallest share", e, shares)
-				}
-
-				// 3. Try an equal split of toSplit
-				toSplit = toSplit - shares.length * smallestShare.shares
-
-				if (toSplit > 0) {
-					this.applyDiffToShares(-smallestShare.shares, shares)
-				} else {
-					this.applyDiffToShares(
-						-(smallestShare.shares + toSplit / shares.length),
-						shares
-					)
-				}
+	@action computeRolesMode() {
+		this.sharesValues.forEach((share) => {
+			const musicContribNb = this.musicContributors.reduce(
+				(n, current) => n + current.weighting,
+				0
+			)
+			const lyricsContribNb = this.lyricsContributors.length
+			let score = 0
+			if (
+				this.lyricsContributors.filter(
+					(contrib) => contrib.shareholderId === share.shareholderId
+				).length > 0
+			) {
+				score += (0.5 * this.shareholders.size) / lyricsContribNb
 			}
-		}
 
-		this.shareHolders.get(id).setValue("shares", value)
+			this.musicContributors.forEach((contrib) => {
+				if (contrib.shareholderId === share.shareholderId) {
+					score +=
+						(0.5 * contrib.weighting * this.shareholders.size) / musicContribNb
+				}
+			})
+			this.updateShareField(share.shareholderId, "shares", score)
+		})
+	}
+	@observable mode = "equal"
+
+	/**
+	 *	Id List of lyrics contributors
+	 *	Requires shareholder to have "composer"
+	 *	and/or "author" role(s)
+	 *	return Array<shareData>
+	 **/
+	@computed get lyricsContributors() {
+		const isLyricsContrib = (roles) =>
+			roles.includes("author") || roles.includes("adapter")
+		return this.sharesValues.filter((share) => isLyricsContrib(share.roles))
+	}
+
+	/**
+	*	Id List of music contributors
+	*	Each composer and mixer are considered 
+	*	contributor. So an id can be twice in the
+	*	list.
+
+	*	return Array<{...shareData, weighting}>
+	**/
+	@computed get musicContributors() {
+		const isMusicContrib = (roles) =>
+			roles.includes("composer") || roles.includes("mixer")
+		const contribs = this.sharesValues.filter((share) =>
+			isMusicContrib(share.roles)
+		)
+		const list = []
+		contribs.forEach((contrib) => {
+			contrib.weighting = 0
+			if (contrib.roles.includes("composer")) {
+				contrib.weighting += 1
+			}
+			if (contrib.roles.includes("mixer")) {
+				contrib.weighting += 1
+			}
+			list.push(contrib)
+		})
+		return list
+	}
+
+	@computed get composerChosen() {
+		return (
+			this.sharesValues.filter((share) => share.roles.includes("composer"))
+				.length > 0
+		)
+	}
+
+	@computed get authorChosen() {
+		return (
+			this.sharesValues.filter((share) => share.roles.includes("author"))
+				.length > 0
+		)
+	}
+
+	@action setRoles(id, roles) {
+		this.updateShareField(id, "roles", roles)
+		if (this.mode === "roles") {
+			this.computeRolesMode()
+		}
 	}
 }

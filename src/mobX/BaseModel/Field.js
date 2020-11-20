@@ -667,8 +667,15 @@ export default class Field {
 		// this.setValue([...this.value, item])
 	}
 
+	get array() {
+		if (this.type !== FieldType.collection && this.type !== FieldType.set)
+			return [this.value]
+		if (this.type == FieldType.map) return Object.values(this.value)
+		else return [...this.value]
+	}
+
 	/**
-	 * used only by collection field types to remove an item
+	 * used only by set or collection field types to remove an item
 	 * @param item
 	 */
 	@action remove(item) {
@@ -700,7 +707,12 @@ export default class Field {
 			case FieldType.map:
 				return this.value[id] !== undefined
 			case FieldType.collection:
-				return this.value.includes(id)
+				return (
+					this.value.filter((v) => JSON.stringify(v) === JSON.stringify(id))
+						.length > 0
+				)
+			case FieldType.set:
+				return this.has(id)
 			default:
 				throw new Error(
 					"Field.includes can only be used by fields of type collection or map"

@@ -70,6 +70,7 @@ export default class ArtistSelectDropdown extends React.PureComponent {
 			<TouchableWithoutFeedback onPress={this.addSearchAsNew}>
 				<Layer padding="inside">
 					<Text>
+						{/* clé de traduction: forms:labels.dropdowns.addArtist */}
 						Ajouter <Text bold>{this.state.searchText}</Text> comme nouvel
 						artiste ou groupe
 					</Text>

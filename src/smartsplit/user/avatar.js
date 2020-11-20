@@ -3,7 +3,7 @@ import { useStorePath } from "../../appstate/react"
 import { View, Image } from "react-native"
 import UserStyles from "./styles"
 import { Text } from "../../text"
-
+import { toJS } from "mobx"
 export default function UserAvatar({
 	size,
 	user,
@@ -21,12 +21,13 @@ export default function UserAvatar({
 	if (field) {
 		picture = { uri: field.value }
 	} else if (user) {
-		if (!picture) {
+		if (!picture && user.avatarUrl) {
 			picture = { uri: user.avatarUrl }
-		} else if (!initials && user) {
+		} else if (!initials && user.firstName) {
+			//console.dir(toJS(user))
 			initials =
-				user.firstName.value.toUpperCase().charAt(0) +
-				user.lastName.value.toUpperCase().charAt(0)
+				user.firstName.toUpperCase().charAt(0) +
+				user.lastName.toUpperCase().charAt(0)
 		}
 	}
 

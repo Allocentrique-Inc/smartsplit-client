@@ -68,12 +68,15 @@ export function lightenDarkenColor(color, amount) {
 }
 
 export function formatPercentage(percent, digits = 2) {
-	return percent ? `${percent.toFixed(percent === 0 ? 0 : digits)} %` : ""
+	return percent ? `${percent.toFixed(digits)} %` : "0.00 %"
 }
 
 export function highlightMatchedStrings(str, pattern) {
+	console.log(str)
+	console.log(pattern)
 	if (pattern === "") return str
 	const regExp = new RegExp(pattern, "gi")
+	//console.log(regExp)
 	const matchs = str.match(regExp)
 	if (!matchs) return str
 	const splits = str.split(regExp)

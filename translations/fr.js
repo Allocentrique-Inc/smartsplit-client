@@ -72,6 +72,7 @@ export const general = {
 		toBegin: "Commencer",
 		pass: "Passer pour l'instant",
 		end: "Terminer",
+		seeSummary: "Voir le résumé",
 	},
 }
 
@@ -185,6 +186,7 @@ export const forms = {
 			addCollaborator: "Ajouter un collaborateur",
 			createCollaborator: "Créer un nouveau collaborateur",
 			createContributor: "Créer un nouveau contributeur",
+			addArtist: "Ajouter {{searchText}} comme nouvel artiste ou groupe",
 		},
 		defaultRoles: "Rôle(s) par défaut",
 	},
@@ -195,7 +197,16 @@ export const forms = {
 		myProIds:
 			"Ici, tu peux ajouter tes identifiants professionnels en lien avec les Sociétés de gestion collectives, les Syndicats et les Associations sectorielles pour lesquelles tu es membre.",
 	},
-
+	options: {
+		defaultRoles: [
+			{ label: "Auteur", value: "author" },
+			{ label: "Compositeur", value: "composer" },
+			{ label: "Arrangeur", value: "arranger" },
+			{ label: "Mixeur", value: "mixer" },
+			{ label: "Chanteur", value: "singer" },
+			{ label: "Musicien", value: "musician" },
+		],
+	},
 	placeholders: {
 		emailExample: "nom@example.com",
 		noCharacters: "8 caractères minimum",
@@ -468,12 +479,12 @@ export const identity = {
 			constituerait une faute grave passible de poursuites judiciaires.
 		</>
 	),
-	Iaccept: (workPiece) => (
+	Iaccept: (workpiece) => (
 		<>
 			<b>J'accepte ces partages de droits</b> intervenus entre moi-même et tout
 			collaborateur. Cela représente l'entente souhaitées. Je comprends que ces
 			pourcentages s'appliqueront désormais à tout partage de revenus en lien
-			avec {workPiece}.
+			avec {workpiece}.
 		</>
 	),
 }
@@ -541,6 +552,28 @@ export const rightsSplits = {
 				</>
 			</>
 		),
+		functions: {
+			producer: "Producteur",
+			autoProducer: "Auto-producteur",
+			directorProducer: "Réalisateur-producteur",
+			techProducer: "Technicien-producteur",
+			studio: "Studio d'enregistrement",
+			illustratorDesigner: "Illustrateur / Graphiste",
+		},
+		functionDefs: {
+			producer:
+				"Investisseur externe (n'étant pas l'artiste ni membre du groupe).",
+			autoProducer:
+				"Artiste ou membre du groupe s'investissant dans l'enregistrement de la pièce.",
+			directorProducer:
+				"Artisan s'investissant dans la réalisation et la production de la pièce.",
+			techProducer:
+				"Technicien s'investissant dans la production de la pièce (mixeur, preneur de son).",
+			studio:
+				"Entité investissant ses ressources afin d'enregistrer la pièce, contre pourcentage.",
+			illustratorDesigner:
+				"Personne s'investissant dans la création de matériel visuel lié à la pièce (pochette, vidéo).",
+		},
 	},
 
 	radios: {
@@ -570,28 +603,7 @@ export const rightsSplits = {
 		singer: "Chanteur",
 		musician: "Musicien",
 	},
-
 	dropdowns: {
-		collaboratorsRecording: {
-			producer: "Producteur",
-			producerDefinition:
-				"Investisseur externe (n'étant pas l'artiste ni membre du groupe).",
-			autoProducer: "Auto-producteur",
-			autoProducerDefinition:
-				"Artiste ou membre du groupe s'investissant dans l'enregistrement de la pièce.",
-			directorProducer: "Réalisateur-producteur",
-			directorProducerDefinition:
-				"Artisan s'investissant dans la réalisation et la production de la pièce.",
-			techProducer: "Technicien-producteur",
-			techProducerDefinition:
-				"Technicien s'investissant dans la production de la pièce (mixeur, preneur de son).",
-			studio: "Studio d'enregistrement",
-			studioDefinition:
-				"Entité investissant ses ressources afin d'enregistrer la pièce, contre pourcentage.",
-			illustratorDesigner: "Illustrateur / Graphiste",
-			illustratorDesignerDefinition:
-				"Personne s'investissant dans la création de matériel visuel lié à la pièce (pochette, vidéo).",
-		},
 		duration: {
 			oneYear: "1 an, puis renouvelable d'année en année",
 			twoYears: "2 ans, puis renouvelable d'année en année",
@@ -642,12 +654,13 @@ export const document = {
 			links: "Liens d'écoute",
 		},
 	},
+	add: "Ajouter ",
 	help: "Aide",
 	why: "Pourquoi partager ces informations ?",
 	access: "Accès",
 	creation: {
 		category: "CRÉATION",
-		title: (workPiece) => <>Qui a participé à la création de {workPiece} ?</>,
+		title: "Qui a participé à la création de {{workpiece}} ?",
 		paragraph:
 			"C'est ici que tu indiques qui a contribué à la création de cette pièce.",
 		date: "Date de création",
@@ -658,9 +671,9 @@ export const document = {
 			composers: "Compositeurs",
 			composersWho: "Qui a composé la musique de cette pièce musicale ?",
 			addComposer: "Ajouter un auteur...",
-			editors: "Éditeurs",
-			editorsWho: "Qui représente ces auteurs et/ou compositeurs ?",
-			addEditor: "Ajouter un éditeur...",
+			publishers: "Éditeurs",
+			publishersWho: "Qui représente ces auteurs et/ou compositeurs ?",
+			addPublisher: "Ajouter un éditeur...",
 		},
 		iswc: "Code ISWC",
 		what: "C'est quoi un créateur ?",
@@ -681,6 +694,7 @@ export const document = {
 		whichPerformance: "Quel type d'interprétation ?",
 		whichRole: "Quel rôle dans la pièce musicale ?",
 		addInstrument: "Ajouter un instrument...",
+		addInstrumentDropdown: "Add {{search}} as instrument",
 	},
 	recording: {
 		category: "ENREGISTREMENT",
@@ -802,13 +816,13 @@ export const document = {
 	},
 	lyrics: {
 		category: "PAROLES",
-		title: (workPiece) => <>{workPiece} contient des paroles ?</>,
+		title: "{{workpiece}} contient des paroles ?",
 		paragraph:
 			"Les mots dans une chanson sont d'excellentes données descriptives sur l'œuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
 		undertext:
 			"Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
 		language: "Langue(s)",
-		addLanguage: "Ajouter unbe langue...",
+		addLanguage: "Ajouter une langue...",
 		dropdown: {
 			public: "Public - Rendre l'information publique",
 		},
@@ -821,6 +835,12 @@ export const document = {
 		addLink: "Coller un lien...",
 		createPlatform: "Add a platform",
 		addPlatform: "Ajouter une plateforme...",
+	},
+	finalModal: {
+		header: "Documentation créee !",
+		title: "{{workpiece}} est maintenant documentée !",
+		paragraph:
+			"Tu es à un clic de pouvoir publier les crédits de cette pièce sur une page web et ainsi d’augmenter ta découvrabilité dans le web des données.",
 	},
 }
 

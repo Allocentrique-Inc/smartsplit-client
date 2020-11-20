@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react"
 import { useHistory } from "react-router"
 import { useTranslation } from "react-i18next"
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
+import UserTag from "../../../smartsplit/user/UserTag"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
@@ -17,6 +18,7 @@ import {
 	useArtistAutocomplete,
 	useAuthUser,
 	useDocsModel,
+	ResultsOrder,
 } from "../../../mobX/hooks"
 import { useStores } from "../../../mobX"
 import ContributorsState from "../../../mobX/states/ContributorsState"
@@ -28,6 +30,7 @@ import { CardStyles } from "../../../widgets/card"
 import UserAvatar from "../../../smartsplit/user/avatar"
 import HelpCircleFull from "../../../svg/help-circle-full"
 import XIcon from "../../../svg/x"
+import Field from "../../../mobX/BaseModel/Field"
 const Styles = StyleSheet.create({
 	category: {
 		alignItems: "center",
@@ -51,14 +54,14 @@ const Styles = StyleSheet.create({
 })
 const frameStyle = [CardStyles.frame, Styles.frame]
 /*	<Tag
-								dismissible
-								key={item.id}
-								onClick={() => model.authors.removeItem(item.id)}
-							>
-								<Text>
-									{item.name ? item.name : item.firstName + " " + item.lastName}
-								</Text>
-							</Tag>*/
+	dismissible
+	key={item.id}
+	onClick={() => model.authors.removeItem(item.id)}
+	>
+	<Text>
+	{item.name ? item.name : item.firstName + " " + item.lastName}
+	</Text>
+	</Tag>*/
 const CreationForm = observer(() => {
 	const [date, setDate] = useState("")
 
@@ -67,174 +70,247 @@ const CreationForm = observer(() => {
 
 	const { t } = useTranslation()
 
-	const workpieceId = useCurrentWorkpiece().id
+	//Pour info genre dropdown use this
+	const workpiece = useCurrentWorkpiece()
+	//console.log(workpiece)
+	const workpieceId = workpiece.id
+	//const workpieceName = workpiece.data.title
+	//console.log(workpieceName)
 	// grab the contributors
 	const { contributors } = useStores()
+	//Also this with "infos"
 	const model: DocCreationModel = useDocsModel(workpieceId, "creation")
-	window.creationModel = model
+	//To debug:
+	//window.creationModel = model
 	//console.log(toJS(contributors.list))
 
 	const getResults = useArtistAutocomplete()
 
 	//console.log(search)
-	const searchResults = getResults(search, 10)
+	const searchResults = getResults(search, 10, ResultsOrder.contributorsFirst)
 	//console.log(searchResults)
 
 	// filter them further so that ones already selected in each case
 	// do not appear again
 
-	const authorSearchResults = searchResults.filter((contributor) => {
-		//console.log(typeof toJS(model.authors.value))
-		if (contributor.user_id)
-			if (model.authors.value[contributor.user_id]) {
-				//console.log(`${contributor.user_id} is already in model.author`)
-				return false
-			} else {
-				//console.log(`no ${contributor.user_id} is not in model.author`)
-				return true
-			}
-		if (contributor.id)
-			if (model.authors.value[contributor.id]) {
-				//console.log(`${contributor.id} is already in model.author`)
-				return false
-			} else {
-				//console.log(`no ${contributor.id} is not in model.author`)
-				return true
-			}
-	})
+	const fakeSearchResults = [
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb",
+			firstName: "Willy",
+			lastName: "Nilly",
+			artistName: "Willy the Poo",
+			avatarUrl:
+				"https://apiv2-dev.smartsplit.org/v1/users/09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb/avatar",
+		},
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbc",
+			firstName: "Will",
+			lastName: "Nill",
+			artistName: "Chill Bill",
+		},
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbd",
+			firstName: "Lila",
+			lastName: "Ait",
+			artistName: "Lady Lila",
+		},
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbc",
+			firstName: "Wes",
+			lastName: "Johnson",
+			artistName: "Fat-Fuck Frank",
+		},
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbd",
+			firstName: "Harris Glen",
+			lastName: "Milstead",
+			artistName: "Divine",
+		},
+	]
+
+	const results = searchResults.concat(fakeSearchResults).splice(0, 10)
+
+	/**
+	 * TEMPORARY CODE WHILE USING fakeSearchResults
+	 * We won't need it once we grab the collabs of collabs and then matching users in general
+	 */
+
+	/**
+	 * This is a filtering function to be used with the results.filter()
+	 * It filters out those entries that do not match the search term
+	 *
+	 * @param user
+	 * @return {boolean}
+	 */
+	const searchFilter = (user) => {
+		let name =
+			user.firstName +
+			" " +
+			user.lastName +
+			(user.artistName ? ` (${user.artistName})` : "")
+		return name.indexOf(search) > -1
+	}
+
+	const searchFilteredResults = results.filter(searchFilter)
+
+	/**
+	 * this is a filtering function that removes entries in the array that already exist by
+	 * returning false in the filter function on a match on the user_id
+	 *
+	 * @param v the value being checked
+	 * @param field the model's field (of type collection)
+	 * @return {boolean}
+	 */
+	const modelValueFilter = (
+		v: {
+			firstName: string,
+			lastName: string,
+			artistName: string,
+			user_id: string,
+		},
+		field: Field
+	) => {
+		let exists = false
+		field.array.forEach((selected) => {
+			if (v.user_id === selected.uid) exists = true
+		})
+		return !exists
+	}
+
+	/**
+	 * here we are filtering the results for each of the fields in rhe model
+	 * TODO: creation model should probably be refactored to use map field type but submit an array of user_ids which would greatly improve the code
+	 */
+	const authorSearchResults = searchFilteredResults.filter((result) =>
+		modelValueFilter(result, model.authors)
+	)
+	const composerSearchResults = searchFilteredResults.filter((result) =>
+		modelValueFilter(result, model.composers)
+	)
+	const publisherSearchResults = searchFilteredResults.filter((result) =>
+		modelValueFilter(result, model.composers)
+	)
 
 	//console.log(authorSearchResults)
-	const composerSearchResults = searchResults.filter(
+	/* 	const composerSearchResults = searchResults.filter(
 		(contributor) => !model.composers.value[contributor.id]
 	)
-	const editorSearchResults = searchResults.filter(
-		(contributor) => !model.editors.value[contributor.id]
-	)
+	const publisherSearchResults = searchResults.filter(
+		(contributor) => !model.publishers.value[contributor.id]
+	) */
 	const [selected, setSelected] = useState(["Inscience", "Quest Love"])
 
 	return (
 		<Row>
 			<Column of="group" flex={5}>
-				<Column of="group">
-					<Text action bold style={Styles.category}>
-						<CopyrightIcon color={Colors.action} style={Styles.logo} />
-						{t("document:creation.category")}
-						<Row padding="tiny" />
-					</Text>
-					<Heading level={1}>{t("document:creation.title")}</Heading>
-					<Paragraph>{t("document:creation.paragraph")}</Paragraph>
-				</Column>
-				<Spacer of="group" />
-				<Column of="group">
-					{/* To Do: À confirmer si plus court que les autres field */}
-					<DateField
-						label={t("document:creation.date")}
-						value={model.creationDate.value}
-						onChangeText={(v) => {
-							model.creationDate.setValue(v)
-						}}
-						placeholder={t("forms:placeholders.date")}
-					/>
-					{/* {console.log(Object.values(model.authors.value))} */}
+				<Text action bold style={Styles.category}>
+					<CopyrightIcon color={Colors.action} style={Styles.logo} />
+					{t("document:creation.category")}
+					<Row padding="tiny" />
+				</Text>
+				<Heading level={1}>
+					{t("document:creation.title", { workpiece: workpiece.data.title })}
+				</Heading>
+				<Paragraph>{t("document:creation.paragraph")}</Paragraph>
 
+				<Spacer of="group" />
+
+				{/* To Do: À confirmer si plus court que les autres field */}
+				<DateField
+					label={t("document:creation.date")}
+					value={model.creationDate.value}
+					onChangeText={(v) => {
+						model.creationDate.setValue(v)
+					}}
+					placeholder={t("forms:placeholders.date")}
+				/>
+				{/* {console.log(Object.values(model.authors.value))} */}
+
+				<Column of="tiny">
 					<AddContributorDropdown
 						label={t("document:creation.roles.authors")}
 						subLabel={t("document:creation.roles.authorsWho")}
 						searchResults={authorSearchResults}
 						search={search}
 						onSearchChange={setSearch}
+						alwaysShowAdd
 						onSelect={(selection) => {
-							console.dir(toJS(selection))
+							//console.dir(toJS(selection))
 							//console.log(`the selection from add contributor dropdown was ^^`)
-							model.authors.setItem(selection.user_id, selection)
+							if (
+								!model.authors.array.filter(
+									(v) => v.user_id === selection.user_id
+								).length
+							)
+								model.authors.add(selection)
 							setSearch("")
 						}}
 						placeholder={t("document:creation.roles.addAuthor")}
 					/>
 
-					{Object.values(model.authors.value).map((item) => (
-						<Row
-							padding="component"
-							of="component"
-							style={frameStyle}
-							key={item.id || item.user_id}
-						>
-							<Column valign="spread" align="center">
-								<UserAvatar size="small" user={item} />
-							</Column>
-							<Column flex={1} of="component">
-								<Text bold>
-									{item.name ? item.name : item.firstName + " " + item.lastName}
-								</Text>
-							</Column>
-							<Column>
-								<TouchableWithoutFeedback
-									onPress={() => model.authors.removeItem(item.id)}
-								>
-									<View>
-										<XIcon />
-									</View>
-								</TouchableWithoutFeedback>
-							</Column>
-						</Row>
+					{model.authors.array.map((user) => (
+						<UserTag user={user} field={model.authors} key={user.user_id} />
 					))}
+				</Column>
 
+				<Column of="tiny">
 					<AddContributorDropdown
 						label={t("document:creation.roles.composers")}
 						subLabel={t("document:creation.roles.composersWho")}
 						searchResults={composerSearchResults}
 						searchInput={search}
 						onSearchChange={setSearch}
+						alwaysShowAdd
 						onSelect={(selection) => {
-							console.dir(toJS(selection))
+							//console.dir(toJS(selection))
 							//console.log(`the selection from add contributor dropdown was ^^`)
-							model.composers.setItem(selection.id, selection)
+							if (
+								!model.composers.array.filter(
+									(v) => v.user_id === selection.user_id
+								).length
+							)
+								model.composers.add(selection)
 							setSearch("")
 						}}
 						placeholder={t("document:creation.roles.addComposer")}
 					/>
-					{Object.values(model.composers.value).map((item) => (
-						<Row wrap style={Styles.list}>
-							<Tag
-								dismissible
-								key={item.id}
-								onClick={() => model.composers.removeItem(item.id)}
-							>
-								<Text>{item.name}</Text>
-							</Tag>
-						</Row>
+					{model.composers.array.map((user) => (
+						<UserTag user={user} field={model.composers} key={user.user_id} />
 					))}
+				</Column>
+
+				<Column of="tiny">
 					<AddContributorDropdown
-						label={t("document:creation.roles.editors")}
-						subLabel={t("document:creation.roles.editorsWho")}
-						searchResults={editorSearchResults}
+						label={t("document:creation.roles.publishers")}
+						subLabel={t("document:creation.roles.publishersWho")}
+						searchResults={publisherSearchResults}
 						searchInput={search}
 						onSearchChange={setSearch}
+						alwaysShowAdd
 						onSelect={(selection) => {
 							console.dir(toJS(selection))
-							//console.log(`the selection from add contributor dropdown was ^^`)
-							model.editors.setItem(selection.id, selection)
+							console.log(
+								`the selection from add contributor dropdown or modal was ^^`
+							)
+							if (
+								!model.publishers.array.filter(
+									(v) => v.user_id === selection.user_id
+								).length
+							)
+								model.publishers.add(selection)
 							setSearch("")
 						}}
-						placeholder={t("document:creation.roles.addEditor")}
+						placeholder={t("document:creation.roles.addPublisher")}
 					/>
-					{Object.values(model.editors.value).map((item) => (
-						<Row wrap style={Styles.list}>
-							<Tag
-								dismissible
-								key={item.id}
-								onClick={() => model.editors.removeItem(item.id)}
-							>
-								<Text>{item.name}</Text>
-							</Tag>
-						</Row>
+					{model.publishers.array.map((user) => (
+						<UserTag user={user} field={model.publishers} key={user.user_id} />
 					))}
-					<TextField
-						field={model.ISWC}
-						label_hint={t("forms:labels.optional")}
-						tooltip=""
-					/>
 				</Column>
+				<TextField
+					field={model.iswc}
+					label_hint={t("forms:labels.optional")}
+					tooltip=""
+				/>
 			</Column>
 			<Flex />
 			<Column of="group" flex={4}>

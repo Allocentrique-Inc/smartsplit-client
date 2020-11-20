@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 })
 const ShareCard = observer(
 	({
-		shareHolderId,
+		shareholderId,
 		children,
 		actions,
 		error,
@@ -37,7 +37,7 @@ const ShareCard = observer(
 		...nextProps
 	}) => {
 		const { t } = useTranslation()
-		const user = useEntity(["users"], shareHolderId)
+		const user = useEntity(["users"], shareholderId)
 		const userData = toJS(user.data) || {}
 		const authUserData = toJS(useAuthUser().data)
 		const frameStyle = [CardStyles.frame, styles.frame]
