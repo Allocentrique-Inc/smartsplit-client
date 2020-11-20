@@ -6,5 +6,7 @@ export default class DocInfosModel extends BaseModel {
 	@observable primaryGenre = new Field(this, "primaryGenre", {
 		type: FieldType.string,
 	})
-	@observable secondaryGenres = new Field(this, "secondaryGenres")
+	@observable secondaryGenres = new Field(this, "secondaryGenres", {
+		type: FieldType.collection,
+	})
 }

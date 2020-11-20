@@ -8,6 +8,8 @@ import { Row, Column, Layer } from "../../layout"
 import { Text } from "../../text"
 import { Colors, Metrics } from "../../theme"
 import PlusCircle from "../../svg/plus-circle"
+import { observer } from "mobx-react"
+import { useStores } from "../../mobX"
 
 const Styles = StyleSheet.create({
 	tag: {
@@ -24,7 +26,7 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function AddLanguageDropdown({
+function AddLanguageDropdown({
 	selection,
 	onUnselect,
 	onSelectionChange,
@@ -33,8 +35,19 @@ export default function AddLanguageDropdown({
 	searchResults,
 	...nextProps
 }) {
-	const { t } = useTranslation()
+	const { t, i18n } = useTranslation()
 	const [language, setLanguage] = useState("")
+
+	/* 	const firstStr = searchResults.indexOf()
+	const lastStr = searchResults.lastIndexOf()
+
+	const quotation =
+		i18n.language == "en"
+			? '"' + firstStr && lastStr + '"'
+			: "« " + firstStr && lastStr + " »" */
+
+	const quotation = i18n.language === "en" ? '"' : "« "
+	const quotationEnd = i18n.language === "en" ? '"' : " »"
 
 	const renderSelectedItems = () => {
 		return (
@@ -56,31 +69,39 @@ export default function AddLanguageDropdown({
 			</Row>
 		)
 	}
-	console.log(nextProps)
+	//console.log(nextProps)
+	//console.log(i18n.language)
 	return (
 		<Column of="component">
 			<Autocomplete
+				alwaysShowAdd
 				search={language}
 				onSearcheChange={setLanguage}
 				onSelect={onSelect}
 				searchResults={searchResults}
 				{...nextProps}
-			/>
-			{searchResults.length === 0 && (
-				<TouchableWithoutFeedback
-					onPress={() => {
-						onSelect(nextProps.search)
-					}}
-				>
-					<Row of="component" padding="inside">
-						<PlusCircle />
-						<Text bold action>
-							Ajouter <Text bold>{nextProps.search}</Text>
-						</Text>
-					</Row>
-				</TouchableWithoutFeedback>
-			)}
+			>
+				{nextProps.search.length && (
+					<TouchableWithoutFeedback
+						onPress={() => {
+							onSelect(nextProps.search)
+						}}
+					>
+						<Row of="component" padding="inside">
+							<PlusCircle />
+							<Text bold action>
+								{t("document:add")}
+								{nextProps.search ? quotation : null}
+								{nextProps.search}
+								{nextProps.search ? quotationEnd : null}
+							</Text>
+						</Row>
+					</TouchableWithoutFeedback>
+				)}
+			</Autocomplete>
 			{selection && selection.length > 0 && renderSelectedItems()}
 		</Column>
 	)
 }
+
+export default observer(AddLanguageDropdown)

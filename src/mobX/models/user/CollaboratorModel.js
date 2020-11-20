@@ -3,6 +3,7 @@ import { observable, action, computed, runInAction } from "mobx"
 import { emailUniqueValidator, emailValidator } from "../validators"
 import ContributorModel from "./ContributorModel"
 import { inviteNewUser } from "../../../../api/users"
+import CollaboratorsAPI from "../../../../api/collaborators"
 /**
  * inherits:
  *
@@ -21,24 +22,4 @@ export default class CollaboratorModel extends ContributorModel {
 		validation: emailValidator,
 		asyncValidation: emailUniqueValidator,
 	})
-
-	async create() {
-		try {
-			return inviteNewUser(this.toJS(true))
-		} catch (e) {
-			this.saveError = e.message
-		}
-		return false
-	}
-
-	async update() {
-		{
-			try {
-				return UsersCrudAPI.update(this.toJS())
-			} catch (e) {
-				this.saveError = e.message
-			}
-			return false
-		}
-	}
 }

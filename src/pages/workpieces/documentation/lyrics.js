@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native"
 import { useHistory } from "react-router"
 import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
+import { TextInput } from "react-native"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
@@ -12,7 +13,7 @@ import { Colors, Metrics } from "../../../theme"
 import LyricsIcon from "../../../svg/feather"
 import EyeIcon from "../../../svg/eye"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
-import { TextInput } from "react-native"
+import AddLanguageDropdown from "../../../smartsplit/components/AddLanguageDropdown"
 
 const formStyle = StyleSheet.create({
 	textAreaContainer: {
@@ -54,6 +55,7 @@ export function LyricsForm(props) {
 	const [selected, setSelected] = useState(["English", "Français"])
 	const { t } = useTranslation()
 	const [text, setText] = React.useState("")
+	const workpiece = useCurrentWorkpiece()
 
 	return (
 		<>
@@ -64,9 +66,9 @@ export function LyricsForm(props) {
 						{t("document:lyrics.category")}
 						<Row padding="tiny" />
 					</Text>
-					{/* To Do: Title does not appear because of {workpiece} object in translations */}
-					{/* <Heading level={1}>{t("document:lyrics.title")}</Heading> */}
-					<Heading level={1}>To Do: Fix Title in t()</Heading>
+					<Heading level={1}>
+						{t("document:lyrics.title", { workpiece: workpiece.data.title })}
+					</Heading>
 					<Paragraph>{t("document:lyrics.paragraph")}</Paragraph>
 
 					<Spacer of="group" />
@@ -94,7 +96,8 @@ export function LyricsForm(props) {
 						</Text>
 					</Column>
 
-					<SearchAndTag
+					{/* To Do: Voir comment placer searchResults entre guillemets */}
+					<AddLanguageDropdown
 						icon="none"
 						hideIcon={true}
 						label={t("document:lyrics.language")}
@@ -110,6 +113,7 @@ export function LyricsForm(props) {
 						}
 						placeholder={t("document:lyrics.addLanguage")}
 					/>
+
 					<Dropdown
 						label={t("document:access")}
 						placeholder={

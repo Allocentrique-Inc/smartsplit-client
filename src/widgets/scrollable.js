@@ -26,13 +26,16 @@ export class Overlay extends React.PureComponent {
 }
 
 export function Scrollable(props) {
-	const { children, style, ...nextProps } = props
+	const { children, style, autoScrollToTop, ...nextProps } = props
 	const containerRef = React.createRef()
 
 	function onRef(ref) {
 		if (ref)
 			// parfois la ref est null pour aucune raison, et ça cause des
 			containerRef.current = ref // problèmes bizarred et subtils.
+		if (autoScrollToTop) {
+			containerRef.current.scrollTo({ y: 0, animation: false })
+		}
 	}
 
 	return (
