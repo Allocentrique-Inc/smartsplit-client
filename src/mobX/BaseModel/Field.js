@@ -225,6 +225,21 @@ export const FieldType = {
 	 * like collection but with only unique values
 	 */
 	set: "set",
+
+	/**
+	 * a model collection
+	 */
+	modelCollection: "ModelCollection",
+
+	/**
+	 * a model collection
+	 */
+	modelMap: "ModelMap",
+
+	/**
+	 * when using an object but only a single one (not a collection)
+	 */
+	object: "object",
 }
 
 /**
@@ -396,7 +411,6 @@ export default class Field {
 
 	/**
 	 * the initial value is set when the method Field.initValue is called
-	 * @private
 	 * @type {string}
 	 */
 	initialValue: string = ""
@@ -670,7 +684,7 @@ export default class Field {
 	get array() {
 		if (this.type !== FieldType.collection && this.type !== FieldType.set)
 			return [this.value]
-		if (this.type == FieldType.map) return Object.values(this.value)
+		if (this.type === FieldType.map) return Object.values(this.value)
 		else return [...this.value]
 	}
 
@@ -792,6 +806,16 @@ export default class Field {
     );*/
 		if (!this.isRequired && !this.value) return null
 		if (
+			this.isRequired &&
+			(this.type === FieldType.collection ||
+				this.type === FieldType.modelCollection ||
+				this.type === FieldType.set ||
+				this.type === FieldType.map ||
+				this.type === FieldType.modelMap)
+		) {
+			if (!this.array.length) this.error = this.requiredMessage
+			return this.requiredMessage
+		} else if (
 			this.isRequired &&
 			(this.value === null || this.value === "" || this.value === undefined)
 		) {
