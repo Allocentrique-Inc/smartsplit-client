@@ -140,6 +140,7 @@ export class Dropdown extends React.Component {
 							: this.getArrowIcon()
 					}
 					leftIcon={noIcon ? null : this.props.leftIcon}
+					noFocus={this.handleNoFocus}
 				/>
 
 				<DropdownModal

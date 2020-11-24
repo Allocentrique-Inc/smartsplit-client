@@ -9,7 +9,7 @@ import Button from "../../../widgets/button"
 import { Flex, Row, Column } from "../../../layout"
 import CreationForm from "./creation"
 import { Text } from "../../../text"
-import { PerformanceForm } from "./performance"
+import PerformanceForm from "./performance"
 import { RecordingForm } from "./recording"
 import { LyricsForm } from "./lyrics"
 import { FilesForm } from "./files"
@@ -92,7 +92,7 @@ const DocumentationPage = observer(() => {
 			history.push(`/workpieces/${workpiece.id}/documentation/files`)
 		type === "lyrics" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/release`)
-		type === "links" &&
+		type === "lyrics" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/lyrics`)
 	}
 

@@ -8,6 +8,7 @@ import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
+import TextField from "../../../forms/text"
 import { Colors, Metrics } from "../../../theme"
 import PerformanceIcon from "../../../svg/performance"
 import {
@@ -15,9 +16,31 @@ import {
 	RadioGroup,
 	CheckBox,
 	CheckBoxGroup,
+	Dropdown,
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 import AddInstrumentDropdown from "../../../smartsplit/components/add-instrument-dropdown"
+import AddContributorDropdown from "../../../smartsplit/components/AddContributorDropdown"
+import IconDescriptionDropdown from "../../../forms/IconDescriptionSelect"
+import { observer } from "mobx-react"
+import {
+	useArtistAutocomplete,
+	useAuthUser,
+	useDocsModel,
+	ResultsOrder,
+} from "../../../mobX/hooks"
+import { useStores } from "../../../mobX"
+import ContributorsState from "../../../mobX/states/ContributorsState"
+import ContributorModel from "../../../mobX/models/user/ContributorModel"
+import DocPerformanceModel from "../../../mobX/models/workpieces/documentation/DocPerformanceModel"
+import { Tag } from "../../../widgets/tag"
+import { toJS } from "mobx"
+import { CardStyles } from "../../../widgets/card"
+import UserAvatar from "../../../smartsplit/user/avatar"
+import HelpCircleFull from "../../../svg/help-circle-full"
+import XIcon from "../../../svg/x"
+import Field from "../../../mobX/BaseModel/Field"
+import UserTag from "../../../smartsplit/user/UserTag"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -32,10 +55,84 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export function PerformanceForm(props) {
-	const searchResults = ["Inie", "Manie", "Moe"]
+const PerformanceForm = observer((props) => {
 	const [search, setSearch] = useState("")
 	const { t } = useTranslation()
+
+	const workpiece = useCurrentWorkpiece()
+	const workpieceId = workpiece.id
+	const { contributors } = useStores()
+	const model: DocPerformanceModel = useDocsModel(workpieceId, "performance")
+	const getResults = useArtistAutocomplete()
+	const searchResults = getResults(search, 10, ResultsOrder.contributorsFirst)
+
+	const fakeSearchResults = [
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb",
+			firstName: "Willy",
+			lastName: "Nilly",
+			artistName: "Willy the Poo",
+			avatarUrl:
+				"https://apiv2-dev.smartsplit.org/v1/users/09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb/avatar",
+		},
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbc",
+			firstName: "Will",
+			lastName: "Nill",
+			artistName: "Chill Bill",
+		},
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbd",
+			firstName: "Lila",
+			lastName: "Ait",
+			artistName: "Lady Lila",
+		},
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbc",
+			firstName: "Wes",
+			lastName: "Johnson",
+			artistName: "Fat-Fuck Frank",
+		},
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbd",
+			firstName: "Harris Glen",
+			lastName: "Milstead",
+			artistName: "Divine",
+		},
+	]
+
+	const results = searchResults.concat(fakeSearchResults).splice(0, 10)
+
+	const searchFilter = (user) => {
+		let name =
+			user.firstName +
+			" " +
+			user.lastName +
+			(user.artistName ? ` (${user.artistName})` : "")
+		return name.indexOf(search) > -1
+	}
+
+	const searchFilteredResults = results.filter(searchFilter)
+
+	const modelValueFilter = (
+		v: {
+			firstName: string,
+			lastName: string,
+			artistName: string,
+			user_id: string,
+		},
+		field: Field
+	) => {
+		let exists = false
+		field.array.forEach((selected) => {
+			if (v.user_id === selected.uid) exists = true
+		})
+		return !exists
+	}
+
+	const performerSearchResults = searchFilteredResults.filter((result) =>
+		modelValueFilter(result, model.performers)
+	)
 
 	return (
 		<>
@@ -51,15 +148,40 @@ export function PerformanceForm(props) {
 
 					<Spacer of="group" />
 
+					{model.performers.array.map((user) => (
+						<UserTag user={user} field={model.performers} key={user.user_id} />
+					))}
+					<AddContributorDropdown
+						searchResults={performerSearchResults}
+						searchInput={search}
+						onSearchChange={setSearch}
+						alwaysShowAdd
+						onSelect={(selection) => {
+							if (
+								!model.performers.array.filter(
+									(v) => v.user_id === selection.user_id
+								).length
+							)
+								model.performers.add(selection)
+							setSearch("")
+						}}
+						placeholder={t("document:performance.roles.addPerformer")}
+					/>
+
+					{setSearch && (
+						<Column style={Styles.dropdown}>
+							<PerformanceOptions />
+						</Column>
+					)}
+
+					{/* 
 					<AddCollaboratorDropdown
 						searchResults={searchResults}
 						searchInput={search}
 						onSearchChange={setSearch}
 						onSelect={(selection) => console.log(selection)}
 						placeholder={t("document:performance.roles.addPerformer")}
-					/>
-
-					<PerformanceOptions />
+					/> */}
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>
@@ -80,7 +202,9 @@ export function PerformanceForm(props) {
 			</Row>
 		</>
 	)
-}
+})
+
+export default PerformanceForm
 
 export function PerformanceOptions(props) {
 	const { t } = useTranslation()
@@ -94,16 +218,79 @@ export function PerformanceOptions(props) {
 			<Row>
 				<Column padding="component" layer="left_overground" />
 				<Column of="group" flex={5}>
-					<RadioGroup label={t("document:performance.whichPerformance")}>
-						<RadioGroupButton
-							value="singer"
-							label={t("general:radioButton.singer")}
-						/>
-						<RadioGroupButton
-							value="musician"
-							label={t("general:radioButton.musician")}
-						/>
-					</RadioGroup>
+					<IconDescriptionDropdown />
+					<Dropdown
+						label={t("document:performance.whichPerformance")}
+						/* 	placeholder={
+								<>
+									<UnlockDownload />
+									<Text>
+										{t("document:files.dropdownDownloads.invitation")}
+									</Text>
+									<Flex />
+								</>
+							} */
+						noFocusToggle
+						tooltip=""
+					>
+						<Column layer="overground_moderate">
+							<Row of="component">
+								<Column padding="tiny">
+									<Row>
+										<Text>{t("document:performance.dropdown.mainArtist")}</Text>
+									</Row>
+									<Row>
+										<Text secondary small>
+											{t("document:performance.dropdown.mainArtistUndertext")}
+										</Text>
+									</Row>
+								</Column>
+							</Row>
+							<Row of="component">
+								<Column padding="tiny">
+									<Row>
+										<Text>
+											{t("document:performance.dropdown.guestArtist")}
+										</Text>
+									</Row>
+									<Row>
+										<Text secondary small>
+											{t("document:performance.dropdown.guestArtistUndertext")}
+										</Text>
+									</Row>
+								</Column>
+							</Row>
+							<Row of="component">
+								<Column padding="tiny">
+									<Row>
+										<Text>
+											{t("document:performance.dropdown.groupMember")}
+										</Text>
+									</Row>
+									<Row>
+										<Text secondary small>
+											{t("document:performance.dropdown.groupMemberUndertext")}
+										</Text>
+									</Row>
+								</Column>
+							</Row>
+							<Row of="component">
+								<Column padding="tiny">
+									<Row>
+										<Text>
+											{t("document:performance.dropdown.backupArtist")}
+										</Text>
+									</Row>
+									<Row>
+										<Text secondary small>
+											{t("document:performance.dropdown.backupArtistUndertext")}
+										</Text>
+									</Row>
+								</Column>
+							</Row>
+						</Column>
+					</Dropdown>
+
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
 						<CheckBox label={t("general:checkbox.singer")} />
 						<CheckBox
@@ -138,12 +325,30 @@ export function PerformanceOptions(props) {
 
 			<Column of="section">
 				<Hairline />
-				<AddCollaboratorDropdown
+
+				{/* <AddCollaboratorDropdown
 					searchResults={props.searchResults}
 					searchInput={props.search}
 					onSearchChange={props.setSearch}
 					onSelect={(selection) => console.log(selection)}
 					placeholder={t("forms:labels.dropdowns.addCollaborator")}
+				/> */}
+
+				<AddContributorDropdown
+					searchResults={props.performerSearchResults}
+					searchInput={props.search}
+					onSearchChange={props.setSearch}
+					alwaysShowAdd
+					onSelect={(selection) => {
+						if (
+							!model.performers.array.filter(
+								(v) => v.user_id === selection.user_id
+							).length
+						)
+							model.performers.add(selection)
+						props.setSearch("")
+					}}
+					placeholder={t("document:performance.roles.addPerformer")}
 				/>
 			</Column>
 		</Column>
