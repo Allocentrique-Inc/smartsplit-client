@@ -12,41 +12,42 @@ import { observer } from "mobx-react"
 import { assignEnumProps, capValueWithinRange } from "../utils/utils"
 import { useInterpolators } from "../utils/hooks"
 
-const Styles = StyleSheet.create({
-	handleContainer: {
-		position: "absolute",
-		top: Metrics.spacing.xsmall,
-		left: -Metrics.spacing.small,
-		cursor: "pointer",
-	},
+const getStyles = (disabled) =>
+	StyleSheet.create({
+		handleContainer: {
+			position: "absolute",
+			top: Metrics.spacing.xsmall,
+			left: -Metrics.spacing.small,
+			cursor: "pointer",
+		},
 
-	handle: {
-		height: Metrics.size.xsmall,
-		width: Metrics.size.xsmall,
-		backgroundColor: Colors.background.ground,
-		borderWidth: 1,
-		borderRadius: 50,
-		borderColor: Colors.stroke,
-	},
+		handle: {
+			height: Metrics.size.xsmall,
+			width: Metrics.size.xsmall,
+			backgroundColor: Colors.background.ground,
+			borderWidth: 1,
+			borderRadius: 50,
+			borderColor: Colors.stroke,
+		},
 
-	touchBarContainer: {
-		flex: 1,
-		paddingTop: Metrics.spacing.small,
-		paddingBottom: Metrics.spacing.small,
-		cursor: "pointer",
-	},
+		touchBarContainer: {
+			flex: 1,
+			paddingTop: Metrics.spacing.small,
+			paddingBottom: Metrics.spacing.small,
+			cursor: disabled ? "not-allowed" : "pointer",
+		},
 
-	barContainer: {
-		backgroundColor: Colors.background.hell,
-		borderWidth: 1,
-		borderColor: Colors.stroke,
-		borderRadius: 1000,
-	},
+		barContainer: {
+			backgroundColor: Colors.background.hell,
+			borderWidth: 1,
+			borderColor: Colors.stroke,
+			borderRadius: 1000,
+		},
 
-	bar: {
-		borderRadius: 1000,
-	},
-})
+		bar: {
+			borderRadius: 1000,
+		},
+	})
 
 const Slider = observer(
 	({
@@ -67,6 +68,8 @@ const Slider = observer(
 				heigth: 0,
 			})
 		)
+
+		const styles = getStyles(disabled)
 
 		let [valueToDp, dpToValue] = useInterpolators(
 			[min, max],
@@ -165,15 +168,15 @@ const Slider = observer(
 			<>
 				<TouchableWithoutFeedback onPressIn={onBarPressIn}>
 					<View
-						style={Styles.touchBarContainer}
+						style={styles.touchBarContainer}
 						ref={containerRef}
 						onLayout={onBarLayout}
 					>
 						<ProgressBar
 							size="xsmall"
 							progress={(dpToValue(handlePosition.get()) / max) * 100}
-							barStyle={Styles.bar}
-							style={Styles.barContainer}
+							barStyle={styles.bar}
+							style={styles.barContainer}
 							color={color}
 						/>
 					</View>
@@ -181,14 +184,14 @@ const Slider = observer(
 				{!disabled && (
 					<View
 						style={[
-							Styles.handleContainer,
+							styles.handleContainer,
 							{
 								transform: [{ translateX: handlePosition.get() }],
 							},
 						]}
 						{...panResponder.panHandlers}
 					>
-						<View style={Styles.handle} />
+						<View style={styles.handle} />
 					</View>
 				)}
 			</>

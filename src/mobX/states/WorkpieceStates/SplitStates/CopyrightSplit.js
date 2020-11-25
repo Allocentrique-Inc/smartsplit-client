@@ -25,6 +25,7 @@ export default class CopyrightSplit extends SplitState {
 			}
 		)
 	}
+
 	@action computeEqualMode() {
 		this.sharesValues.forEach((share) => {
 			this.updateShareField(share.shareholderId, "shares", 1)
@@ -56,6 +57,14 @@ export default class CopyrightSplit extends SplitState {
 			this.updateShareField(share.shareholderId, "shares", score)
 		})
 	}
+
+	@action setRoles(id, roles) {
+		this.updateShareField(id, "roles", roles)
+		if (this.mode === "roles") {
+			this.computeRolesMode()
+		}
+	}
+
 	@observable mode = "equal"
 
 	/**
@@ -110,12 +119,5 @@ export default class CopyrightSplit extends SplitState {
 			this.sharesValues.filter((share) => share.roles.includes("author"))
 				.length > 0
 		)
-	}
-
-	@action setRoles(id, roles) {
-		this.updateShareField(id, "roles", roles)
-		if (this.mode === "roles") {
-			this.computeRolesMode()
-		}
 	}
 }

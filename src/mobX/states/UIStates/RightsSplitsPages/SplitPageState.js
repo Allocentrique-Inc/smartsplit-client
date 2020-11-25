@@ -31,8 +31,8 @@ export default class SplitPageState {
 							height: 3 * Metrics.spacing.group,
 					  }
 					: {
-							width: Metrics.spacing.component,
-							height: Metrics.spacing.component,
+							width: Metrics.spacing.group,
+							height: Metrics.spacing.group,
 					  },
 			chart: {
 				position: "sticky",

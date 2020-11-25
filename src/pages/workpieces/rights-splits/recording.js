@@ -6,9 +6,11 @@ import { Colors, Metrics } from "../../../theme"
 import { RadioGroup, RadioGroupButton, Select } from "../../../forms"
 import ShareCard from "../../../smartsplit/components/share-card"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
-import { View } from "react-native"
+import { View, TouchableWithoutFeedback } from "react-native"
 import SplitChart from "../../../smartsplit/components/split-chart"
 import CircledP from "../../../svg/circled-p"
+import Lock from "../../../svg/lock"
+import Unlock from "../../../svg/unlock"
 import { observer } from "mobx-react"
 import { useRightsSplits } from "../context"
 import { useSplitsPagesState } from "../../../mobX/hooks"
@@ -31,10 +33,10 @@ const RecordingForm = observer(() => {
 	}, [window.outerWidth])
 
 	//FOR TESTING PURPOSE
-	// React.useEffect(() => {
-	// 	recordingSplit.addShareholder("235556b5-3bbb-4c90-9411-4468d873969b")
-	// 	recordingSplit.addShareholder("c84d5b32-25ee-48df-9651-4584b4b78f28")
-	// }, [])
+	React.useEffect(() => {
+		recordingSplit.addShareholder("235556b5-3bbb-4c90-9411-4468d873969b")
+		recordingSplit.addShareholder("c84d5b32-25ee-48df-9651-4584b4b78f28")
+	}, [])
 
 	function genSelectOptions() {
 		return recordingSplit.functionValues.map((value) => {
@@ -51,6 +53,14 @@ const RecordingForm = observer(() => {
 		})
 	}
 
+	const LockButton = ({ id, locked }) => (
+		<TouchableWithoutFeedback
+			onPress={() => recordingSplit.toggleShareLock(id)}
+		>
+			<View>{locked ? <Lock /> : <Unlock />}</View>
+		</TouchableWithoutFeedback>
+	)
+
 	function renderShareCards() {
 		return sharesData.map((share, i) => (
 			<ShareCard
@@ -59,7 +69,11 @@ const RecordingForm = observer(() => {
 				color={pageState.colorByIndex(i)}
 				sharePercent={share.percent}
 				onClose={() => recordingSplit.removeShareholder(share.id)}
-				manual={recordingSplit.mode === "manual"}
+				bottomAction={
+					recordingSplit.mode === "manual" ? (
+						<LockButton id={share.id} locked={share.locked} />
+					) : null
+				}
 			>
 				<Select
 					placeholder={t("function")}
@@ -77,6 +91,7 @@ const RecordingForm = observer(() => {
 								color={pageState.colorByIndex(i)}
 								step={0.01}
 								value={share.shares}
+								disabled={share.locked}
 								onChange={(value) =>
 									recordingSplit.updateSharesProRata(share.id, value)
 								}
