@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { StyleSheet } from "react-native"
+import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
 import { useHistory } from "react-router"
 import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
@@ -40,8 +40,6 @@ import UserAvatar from "../../../smartsplit/user/avatar"
 import HelpCircleFull from "../../../svg/help-circle-full"
 import XIcon from "../../../svg/x"
 import Field from "../../../mobX/BaseModel/Field"
-import UserTag from "../../../smartsplit/user/UserTag"
-import PerformerModel from "../../../mobX/models/workpieces/documentation/PerformerModel"
 import InstrumentList from "../../../../assets/data/instruments-smartsplit"
 
 const Styles = StyleSheet.create({
@@ -56,6 +54,30 @@ const Styles = StyleSheet.create({
 		marginLeft: Metrics.spacing.large,
 	},
 })
+
+const Styles2 = StyleSheet.create({
+	category: {
+		alignItems: "center",
+		display: "flex",
+	},
+	logo: {
+		marginRight: Metrics.spacing.component,
+	},
+	frame: {
+		backgroundColor: Colors.background.underground,
+	},
+	frame_error: {
+		borderWidth: 1,
+		borderColor: Colors.error,
+		borderStyle: "solid",
+	},
+	frame_yourself: {
+		borderWidth: 1,
+		borderColor: Colors.secondaries.teal,
+	},
+})
+
+const frameStyle = [CardStyles.frame, Styles2.frame]
 
 const PerformanceForm = observer((props) => {
 	const [search, setSearch] = useState("")
@@ -149,15 +171,13 @@ const PerformanceForm = observer((props) => {
 
 				<Spacer of="group" />
 
-				{model.performers.array.map((model) => (
-					<Column style={Styles.dropdown}>
-						<UserTag
-							user={model.user}
-							field={model.user}
-							key={model.user.user_id}
+				{model.performers.array.map((model, index) => (
+					<Column style={Styles.dropdown} key={"u" + model.user.user_id}>
+						<PerformanceOptions
+							model={model}
+							index={index}
+							field={model.performers}
 						/>
-
-						<PerformanceOptions model={model} />
 					</Column>
 				))}
 				<AddContributorDropdown
@@ -238,8 +258,7 @@ export const PerformanceOptions = observer((props) => {
 	 *     }]
 	 * }
 	 */
-	const model: PerformerModel = props.model
-
+	const { model, field, index } = props
 	const { t } = useTranslation()
 	const [showInstruments, setShowInstruments] = useState()
 
@@ -252,6 +271,32 @@ export const PerformanceOptions = observer((props) => {
 
 	return (
 		<Column>
+			<Row
+				of="component"
+				padding="tiny"
+				style={frameStyle}
+				key={model.user.value.user_id}
+			>
+				<Column valign="spread" align="center" padding="tiny">
+					<UserAvatar size="small" user={model.user.value} />
+				</Column>
+				<Column flex={1} padding="tiny">
+					<Text bold size="tiny">
+						{`${model.user.value.firstName} ${model.user.value.lastName} ${
+							model.user.value.artistName
+								? ` (${model.user.value.artistName})`
+								: ""
+						}`}
+					</Text>
+				</Column>
+				<Column padding="tiny">
+					<TouchableWithoutFeedback onPress={() => field.remove(index)}>
+						<View>
+							<XIcon />
+						</View>
+					</TouchableWithoutFeedback>
+				</Column>
+			</Row>
 			<Row>
 				<Column padding="component" layer="left_overground" />
 				<Column of="group" flex={5}>

@@ -52,6 +52,7 @@ export default class ModelCollection extends Field {
 		})
 	}
 	@action add(initValue = null) {
+		console.log(initValue)
 		let model = new this.modelClass()
 		model.init(initValue)
 		this.value.push(model)
