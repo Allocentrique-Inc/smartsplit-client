@@ -40,7 +40,6 @@ import UserAvatar from "../../../smartsplit/user/avatar"
 import HelpCircleFull from "../../../svg/help-circle-full"
 import XIcon from "../../../svg/x"
 import Field from "../../../mobX/BaseModel/Field"
-import InstrumentList from "../../../../assets/data/instruments-smartsplit"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -261,14 +260,6 @@ export const PerformanceOptions = observer((props) => {
 	const { model, field, index } = props
 	console.log(field)
 	const { t } = useTranslation()
-	const [showInstruments, setShowInstruments] = useState()
-
-	const [selected, setSelected] = useState("")
-	const [search, setSearch] = useState("")
-
-	const searchResults = InstrumentList.filter((instr) =>
-		new RegExp(search, "i").test(instr.name)
-	)
 
 	return (
 		<Column>
@@ -367,19 +358,30 @@ export const PerformanceOptions = observer((props) => {
 
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
 						<CheckBox field={model.isSinger} />
-						<CheckBox field={model.isMusician} onChange={setShowInstruments} />
+						<CheckBox field={model.isMusician} />
 					</CheckBoxGroup>
 
-					{showInstruments && (
+					{model.isMusician.value && (
 						<Column style={Styles.dropdown}>
+							{model.instruments.array.map((entry, index) => (
+								<AddInstrumentDropdown
+									hideEmpty
+									style={{ flex: 1 }}
+									key={`instr-${index}`}
+									placeholder={t("document:performance.addInstrument")}
+									selection={entry.instrument.value}
+									onSelect={(selection) =>
+										model.instruments.setItem(index, { instrument: selection })
+									}
+									onUnselect={() => model.instruments.remove(index)}
+								/>
+							))}
 							<AddInstrumentDropdown
 								style={{ flex: 1 }}
 								placeholder={t("document:performance.addInstrument")}
-								searchResults={searchResults}
-								search={search}
-								onSearchChange={setSearch}
-								selection={model.instruments}
-								onSelect={(selection) => setSelected([...selected, selection])}
+								onSelect={(selection) => {
+									model.instruments.add({ instrument: selection })
+								}}
 							/>
 						</Column>
 					)}

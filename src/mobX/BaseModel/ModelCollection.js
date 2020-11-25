@@ -58,7 +58,10 @@ export default class ModelCollection extends Field {
 		this.value.push(model)
 	}
 	@action remove(index) {
+		console.log(index)
+		console.log(toJS(this.value[index]))
 		this.value.splice(index, 1)
+		this.setValue(this.value)
 	}
 	validateSync() {
 		this.array.forEach((model) => model.validateSync())
