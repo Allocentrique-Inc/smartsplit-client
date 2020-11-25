@@ -21,8 +21,14 @@ export default class PerformerModel extends BaseModel {
 		type: FieldType.object,
 		required: true,
 	})
-	isSinger = new Field(this, "isSinger", { type: FieldType.bool })
-	isMusician = new Field(this, "isMusician", { type: FieldType.bool })
+	isSinger = new Field(this, "isSinger", {
+		type: FieldType.bool,
+		label: "general:checkbox.singer",
+	})
+	isMusician = new Field(this, "isMusician", {
+		type: FieldType.bool,
+		label: "general:checkbox.musician",
+	})
 	role = new Field(this, "role", { type: FieldType.object })
 	type = new Field(this, "type", {
 		type: FieldType.string,

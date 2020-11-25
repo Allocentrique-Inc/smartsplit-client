@@ -221,22 +221,22 @@ const PerformanceForm = observer((props) => {
 export default PerformanceForm
 
 export const PerformanceOptions = observer((props) => {
-	//////////
-	// un peu plus complexe, car maintenant chaque performer est
-	// un model qui ressemble comme ceci :
-	// {
-	//   user:{user_id:"" ....},
-	//   type:"string" 'principle' | 'featured' | 'bandMember' | 'accompanying'
-	//   isSinger:boolean,
-	//   isMmusician:boolean,
-	//   instruments : [{
-	//        instrument:{id:"",name:""}
-	//        role:{id:"",name:""}
-	//   }]
-	// }
-	/////////
 	/**
 	 *
+	 *  model passed to props looks like this :
+	 *  each of these properties is a field
+	 *
+	 *
+	 *  {
+	 *    user:{user_id:"" ....},
+	 *    type:"string" 'principle' | 'featured' | 'bandMember' | 'accompanying'
+	 *    isSinger:boolean,
+	 *    isMusician:boolean,
+	 *    instruments : [{
+	 *        instrument:{id:"",name:""}
+	 *       role:{id:"",name:""}
+	 *     }]
+	 * }
 	 */
 	const model: PerformerModel = props.model
 
@@ -320,16 +320,8 @@ export const PerformanceOptions = observer((props) => {
 					</Dropdown> */}
 
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
-						<CheckBox
-							label={t("general:checkbox.singer")}
-							field={model.isSinger}
-						/>
-						<CheckBox
-							field={model.isMusician}
-							onChange={setShowInstruments}
-							checked={showInstruments}
-							label={t("general:checkbox.musician")}
-						/>
+						<CheckBox field={model.isSinger} />
+						<CheckBox field={model.isMusician} onChange={setShowInstruments} />
 					</CheckBoxGroup>
 
 					{showInstruments && (
@@ -340,7 +332,7 @@ export const PerformanceOptions = observer((props) => {
 								searchResults={searchResults}
 								search={search}
 								onSearchChange={setSearch}
-								selection={selected}
+								selection={model.instruments}
 								onSelect={(selection) => setSelected([...selected, selection])}
 							/>
 						</Column>

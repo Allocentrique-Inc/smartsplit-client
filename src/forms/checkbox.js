@@ -144,9 +144,11 @@ export const CheckBox = observer((props) => {
 		color,
 	} = props
 	if (field) {
+		const outerOnChange = onChange
 		label = t(field.label)
 		onChange = (value) => {
 			field.setValue(value)
+			outerOnChange(value)
 		}
 		checked = field.value
 	}
