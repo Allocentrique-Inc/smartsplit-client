@@ -687,16 +687,18 @@ export const document = {
 		addInstrumentDropdown: "Ajouter {{search}} comme instrument",
 		dropdown: {
 			mainArtist: "Main Artist",
-			mainArtistUndertext: 'Also called "Featured Artist " or "Solo Artist"',
 			guestArtist: "Guest Artist",
-			guestArtistUndertext:
-				"Artist or group member invited to collaborate on a musical piece",
 			groupMember: "Group Member",
-			groupMemberUndertext:
-				"Musician or singer taking part in the artistic entity",
 			backupArtist: "Backup Artist",
-			backupArtistUndertext: "Performer hired during studio recording sessions",
 		},
+		description: {
+			mainArtist: 'Also called "Featured Artist " or "Solo Artist"',
+			guestArtist:
+			"Artist or group member invited to collaborate on a musical piece",
+			groupMember:
+			"Musician or singer taking part in the artistic entity",
+			backupArtist: "Performer hired during studio recording sessions",
+		}
 	},
 
 	recording: {

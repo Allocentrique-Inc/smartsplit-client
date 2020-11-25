@@ -21,7 +21,6 @@ import {
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 import AddInstrumentDropdown from "../../../smartsplit/components/add-instrument-dropdown"
 import AddContributorDropdown from "../../../smartsplit/components/AddContributorDropdown"
-import IconDescriptionDropdown from "../../../forms/IconDescriptionSelect"
 import { observer } from "mobx-react"
 import {
 	useArtistAutocomplete,
@@ -40,6 +39,11 @@ import UserAvatar from "../../../smartsplit/user/avatar"
 import HelpCircleFull from "../../../svg/help-circle-full"
 import XIcon from "../../../svg/x"
 import Field from "../../../mobX/BaseModel/Field"
+
+import IconDescriptionSelect, {
+	IconDescriptionItem,
+} from "../../../forms/IconDescriptionSelect"
+import { Group } from "../../../layout"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -177,6 +181,7 @@ const PerformanceForm = observer((props) => {
 							index={index}
 							field={model.performers}
 						/>
+						<Spacer of="group" />
 					</Column>
 				))}
 				<AddContributorDropdown
@@ -195,11 +200,10 @@ const PerformanceForm = observer((props) => {
 					}}
 					placeholder={t("document:performance.roles.addPerformer")}
 				/>
-
 				{/*
 					  ////////////////
 					  j'ai commenté-out cette section maintenant tu peux choisir un user et faire apparaite
-					  les options  tu kes retrouvera à partir de la ligne #154
+					  les options tu kes retrouvera à partir de la ligne #154
 					  ///////////////
 					  
 					  {setSearch && (
@@ -258,8 +262,16 @@ export const PerformanceOptions = observer((props) => {
 	 * }
 	 */
 	const { model, field, index } = props
-	console.log(field)
+	//console.log(field)
 	const { t } = useTranslation()
+	const [selected, setSelected] = useState()
+
+	const artistTypes = [
+	"mainArtist",
+	"guestArtist",
+	"groupMember",
+	"backupArtist",
+	]
 
 	return (
 		<Column>
@@ -292,70 +304,36 @@ export const PerformanceOptions = observer((props) => {
 			<Row>
 				<Column padding="component" layer="left_overground" />
 				<Column of="group" flex={5}>
-					<IconDescriptionDropdown />
-					{/* <Dropdown
-						label={t("document:performance.whichPerformance")}
-						noFocusToggle
-						tooltip=""
-					>
-						<Column layer="overground_moderate">
-							<Row of="component">
-								<Column padding="tiny">
-									<Row>
-										<Text>{t("document:performance.dropdown.mainArtist")}</Text>
-									</Row>
-									<Row>
-										<Text secondary small>
-											{t("document:performance.dropdown.mainArtistUndertext")}
-										</Text>
-									</Row>
-								</Column>
-							</Row>
-							<Row of="component">
-								<Column padding="tiny">
-									<Row>
-										<Text>
-											{t("document:performance.dropdown.guestArtist")}
-										</Text>
-									</Row>
-									<Row>
-										<Text secondary small>
-											{t("document:performance.dropdown.guestArtistUndertext")}
-										</Text>
-									</Row>
-								</Column>
-							</Row>
-							<Row of="component">
-								<Column padding="tiny">
-									<Row>
-										<Text>
-											{t("document:performance.dropdown.groupMember")}
-										</Text>
-									</Row>
-									<Row>
-										<Text secondary small>
-											{t("document:performance.dropdown.groupMemberUndertext")}
-										</Text>
-									</Row>
-								</Column>
-							</Row>
-							<Row of="component">
-								<Column padding="tiny">
-									<Row>
-										<Text>
-											{t("document:performance.dropdown.backupArtist")}
-										</Text>
-									</Row>
-									<Row>
-										<Text secondary small>
-											{t("document:performance.dropdown.backupArtistUndertext")}
-										</Text>
-									</Row>
-								</Column>
-							</Row>
-						</Column>
-					</Dropdown> */}
+				<Group>
+				{/**
+				 * Below we filter options to exclude those already in our list
+				 * model.ids.value is an array of {name:"org", value:"id"}
+				 */}
 
+			{/* ToFix: Longer text is not wrapper in dropdown */}
+				<IconDescriptionSelect
+					options={artistTypes.map((artist) => ({
+					name: t(`document:performance.dropdown.${artist}`),
+					key: artist,
+					description: t(`document:performance.description.${artist}`),
+				}))}
+					value={selected}
+					placeholder={
+						selected ? (
+							<IconDescriptionItem
+								name={t(`document:performance.dropdown.${selected}`)}
+								description={t(`document:performance.description.${selected}`)}
+							/>
+						) : (
+							t("document:performance.whichPerformance")
+						)
+					}
+					onChange={(v) => {
+						setSelected(v)
+					}}
+				/>
+				
+			</Group>
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
 						<CheckBox field={model.isSinger} />
 						<CheckBox field={model.isMusician} />

@@ -692,18 +692,20 @@ export const document = {
 		addInstrumentDropdown: "Add {{search}} as instrument",
 		dropdown: {
 			mainArtist: "Artiste principal",
-			mainArtistUndertext:
-				"Aussi appelé « Artiste vedette » ou « Artiste solo »",
 			guestArtist: "Artiste invité",
-			guestArtistUndertext:
-				"Artiste ou membre d'un groupe invité à collaborer sur une pièce musicale",
-			groupMember: "Membre du groupe",
-			groupMemberUndertext:
-				"Musicien ou chanteur prenant part à l'entité artistique",
-			backupArtist: "Artiste acompagnateur",
-			backupArtistUndertext:
-				"Interprète engagé pendant les sessions d'enregistrement studio",
+			groupMember: "Membre du groupe",	
+			backupArtist: "Artiste acompagnateur",				
 		},
+		description: {
+			mainArtist:
+			"Aussi appelé « Artiste vedette » ou « Artiste solo »",
+			guestArtist:
+			"Artiste ou membre d'un groupe invité à collaborer sur une pièce musicale",
+			groupMember:
+			"Musicien ou chanteur prenant part à l'entité artistique",
+			backupArtist:
+			"Interprète engagé pendant les sessions d'enregistrement studio",
+		}
 	},
 	recording: {
 		category: "ENREGISTREMENT",
