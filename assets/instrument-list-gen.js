@@ -1,10 +1,13 @@
 const fs = require("fs")
 const lineReader = require("line-reader")
 let instruments = []
+let ids = 0
 lineReader.eachLine("instruments-musz.json", (line, last) => {
+	ids++
 	let ins = JSON.parse(line)
 	//if (ins.description && !last) return
 	let instrument = {
+		id: ids,
 		name: ins.name,
 		muszId: ins.id,
 		description: ins.description,

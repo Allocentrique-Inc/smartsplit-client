@@ -17,10 +17,12 @@ export default class PerformerModel extends BaseModel {
 		super(parent)
 		makeObservable(this)
 	}
-	user_id = new Field(this, "user_id", {
-		type: FieldType.string,
+	user = new Field(this, "user", {
+		type: FieldType.object,
 		required: true,
 	})
+	isSinger = new Field(this, "isSinger", { type: FieldType.bool })
+	isMusician = new Field(this, "isMusician", { type: FieldType.bool })
 	role = new Field(this, "role", { type: FieldType.object })
 	type = new Field(this, "type", {
 		type: FieldType.string,

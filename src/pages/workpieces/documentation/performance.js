@@ -41,6 +41,8 @@ import HelpCircleFull from "../../../svg/help-circle-full"
 import XIcon from "../../../svg/x"
 import Field from "../../../mobX/BaseModel/Field"
 import UserTag from "../../../smartsplit/user/UserTag"
+import PerformerModel from "../../../mobX/models/workpieces/documentation/PerformerModel"
+import InstrumentList from "../../../../assets/data/instruments-smartsplit"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -147,15 +149,17 @@ const PerformanceForm = observer((props) => {
 
 				<Spacer of="group" />
 
-				{model.performers.array.map((user) => (
-					<>
-						<UserTag user={user} field={model.performers} key={user.user_id} />
-						<Column style={Styles.dropdown}>
-							<PerformanceOptions />
-						</Column>
-					</>
-				))}
+				{model.performers.array.map((model) => (
+					<Column style={Styles.dropdown}>
+						<UserTag
+							user={model.user}
+							field={model.user}
+							key={model.user.user_id}
+						/>
 
+						<PerformanceOptions model={model} />
+					</Column>
+				))}
 				<AddContributorDropdown
 					searchResults={performerSearchResults}
 					searchInput={search}
@@ -164,17 +168,26 @@ const PerformanceForm = observer((props) => {
 					onSelect={(selection) => {
 						if (
 							!model.performers.array.filter(
-								(v) => v.user_id === selection.user_id
+								(v) => v.user.user_id === selection.user_id
 							).length
 						)
-							model.performers.add(selection)
+							model.performers.add({ user: selection })
 						setSearch("")
 					}}
-					onUnselect={(selection) =>
-						setSelected(selected.filter((v) => v !== selection))
-					}
 					placeholder={t("document:performance.roles.addPerformer")}
 				/>
+
+				{/*
+					  ////////////////
+					  j'ai commenté-out cette section maintenant tu peux choisir un user et faire apparaite
+					  les options  tu kes retrouvera à partir de la ligne #154
+					  ///////////////
+					  
+					  {setSearch && (
+						<Column style={Styles.dropdown}>
+							<PerformanceOptions />
+						</Column>
+					)}*/}
 
 				{/* 
 					<AddCollaboratorDropdown
@@ -207,12 +220,35 @@ const PerformanceForm = observer((props) => {
 
 export default PerformanceForm
 
-export function PerformanceOptions(props) {
+export const PerformanceOptions = observer((props) => {
+	//////////
+	// un peu plus complexe, car maintenant chaque performer est
+	// un model qui ressemble comme ceci :
+	// {
+	//   user:{user_id:"" ....},
+	//   type:"string" 'principle' | 'featured' | 'bandMember' | 'accompanying'
+	//   isSinger:boolean,
+	//   isMmusician:boolean,
+	//   instruments : [{
+	//        instrument:{id:"",name:""}
+	//        role:{id:"",name:""}
+	//   }]
+	// }
+	/////////
+	/**
+	 *
+	 */
+	const model: PerformerModel = props.model
+
 	const { t } = useTranslation()
 	const [showInstruments, setShowInstruments] = useState()
-	const searchResults = ["Guitare électrique", "Guitare basse", "Guitare jazz"]
+
 	const [selected, setSelected] = useState("")
 	const [search, setSearch] = useState("")
+
+	const searchResults = InstrumentList.filter((instr) =>
+		new RegExp(search, "i").test(instr.name)
+	)
 
 	return (
 		<Column>
@@ -284,8 +320,12 @@ export function PerformanceOptions(props) {
 					</Dropdown> */}
 
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
-						<CheckBox label={t("general:checkbox.singer")} />
 						<CheckBox
+							label={t("general:checkbox.singer")}
+							field={model.isSinger}
+						/>
+						<CheckBox
+							field={model.isMusician}
 							onChange={setShowInstruments}
 							checked={showInstruments}
 							label={t("general:checkbox.musician")}
@@ -297,9 +337,7 @@ export function PerformanceOptions(props) {
 							<AddInstrumentDropdown
 								style={{ flex: 1 }}
 								placeholder={t("document:performance.addInstrument")}
-								searchResults={searchResults.filter((v) =>
-									v ? v.toLowerCase().indexOf(search.toLowerCase()) > -1 : true
-								)}
+								searchResults={searchResults}
 								search={search}
 								onSearchChange={setSearch}
 								selection={selected}
@@ -313,4 +351,4 @@ export function PerformanceOptions(props) {
 			<Hairline />
 		</Column>
 	)
-}
+})
