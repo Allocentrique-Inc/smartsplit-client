@@ -41,6 +41,7 @@ export default class CopyrightSplit extends SplitPageState {
 				shares: share.shares,
 				roles: share.roles,
 				percent: percent,
+				locked: share.locked || this.shares.length === 1,
 			}
 		})
 	}

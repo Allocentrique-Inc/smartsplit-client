@@ -47,7 +47,6 @@ export default function Autocomplete({
 	const { t } = useTranslation()
 	const renderSearchResults = () => {
 		//console.log(alwaysShowAdd)
-		console.log(children)
 		return (
 			<>
 				<ScrollView style={FormStyles.select_scroll}>

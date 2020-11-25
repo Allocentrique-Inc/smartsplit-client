@@ -7,6 +7,11 @@ export default class CopyrightSplitModel extends RightSplitModel {
 	@observable roles = new Field(this, "roles", { type: FieldType.collection })
 	@observable comment = new Field(this, "comment", { type: FieldType.string })
 	@observable vote = new Field(this, "vote", { type: FieldType.string })
+	@observable locked = false
+
+	toJS() {
+		return { ...super.toJS(), locked: this.locked }
+	}
 }
 
 /**

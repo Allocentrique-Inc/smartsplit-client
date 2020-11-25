@@ -6,6 +6,10 @@ export default class RecordingSplitModel extends RightSplitModel {
 	@observable function = new Field(this, "function", { type: FieldType.string })
 	@observable comment = new Field(this, "comment", { type: FieldType.string })
 	@observable vote = new Field(this, "vote", { type: FieldType.string })
+	@observable locked = false
+	toJS() {
+		return { ...super.toJS(), locked: this.locked }
+	}
 }
 
 export const initData = {

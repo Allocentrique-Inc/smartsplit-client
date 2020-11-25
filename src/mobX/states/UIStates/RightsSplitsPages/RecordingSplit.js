@@ -27,6 +27,7 @@ export default class RecordingSplit extends SplitPageState {
 				shares: share.shares,
 				function: share.function,
 				percent: percent,
+				locked: share.locked || this.shares.length === 1,
 			}
 		})
 	}

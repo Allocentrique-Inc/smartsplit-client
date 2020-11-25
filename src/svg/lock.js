@@ -25,7 +25,7 @@ export default function LockIcon(props) {
 				stroke={color}
 				strokeWidth="2"
 				strokeLinecap="round"
-				stroke-linejoin="round"
+				strokeLinejoin="round"
 			/>
 		</Svg>
 	)

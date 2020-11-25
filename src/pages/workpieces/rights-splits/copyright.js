@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { View } from "react-native"
+import { View, TouchableWithoutFeedback } from "react-native"
 import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
@@ -9,8 +9,9 @@ import SplitChart, {
 	DualSplitChart,
 } from "../../../smartsplit/components/split-chart"
 import CircledC from "../../../svg/circled-c"
+import Lock from "../../../svg/lock"
+import Unlock from "../../../svg/unlock"
 import {
-	CheckBoxGroup,
 	CheckBoxGroupButton,
 	RadioGroup,
 	RadioGroupButton,
@@ -25,6 +26,7 @@ import { runInAction } from "mobx"
 import PercentageInput from "../../../forms/percentage"
 import { useSplitsPagesState } from "../../../mobX/hooks"
 import { CHART_WINDOW_RATIO } from "../../../mobX/states/UIStates/RightsSplitsPages/SplitPageState"
+import { CheckBoxGroup } from "../../../forms/checkbox"
 
 const CopyrightForm = observer(() => {
 	const copyrightSplit = useRightsSplits("copyright")
@@ -32,7 +34,6 @@ const CopyrightForm = observer(() => {
 	const { sharesData, shareTotal } = pageState
 	const { t } = useTranslation("rightsSplits")
 	const [styles, setStyles] = useState({})
-
 	useEffect(() => {
 		setStyles(pageState.getStyles(window.outerWidth))
 	}, [window.outerWidth])
@@ -43,6 +44,14 @@ const CopyrightForm = observer(() => {
 	// 	copyrightSplit.addShareholder("c84d5b32-25ee-48df-9651-4584b4b78f28")
 	// }, [])
 
+	const LockButton = ({ id, locked }) => (
+		<TouchableWithoutFeedback
+			onPress={() => copyrightSplit.toggleShareLock(id)}
+		>
+			<View>{locked ? <Lock /> : <Unlock />}</View>
+		</TouchableWithoutFeedback>
+	)
+
 	function renderShareCards() {
 		return sharesData.map((share, i) => (
 			<ShareCard
@@ -51,7 +60,11 @@ const CopyrightForm = observer(() => {
 				color={pageState.colorByIndex(i)}
 				sharePercent={share.percent}
 				onClose={() => copyrightSplit.removeShareholder(share.id)}
-				manual={copyrightSplit.mode === "manual"}
+				bottomAction={
+					copyrightSplit.mode === "manual" ? (
+						<LockButton id={share.id} locked={share.locked} />
+					) : null
+				}
 			>
 				<CheckBoxGroup
 					selection={share.roles}
@@ -88,6 +101,7 @@ const CopyrightForm = observer(() => {
 								color={pageState.colorByIndex(i)}
 								step={0.01}
 								value={share.shares}
+								disabled={share.locked}
 								onChange={(value) =>
 									copyrightSplit.updateSharesProRata(share.id, value)
 								}

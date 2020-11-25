@@ -36,12 +36,23 @@ export default class SplitState {
 		!!share && this.shareholders.get(id).setFields(share)
 	}
 
-	@action addShareholder(id, share = this.initShareData) {
+	@action addShareholder(id, shareData = this.initShareData) {
 		if (this.shareholders.has(id)) {
 			return
 		}
 		const newShare = new this.shareModel(id)
-		newShare.init(share)
+		newShare.init(shareData)
+		// If the split has manual mode, check if the other shares are all locked.
+		// In that case, lock also the new share.
+		if (newShare.locked !== null && this.shareholders.size > 0) {
+			const unlockedShareNb = this.sharesValues.reduce(
+				(n, current) => (!current.locked ? ++n : n),
+				0
+			)
+			if (unlockedShareNb === 0) {
+				newShare.locked = true
+			}
+		}
 		this.shareholders.set(id, newShare)
 	}
 
@@ -129,13 +140,15 @@ export default class SplitState {
 		}
 		// Difference between actual share and value to apply
 		// console.log("UPDATE SHARE", this.shareholders.get(id))
-
-		const diff = value - this.shareholders.get(id).shares.value
+		const oldValue = this.shareholders.get(id).shares.value
+		const diff = value - oldValue
 		// Select other candidate shares
 		const sortedShares = [...this.shareholders.values()]
-			.filter((share) => share.shareholderId !== id)
+			.filter((share) => share.shareholderId !== id && !share.locked)
 			.sort((a, b) => a.shares.value - b.shares.value)
-
+		if (sortedShares.length === 0) {
+			return
+		}
 		// If diff < 0, we subtract a portion from the shareholder and then
 		// splitting it between other shareholders
 		if (diff < 0) {
@@ -174,5 +187,32 @@ export default class SplitState {
 		}
 
 		this.shareholders.get(id).setValue("shares", value)
+	}
+
+	/**
+	 *	Action that toggles lock state of the share with the provided id.
+	 *	Detect if the action is a locking or an unlocking. In the first case,
+	 *	if there is only one share unlocked, the action locks it too to prevent the
+	 * 	user from manually modifying it. Otherwise it would provoke a UI bug, the
+	 *	corresponding slider UI would react without making change to the actual shares.
+	 **/
+	@action toggleShareLock(id) {
+		const share = this.shareholders.get(id)
+		if (share.locked) {
+			const otherShares = this.sharesValues.filter(
+				(share) => share.shareholderId !== id && share.locked
+			)
+			otherShares.forEach(
+				(share) => (this.shareholders.get(share.shareholderId).locked = false)
+			)
+		} else {
+			const otherShares = this.sharesValues.filter(
+				(share) => share.shareholderId !== id && !share.locked
+			)
+			if (otherShares.length === 1) {
+				this.shareholders.get(otherShares[0].shareholderId).locked = true
+			}
+		}
+		this.shareholders.get(id).locked = !share.locked
 	}
 }
