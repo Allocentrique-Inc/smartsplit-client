@@ -11,29 +11,27 @@ import { View } from "react-native"
 import SplitChart from "../../../smartsplit/components/split-chart"
 import { observer } from "mobx-react"
 import { useRightsSplits } from "../context"
-import { useSplitsPagesState } from "../../../mobX/hooks"
-
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
-import { CHART_WINDOW_RATIO } from "../../../mobX/states/UIStates/RightsSplitsPages/SplitPageState"
+import { CHART_WINDOW_RATIO } from "../../../mobX/states/WorkpieceStates/RightSplitStates/UIStates/SplitUIState"
 
 const PerformanceForm = observer(() => {
-	const performanceSplit = useRightsSplits("performance")
-	const pageState = useSplitsPagesState("performance")
+	const { domainState, UIState } = useRightsSplits().performance
 	const { t } = useTranslation("rightsSplits")
 	const [styles, setStyles] = useState({})
 
 	useEffect(() => {
-		setStyles(pageState.getStyles(window.outerWidth))
+		setStyles(UIState.getStyles(window.outerWidth))
 	}, [window.outerWidth])
 
 	//FOR TESTING PURPOSE
 	// React.useEffect(() => {
-	// 	performanceSplit.addShareholder("235556b5-3bbb-4c90-9411-4468d873969b")
-	// 	performanceSplit.addShareholder("c84d5b32-25ee-48df-9651-4584b4b78f28")
+	// 	domainState.addShareholder("4f4950de-e5cd-41ea-84cb-997fc8f9183f")
+	// 	domainState.addShareholder("4154a7d5-578a-4fd9-b43b-98b1330c0fd1")
 	// }, [])
+
 	function genSelectOptions() {
-		return performanceSplit.statusValues.map((status) => {
+		return domainState.statusValues.map((status) => {
 			return {
 				key: status,
 				value: (
@@ -47,25 +45,25 @@ const PerformanceForm = observer(() => {
 		})
 	}
 	function renderShareCards() {
-		return pageState.sharesData.map((share, i) => (
+		return UIState.sharesData.map((share) => (
 			<ShareCard
 				key={share.id}
 				shareholderId={share.id}
-				color={pageState.colorByIndex(i)}
+				color={UIState.shareholderColors.get(share.id)}
 				sharePercent={share.percent}
-				onClose={() => performanceSplit.removeShareholder(share.id)}
+				onClose={() => domainState.removeShareholder(share.id)}
 			>
 				<Select
 					placeholder={t("status")}
 					options={genSelectOptions()}
 					value={share.status}
-					onChange={(value) => performanceSplit.setShareStatus(share.id, value)}
+					onChange={(value) => domainState.setShareStatus(share.id, value)}
 					style={styles.selectFrame}
 				/>
 				<CheckBoxGroup
 					selection={share.roles}
 					onChange={(roles) =>
-						performanceSplit.updateShareField(share.id, "roles", roles)
+						domainState.updateShareField(share.id, "roles", roles)
 					}
 				>
 					<Row style={styles.checkboxesContainer}>
@@ -88,7 +86,7 @@ const PerformanceForm = observer(() => {
 						progress={share.percent}
 						size="xsmall"
 						style={{ flex: 1 }}
-						color={pageState.colorByIndex(i)}
+						color={UIState.shareholderColors.get(share.id)}
 					/>
 					<Text bold>{formatPercentage(share.percent)}</Text>
 				</Row>
@@ -99,7 +97,7 @@ const PerformanceForm = observer(() => {
 	return (
 		<Row
 			onLayout={(e) =>
-				(pageState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
+				(UIState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
 			}
 		>
 			<Column of="section" flex={1}>
@@ -118,16 +116,16 @@ const PerformanceForm = observer(() => {
 				<Column of="component">
 					{renderShareCards()}
 					<AddCollaboratorDropdown
-						onSelect={performanceSplit.addShareholder}
+						onSelect={(id) => domainState.addShareholder(id)}
 						placeholder={t("addCollab")}
 					/>
 				</Column>
 			</Column>
 			<View style={styles.spacer} />
 			<Column>
-				{performanceSplit.mode && (
+				{domainState.mode && (
 					<View style={styles.chart}>
-						<SplitChart {...pageState.genChartProps()} />
+						<SplitChart {...UIState.genChartProps()} />
 					</View>
 				)}
 			</Column>

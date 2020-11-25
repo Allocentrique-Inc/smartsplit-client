@@ -8,7 +8,6 @@ import AdminState from "./states/AdminState"
 import WorkpieceState from "./states/WorkpieceState"
 import ContributorsState from "./states/ContributorsState"
 import CollaboratorsState from "./states/CollaboratorsState"
-import SplitsPagesState from "./states/UIStates/RightsSplitsPages/SplitsPagesState"
 import SettingsState from "./states/SettingsState"
 /**
  * L'instance de base est passé a tout les sub-stores pour que chaque store
@@ -27,7 +26,6 @@ class RootStore {
 	workpieces = new WorkpieceState(this)
 	collaborators = new CollaboratorsState(this)
 	contributors = new ContributorsState(this)
-	splitsPages = new SplitsPagesState(this)
 	settings = new SettingsState(this)
 	async init(postLogin = false) {
 		await this.users.init()

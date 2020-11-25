@@ -1,27 +1,23 @@
 import { action, computed, observable } from "mobx"
-import { Colors, Metrics } from "../../../../theme"
-import { capValueWithinRange } from "../../../../utils/utils"
+import { Metrics } from "../../../../../theme"
+import { capValueWithinRange } from "../../../../../utils/utils"
 
 export const CHART_MAX_SIZE = 384
 export const CHART_WINDOW_RATIO = 0.45
 /**
- *	Base class for splits pages. Splits UI
- *	states derive from it
+ *	Base class for splits UI
+ *	states
  **/
-export default class SplitPageState {
-	constructor(logo) {
+export default class SplitUIState {
+	constructor(rightSplit, logo, shareholderColors) {
 		this.logo = logo
+		this.rightSplit = rightSplit
+		this.shareholderColors = shareholderColors
 	}
 	pageTitle
 	progress
 	logo
-	shareColors = Object.values(Colors.secondaries)
-	@observable domainState
 	@observable _chartSize = 0
-	colorByIndex(index) {
-		return this.shareColors[index % this.shareColors.length]
-	}
-
 	getStyles(windowWidth) {
 		return {
 			spacer:
@@ -45,11 +41,11 @@ export default class SplitPageState {
 		shares = shares ? shares : this.shares
 		return shares
 			.filter((share) => share.shares)
-			.map((share, i) => ({
+			.map((share) => ({
 				key: share.shareholderId,
 				name: share.shareholderId,
 				share: share.shares,
-				color: this.colorByIndex(i),
+				color: this.shareholderColors.get(share.shareholderId),
 			}))
 	}
 
@@ -65,17 +61,16 @@ export default class SplitPageState {
 		this._chartSize = capValueWithinRange(size, [0, CHART_MAX_SIZE])
 	}
 
-	@action init(domainState, pageTitle) {
-		this.domainState = domainState
+	@action init(pageTitle) {
 		this.pageTitle = pageTitle
 	}
 
 	@computed get shares() {
-		return this.domainState.sharesValues
+		return this.rightSplit.domainState.sharesValues
 	}
 
 	@computed get shareTotal() {
-		return this.domainState.shareTotal
+		return this.rightSplit.domainState.shareTotal
 	}
 
 	@computed get chartSize() {
