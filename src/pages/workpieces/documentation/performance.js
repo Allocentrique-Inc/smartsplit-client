@@ -135,46 +135,48 @@ const PerformanceForm = observer((props) => {
 	)
 
 	return (
-		<>
-			<Row>
-				<Column of="group" flex={5}>
-					<Text action bold style={Styles.category}>
-						<PerformanceIcon style={Styles.logo} />
-						{t("document:performance.category")}
-						<Row padding="tiny" />
-					</Text>
-					<Heading level={1}>{t("document:performance.title")}</Heading>
-					<Paragraph>{t("document:performance.paragraph")}</Paragraph>
+		<Row>
+			<Column of="group" flex={5}>
+				<Text action bold style={Styles.category}>
+					<PerformanceIcon style={Styles.logo} />
+					{t("document:performance.category")}
+					<Row padding="tiny" />
+				</Text>
+				<Heading level={1}>{t("document:performance.title")}</Heading>
+				<Paragraph>{t("document:performance.paragraph")}</Paragraph>
 
-					<Spacer of="group" />
+				<Spacer of="group" />
 
-					{model.performers.array.map((user) => (
+				{model.performers.array.map((user) => (
+					<>
 						<UserTag user={user} field={model.performers} key={user.user_id} />
-					))}
-					<AddContributorDropdown
-						searchResults={performerSearchResults}
-						searchInput={search}
-						onSearchChange={setSearch}
-						alwaysShowAdd
-						onSelect={(selection) => {
-							if (
-								!model.performers.array.filter(
-									(v) => v.user_id === selection.user_id
-								).length
-							)
-								model.performers.add(selection)
-							setSearch("")
-						}}
-						placeholder={t("document:performance.roles.addPerformer")}
-					/>
-
-					{setSearch && (
 						<Column style={Styles.dropdown}>
 							<PerformanceOptions />
 						</Column>
-					)}
+					</>
+				))}
 
-					{/* 
+				<AddContributorDropdown
+					searchResults={performerSearchResults}
+					searchInput={search}
+					onSearchChange={setSearch}
+					alwaysShowAdd
+					onSelect={(selection) => {
+						if (
+							!model.performers.array.filter(
+								(v) => v.user_id === selection.user_id
+							).length
+						)
+							model.performers.add(selection)
+						setSearch("")
+					}}
+					onUnselect={(selection) =>
+						setSelected(selected.filter((v) => v !== selection))
+					}
+					placeholder={t("document:performance.roles.addPerformer")}
+				/>
+
+				{/* 
 					<AddCollaboratorDropdown
 						searchResults={searchResults}
 						searchInput={search}
@@ -182,25 +184,24 @@ const PerformanceForm = observer((props) => {
 						onSelect={(selection) => console.log(selection)}
 						placeholder={t("document:performance.roles.addPerformer")}
 					/> */}
-				</Column>
-				<Flex />
-				<Column of="group" flex={4}>
-					<Column of="component" padding="component" layer="underground">
-						<Column of="inside">
-							<Text small bold tertiary>
-								{t("document:help")}
-							</Text>
-							<Hairline />
-						</Column>
-						<Heading level={4}>{t("document:performance.what")}</Heading>
-						<Text secondary>
-							Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
-							dolor sit amet.
+			</Column>
+			<Flex />
+			<Column of="group" flex={4}>
+				<Column of="component" padding="component" layer="underground">
+					<Column of="inside">
+						<Text small bold tertiary>
+							{t("document:help")}
 						</Text>
+						<Hairline />
 					</Column>
+					<Heading level={4}>{t("document:performance.what")}</Heading>
+					<Text secondary>
+						Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
+						dolor sit amet.
+					</Text>
 				</Column>
-			</Row>
-		</>
+			</Column>
+		</Row>
 	)
 })
 
@@ -219,17 +220,8 @@ export function PerformanceOptions(props) {
 				<Column padding="component" layer="left_overground" />
 				<Column of="group" flex={5}>
 					<IconDescriptionDropdown />
-					<Dropdown
+					{/* <Dropdown
 						label={t("document:performance.whichPerformance")}
-						/* 	placeholder={
-								<>
-									<UnlockDownload />
-									<Text>
-										{t("document:files.dropdownDownloads.invitation")}
-									</Text>
-									<Flex />
-								</>
-							} */
 						noFocusToggle
 						tooltip=""
 					>
@@ -289,7 +281,7 @@ export function PerformanceOptions(props) {
 								</Column>
 							</Row>
 						</Column>
-					</Dropdown>
+					</Dropdown> */}
 
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
 						<CheckBox label={t("general:checkbox.singer")} />
@@ -312,45 +304,13 @@ export function PerformanceOptions(props) {
 								onSearchChange={setSearch}
 								selection={selected}
 								onSelect={(selection) => setSelected([...selected, selection])}
-								onUnselect={(selection) =>
-									setSelected(selected.filter((i) => i !== selection))
-								}
 							/>
 						</Column>
 					)}
 				</Column>
 			</Row>
-
 			<Spacer of="section" />
-
-			<Column of="section">
-				<Hairline />
-
-				{/* <AddCollaboratorDropdown
-					searchResults={props.searchResults}
-					searchInput={props.search}
-					onSearchChange={props.setSearch}
-					onSelect={(selection) => console.log(selection)}
-					placeholder={t("forms:labels.dropdowns.addCollaborator")}
-				/> */}
-
-				<AddContributorDropdown
-					searchResults={props.performerSearchResults}
-					searchInput={props.search}
-					onSearchChange={props.setSearch}
-					alwaysShowAdd
-					onSelect={(selection) => {
-						if (
-							!model.performers.array.filter(
-								(v) => v.user_id === selection.user_id
-							).length
-						)
-							model.performers.add(selection)
-						props.setSearch("")
-					}}
-					placeholder={t("document:performance.roles.addPerformer")}
-				/>
-			</Column>
+			<Hairline />
 		</Column>
 	)
 }

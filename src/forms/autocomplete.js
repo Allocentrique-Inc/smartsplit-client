@@ -36,6 +36,7 @@ const Styles = StyleSheet.create({
  */
 export default function Autocomplete({
 	onSelect,
+	onUnselect,
 	search,
 	alwaysShowAdd,
 	onSearchChange, // = () => {},
