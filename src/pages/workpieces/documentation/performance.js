@@ -171,10 +171,10 @@ const PerformanceForm = observer((props) => {
 
 				<Spacer of="group" />
 
-				{model.performers.array.map((model, index) => (
-					<Column style={Styles.dropdown} key={"u" + model.user.user_id}>
+				{model.performers.array.map((performer, index) => (
+					<Column style={Styles.dropdown} key={"u" + performer.user.user_id}>
 						<PerformanceOptions
-							model={model}
+							model={performer}
 							index={index}
 							field={model.performers}
 						/>
@@ -259,6 +259,7 @@ export const PerformanceOptions = observer((props) => {
 	 * }
 	 */
 	const { model, field, index } = props
+	console.log(field)
 	const { t } = useTranslation()
 	const [showInstruments, setShowInstruments] = useState()
 
