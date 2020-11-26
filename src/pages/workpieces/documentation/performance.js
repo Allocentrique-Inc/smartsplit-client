@@ -274,7 +274,7 @@ export const PerformanceOptions = observer((props) => {
 	]
 
 	return (
-		<Column>
+		<Column of="component">
 			<Row
 				of="component"
 				padding="tiny"
@@ -284,7 +284,7 @@ export const PerformanceOptions = observer((props) => {
 				<Column valign="spread" align="center" padding="tiny">
 					<UserAvatar size="small" user={model.user.value} />
 				</Column>
-				<Column flex={1} padding="tiny">
+				<Column  flex={1} padding="tiny">
 					<Text bold size="tiny">
 						{`${model.user.value.firstName} ${model.user.value.lastName} ${
 							model.user.value.artistName
@@ -303,7 +303,7 @@ export const PerformanceOptions = observer((props) => {
 			</Row>
 			<Row>
 				<Column padding="component" layer="left_overground" />
-				<Column of="group" flex={5}>
+				<Column of="component" flex={5}>
 				<Group>
 				{/**
 				 * Below we filter options to exclude those already in our list
@@ -332,7 +332,6 @@ export const PerformanceOptions = observer((props) => {
 						setSelected(v)
 					}}
 				/>
-				
 			</Group>
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
 						<CheckBox field={model.isSinger} />
@@ -340,7 +339,7 @@ export const PerformanceOptions = observer((props) => {
 					</CheckBoxGroup>
 
 					{model.isMusician.value && (
-						<Column style={Styles.dropdown}>
+						<Column >		
 							{model.instruments.array.map((entry, index) => (
 								<AddInstrumentDropdown
 									hideEmpty
@@ -355,7 +354,7 @@ export const PerformanceOptions = observer((props) => {
 								/>
 							))}
 							<AddInstrumentDropdown
-								style={{ flex: 1 }}
+								style={{ flex: 1 }}					
 								placeholder={t("document:performance.addInstrument")}
 								onSelect={(selection) => {
 									model.instruments.add({ instrument: selection })

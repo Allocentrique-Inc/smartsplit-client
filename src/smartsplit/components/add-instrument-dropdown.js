@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import Autocomplete from "../../forms/autocomplete"
 import { TouchableWithoutFeedback, StyleSheet } from "react-native"
-import { Row, Column, Layer } from "../../layout"
+import { Row, Column, Layer, Spacer } from "../../layout"
 import { Text } from "../../text"
 import { Colors } from "../../theme"
 import PlusCircle from "../../svg/plus-circle"
@@ -35,7 +35,7 @@ export default function AddInstrumentDropdown({
 	if (!selection && hideEmpty) return null
 	else
 		return (
-			<Column of="component">
+			<Column >
 				<Autocomplete
 					leftIcon={false}
 					search={instrument}
@@ -67,6 +67,7 @@ export default function AddInstrumentDropdown({
 						</TouchableWithoutFeedback>
 					)}
 				</Autocomplete>
+				<Spacer of="inside"/>
 			</Column>
 		)
 }
