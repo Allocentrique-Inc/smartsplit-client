@@ -267,10 +267,10 @@ export const PerformanceOptions = observer((props) => {
 	const [selected, setSelected] = useState()
 
 	const artistTypes = [
-	"mainArtist",
-	"guestArtist",
-	"groupMember",
-	"backupArtist",
+		"mainArtist",
+		"guestArtist",
+		"groupMember",
+		"backupArtist",
 	]
 
 	return (
@@ -284,7 +284,7 @@ export const PerformanceOptions = observer((props) => {
 				<Column valign="spread" align="center" padding="tiny">
 					<UserAvatar size="small" user={model.user.value} />
 				</Column>
-				<Column  flex={1} padding="tiny">
+				<Column flex={1} padding="tiny">
 					<Text bold size="tiny">
 						{`${model.user.value.firstName} ${model.user.value.lastName} ${
 							model.user.value.artistName
@@ -304,42 +304,44 @@ export const PerformanceOptions = observer((props) => {
 			<Row>
 				<Column padding="component" layer="left_overground" />
 				<Column of="component" flex={5}>
-				<Group>
-				{/**
-				 * Below we filter options to exclude those already in our list
-				 * model.ids.value is an array of {name:"org", value:"id"}
-				 */}
+					<Group>
+						{/**
+						 * Below we filter options to exclude those already in our list
+						 * model.ids.value is an array of {name:"org", value:"id"}
+						 */}
 
-			{/* ToFix: Longer text is not wrapper in dropdown */}
-				<IconDescriptionSelect
-					options={artistTypes.map((artist) => ({
-					name: t(`document:performance.dropdown.${artist}`),
-					key: artist,
-					description: t(`document:performance.description.${artist}`),
-				}))}
-					value={selected}
-					placeholder={
-						selected ? (
-							<IconDescriptionItem
-								name={t(`document:performance.dropdown.${selected}`)}
-								description={t(`document:performance.description.${selected}`)}
-							/>
-						) : (
-							t("document:performance.whichPerformance")
-						)
-					}
-					onChange={(v) => {
-						setSelected(v)
-					}}
-				/>
-			</Group>
+						{/* ToFix: Longer text is not wrapper in dropdown */}
+						<IconDescriptionSelect
+							options={artistTypes.map((artist) => ({
+								name: t(`document:performance.dropdown.${artist}`),
+								key: artist,
+								description: t(`document:performance.description.${artist}`),
+							}))}
+							value={selected}
+							placeholder={
+								selected ? (
+									<IconDescriptionItem
+										name={t(`document:performance.dropdown.${selected}`)}
+										description={t(
+											`document:performance.description.${selected}`
+										)}
+									/>
+								) : (
+									t("document:performance.whichPerformance")
+								)
+							}
+							onChange={(v) => {
+								setSelected(v)
+							}}
+						/>
+					</Group>
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
 						<CheckBox field={model.isSinger} />
 						<CheckBox field={model.isMusician} />
 					</CheckBoxGroup>
 
 					{model.isMusician.value && (
-						<Column >		
+						<Column>
 							{model.instruments.array.map((entry, index) => (
 								<AddInstrumentDropdown
 									hideEmpty
@@ -354,7 +356,7 @@ export const PerformanceOptions = observer((props) => {
 								/>
 							))}
 							<AddInstrumentDropdown
-								style={{ flex: 1 }}					
+								style={{ flex: 1 }}
 								placeholder={t("document:performance.addInstrument")}
 								onSelect={(selection) => {
 									model.instruments.add({ instrument: selection })

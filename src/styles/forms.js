@@ -76,7 +76,6 @@ const FormStyles = StyleSheet.create({
 		borderTopWidth: 1,
 	},
 
-
 	select_item_selected: {
 		backgroundColor: Colors.background.underground,
 	},

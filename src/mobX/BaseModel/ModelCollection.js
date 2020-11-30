@@ -1,7 +1,6 @@
 import BaseModel from "./BaseModel"
 import Field, { FieldType } from "./Field"
-import { observable, computed, action } from "mobx"
-
+import { observable, computed, action, toJS } from "mobx"
 /**
  * TODO remove this for mobx6 upgrade
  */
@@ -80,6 +79,6 @@ export default class ModelCollection extends Field {
 	}
 
 	toJS() {
-		return this.value.map((model) => model.toJS())
+		return toJS(this.value.map((model) => model.toJS()))
 	}
 }

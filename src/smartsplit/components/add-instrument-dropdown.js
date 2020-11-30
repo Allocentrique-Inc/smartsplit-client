@@ -35,7 +35,7 @@ export default function AddInstrumentDropdown({
 	if (!selection && hideEmpty) return null
 	else
 		return (
-			<Column >
+			<Column>
 				<Autocomplete
 					leftIcon={false}
 					search={instrument}
@@ -67,7 +67,7 @@ export default function AddInstrumentDropdown({
 						</TouchableWithoutFeedback>
 					)}
 				</Autocomplete>
-				<Spacer of="inside"/>
+				<Spacer of="inside" />
 			</Column>
 		)
 }
