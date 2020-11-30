@@ -8,26 +8,20 @@ import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
-import { Colors, Metrics } from "../../../theme"
+import { Metrics } from "../../../theme"
 import RecordingIcon from "../../../svg/recording"
-import XIcon from "../../../svg/x"
 import UserTag from "../../../smartsplit/user/UserTag"
 import {
-	RadioGroupButton,
-	RadioButton,
-	RadioGroup,
-	CheckBox,
-	CheckBoxGroup,
 	Dropdown,
 	DateField,
 	TextField,
+	SearchAndTag
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 import AddContributorDropdown from "../../../smartsplit/components/AddContributorDropdown"
 import { observer } from "mobx-react"
 import {
 	useArtistAutocomplete,
-	useAuthUser,
 	useDocsModel,
 	ResultsOrder,
 } from "../../../mobX/hooks"
@@ -139,6 +133,10 @@ const masterEngeSearchResults = searchFilteredResults.filter((result) =>
 const producerSearchResults = searchFilteredResults.filter((result) =>
 	modelValueFilter(result, model.producedBy)
 )
+
+const searchResultsStudio = ["Zut Records", "Flip Studio", "Flop Studio"]
+const [searchStudio, setSearchStudio] = useState("")
+const [selectedStudio, setSelectedStudio] = useState("")
 
 return (
 	<>
@@ -289,16 +287,34 @@ return (
 					placeholder={t("forms:placeholders.date")}
 					tooltip=""
 				/>
-				<TextField
+				<SearchAndTag
+					noIcon={true}
+					label={t("document:recording.studio")}
+					searchResults={searchResultsStudio.filter(
+						(g) => g.toLowerCase().indexOf(searchStudio.toLowerCase()) > -1
+					)}
+					search={searchStudio}
+					onSearchChange={setSearchStudio}
+					selection={selectedStudio}
+					onSelect={(selection) =>
+						setSelectedStudio([...selectedStudio, selection])
+					}
+					onUnselect={(selection) =>
+						setSelectedStudio(selectedStudio.filter((i) => i !== selection))
+					}
+					placeholder={t("document:recording.searchStudio")}
+					tooltip=""
+				/>
+				{/* <TextField
 					name="studio"
 					label={t("document:recording.studio")}
 					placeholder={t("document:recording.searchStudio")}
 					tooltip=""
-				/>
+				/> */}
 				<Column of="tiny">
 				<AddContributorDropdown
 						label={t("document:recording.roles.production")}
-						searchResults={masterEngeSearchResults}
+						searchResults={producerSearchResults}
 						searchInput={search}
 						onSearchChange={setSearch}
 						alwaysShowAdd
