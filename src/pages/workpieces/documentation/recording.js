@@ -20,7 +20,7 @@ import {
 	DateField,
 	TextField,
 } from "../../../forms"
-import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
+import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
 
 const Styles = StyleSheet.create({
 	category: {

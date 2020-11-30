@@ -16,7 +16,7 @@ import {
 	CheckBox,
 	CheckBoxGroup,
 } from "../../../forms"
-import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
+import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
 import AddInstrumentDropdown from "../../../smartsplit/components/add-instrument-dropdown"
 
 const Styles = StyleSheet.create({
