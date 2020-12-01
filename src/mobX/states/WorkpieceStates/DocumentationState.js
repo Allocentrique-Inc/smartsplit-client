@@ -6,7 +6,7 @@ import DocRecordingModel from "../../models/workpieces/documentation/DocRecordin
 import DocFilesModel from "../../models/workpieces/documentation/DocFilesModel"
 import DocReleaseModel from "../../models/workpieces/documentation/DocReleaseModel"
 import DocInfosModel from "../../models/workpieces/documentation/DocInfosModel"
-export default class Documentation {
+export default class DocumentationState {
 	workpiece
 	@observable creation = new DocCreationModel()
 	@observable performance = new DocPerformanceModel()
