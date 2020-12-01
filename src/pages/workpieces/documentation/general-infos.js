@@ -17,6 +17,7 @@ import AddGenreDropdown from "../../../smartsplit/components/AddGenreDropdown"
 import { useDocsModel } from "../../../mobX/hooks"
 import { toJS } from "mobx"
 import { observer } from "mobx-react"
+import genres from "../../../../assets/data/genres-smartsplit"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -93,18 +94,17 @@ export const GeneralInfosForm = observer((props) => {
 	const [selected, setSelected] = useState("")
 	const [search, setSearch] = useState("") */
 
-	const searchResultsGenres = ["Electrofunk", "Future Funk", "Mega Funk"]
+	const [selectedGenres, setSelectedGenres] = useState("")
 	const [searchGenres, setSearchGenres] = useState("")
-	const [selectedGenres, setSelectedGenres] = useState([
-		"Electrofunk",
-		"Future Funk",
-		"Mega Funk",
-	])
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
 	const model: DocCreationModel = useDocsModel(workpieceId, "infos")
 	//console.log(model.toJS()) importer puis loger dans console pour vérifier valeurs puis comment out sinon trop
 
+		// const searchResultsGenres = ["Electrofunk", "Future Funk", "Mega Funk"]
+
+		const searchResultsGenres = genres.map(genre => genre.name)
+		
 	const fakeSearchResults = [
 		{
 			id: "123",

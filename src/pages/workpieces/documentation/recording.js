@@ -31,6 +31,7 @@ import ContributorModel from "../../../mobX/models/user/ContributorModel"
 import DocRecordingModel from "../../../mobX/models/workpieces/documentation/DocRecordingModel"
 import { toJS } from "mobx"
 import Field from "../../../mobX/BaseModel/Field"
+import studios from "../../../../assets/data/studios-smartsplit"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -134,7 +135,8 @@ const producerSearchResults = searchFilteredResults.filter((result) =>
 	modelValueFilter(result, model.producedBy)
 )
 
-const searchResultsStudio = ["Zut Records", "Flip Studio", "Flop Studio"]
+const searchResultsStudio = studios.map(studio => studio.name)
+//const searchResultsStudio = ["Zut Records", "Flip Studio", "Flop Studio"]
 const [searchStudio, setSearchStudio] = useState("")
 const [selectedStudio, setSelectedStudio] = useState("")
 
