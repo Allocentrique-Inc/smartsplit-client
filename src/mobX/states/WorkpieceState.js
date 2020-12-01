@@ -7,6 +7,7 @@ import {
 	observable,
 	reaction,
 	runInAction,
+	toJS,
 } from "mobx"
 import DocumentationModel from "../models/workpieces/documentation/DocumentationModel"
 import RightsSplits from "./WorkpieceStates/RightsSplits"
@@ -36,6 +37,8 @@ export class Workpiece extends WorkpieceObservable {
 		)
 
 		this.documentation.init()
+		//console.log(toJS(this.documentation))
+		//console.log(this.documentation.toJS())
 	}
 
 	/**
