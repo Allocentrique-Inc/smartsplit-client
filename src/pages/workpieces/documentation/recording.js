@@ -31,7 +31,7 @@ import ContributorModel from "../../../mobX/models/user/ContributorModel"
 import DocRecordingModel from "../../../mobX/models/workpieces/documentation/DocRecordingModel"
 import { toJS } from "mobx"
 import Field from "../../../mobX/BaseModel/Field"
-import studios from "../../../../assets/data/studios-smartsplit"
+import searchResultsStudio from "../../../../assets/data/studios-smartsplit"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -135,7 +135,6 @@ const producerSearchResults = searchFilteredResults.filter((result) =>
 	modelValueFilter(result, model.producedBy)
 )
 
-const searchResultsStudio = studios.map(studio => studio.name)
 //const searchResultsStudio = ["Zut Records", "Flip Studio", "Flop Studio"]
 const [searchStudio, setSearchStudio] = useState("")
 const [selectedStudio, setSelectedStudio] = useState("")
@@ -293,16 +292,22 @@ return (
 					noIcon={true}
 					label={t("document:recording.studio")}
 					searchResults={searchResultsStudio.filter(
-						(g) => g.toLowerCase().indexOf(searchStudio.toLowerCase()) > -1
-					)}
+						(g) => g.name.toLowerCase().indexOf(searchStudio.toLowerCase()) > -1
+					).splice(0, 10)}
 					search={searchStudio}
 					onSearchChange={setSearchStudio}
-					selection={selectedStudio}
+					selection={model.recordingStudio.array}
 					onSelect={(selection) =>
-						setSelectedStudio([...selectedStudio, selection])
+					{					
+							let exists = model.recordingStudio.array.filter(g => g.id === selection.id).length > 0
+							if (!exists) 
+							model.recordingStudio.add(selection)			
+					}
+						//setSelectedStudio([...selectedStudio, selection])
 					}
 					onUnselect={(selection) =>
-						setSelectedStudio(selectedStudio.filter((i) => i !== selection))
+						model.recordingStudio.remove(selection)
+						//setSelectedStudio(selectedStudio.filter((i) => i !== selection))
 					}
 					placeholder={t("document:recording.searchStudio")}
 					tooltip=""
