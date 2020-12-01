@@ -9,6 +9,11 @@ import { Button } from "../../widgets/button"
 import React from "react"
 import { Text } from "../../text"
 
+/**
+ * Collaborator Form
+ * TODO: REFACTOR TO REUSE CONTRIBUTOR FORM WITH ADDITIONAL EMAIL FIELD
+ * @type {function(): *}
+ */
 export const CollaboratorForm = observer(() => {
 	const { t } = useTranslation()
 	const model = useStorePath("collaborators", "model")
@@ -32,7 +37,6 @@ export const CollaboratorForm = observer(() => {
 			<SearchAndTag field={model.groups} searchResults={searchResults} />
 			<CheckBoxGroup
 				field={model.defaultRoles}
-				name="roles"
 				label={t("forms:labels.defaultRoles")}
 				undertext={t("forms:undertexts.defaultRoles")}
 			>
@@ -40,7 +44,7 @@ export const CollaboratorForm = observer(() => {
 					<CheckBoxGroupButton
 						value={role.value}
 						key={role.value}
-						label={role.displayValue}
+						label={role.label}
 					/>
 				))}
 			</CheckBoxGroup>
