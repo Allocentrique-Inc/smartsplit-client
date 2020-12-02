@@ -1,4 +1,4 @@
-import { observable, action, computed } from "mobx"
+import { observable, action, computed, toJS, isObservable } from "mobx"
 import DocCreationModel from "./DocCreationModel"
 import DocPerformanceModel from "./DocPerformanceModel"
 import DocLyricsModel from "./DocLyricsModel"
@@ -23,5 +23,40 @@ export default class DocumentationModel extends BaseModel {
 		this.workpiece = workpiece
 		window.docModel = this
 	}
-	// small change
+	async save(...args) {
+		console.log(`id is ${this.workpiece.id}`)
+		console.log(this.toJS())
+	}
+}
+
+/**
+ * returns an object or array of objects cleaned from other user date except user_id
+ *
+ * behavior : if an object contains a property of user_id, an object with only the user_id is returned
+ *            an object without a user_id is returned unaltered
+ *            an array of user objects will return an array of cleaned user objects
+ *
+ * @return {*} an object or an array of objects with only user_ids
+ */
+export function cleanUsersForPosting(input) {
+	// only process pure objects
+	if (isObservable(input)) input = toJS(input)
+
+	// for arrays process each entry
+	if (Array.isArray(input)) {
+		return input.map((obj) => cleanUsersForPosting(obj))
+		// for objects that are users also process
+	} else if (input.user_id) {
+		return { user_id: input.user_id }
+		// for other objects recurse into properties
+	} else if (typeof input === "object") {
+		let cleanedObject = {}
+		Object.keys(input).forEach((key) => {
+			cleanedObject[key] = cleanUsersForPosting(input[key])
+		})
+		return cleanedObject
+		// for non objects return literals
+	} else {
+		return input
+	}
 }
