@@ -92,7 +92,7 @@ const DocumentationPage = observer(() => {
 			history.push(`/workpieces/${workpiece.id}/documentation/files`)
 		type === "lyrics" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/release`)
-		type === "lyrics" &&
+		type === "links" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/lyrics`)
 	}
 
