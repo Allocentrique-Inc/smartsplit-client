@@ -1,3 +1,10 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
-export default class DocLyricsModel extends BaseModel {}
+export default class DocLyricsModel extends BaseModel {
+	texts = new Field(this, "texts", {
+		type: FieldType.object,
+		transform: (v) => v.split("\n"),
+	})
+	languages = new Field(this, "languages", { type: FieldType.set })
+	public = new Field(this, "public", { type: FieldType.bool })
+}
