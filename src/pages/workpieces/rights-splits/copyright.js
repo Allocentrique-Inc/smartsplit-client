@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { View } from "react-native"
+import { View, TouchableWithoutFeedback } from "react-native"
 import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
@@ -9,8 +9,9 @@ import SplitChart, {
 	DualSplitChart,
 } from "../../../smartsplit/components/split-chart"
 import CircledC from "../../../svg/circled-c"
+import Lock from "../../../svg/lock"
+import Unlock from "../../../svg/unlock"
 import {
-	CheckBoxGroup,
 	CheckBoxGroupButton,
 	RadioGroup,
 	RadioGroupButton,
@@ -23,39 +24,47 @@ import { formatPercentage } from "../../../utils/utils"
 import Slider from "../../../widgets/slider"
 import { runInAction } from "mobx"
 import PercentageInput from "../../../forms/percentage"
-import { useSplitsPagesState } from "../../../mobX/hooks"
-import { CHART_WINDOW_RATIO } from "../../../mobX/states/UIStates/RightsSplitsPages/SplitPageState"
+import { CheckBoxGroup } from "../../../forms/checkbox"
+import { CHART_WINDOW_RATIO } from "../../../mobX/states/WorkpieceStates/RightSplitStates/UIStates/SplitUIState"
 
 const CopyrightForm = observer(() => {
-	const copyrightSplit = useRightsSplits("copyright")
-	const pageState = useSplitsPagesState("copyright")
-	const { sharesData, shareTotal } = pageState
+	const { domainState, UIState } = useRightsSplits().copyright
+	const { sharesData, shareTotal } = UIState
 	const { t } = useTranslation("rightsSplits")
 	const [styles, setStyles] = useState({})
-
 	useEffect(() => {
-		setStyles(pageState.getStyles(window.outerWidth))
+		setStyles(UIState.getStyles(window.outerWidth))
 	}, [window.outerWidth])
 
 	//FOR TESTING PURPOSE
 	// React.useEffect(() => {
-	// 	copyrightSplit.addShareholder("235556b5-3bbb-4c90-9411-4468d873969b")
-	// 	copyrightSplit.addShareholder("c84d5b32-25ee-48df-9651-4584b4b78f28")
+	// 	domainState.addShareholder("235556b5-3bbb-4c90-9411-4468d873969b")
+	// 	domainState.addShareholder("c84d5b32-25ee-48df-9651-4584b4b78f28")
 	// }, [])
 
+	const LockButton = ({ id, locked }) => (
+		<TouchableWithoutFeedback onPress={() => domainState.toggleShareLock(id)}>
+			<View>{locked ? <Lock /> : <Unlock />}</View>
+		</TouchableWithoutFeedback>
+	)
+
 	function renderShareCards() {
-		return sharesData.map((share, i) => (
+		return sharesData.map((share) => (
 			<ShareCard
 				key={share.id}
 				shareholderId={share.id}
-				color={pageState.colorByIndex(i)}
+				color={UIState.shareholderColors.get(share.id)}
 				sharePercent={share.percent}
-				onClose={() => copyrightSplit.removeShareholder(share.id)}
-				manual={copyrightSplit.mode === "manual"}
+				onClose={() => domainState.removeShareholder(share.id)}
+				bottomAction={
+					domainState.mode === "manual" ? (
+						<LockButton id={share.id} locked={share.locked} />
+					) : null
+				}
 			>
 				<CheckBoxGroup
 					selection={share.roles}
-					onChange={(roles) => copyrightSplit.setRoles(share.id, roles)}
+					onChange={(roles) => domainState.setRoles(share.id, roles)}
 				>
 					<Row>
 						<Column flex={1} of="component">
@@ -63,7 +72,7 @@ const CopyrightForm = observer(() => {
 							<CheckBoxGroupButton
 								value="adapter"
 								label={t("roles.adapter")}
-								disabled={pageState.isAdapterDisabled(share.roles)}
+								disabled={UIState.isAdapterDisabled(share.roles)}
 							/>
 						</Column>
 						<Column flex={1} of="component">
@@ -74,29 +83,30 @@ const CopyrightForm = observer(() => {
 							<CheckBoxGroupButton
 								value="mixer"
 								label={t("roles.mixer")}
-								disabled={pageState.isMixerDisabled(share.roles)}
+								disabled={UIState.isMixerDisabled(share.roles)}
 							/>
 						</Column>
 					</Row>
 				</CheckBoxGroup>
 				<Row of="component" valign="center">
-					{copyrightSplit.mode === "manual" && (
+					{domainState.mode === "manual" && (
 						<>
 							<Slider
 								min={0}
 								max={shareTotal}
-								color={pageState.colorByIndex(i)}
+								color={UIState.shareholderColors.get(share.id)}
 								step={0.01}
 								value={share.shares}
+								disabled={share.locked}
 								onChange={(value) =>
-									copyrightSplit.updateSharesProRata(share.id, value)
+									domainState.updateSharesProRata(share.id, value)
 								}
 							/>
 							<PercentageInput
 								value={share.percent}
 								digits={2}
 								onChange={(percentage) =>
-									copyrightSplit.updateSharesProRata(
+									domainState.updateSharesProRata(
 										share.id,
 										(percentage * shareTotal) / 100
 									)
@@ -104,13 +114,13 @@ const CopyrightForm = observer(() => {
 							/>
 						</>
 					)}
-					{copyrightSplit.mode !== "manual" && (
+					{domainState.mode !== "manual" && (
 						<>
 							<ProgressBar
 								progress={share.percent}
 								size="xsmall"
 								style={{ flex: 1 }}
-								color={pageState.colorByIndex(i)}
+								color={UIState.shareholderColors.get(share.id)}
 							/>
 							<Text bold>{formatPercentage(share.percent)}</Text>
 						</>
@@ -123,7 +133,7 @@ const CopyrightForm = observer(() => {
 	return (
 		<Row
 			onLayout={(e) =>
-				(pageState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
+				(UIState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
 			}
 		>
 			<Column of="section" flex={1}>
@@ -141,8 +151,8 @@ const CopyrightForm = observer(() => {
 				</Column>
 				<Column of="group">
 					<RadioGroup
-						value={copyrightSplit.mode}
-						onChange={(mode) => runInAction(() => (copyrightSplit.mode = mode))}
+						value={domainState.mode}
+						onChange={(mode) => runInAction(() => (domainState.mode = mode))}
 					>
 						<Column of="component">
 							<RadioGroupButton value="equal" label={t("radios.equal")} />
@@ -153,7 +163,7 @@ const CopyrightForm = observer(() => {
 					<Column of="component">
 						{renderShareCards()}
 						<AddCollaboratorDropdown
-							onSelect={(id) => copyrightSplit.addShareholder(id)}
+							onSelect={(id) => domainState.addShareholder(id)}
 							placeholder={t("addCollab")}
 						/>
 					</Column>
@@ -163,13 +173,11 @@ const CopyrightForm = observer(() => {
 			<Column>
 				{sharesData.length > 0 && (
 					<View style={styles.chart}>
-						{copyrightSplit.mode === "roles" && (
-							<DualSplitChart
-								{...pageState.genChartProps(copyrightSplit.mode)}
-							/>
+						{domainState.mode === "roles" && (
+							<DualSplitChart {...UIState.genChartProps(domainState.mode)} />
 						)}
-						{copyrightSplit.mode !== "roles" && (
-							<SplitChart {...pageState.genChartProps(copyrightSplit.mode)} />
+						{domainState.mode !== "roles" && (
+							<SplitChart {...UIState.genChartProps(domainState.mode)} />
 						)}
 					</View>
 				)}

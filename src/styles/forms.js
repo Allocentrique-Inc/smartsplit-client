@@ -72,7 +72,7 @@ const FormStyles = StyleSheet.create({
 
 	select_item_complex: {
 		padding: Metrics.spacing.tiny,
-		borderColor: Colors.stroke,
+		borderColor: "transparent",
 		borderTopWidth: 1,
 	},
 

@@ -1,6 +1,16 @@
 import React from "react"
 import { Metrics } from "../theme"
 
+export function titleCase(str) {
+	return str
+		.toLowerCase()
+		.split(" ")
+		.map(function (word) {
+			return word.charAt(0).toUpperCase() + word.slice(1)
+		})
+		.join(" ")
+}
+
 export const Origin = {
 	x: 0,
 	y: 0,
@@ -72,8 +82,8 @@ export function formatPercentage(percent, digits = 2) {
 }
 
 export function highlightMatchedStrings(str, pattern) {
-	console.log(str)
-	console.log(pattern)
+	//console.log(str)
+	//console.log(pattern)
 	if (pattern === "") return str
 	const regExp = new RegExp(pattern, "gi")
 	//console.log(regExp)

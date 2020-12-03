@@ -12,13 +12,17 @@ export function useAuthUser() {
 	return auth.user
 }
 
-export function useSplitsPagesState(type) {
-	const { splitsPages } = useStores()
-	return type ? splitsPages[type] : splitsPages
-}
-
-export function useDocsModel(workpieceId, type) {
-	return useStorePath("workpieces", "list", workpieceId, "documentation", type)
+export function useDocsModel(workpieceId, type = null) {
+	if (!type)
+		return useStorePath("workpieces", "list", workpieceId, "documentation")
+	else
+		return useStorePath(
+			"workpieces",
+			"list",
+			workpieceId,
+			"documentation",
+			type
+		)
 }
 
 export const ResultsOrder = {

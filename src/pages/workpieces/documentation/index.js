@@ -9,15 +9,18 @@ import Button from "../../../widgets/button"
 import { Flex, Row, Column } from "../../../layout"
 import CreationForm from "./creation"
 import { Text } from "../../../text"
-import { PerformanceForm } from "./performance"
-import { RecordingForm } from "./recording"
+import PerformanceForm from "./performance"
+import RecordingForm from "./recording"
 import { LyricsForm } from "./lyrics"
 import { FilesForm } from "./files"
-import { ReleaseForm } from "./release"
+import ReleaseForm from "./release"
 import Links from "./links"
 import { GeneralInfosForm } from "./general-infos"
+import { useDocsModel } from "../../../mobX/hooks"
 
 const DocumentationPage = observer(() => {
+	const workpieceId = useCurrentWorkpiece().id
+	const model = useDocsModel(workpieceId)
 	const { t } = useTranslation()
 	const [endModal, setEndModal] = useState(false)
 	const history = useHistory()
@@ -50,7 +53,7 @@ const DocumentationPage = observer(() => {
 		release: {
 			form: ReleaseForm,
 			progress: 50,
-			title: t("document:navbar.pages.release"),
+			title: t("document:navbar.pages.recording"),
 		},
 		files: {
 			form: FilesForm,
@@ -79,6 +82,7 @@ const DocumentationPage = observer(() => {
 	}
 
 	function toPreviousPage() {
+		model.save(type)
 		type === "creation" && navigateToSummary()
 		type === "performance" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/creation`)
@@ -97,6 +101,7 @@ const DocumentationPage = observer(() => {
 	}
 
 	function toNextPage() {
+		model.save(type)
 		type === "creation" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/performance`)
 		type === "performance" &&
@@ -125,7 +130,9 @@ const DocumentationPage = observer(() => {
 				<Button
 					tertiary
 					text={t("general:buttons.saveClose")}
-					onClick={() => {}}
+					onClick={() => {
+						model.save()
+					}}
 					// disabled={!rightsSplits.$hasChanged}
 				/>
 			}

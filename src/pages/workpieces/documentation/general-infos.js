@@ -17,6 +17,8 @@ import AddGenreDropdown from "../../../smartsplit/components/AddGenreDropdown"
 import { useDocsModel } from "../../../mobX/hooks"
 import { toJS } from "mobx"
 import { observer } from "mobx-react"
+import genres from "../../../../assets/data/genres-smartsplit"
+import { titleCase } from "../../../utils/utils"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -93,17 +95,21 @@ export const GeneralInfosForm = observer((props) => {
 	const [selected, setSelected] = useState("")
 	const [search, setSearch] = useState("") */
 
-	const searchResultsGenres = ["Electrofunk", "Future Funk", "Mega Funk"]
+	const [selectedGenres, setSelectedGenres] = useState("")
 	const [searchGenres, setSearchGenres] = useState("")
-	const [selectedGenres, setSelectedGenres] = useState([
-		"Electrofunk",
-		"Future Funk",
-		"Mega Funk",
-	])
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
-	const model: DocCreationModel = useDocsModel(workpieceId, "infos")
+	const model = useDocsModel(workpieceId, "infos")
 	//console.log(model.toJS()) importer puis loger dans console pour vérifier valeurs puis comment out sinon trop
+
+	// const searchResultsGenres = ["Electrofunk", "Future Funk", "Mega Funk"]
+
+	const searchResultsGenres = genres.map((genre) => {
+		return {
+			id: genre.id,
+			name: titleCase(genre.name),
+		}
+	})
 
 	const fakeSearchResults = [
 		{
@@ -130,6 +136,7 @@ export const GeneralInfosForm = observer((props) => {
 		"Daft Punk",
 	])
 	//console.log(model.toJS())
+
 	return (
 		<Row>
 			<Column of="group" flex={5}>
@@ -159,6 +166,7 @@ export const GeneralInfosForm = observer((props) => {
 					placeholder=""
 					noFocusToggle
 					tooltip=""
+					// Todo: put error in t
 					error={model.validated && model.primaryGenre.error}
 					value={model.primaryGenre.value}
 					onSelect={(genre) => {
@@ -167,22 +175,32 @@ export const GeneralInfosForm = observer((props) => {
 						//console.log(model.toJS())
 					}}
 				/>
-
 				{/* Secondary Genres */}
+				{/* console.log(searchGenres) */}
+				{/* console.log(searchResultsGenres) */}
 				<SearchAndTag
+					style={Styles.lists}
 					noIcon={true}
 					label={t("document:infos.secondaryGenre")}
 					searchResults={searchResultsGenres.filter(
-						(g) => g.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
+						(g) => g.name.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
 					)}
 					search={searchGenres}
 					onSearchChange={setSearchGenres}
-					selection={selectedGenres}
-					onSelect={(selection) =>
-						setSelectedGenres([...selectedGenres, selection])
-					}
-					onUnselect={(selection) =>
-						setSelectedGenres(selectedGenres.filter((i) => i !== selection))
+					//.array or .value
+					selection={model.secondaryGenres.array}
+					onSelect={(selection) => {
+						/* console.log(selection) */
+						// Vérifier si ajout existe déjà
+						let exists =
+							model.secondaryGenres.array.filter((g) => g.id === selection.id)
+								.length > 0
+						if (!exists) model.secondaryGenres.add(selection)
+						//console.log(model.toJS())}
+					}}
+					onUnselect={
+						(selection) => model.secondaryGenres.remove(selection)
+						//setSelectedGenres(selectedGenres.filter((i) => i !== selection))
 					}
 					placeholder={t("document:infos.addGenre")}
 				/>

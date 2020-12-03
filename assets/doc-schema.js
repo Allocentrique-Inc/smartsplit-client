@@ -29,8 +29,16 @@ const schema = {
 	 * the entities name need not be unique: its entity id serves as a translation key
 	 */
 	performance: {
-		principle: [{ user_id: "guid", instruments: [{ id: "guid" }] }],
-		accompanying: [{ user_id: "guid", instruments: [{ id: "guid" }] }],
+		conductor:{user_id:"guid"},
+		performers:[{
+			user:{user_id:"guid"}, 
+			type:"string", 
+			role:"string", 
+			instruments:[{
+				instrument:{id:"guid",name:"string"},
+				notes:"string"
+			}],
+		}]
 	},
 	recording: {
 		director: [{ user_id: "guid" }],
