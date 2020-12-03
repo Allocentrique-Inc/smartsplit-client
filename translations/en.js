@@ -25,11 +25,6 @@ export const general = {
 		musician: "Musician",
 	},
 
-	radioButton: {
-		singer: "Singer",
-		musician: "Musician",
-	},
-
 	languages: {
 		fr: "French",
 		en: "English",
@@ -690,6 +685,20 @@ export const document = {
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
 		addInstrumentDropdown: "Ajouter {{search}} comme instrument",
+		dropdown: {
+			mainArtist: "Main Artist",
+			guestArtist: "Guest Artist",
+			groupMember: "Group Member",
+			backupArtist: "Backup Artist",
+		},
+		description: {
+			mainArtist: 'Also called "Featured Artist " or "Solo Artist"',
+			guestArtist:
+			"Artist or group member invited to collaborate on a musical piece",
+			groupMember:
+			"Musician or singer taking part in the artistic entity",
+			backupArtist: "Performer hired during studio recording sessions",
+		}
 	},
 
 	recording: {

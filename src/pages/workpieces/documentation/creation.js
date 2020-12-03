@@ -198,7 +198,7 @@ const CreationForm = observer(() => {
 	const publisherSearchResults = searchResults.filter(
 		(contributor) => !model.publishers.value[contributor.id]
 	) */
-	const [selected, setSelected] = useState(["Inscience", "Quest Love"])
+	//const [selected, setSelected] = useState(["Inscience", "Quest Love"])
 
 	return (
 		<Row>

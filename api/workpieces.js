@@ -47,3 +47,28 @@ export async function updateRightsSplits(workpiece_id, rightsSplits) {
 
 	return result.data
 }
+
+export async function saveDocumentation(workpieceId, section, data) {
+	let url = `/workpieces/${workpieceId}/documentation`
+	if (section) {
+		url += `/${section}`
+	}
+	console.log(`API patch to save documentation is "${url}"`)
+	return await client.request({
+		method: "patch",
+		url: url,
+		data: data,
+	})
+}
+
+export async function getDocumentation(workpieceId, section) {
+	let url = `/workpieces/${workpieceId}/documentation`
+	if (section) {
+		url += `/${section}`
+	}
+	console.log(`API patch to get documentation is "${url}"`)
+	return await client.request({
+		method: "get",
+		url: url,
+	})
+}
