@@ -1,5 +1,8 @@
 import { createCrudObservable, createEntityListObservable } from "../crud"
-import WorkpiecesCrudAPI, { listForUser } from "../../../api/workpieces"
+import WorkpiecesCrudAPI, {
+	getDocumentation,
+	listForUser,
+} from "../../../api/workpieces"
 import {
 	action,
 	computed,
@@ -24,7 +27,7 @@ export class Workpiece extends WorkpieceObservable {
 	/**
 	 * the documentation model
 	 */
-	documentation: DocumentationModel
+	@observable documentation: DocumentationModel
 	constructor(id, initData = null, initState) {
 		const { files, rightSplit, ...data } = initData || {}
 		super(id, data, initState)
@@ -35,8 +38,10 @@ export class Workpiece extends WorkpieceObservable {
 			null,
 			this /*, documentation data extracted from data */
 		)
-
-		this.documentation.init()
+		getDocumentation(id).then((docs) => {
+			this.documentation.init(docs.data)
+		})
+		//this.documentation.init()
 		//console.log(toJS(this.documentation))
 		//console.log(this.documentation.toJS())
 	}
