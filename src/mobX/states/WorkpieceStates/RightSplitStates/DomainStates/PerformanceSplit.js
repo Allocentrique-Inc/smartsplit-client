@@ -1,16 +1,16 @@
-import SplitState from "./SplitState"
+import SplitDomainState from "./SplitDomainState"
 import PerformanceSplitModel, {
 	initData,
-} from "../../../models/workpieces/rights-splits/PerformanceSplitModel"
+} from "../../../../models/workpieces/rights-splits/PerformanceSplitModel"
 import { action, computed, reaction } from "mobx"
 
 /**
- *	Performance split domain state derived from SplitState.
+ *	Performance split domain state derived from SplitDomainState.
  *	Contains 80 20 middleware
  **/
-export default class PerformanceSplit extends SplitState {
-	constructor(shares) {
-		super(shares, PerformanceSplitModel, initData)
+export default class PerformanceSplit extends SplitDomainState {
+	constructor(rightSplit, shares) {
+		super(rightSplit, shares, PerformanceSplitModel, initData)
 		reaction(
 			() => this.shareholders.size,
 			() => this.updateShares()

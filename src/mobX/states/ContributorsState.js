@@ -33,7 +33,6 @@ export default class ContributorsState extends BaseState {
 		reaction(
 			() => this.root.auth.user_id,
 			() => {
-				console.log(this.root.auth.user_id)
 				if (this.root.auth.user_id) {
 					this.api = new this.apiType(this.root.auth.user_id)
 					return this.load()
@@ -54,7 +53,6 @@ export default class ContributorsState extends BaseState {
 		this.loading = true
 		try {
 			const list = await this.api.list()
-			console.log(list)
 			runInAction(() => {
 				this.list = list
 			})

@@ -6,38 +6,40 @@ import { Colors, Metrics } from "../../../theme"
 import { RadioGroup, RadioGroupButton, Select } from "../../../forms"
 import ShareCard from "../../../smartsplit/components/share-card"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
-import { View } from "react-native"
+import { View, TouchableWithoutFeedback } from "react-native"
 import SplitChart from "../../../smartsplit/components/split-chart"
 import CircledP from "../../../svg/circled-p"
+import Lock from "../../../svg/lock"
+import Unlock from "../../../svg/unlock"
 import { observer } from "mobx-react"
 import { useRightsSplits } from "../context"
-import { useSplitsPagesState } from "../../../mobX/hooks"
 import Slider from "../../../widgets/slider"
 import { PercentageInput } from "../../../forms/percentage"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
 import { runInAction } from "mobx"
-import { CHART_WINDOW_RATIO } from "../../../mobX/states/UIStates/RightsSplitsPages/SplitPageState"
+import { CHART_WINDOW_RATIO } from "../../../mobX/states/WorkpieceStates/RightSplitStates/UIStates/SplitUIState"
 
 const RecordingForm = observer(() => {
-	const recordingSplit = useRightsSplits("recording")
-	const pageState = useSplitsPagesState("recording")
-	const { sharesData, shareTotal } = pageState
+	const { domainState, UIState } = useRightsSplits().recording
+	const { sharesData, shareTotal } = UIState
 	const { t } = useTranslation("rightsSplits")
 	const [styles, setStyles] = useState({})
 
 	useEffect(() => {
-		setStyles(pageState.getStyles(window.outerWidth))
+		setStyles(UIState.getStyles(window.outerWidth))
 	}, [window.outerWidth])
 
 	//FOR TESTING PURPOSE
 	// React.useEffect(() => {
-	// 	recordingSplit.addShareholder("235556b5-3bbb-4c90-9411-4468d873969b")
-	// 	recordingSplit.addShareholder("c84d5b32-25ee-48df-9651-4584b4b78f28")
+	// 	domainState.addShareholder("b549ebd3-5c3b-4184-a3dd-bc5b8895073a")
+	// 	domainState.addShareholder("7e7984ac-1d9e-4ed3-b150-0560062caee0")
 	// }, [])
 
+	console.log(UIState.sharesData)
+
 	function genSelectOptions() {
-		return recordingSplit.functionValues.map((value) => {
+		return domainState.functionValues.map((value) => {
 			return {
 				key: value,
 				value: (
@@ -51,41 +53,52 @@ const RecordingForm = observer(() => {
 		})
 	}
 
+	const LockButton = ({ id, locked }) => (
+		<TouchableWithoutFeedback onPress={() => domainState.toggleShareLock(id)}>
+			<View>{locked ? <Lock /> : <Unlock />}</View>
+		</TouchableWithoutFeedback>
+	)
+
 	function renderShareCards() {
-		return sharesData.map((share, i) => (
+		return sharesData.map((share) => (
 			<ShareCard
 				key={share.id}
 				shareholderId={share.id}
-				color={pageState.colorByIndex(i)}
+				color={UIState.shareholderColors.get(share.id)}
 				sharePercent={share.percent}
-				onClose={() => recordingSplit.removeShareholder(share.id)}
-				manual={recordingSplit.mode === "manual"}
+				onClose={() => domainState.removeShareholder(share.id)}
+				bottomAction={
+					domainState.mode === "manual" ? (
+						<LockButton id={share.id} locked={share.locked} />
+					) : null
+				}
 			>
 				<Select
 					placeholder={t("function")}
 					options={genSelectOptions()}
 					value={share.function}
-					onChange={(value) => recordingSplit.setShareFunction(share.id, value)}
+					onChange={(value) => domainState.setShareFunction(share.id, value)}
 					style={styles.selectFrame}
 				/>
 				<Row of="component" valign="center">
-					{recordingSplit.mode === "manual" && (
+					{domainState.mode === "manual" && (
 						<>
 							<Slider
 								min={0}
 								max={shareTotal}
-								color={pageState.colorByIndex(i)}
+								color={UIState.shareholderColors.get(share.id)}
 								step={0.01}
 								value={share.shares}
+								disabled={share.locked}
 								onChange={(value) =>
-									recordingSplit.updateSharesProRata(share.id, value)
+									domainState.updateSharesProRata(share.id, value)
 								}
 							/>
 							<PercentageInput
 								value={share.percent}
 								digits={2}
 								onChange={(percentage) =>
-									recordingSplit.updateSharesProRata(
+									domainState.updateSharesProRata(
 										share.id,
 										(percentage * shareTotal) / 100
 									)
@@ -93,13 +106,13 @@ const RecordingForm = observer(() => {
 							/>
 						</>
 					)}
-					{recordingSplit.mode !== "manual" && (
+					{domainState.mode !== "manual" && (
 						<>
 							<ProgressBar
 								progress={share.percent}
 								size="xsmall"
 								style={{ flex: 1 }}
-								color={pageState.colorByIndex(i)}
+								color={UIState.shareholderColors.get(share.id)}
 							/>
 							<Text bold>{formatPercentage(share.percent)}</Text>
 						</>
@@ -112,7 +125,7 @@ const RecordingForm = observer(() => {
 	return (
 		<Row
 			onLayout={(e) =>
-				(pageState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
+				(UIState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
 			}
 		>
 			<Column of="section" flex={1}>
@@ -130,8 +143,8 @@ const RecordingForm = observer(() => {
 				</Column>
 				<Column of="group">
 					<RadioGroup
-						value={recordingSplit.mode}
-						onChange={(mode) => runInAction(() => (recordingSplit.mode = mode))}
+						value={domainState.mode}
+						onChange={(mode) => runInAction(() => (domainState.mode = mode))}
 					>
 						<Column of="component">
 							<RadioGroupButton value="equal" label={t("radios.equal")} />
@@ -141,7 +154,7 @@ const RecordingForm = observer(() => {
 					<Column of="component">
 						{renderShareCards()}
 						<AddCollaboratorDropdown
-							onSelect={recordingSplit.addShareholder}
+							onSelect={(id) => domainState.addShareholder(id)}
 							placeholder={t("addCollab")}
 						/>
 					</Column>
@@ -151,7 +164,7 @@ const RecordingForm = observer(() => {
 			<Column>
 				{shareTotal > 0 && (
 					<View style={styles.chart}>
-						<SplitChart {...pageState.genChartProps()} />
+						<SplitChart {...UIState.genChartProps()} />
 					</View>
 				)}
 			</Column>

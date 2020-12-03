@@ -1,16 +1,17 @@
-import SplitState from "./SplitState"
+import SplitDomainState from "./SplitDomainState"
+
+import { action, computed, observable, reaction } from "mobx"
 import CopyrightSplitModel, {
 	initData,
-} from "../../../models/workpieces/rights-splits/CopyrightSplitModel"
-import { action, computed, observable, reaction } from "mobx"
+} from "../../../../models/workpieces/rights-splits/CopyrightSplitModel"
 
 /**
- *	Copyright split domain state derived from SplitState.
+ *	Copyright split domain state derived from SplitDomainState.
  *	Contains modes (equal, roles, manual) middleware logic
  **/
-export default class CopyrightSplit extends SplitState {
-	constructor(shares) {
-		super(shares, CopyrightSplitModel, initData)
+export default class CopyrightSplit extends SplitDomainState {
+	constructor(rightSplit, shares) {
+		super(rightSplit, shares, CopyrightSplitModel, initData)
 		reaction(
 			() => this.mode,
 			() => {
@@ -25,6 +26,7 @@ export default class CopyrightSplit extends SplitState {
 			}
 		)
 	}
+
 	@action computeEqualMode() {
 		this.sharesValues.forEach((share) => {
 			this.updateShareField(share.shareholderId, "shares", 1)
@@ -56,6 +58,19 @@ export default class CopyrightSplit extends SplitState {
 			this.updateShareField(share.shareholderId, "shares", score)
 		})
 	}
+
+	@action removeShareholder(id) {
+		super.removeShareholder(id)
+		this.setShares()
+	}
+
+	@action setRoles(id, roles) {
+		this.updateShareField(id, "roles", roles)
+		if (this.mode === "roles") {
+			this.computeRolesMode()
+		}
+	}
+
 	@observable mode = "equal"
 
 	/**
@@ -112,10 +127,30 @@ export default class CopyrightSplit extends SplitState {
 		)
 	}
 
-	@action setRoles(id, roles) {
-		this.updateShareField(id, "roles", roles)
-		if (this.mode === "roles") {
-			this.computeRolesMode()
+	/**
+	 *	Action that toggles lock state of the share with the provided id.
+	 *	Detect if the action is a locking or an unlocking. In the first case,
+	 *	if there is only one share unlocked, the action locks it too to prevent the
+	 * 	user from manually modifying it. Otherwise it would provoke a UI bug, the
+	 *	corresponding slider UI would react without making change to the actual shares.
+	 **/
+	@action toggleShareLock(id) {
+		const share = this.shareholders.get(id)
+		if (share.locked) {
+			const otherShares = this.sharesValues.filter(
+				(share) => share.shareholderId !== id && share.locked
+			)
+			otherShares.forEach(
+				(share) => (this.shareholders.get(share.shareholderId).locked = false)
+			)
+		} else {
+			const otherShares = this.sharesValues.filter(
+				(share) => share.shareholderId !== id && !share.locked
+			)
+			if (otherShares.length === 1) {
+				this.shareholders.get(otherShares[0].shareholderId).locked = true
+			}
 		}
+		this.shareholders.get(id).locked = !share.locked
 	}
 }

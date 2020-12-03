@@ -28,6 +28,8 @@ export function useDocsModel(workpieceId, type = null) {
 			"documentation",
 			type
 		)
+export function useDocsModel(workpieceId, type) {
+	return useStorePath("workpieces", "list", workpieceId, "documentation", type)
 }
 
 export const ResultsOrder = {

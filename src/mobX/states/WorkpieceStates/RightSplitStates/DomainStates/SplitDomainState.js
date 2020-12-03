@@ -3,8 +3,9 @@ import { action, computed, observable } from "mobx"
 /**
  *	Base class for domain state managing shareholders
  **/
-export default class SplitState {
-	constructor(shares, shareModel, initShareData) {
+export default class SplitDomainState {
+	constructor(rightSplit, shares, shareModel, initShareData) {
+		this.rightSplit = rightSplit
 		this.shareModel = shareModel
 		this.initShareData = initShareData
 		if (shares) this.initShareholders(shares)
@@ -36,12 +37,23 @@ export default class SplitState {
 		!!share && this.shareholders.get(id).setFields(share)
 	}
 
-	@action addShareholder(id, share = this.initShareData) {
+	@action addShareholder(id, shareData = this.initShareData) {
 		if (this.shareholders.has(id)) {
 			return
 		}
 		const newShare = new this.shareModel(id)
-		newShare.init(share)
+		newShare.init(shareData)
+		// If the split has manual mode, check if the other shares are all locked.
+		// In that case, lock also the new share.
+		if (newShare.locked !== null && this.shareholders.size > 0) {
+			const unlockedShareNb = this.sharesValues.reduce(
+				(n, current) => (!current.locked ? ++n : n),
+				0
+			)
+			if (unlockedShareNb === 0) {
+				newShare.locked = true
+			}
+		}
 		this.shareholders.set(id, newShare)
 	}
 
@@ -129,13 +141,15 @@ export default class SplitState {
 		}
 		// Difference between actual share and value to apply
 		// console.log("UPDATE SHARE", this.shareholders.get(id))
-
-		const diff = value - this.shareholders.get(id).shares.value
+		const oldValue = this.shareholders.get(id).shares.value
+		const diff = value - oldValue
 		// Select other candidate shares
-		const sortedShares = [...this.shareholders.values()]
-			.filter((share) => share.shareholderId !== id)
-			.sort((a, b) => a.shares.value - b.shares.value)
-
+		const sortedShares = this.sharesValues
+			.filter((share) => share.shareholderId !== id && !share.locked)
+			.sort((a, b) => a.shares - b.shares)
+		if (sortedShares.length === 0) {
+			return
+		}
 		// If diff < 0, we subtract a portion from the shareholder and then
 		// splitting it between other shareholders
 		if (diff < 0) {
@@ -149,12 +163,12 @@ export default class SplitState {
 			let toSplit = diff
 			while (toSplit > 0) {
 				// 1. Filter shares equal to 0
-				const shares = sortedShares.filter((share) => share.shares.value > 0)
+				const shares = sortedShares.filter((share) => share.shares > 0)
 
 				// 2. Select smallest non-zero share
 				let smallestShare
 				try {
-					smallestShare = shares[0].toJS()
+					smallestShare = shares[0]
 				} catch (e) {
 					console.error("Error with smallest share", e, shares)
 				}

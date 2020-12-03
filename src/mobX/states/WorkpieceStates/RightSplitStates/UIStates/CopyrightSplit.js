@@ -1,14 +1,14 @@
 import { action, computed } from "mobx"
-import CircledC from "../../../../svg/circled-c"
-import SplitPageState from "./SplitPageState"
-import CopyrightForm from "../../../../pages/workpieces/rights-splits/copyright"
+import CircledC from "../../../../../svg/circled-c"
+import SplitUIState from "./SplitUIState"
+import CopyrightForm from "../../../../../pages/workpieces/rights-splits/copyright"
 
 /**
  *  Copyright form page UI state
  **/
-export default class CopyrightSplit extends SplitPageState {
-	constructor() {
-		super(CircledC)
+export default class CopyrightSplit extends SplitUIState {
+	constructor(rightSplit, shareholdersColors) {
+		super(rightSplit, CircledC, shareholdersColors)
 	}
 
 	progress = (1 / 3) * 100
@@ -17,8 +17,8 @@ export default class CopyrightSplit extends SplitPageState {
 	 *	Action to initialize the ui state. Shares are an array
 	 *	of shareholders stripped values from their observables
 	 **/
-	@action init(domainState, pageTitle, titleLeft, titleRight) {
-		super.init(domainState, pageTitle)
+	@action init(pageTitle, titleLeft, titleRight) {
+		super.init(pageTitle)
 		// Titles of Dual pie chart halfs
 		this.titleLeft = titleLeft
 		this.titleRight = titleRight
@@ -41,29 +41,34 @@ export default class CopyrightSplit extends SplitPageState {
 				shares: share.shares,
 				roles: share.roles,
 				percent: percent,
+				locked: share.locked || this.shares.length === 1,
 			}
 		})
 	}
 
 	isMixerDisabled(roles) {
-		return !this.domainState.composerChosen && !roles.includes("mixer")
+		return (
+			!this.rightSplit.domainState.composerChosen && !roles.includes("mixer")
+		)
 	}
 
 	isAdapterDisabled(roles) {
-		return !this.domainState.authorChosen && !roles.includes("adapter")
+		return (
+			!this.rightSplit.domainState.authorChosen && !roles.includes("adapter")
+		)
 	}
 
 	genChartProps(mode) {
 		if (mode === "roles") {
 			return {
 				dataLeft: this.sharesToChartData(
-					this.domainState.lyricsContributors.map((contrib) => ({
+					this.rightSplit.domainState.lyricsContributors.map((contrib) => ({
 						...contrib,
 						shares: 1,
 					}))
 				),
 				dataRight: this.sharesToChartData(
-					this.domainState.musicContributors.map((contrib) => ({
+					this.rightSplit.domainState.musicContributors.map((contrib) => ({
 						...contrib,
 						shares: contrib.weighting,
 					}))

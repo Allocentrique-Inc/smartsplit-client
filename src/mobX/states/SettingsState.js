@@ -42,7 +42,6 @@ export default class SettingsState extends BaseState {
 				if (!data.lastName && data.firstName === data.email.split("@")[0])
 					data.firstName = ""
 			} catch {}
-			console.log(data)
 			this.profile.init(data)
 		} else {
 			this.profile.init()
