@@ -1,15 +1,15 @@
-import CircledP from "../../../../svg/circled-p"
-import SplitPageState from "./SplitPageState"
-import RecordingForm from "../../../../pages/workpieces/rights-splits/recording"
+import CircledP from "../../../../../svg/circled-p"
+import SplitUIState from "./SplitUIState"
+import RecordingForm from "../../../../../pages/workpieces/rights-splits/recording"
 import { computed } from "mobx"
-import { Colors } from "../../../../theme"
+import { Colors } from "../../../../../theme"
 
 /**
  *  Recording form page UI state
  **/
-export default class RecordingSplit extends SplitPageState {
-	constructor() {
-		super(CircledP)
+export default class RecordingSplit extends SplitUIState {
+	constructor(rightSplit, shareholderColors) {
+		super(rightSplit, CircledP, shareholderColors)
 	}
 	progress = (10 / 11) * 100
 	form = RecordingForm

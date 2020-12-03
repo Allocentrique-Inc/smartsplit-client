@@ -3,8 +3,9 @@ import { action, computed, observable } from "mobx"
 /**
  *	Base class for domain state managing shareholders
  **/
-export default class SplitState {
-	constructor(shares, shareModel, initShareData) {
+export default class SplitDomainState {
+	constructor(rightSplit, shares, shareModel, initShareData) {
+		this.rightSplit = rightSplit
 		this.shareModel = shareModel
 		this.initShareData = initShareData
 		if (shares) this.initShareholders(shares)
@@ -143,9 +144,9 @@ export default class SplitState {
 		const oldValue = this.shareholders.get(id).shares.value
 		const diff = value - oldValue
 		// Select other candidate shares
-		const sortedShares = [...this.shareholders.values()]
+		const sortedShares = this.sharesValues
 			.filter((share) => share.shareholderId !== id && !share.locked)
-			.sort((a, b) => a.shares.value - b.shares.value)
+			.sort((a, b) => a.shares - b.shares)
 		if (sortedShares.length === 0) {
 			return
 		}
@@ -162,12 +163,12 @@ export default class SplitState {
 			let toSplit = diff
 			while (toSplit > 0) {
 				// 1. Filter shares equal to 0
-				const shares = sortedShares.filter((share) => share.shares.value > 0)
+				const shares = sortedShares.filter((share) => share.shares > 0)
 
 				// 2. Select smallest non-zero share
 				let smallestShare
 				try {
-					smallestShare = shares[0].toJS()
+					smallestShare = shares[0]
 				} catch (e) {
 					console.error("Error with smallest share", e, shares)
 				}
@@ -187,32 +188,5 @@ export default class SplitState {
 		}
 
 		this.shareholders.get(id).setValue("shares", value)
-	}
-
-	/**
-	 *	Action that toggles lock state of the share with the provided id.
-	 *	Detect if the action is a locking or an unlocking. In the first case,
-	 *	if there is only one share unlocked, the action locks it too to prevent the
-	 * 	user from manually modifying it. Otherwise it would provoke a UI bug, the
-	 *	corresponding slider UI would react without making change to the actual shares.
-	 **/
-	@action toggleShareLock(id) {
-		const share = this.shareholders.get(id)
-		if (share.locked) {
-			const otherShares = this.sharesValues.filter(
-				(share) => share.shareholderId !== id && share.locked
-			)
-			otherShares.forEach(
-				(share) => (this.shareholders.get(share.shareholderId).locked = false)
-			)
-		} else {
-			const otherShares = this.sharesValues.filter(
-				(share) => share.shareholderId !== id && !share.locked
-			)
-			if (otherShares.length === 1) {
-				this.shareholders.get(otherShares[0].shareholderId).locked = true
-			}
-		}
-		this.shareholders.get(id).locked = !share.locked
 	}
 }

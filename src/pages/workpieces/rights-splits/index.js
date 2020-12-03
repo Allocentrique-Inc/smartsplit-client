@@ -1,6 +1,5 @@
 import React from "react"
 import { Redirect, useParams, useHistory } from "react-router"
-
 import { useStores } from "../../../mobX"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
@@ -8,8 +7,7 @@ import { Flex, Row } from "../../../layout"
 import { Text } from "../../../text"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
-import { useCurrentWorkpiece } from "../context"
-import { useSplitsPagesState } from "../../../mobX/hooks"
+import { useCurrentWorkpiece, useRightsSplits } from "../context"
 
 /**
  *	Split forms wrapper
@@ -28,31 +26,40 @@ const RightsSplitsPage = observer(() => {
 			<Redirect to={`/workpieces/${workpiece_id}/rights-splits/copyright`} />
 		)
 	const workpiece = useCurrentWorkpiece()
-
+	const rightsSplits = useRightsSplits()
+	//FOR TESTING PURPOSE
+	// rightsSplits.copyright.domainState.addShareholder(
+	// 	"235556b5-3bbb-4c90-9411-4468d873969b"
+	// )
+	// rightsSplits.copyright.domainState.addShareholder(
+	// 	"c84d5b32-25ee-48df-9651-4584b4b78f28"
+	// )
+	// rightsSplits.performance.domainState.addShareholder(
+	// 	"4f4950de-e5cd-41ea-84cb-997fc8f9183f"
+	// )
+	// rightsSplits.performance.domainState.addShareholder(
+	// 	"4154a7d5-578a-4fd9-b43b-98b1330c0fd1"
+	// )
+	// rightsSplits.recording.domainState.addShareholder(
+	// 	"b549ebd3-5c3b-4184-a3dd-bc5b8895073a"
+	// )
+	// rightsSplits.recording.domainState.addShareholder(
+	// 	"7e7984ac-1d9e-4ed3-b150-0560062caee0"
+	// )
 	// Loading translation to UIStates. Surely there is
 	// a better way to do that :-)
-	const splitUIStates = useSplitsPagesState()
-	splitUIStates.copyright.init(
-		workpiece.rightsSplits.copyright,
+	rightsSplits.copyright.UIState.init(
 		t("copyright.title"),
 		t("lyrics"),
 		t("music")
 	)
-	splitUIStates.performance.init(
-		workpiece.rightsSplits.performance,
-		t("performance.title")
-	)
+	rightsSplits.performance.UIState.init(t("performance.title"))
 
-	splitUIStates.recording.init(
-		workpiece.rightsSplits.recording,
-		t("recording.title")
-	)
-
+	rightsSplits.recording.UIState.init(t("recording.title"))
 	const { workpieces } = useStores()
 	const currentSplit = split_type
 
 	//TODO: refactor rights splits saving
-	const rightsSplits = workpiece.rightsSplits
 	async function saveAndQuit() {
 		try {
 			await rightsSplits.save()
@@ -84,8 +91,11 @@ const RightsSplitsPage = observer(() => {
 	return (
 		<Layout
 			workpiece={workpiece}
-			progress={splitUIStates[currentSplit].progress}
-			path={[t("navbar.rightSplits"), splitUIStates[currentSplit].pageTitle]}
+			progress={rightsSplits[currentSplit].UIState.progress}
+			path={[
+				t("navbar.rightSplits"),
+				rightsSplits[currentSplit].UIState.pageTitle,
+			]}
 			actions={
 				<Button
 					tertiary
@@ -118,7 +128,7 @@ const RightsSplitsPage = observer(() => {
 			}
 		>
 			{!workpieces.isLoading &&
-				React.createElement(splitUIStates[currentSplit].form)}
+				React.createElement(rightsSplits[currentSplit].UIState.form)}
 		</Layout>
 	)
 })
