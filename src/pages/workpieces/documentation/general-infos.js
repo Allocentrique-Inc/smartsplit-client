@@ -18,6 +18,7 @@ import { useDocsModel } from "../../../mobX/hooks"
 import { toJS } from "mobx"
 import { observer } from "mobx-react"
 import genres from "../../../../assets/data/genres-smartsplit"
+import { titleCase } from "../../../utils/utils"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -30,9 +31,6 @@ const Styles = StyleSheet.create({
 	dropdown: {
 		marginLeft: Metrics.spacing.large,
 	},
-	lists: {
-		textTransform: "capitalize",
-	}
 })
 
 export default function GeneralInfos() {
@@ -104,10 +102,15 @@ export const GeneralInfosForm = observer((props) => {
 	const model = useDocsModel(workpieceId, "infos")
 	//console.log(model.toJS()) importer puis loger dans console pour vérifier valeurs puis comment out sinon trop
 
-		// const searchResultsGenres = ["Electrofunk", "Future Funk", "Mega Funk"]
+	// const searchResultsGenres = ["Electrofunk", "Future Funk", "Mega Funk"]
 
-	const searchResultsGenres = genres
-		
+	const searchResultsGenres = genres.map((genre) => {
+		return {
+			id: genre.id,
+			name: titleCase(genre.name),
+		}
+	})
+
 	const fakeSearchResults = [
 		{
 			id: "123",
@@ -133,6 +136,7 @@ export const GeneralInfosForm = observer((props) => {
 		"Daft Punk",
 	])
 	//console.log(model.toJS())
+
 	return (
 		<Row>
 			<Column of="group" flex={5}>
@@ -171,8 +175,9 @@ export const GeneralInfosForm = observer((props) => {
 						//console.log(model.toJS())
 					}}
 				/>
-
 				{/* Secondary Genres */}
+				{/* console.log(searchGenres) */}
+				{/* console.log(searchResultsGenres) */}
 				<SearchAndTag
 					style={Styles.lists}
 					noIcon={true}
@@ -184,16 +189,17 @@ export const GeneralInfosForm = observer((props) => {
 					onSearchChange={setSearchGenres}
 					//.array or .value
 					selection={model.secondaryGenres.array}
-					onSelect={(selection) =>
-						{/* console.log(selection) */
-							// Vérifier si ajout existe déjà
-							let exists = model.secondaryGenres.array.filter(g => g.id === selection.id).length > 0
-							if (!exists) 
-							model.secondaryGenres.add(selection)
+					onSelect={(selection) => {
+						/* console.log(selection) */
+						// Vérifier si ajout existe déjà
+						let exists =
+							model.secondaryGenres.array.filter((g) => g.id === selection.id)
+								.length > 0
+						if (!exists) model.secondaryGenres.add(selection)
 						//console.log(model.toJS())}
 					}}
-					onUnselect={(selection) =>
-						model.secondaryGenres.remove(selection)
+					onUnselect={
+						(selection) => model.secondaryGenres.remove(selection)
 						//setSelectedGenres(selectedGenres.filter((i) => i !== selection))
 					}
 					placeholder={t("document:infos.addGenre")}

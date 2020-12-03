@@ -13,7 +13,7 @@ import PerformanceForm from "./performance"
 import RecordingForm from "./recording"
 import { LyricsForm } from "./lyrics"
 import { FilesForm } from "./files"
-import { ReleaseForm } from "./release"
+import ReleaseForm from "./release"
 import Links from "./links"
 import { GeneralInfosForm } from "./general-infos"
 import { useDocsModel } from "../../../mobX/hooks"
@@ -53,7 +53,7 @@ const DocumentationPage = observer(() => {
 		release: {
 			form: ReleaseForm,
 			progress: 50,
-			title: t("document:navbar.pages.release"),
+			title: t("document:navbar.pages.recording"),
 		},
 		files: {
 			form: FilesForm,

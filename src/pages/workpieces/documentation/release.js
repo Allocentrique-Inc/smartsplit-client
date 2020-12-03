@@ -10,7 +10,6 @@ import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import ReleasetIcon from "../../../svg/release"
-
 import {
 	CheckBox,
 	CheckBoxGroup,
@@ -19,6 +18,19 @@ import {
 	TextField,
 	Select,
 } from "../../../forms"
+import { toJS } from "mobx"
+import { observer } from "mobx-react"
+import {
+	useArtistAutocomplete,
+	useAuthUser,
+	useDocsModel,
+	ResultsOrder,
+} from "../../../mobX/hooks"
+import { useStores } from "../../../mobX"
+import ContributorsState from "../../../mobX/states/ContributorsState"
+import ContributorModel from "../../../mobX/models/user/ContributorModel"
+import DocReleaseModel from "../../../mobX/models/workpieces/documentation/DocReleaseModel"
+import Field from "../../../mobX/BaseModel/Field"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -32,12 +44,15 @@ const Styles = StyleSheet.create({
 		marginLeft: Metrics.spacing.large,
 	},
 })
-
-export function ReleaseForm(props) {
+const ReleaseForm = observer((props) => {
 	const [date, setDate] = useState("")
 	const { t } = useTranslation()
 	const [showDigitalOptions, setShowDigitalOptions] = useState()
 	const [showEP, setShowEP] = useState()
+
+	const workpiece = useCurrentWorkpiece()
+	const workpieceId = workpiece.id
+	const model: DocReleaseModel = useDocsModel(workpieceId, "release")
 
 	return (
 		<Row>
@@ -51,7 +66,7 @@ export function ReleaseForm(props) {
 				<Paragraph>{t("document:release.paragraph")}</Paragraph>
 
 				<Spacer of="group" />
-
+				{/* ToDo: Undertext does not appear */}
 				<DateField
 					label={t("document:release.date")}
 					undertext={t("document:release.dateHint")}
@@ -104,7 +119,9 @@ export function ReleaseForm(props) {
 			</Column>
 		</Row>
 	)
-}
+})
+
+export default ReleaseForm
 
 export function EP(props) {
 	const { t } = useTranslation()

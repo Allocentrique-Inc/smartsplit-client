@@ -693,19 +693,17 @@ export const document = {
 		dropdown: {
 			mainArtist: "Artiste principal",
 			guestArtist: "Artiste invité",
-			groupMember: "Membre du groupe",	
-			backupArtist: "Artiste acompagnateur",				
+			groupMember: "Membre du groupe",
+			backupArtist: "Artiste acompagnateur",
 		},
 		description: {
-			mainArtist:
-			"Aussi appelé « Artiste vedette » ou « Artiste solo »",
+			mainArtist: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
 			guestArtist:
-			"Artiste ou membre d'un groupe invité à collaborer sur une pièce musicale",
-			groupMember:
-			"Musicien ou chanteur prenant part à l'entité artistique",
+				"Artiste ou membre d'un groupe invité à collaborer sur une pièce musicale",
+			groupMember: "Musicien ou chanteur prenant part à l'entité artistique",
 			backupArtist:
-			"Interprète engagé pendant les sessions d'enregistrement studio",
-		}
+				"Interprète engagé pendant les sessions d'enregistrement studio",
+		},
 	},
 	recording: {
 		category: "ENREGISTREMENT",
