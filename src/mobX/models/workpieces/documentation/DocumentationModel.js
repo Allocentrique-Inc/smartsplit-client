@@ -7,6 +7,8 @@ import DocFilesModel from "./DocFilesModel"
 import DocReleaseModel from "./DocReleaseModel"
 import DocInfosModel from "./DocInfosModel"
 import BaseModel from "../../../BaseModel/BaseModel"
+import { saveDocumentation } from "../../../../../api/workpieces"
+
 const makeObservable = () => {}
 export default class DocumentationModel extends BaseModel {
 	workpiece
@@ -23,9 +25,19 @@ export default class DocumentationModel extends BaseModel {
 		this.workpiece = workpiece
 		window.docModel = this
 	}
-	async save(...args) {
-		console.log(`id is ${this.workpiece.id}`)
-		console.log(this.toJS())
+	async save(section) {
+		let data
+		if (!section) {
+			console.log(`id is ${this.workpiece.id}`)
+			data = this.toJS()
+
+			console.log()
+		} else {
+			data = this[section].toJS()
+		}
+
+		let response = await saveDocumentation(this.workpiece.id, section, data)
+		return response
 	}
 }
 

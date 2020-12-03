@@ -47,3 +47,15 @@ export async function updateRightsSplits(workpiece_id, rightsSplits) {
 
 	return result.data
 }
+
+export async function saveDocumentation(workpieceId, section, data) {
+	let url = `/workpieces/${workpieceId}/documentation`
+	if (section) {
+		url += `/${section}`
+	}
+	return await client.request({
+		method: "put",
+		url: url,
+		data: data,
+	})
+}
