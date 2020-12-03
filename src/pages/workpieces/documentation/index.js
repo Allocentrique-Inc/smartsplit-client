@@ -16,8 +16,11 @@ import { FilesForm } from "./files"
 import ReleaseForm from "./release"
 import Links from "./links"
 import { GeneralInfosForm } from "./general-infos"
+import { useDocsModel } from "../../../mobX/hooks"
 
 const DocumentationPage = observer(() => {
+	const workpieceId = useCurrentWorkpiece().id
+	const model = useDocsModel(workpieceId)
 	const { t } = useTranslation()
 	const [endModal, setEndModal] = useState(false)
 	const history = useHistory()
@@ -125,7 +128,9 @@ const DocumentationPage = observer(() => {
 				<Button
 					tertiary
 					text={t("general:buttons.saveClose")}
-					onClick={() => {}}
+					onClick={() => {
+						model.save()
+					}}
 					// disabled={!rightsSplits.$hasChanged}
 				/>
 			}
