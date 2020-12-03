@@ -53,7 +53,7 @@ const DocumentationPage = observer(() => {
 		release: {
 			form: ReleaseForm,
 			progress: 50,
-			title: t("document:navbar.pages.performance"),
+			title: t("document:navbar.pages.recording"),
 		},
 		files: {
 			form: FilesForm,

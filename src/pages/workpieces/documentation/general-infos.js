@@ -31,9 +31,6 @@ const Styles = StyleSheet.create({
 	dropdown: {
 		marginLeft: Metrics.spacing.large,
 	},
-	lists: {
-		textTransform: "capitalize",
-	},
 })
 
 export default function GeneralInfos() {
