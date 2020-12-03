@@ -82,6 +82,7 @@ const DocumentationPage = observer(() => {
 	}
 
 	function toPreviousPage() {
+		model.save(type)
 		type === "creation" && navigateToSummary()
 		type === "performance" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/creation`)
@@ -100,6 +101,7 @@ const DocumentationPage = observer(() => {
 	}
 
 	function toNextPage() {
+		model.save(type)
 		type === "creation" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/performance`)
 		type === "performance" &&

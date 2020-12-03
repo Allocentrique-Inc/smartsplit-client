@@ -53,8 +53,9 @@ export async function saveDocumentation(workpieceId, section, data) {
 	if (section) {
 		url += `/${section}`
 	}
+	console.log(`API patch top save documentation is "${url}"`)
 	return await client.request({
-		method: "put",
+		method: "patch",
 		url: url,
 		data: data,
 	})

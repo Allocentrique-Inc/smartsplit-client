@@ -25,19 +25,35 @@ export default class DocumentationModel extends BaseModel {
 		this.workpiece = workpiece
 		window.docModel = this
 	}
-	async save(section) {
-		let data
-		if (!section) {
-			console.log(`id is ${this.workpiece.id}`)
-			data = this.toJS()
 
-			console.log()
+	/**
+	 * function to save the current documentation either completely or by section
+	 *
+	 * Will only save if the model or sub model to save's isDirty property is true
+	 *
+	 * @param section {string | undefined} if set only that section will be saved
+	 * @return {Promise<*>}
+	 */
+	async save(section) {
+		console.log(`workpiece  id is ${this.workpiece.id}`)
+		let data
+		let isDirty = false
+		// prepare to save the whole
+		if (!section) {
+			console.log(`saving all documention`)
+			isDirty = this.isDirty
+			data = this.toJS()
+			// prepare to save a section
 		} else {
+			console.log(`saving ${section} of documentation`)
+			isDirty = this[section].isDirty
 			data = this[section].toJS()
 		}
-
-		let response = await saveDocumentation(this.workpiece.id, section, data)
-		return response
+		try {
+			if (isDirty) await saveDocumentation(this.workpiece.id, section, data)
+			else console.log(`model to save is not dirty, not saving`)
+			return true
+		} catch (e) {}
 	}
 }
 
@@ -59,7 +75,7 @@ export function cleanUsersForPosting(input) {
 		return input.map((obj) => cleanUsersForPosting(obj))
 		// for objects that are users also process
 	} else if (input.user_id) {
-		return { user_id: input.user_id }
+		return input.user_id
 		// for other objects recurse into properties
 	} else if (typeof input === "object") {
 		let cleanedObject = {}
