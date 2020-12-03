@@ -1,0 +1,10 @@
+FROM node:14 AS node-modules
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install
+
+FROM node-modules AS production-bundle
+WORKDIR /app
+EXPOSE 19006/tcp
+COPY . .
+ENTRYPOINT ["yarn", "start", "--web"]
