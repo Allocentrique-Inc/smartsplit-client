@@ -1,5 +1,13 @@
 import BaseState, { save, session } from "../BaseState"
-import { observable, computed, action, when, reaction, runInAction } from "mobx"
+import {
+	observable,
+	computed,
+	action,
+	when,
+	reaction,
+	runInAction,
+	toJS,
+} from "mobx"
 import { Platform, AsyncStorage } from "react-native"
 import * as AuthAPI from "../../../api/auth"
 import {
@@ -91,6 +99,7 @@ export default class AuthState extends BaseState {
 		return Platform.OS === "web"
 	}
 	@action async init(refreshToken = false) {
+		console.log(toJS(this))
 		//console.log("AuthState::init called")
 		//console.log(`access token is ${this.accessToken}`)
 		//this.history = useHistory()
@@ -103,7 +112,7 @@ export default class AuthState extends BaseState {
 		if (this.accessToken) {
 			//setGlobalAccessToken(this.accessToken)
 			this.isReturning = true
-			if (refreshToken) this.refresh()
+			if (refreshToken) await this.refresh()
 			else {
 				this.isLoggedIn = true
 				this.isLoading = false
