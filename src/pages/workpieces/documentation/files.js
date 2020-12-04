@@ -17,7 +17,7 @@ import {
 	Dropdown,
 	FileField,
 } from "../../../forms"
-import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
+import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
 import FilesIcon from "../../../svg/files"
 import Unlock from "../../../svg/unlock"
 import LockIcon from "../../../svg/lock"

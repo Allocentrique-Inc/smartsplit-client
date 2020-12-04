@@ -18,7 +18,7 @@ import {
 	CheckBoxGroup,
 	Dropdown,
 } from "../../../forms"
-import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
+import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
 import AddInstrumentDropdown from "../../../smartsplit/components/add-instrument-dropdown"
 import AddContributorDropdown from "../../../smartsplit/components/AddContributorDropdown"
 import { observer } from "mobx-react"
