@@ -26,11 +26,6 @@ export const general = {
 		musician: "Musicien",
 	},
 
-	radioButton: {
-		singer: "Singer",
-		musician: "Musician",
-	},
-
 	languages: {
 		fr: "Français",
 		en: "Anglais",
@@ -695,6 +690,20 @@ export const document = {
 		whichRole: "Quel rôle dans la pièce musicale ?",
 		addInstrument: "Ajouter un instrument...",
 		addInstrumentDropdown: "Add {{search}} as instrument",
+		dropdown: {
+			mainArtist: "Artiste principal",
+			guestArtist: "Artiste invité",
+			groupMember: "Membre du groupe",
+			backupArtist: "Artiste acompagnateur",
+		},
+		description: {
+			mainArtist: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
+			guestArtist:
+				"Artiste ou membre d'un groupe invité à collaborer sur une pièce musicale",
+			groupMember: "Musicien ou chanteur prenant part à l'entité artistique",
+			backupArtist:
+				"Interprète engagé pendant les sessions d'enregistrement studio",
+		},
 	},
 	recording: {
 		category: "ENREGISTREMENT",

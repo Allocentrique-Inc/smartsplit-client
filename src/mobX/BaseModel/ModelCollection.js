@@ -1,7 +1,6 @@
 import BaseModel from "./BaseModel"
 import Field, { FieldType } from "./Field"
-import { observable, computed, action } from "mobx"
-
+import { observable, computed, action, toJS } from "mobx"
 /**
  * TODO remove this for mobx6 upgrade
  */
@@ -52,12 +51,16 @@ export default class ModelCollection extends Field {
 		})
 	}
 	@action add(initValue = null) {
+		console.log(initValue)
 		let model = new this.modelClass()
 		model.init(initValue)
 		this.value.push(model)
 	}
 	@action remove(index) {
+		console.log(index)
+		console.log(toJS(this.value[index]))
 		this.value.splice(index, 1)
+		this.setValue(this.value)
 	}
 	validateSync() {
 		this.array.forEach((model) => model.validateSync())
@@ -76,6 +79,6 @@ export default class ModelCollection extends Field {
 	}
 
 	toJS() {
-		return this.value.map((model) => model.toJS())
+		return toJS(this.value.map((model) => model.toJS()))
 	}
 }

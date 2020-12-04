@@ -1,5 +1,6 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
+import { cleanUsersForPosting } from "./DocumentationModel"
 
 /**
  *
@@ -21,4 +22,11 @@ export default class DocCreationModel extends BaseModel {
 		label: "document:creation.iswc",
 		type: FieldType.string,
 	})
+
+	/**
+	 * clean
+	 */
+	toJS(excludePrimary) {
+		return cleanUsersForPosting(super.toJS())
+	}
 }

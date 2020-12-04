@@ -36,6 +36,7 @@ const Styles = StyleSheet.create({
  */
 export default function Autocomplete({
 	onSelect,
+	onUnselect,
 	search,
 	alwaysShowAdd,
 	onSearchChange, // = () => {},
@@ -47,7 +48,6 @@ export default function Autocomplete({
 	const { t } = useTranslation()
 	const renderSearchResults = () => {
 		//console.log(alwaysShowAdd)
-		console.log(children)
 		return (
 			<>
 				<ScrollView style={FormStyles.select_scroll}>

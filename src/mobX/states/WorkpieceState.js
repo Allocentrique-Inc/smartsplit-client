@@ -1,5 +1,8 @@
 import { createCrudObservable, createEntityListObservable } from "../crud"
-import WorkpiecesCrudAPI, { listForUser } from "../../../api/workpieces"
+import WorkpiecesCrudAPI, {
+	getDocumentation,
+	listForUser,
+} from "../../../api/workpieces"
 import {
 	action,
 	computed,
@@ -7,8 +10,9 @@ import {
 	observable,
 	reaction,
 	runInAction,
+	toJS,
 } from "mobx"
-import Documentation from "./WorkpieceStates/DocumentationState"
+import DocumentationModel from "../models/workpieces/documentation/DocumentationModel"
 import RightsSplits from "./WorkpieceStates/RightsSplits"
 import WorkpieceModel from "../models/workpieces/WorkpieceModel"
 
@@ -20,13 +24,26 @@ const WorkpieceObservable = createCrudObservable(
 export const $workpiece = Symbol("Workpiece")
 
 export class Workpiece extends WorkpieceObservable {
+	/**
+	 * the documentation model
+	 */
+	@observable documentation: DocumentationModel
 	constructor(id, initData = null, initState) {
 		const { files, rightSplit, ...data } = initData || {}
 		super(id, data, initState)
 		this.rightsSplits = new RightsSplits(this, rightSplit)
-		this.documentation = new Documentation(
+
+		// initialising the documentation by passing the workpiece for id, etc
+		this.documentation = new DocumentationModel(
+			null,
 			this /*, documentation data extracted from data */
 		)
+		getDocumentation(id).then((docs) => {
+			this.documentation.init(docs.data)
+		})
+		//this.documentation.init()
+		//console.log(toJS(this.documentation))
+		//console.log(this.documentation.toJS())
 	}
 
 	/**

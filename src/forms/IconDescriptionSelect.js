@@ -86,7 +86,7 @@ export function IconDescriptionSelectItem(props) {
 					</Column>
 					<Column flex={1}>
 						<Row>
-							<Text>{`${name} - ${title}`}</Text>
+							<Text>{`${name}${title ? " - " + title : ""}`}</Text>
 						</Row>
 						<Row>
 							<Text tertiary small>
@@ -102,6 +102,7 @@ export function IconDescriptionSelectItem(props) {
 
 export function IconDescriptionItem(props) {
 	const { icon, name, description, title } = props
+	console.log(typeof title)
 	return (
 		<Row flex={1} style={{ padding: Metrics.spacing.inside }}>
 			<Column valign="center">{icon}</Column>
@@ -110,7 +111,7 @@ export function IconDescriptionItem(props) {
 			</Column>
 			<Column flex={1}>
 				<Row>
-					<Text>{`${name} - ${title}`}</Text>
+					<Text>{`${name}${title ? " - " + title : ""}`}</Text>
 				</Row>
 				<Row>
 					<Text tertiary small>

@@ -525,7 +525,7 @@ export default class Field {
 
 		this.onInit(v, this.model)
 		this.setValue(v, true)
-		this.initialValue = this.value
+		this.initialValue = toJS(this.value)
 	}
 
 	/**
@@ -896,7 +896,12 @@ export default class Field {
 
 	@computed
 	get isDirty() {
-		return this.value !== this.initialValue
+		console.log(toJS(this.value))
+		console.log(toJS(this.initialValue))
+		return (
+			JSON.stringify(toJS(this.value)) !==
+			JSON.stringify(toJS(this.initialValue))
+		)
 	}
 
 	@observable
