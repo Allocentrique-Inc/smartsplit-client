@@ -12,7 +12,6 @@ import { Metrics } from "../../../theme"
 import RecordingIcon from "../../../svg/recording"
 import UserTag from "../../../smartsplit/user/UserTag"
 import { Dropdown, DateField, TextField, SearchAndTag } from "../../../forms"
-import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 import AddContributorDropdown from "../../../smartsplit/components/AddContributorDropdown"
 import { observer } from "mobx-react"
 import {
