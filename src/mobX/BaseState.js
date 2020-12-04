@@ -27,7 +27,7 @@ export default class BaseState {
 	@action
 	async init(...args) {}
 }
-
+console.log(`platform for localstorage is currently ${Platform.OS}`)
 const platformSessionStorage =
 	Platform.OS === "web" ? sessionStorage : AsyncStorage
 const platformLocalStorage = Platform.OS === "web" ? localStorage : AsyncStorage
