@@ -10,6 +10,7 @@ import { useRightHolderSearch } from "../../appstate/react/right-holders"
 import { AddCollaboratorModal } from "../collaborators/AddCollaboratorsModal"
 import { useStores } from "../../mobX"
 import { observer } from "mobx-react"
+import { ResultsOrder, useArtistAutocomplete } from "../../mobX/hooks"
 
 const Styles = StyleSheet.create({
 	actionFrame: {
@@ -23,25 +24,37 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 	const { t } = useTranslation()
 	const { collaborators } = useStores()
 	const [search, setSearch] = useState("")
-	const results = useRightHolderSearch(search)
+	const getResults = useArtistAutocomplete()
+
+	//console.log(search)
+	const searchResults = getResults(search, 10, ResultsOrder.collaboratorsFirst)
+	// first we'll grab the in-house data we already have
+	// as we do with the add Contributor dropdown
+
+	// hack to unify entries from rightsholder api endpoint
+	// @depredated
+	const rightsResults = useRightHolderSearch(search).map((result) => ({
+		...result,
+		user_id: result.rightHolder_id,
+	}))
+
+	const results = searchResults.concat(rightsResults).splice(0, 10)
 	// console.log(results)
+
 	return (
 		<>
 			<Autocomplete
 				icon={PlusCircle}
 				placeholder={t("forms:labels.dropdowns.addCollaborator")}
+				withAvatar
 				search={search}
 				onSearchChange={setSearch}
 				{...nextProps}
-				searchResults={results.map((rh) => (
-					<Row key={rh.rightHolder_id}>
-						<Text>
-							{rh.firstName} {rh.lastName}
-						</Text>
-					</Row>
-				))}
+				searchResults={results}
 				onSelect={(result) => {
-					onSelect(result.key)
+					onSelect(
+						result.rightHolder_id ? result.rightHolder_id : result.user_id
+					)
 				}}
 			>
 				<TouchableWithoutFeedback onPress={() => collaborators.new()}>
@@ -54,7 +67,7 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 				</TouchableWithoutFeedback>
 			</Autocomplete>
 			<AddCollaboratorModal
-				visible={collaborators.editing}
+				visible={collaborators.adding}
 				onRequestClose={() => collaborators.cancel()}
 				onAdded={(result) => {
 					//console.log(result)

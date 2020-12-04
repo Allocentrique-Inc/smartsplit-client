@@ -4,7 +4,7 @@ import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import ShareCard from "../../../smartsplit/components/share-card"
-import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
+import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
 import SplitChart, {
 	DualSplitChart,
 } from "../../../smartsplit/components/split-chart"
