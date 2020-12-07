@@ -32,6 +32,8 @@ import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import AddPlatformDropdown from "../../../smartsplit/components/add-platform-dropdown"
 import { DialogModal } from "../../../widgets/modal"
 import { observer } from "mobx-react"
+import { useDocsModel } from "../../../mobX/hooks"
+
 const Styles = StyleSheet.create({
 	category: {
 		alignItems: "center",
@@ -50,8 +52,9 @@ export default observer(function Links(props) {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const workpiece = useCurrentWorkpiece()
-	//console.log(modalVisible)
-
+	const workpieceId = workpiece.id
+	const model: DocStreamingModel = useDocsModel(workpieceId, "streaming")
+	console.log(model)
 	function saveAndQuit() {
 		history.push("/dashboard/")
 	}
@@ -66,7 +69,7 @@ export default observer(function Links(props) {
 
 	return (
 		<>
-			<LinksForm />
+			<LinksForm model={model} />
 			<EndModal visible={modalVisible} onRequestClose={closeModal} />
 		</>
 	)
@@ -74,6 +77,8 @@ export default observer(function Links(props) {
 
 export function LinksForm(props) {
 	const { t } = useTranslation()
+
+	const { model } = props
 
 	return (
 		<>
@@ -100,6 +105,10 @@ export function LinksForm(props) {
 							style={{ flex: 5 }}
 							name="spotify"
 							placeholder={t("document:links.addLink")}
+							value={model.links["spotify"]}
+							onChange={(v) => {
+								model.links.setItem("spotify", v)
+							}}
 						/>
 					</Row>
 
