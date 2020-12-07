@@ -84,7 +84,7 @@ export const demoPiece = {
 const Styles = StyleSheet.create({
 	outerContainer: {
 		backgroundColor: Colors.background.underground,
-		height: "100%",
+		height: "100vh",
 		paddingRight: Metrics.spacing.small,
 		paddingLeft: Metrics.spacing.small,
 		overflowX: "hidden",
@@ -92,14 +92,14 @@ const Styles = StyleSheet.create({
 	},
 	innerContainer: {
 		maxWidth: 976,
-		width: "100%",
+		width: "100wh",
 		marginLeft: "auto",
 		marginRight: "auto",
 		paddingRight: Metrics.spacing.small,
 		paddingLeft: Metrics.spacing.small,
 	},
 	tabContainer: {
-		height: "100%",
+		height: "70vh",
 		marginRight: -Metrics.spacing.small,
 		marginLeft: -Metrics.spacing.small,
 	},

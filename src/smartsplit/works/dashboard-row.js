@@ -25,9 +25,15 @@ export default function MediaWorkRow(props) {
 
 	return (
 		<View style={[WorkStyles.dashboard_row, props.style]}>
-			<AlbumArt style={WorkStyles.dashboard_row_cover} />
+			<AlbumArt
+				style={WorkStyles.dashboard_row_cover}
+				onClick={navigateToSummary}
+			/>
 
-			<Column style={WorkStyles.dashboard_row_title}>
+			<Column
+				style={WorkStyles.dashboard_row_title}
+				onClick={navigateToSummary}
+			>
 				<Row of="tiny" style={{ alignItems: "center" }}>
 					<Text heavy>{data.title}</Text>
 					<Text small>par {data.artist}</Text>
@@ -40,7 +46,11 @@ export default function MediaWorkRow(props) {
 				</Row>
 			</Column>
 
-			<Column of="inside" style={WorkStyles.dashboard_row_progress}>
+			<Column
+				of="inside"
+				style={WorkStyles.dashboard_row_progress}
+				onClick={navigateToSummary}
+			>
 				<Row of="tiny">
 					<Text small heavy>
 						Étape {props.step} de {props.steps}
@@ -53,7 +63,12 @@ export default function MediaWorkRow(props) {
 			</Column>
 
 			<Button secondary text="Continuer" onClick={navigateToSummary} />
-			<Button icon={<OverflowMenuIcon />} />
+			<Button
+				icon={<OverflowMenuIcon />}
+				onClick={() => {
+					console.log("show menu")
+				}}
+			/>
 		</View>
 	)
 }
