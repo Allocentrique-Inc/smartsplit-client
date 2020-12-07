@@ -75,10 +75,56 @@ export default observer(function Links(props) {
 	)
 })
 
+const LinkRow = observer((props) => {
+	const { model, Icon, name } = props
+	const { t } = useTranslation()
+	return (
+		<Row valign="center">
+			<Column flex={0.5}>
+				<Icon />
+			</Column>
+			<Column flex={2}>
+				<Text primary>{name.substr(0, 1).toUpperCase() + name.substr(1)}</Text>
+			</Column>
+			<TextField
+				style={{ flex: 5 }}
+				placeholder={t("document:links.addLink")}
+				value={model.links[name]}
+				onChange={(v) => {
+					model.links.setItem(name, v)
+					console.log(model.toJS())
+				}}
+			/>
+		</Row>
+	)
+})
+
 export const LinksForm = observer((props) => {
 	const { t } = useTranslation()
 
 	const { model } = props
+
+	const defaultLinks = [
+		"spotify",
+		"google",
+		"apple",
+		"amazon",
+		"youtube",
+		"pendora",
+		"soundcloud",
+		"deezer",
+	]
+
+	const icons = {
+		spotify: SpotifyIcon,
+		google: GooglePlayIcon,
+		apple: ITunesIcon,
+		amazon: AmazonIcon,
+		youtube: YoutubeIcon,
+		pendora: PandoraIcon,
+		soundcloud: SoundcloudIcon,
+		deezer: DeezerIcon,
+	}
 
 	return (
 		<>
@@ -91,10 +137,12 @@ export const LinksForm = observer((props) => {
 					</Text>
 					<Heading level={1}>{t("document:links.title")}</Heading>
 					<Paragraph>{t("document:links.paragraph")}</Paragraph>
-
 					<Spacer of="group" />
+					{defaultLinks.map((name) => (
+						<LinkRow name={name} Icon={icons[name]} model={model} />
+					))}
 
-					<Row valign="center">
+					{/* <Row valign="center">
 						<Column flex={0.5}>
 							<SpotifyIcon />
 						</Column>
@@ -208,7 +256,7 @@ export const LinksForm = observer((props) => {
 							name="soundcloud"
 							placeholder={t("document:links.addLink")}
 						/>
-					</Row>
+					</Row> */}
 					<AddPlatformDropdown placeholder={t("document:links.addPlatform")} />
 				</Column>
 				<Flex />
