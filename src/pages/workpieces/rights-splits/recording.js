@@ -35,8 +35,7 @@ const RecordingForm = observer(() => {
 	// 	domainState.addShareholder("b549ebd3-5c3b-4184-a3dd-bc5b8895073a")
 	// 	domainState.addShareholder("7e7984ac-1d9e-4ed3-b150-0560062caee0")
 	// }, [])
-
-	console.log(UIState.sharesData)
+	console.log("DEBUG", domainState.sharesValues)
 
 	function genSelectOptions() {
 		return domainState.functionValues.map((value) => {

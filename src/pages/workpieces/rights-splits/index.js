@@ -28,24 +28,33 @@ const RightsSplitsPage = observer(() => {
 	const workpiece = useCurrentWorkpiece()
 	const rightsSplits = useRightsSplits()
 	//FOR TESTING PURPOSE
-	// rightsSplits.copyright.domainState.addShareholder(
-	// 	"235556b5-3bbb-4c90-9411-4468d873969b"
-	// )
-	// rightsSplits.copyright.domainState.addShareholder(
-	// 	"c84d5b32-25ee-48df-9651-4584b4b78f28"
-	// )
-	// rightsSplits.performance.domainState.addShareholder(
-	// 	"4f4950de-e5cd-41ea-84cb-997fc8f9183f"
-	// )
-	// rightsSplits.performance.domainState.addShareholder(
-	// 	"4154a7d5-578a-4fd9-b43b-98b1330c0fd1"
-	// )
-	// rightsSplits.recording.domainState.addShareholder(
-	// 	"b549ebd3-5c3b-4184-a3dd-bc5b8895073a"
-	// )
-	// rightsSplits.recording.domainState.addShareholder(
-	// 	"7e7984ac-1d9e-4ed3-b150-0560062caee0"
-	// )
+	rightsSplits.copyright.domainState.addShareholder(
+		"235556b5-3bbb-4c90-9411-4468d873969b"
+	)
+	rightsSplits.copyright.domainState.addShareholder(
+		"c84d5b32-25ee-48df-9651-4584b4b78f28"
+	)
+	rightsSplits.copyright.domainState.addShareholder(
+		"4f4950de-e5cd-41ea-84cb-997fc8f9183f"
+	)
+	rightsSplits.performance.domainState.addShareholder(
+		"4f4950de-e5cd-41ea-84cb-997fc8f9183f"
+	)
+	rightsSplits.performance.domainState.addShareholder(
+		"4154a7d5-578a-4fd9-b43b-98b1330c0fd1"
+	)
+	rightsSplits.performance.domainState.addShareholder(
+		"b549ebd3-5c3b-4184-a3dd-bc5b8895073a"
+	)
+	rightsSplits.recording.domainState.addShareholder(
+		"4154a7d5-578a-4fd9-b43b-98b1330c0fd1"
+	)
+	rightsSplits.recording.domainState.addShareholder(
+		"b549ebd3-5c3b-4184-a3dd-bc5b8895073a"
+	)
+	rightsSplits.recording.domainState.addShareholder(
+		"7e7984ac-1d9e-4ed3-b150-0560062caee0"
+	)
 	// Loading translation to UIStates. Surely there is
 	// a better way to do that :-)
 	rightsSplits.copyright.UIState.init(

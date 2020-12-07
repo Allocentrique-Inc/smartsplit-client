@@ -75,7 +75,8 @@ const Slider = observer(
 			[min, max],
 			[0, vertical ? barLayout.height : barLayout.width]
 		)
-		let dpStep = step ? valueToDp(step) : 1
+		let dpStep = step ? Math.round(valueToDp(step * max / 100)) : 1
+		console.log("DPSTEP", dpStep)
 
 		useEffect(() => {
 			const position = capValueWithinRange(valueToDp(value), [
@@ -145,7 +146,9 @@ const Slider = observer(
 
 			// Trigger onChange only when accumulated distance is
 			// around a multiple of dpStep
-			if (Math.abs(gestureState.dx % dpStep) < 0.5) {
+			console.log("GESTURE STATE", gestureState.dx)
+			console.log(Math.abs(gestureState.dx % dpStep))
+			if (Math.abs(gestureState.dx % dpStep) < 1) {
 				onChange(dpToValue(position))
 			}
 		}

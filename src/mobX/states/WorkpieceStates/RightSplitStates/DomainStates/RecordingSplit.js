@@ -27,7 +27,7 @@ export default class RecordingSplit extends SplitDomainState {
 
 	/**
 	 *	Action that toggles lock state of the share with the provided id.
-	 *	Detect if the action is a locking or an unlocking. In the first case,
+	 *	Detect if the action is a lock or an unlock action. In the first case,
 	 *	if there is only one share unlocked, the action locks it too to prevent the
 	 * 	user from manually modifying it. Otherwise it would provoke a UI bug, the
 	 *	corresponding slider UI would react without making change to the actual shares.
@@ -43,7 +43,7 @@ export default class RecordingSplit extends SplitDomainState {
 			)
 		} else {
 			const otherShares = this.sharesValues.filter(
-				(share) => share.shareholderId !== id && !share.locked
+				(share) => share.shares && share.shareholderId !== id && !share.locked
 			)
 			if (otherShares.length === 1) {
 				this.shareholders.get(otherShares[0].shareholderId).locked = true

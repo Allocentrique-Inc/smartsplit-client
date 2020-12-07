@@ -95,7 +95,7 @@ const CopyrightForm = observer(() => {
 								min={0}
 								max={shareTotal}
 								color={UIState.shareholderColors.get(share.id)}
-								step={0.01}
+								step={0.1}
 								value={share.shares}
 								disabled={share.locked}
 								onChange={(value) =>

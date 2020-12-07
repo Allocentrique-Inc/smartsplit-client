@@ -144,13 +144,14 @@ export default class SplitDomainState {
 		const oldValue = this.shareholders.get(id).shares.value
 		const diff = value - oldValue
 		// Select other candidate shares
+		console.log("SHARES VALUES", this.sharesValues)
 		const sortedShares = this.sharesValues
-			.filter((share) => share.shareholderId !== id && !share.locked)
+			.filter((share) => share.shares && share.shareholderId !== id && !share.locked)
 			.sort((a, b) => a.shares - b.shares)
 		if (sortedShares.length === 0) {
 			return
 		}
-		// If diff < 0, we subtract a portion from the shareholder and then
+		// If diff < 0, we subtract it from the shareholder and then
 		// splitting it between other shareholders
 		if (diff < 0) {
 			this.applyDiffToShares(-diff / sortedShares.length, sortedShares)
@@ -173,7 +174,7 @@ export default class SplitDomainState {
 					console.error("Error with smallest share", e, shares)
 				}
 
-				// 3. Try an equal split of toSplit
+				// 3. Try an equal split of toSplit between the other shareholders
 				toSplit = toSplit - shares.length * smallestShare.shares
 
 				if (toSplit > 0) {
@@ -188,5 +189,6 @@ export default class SplitDomainState {
 		}
 
 		this.shareholders.get(id).setValue("shares", value)
+		console.log("TOTAL SHARE", this.shareTotal)
 	}
 }
