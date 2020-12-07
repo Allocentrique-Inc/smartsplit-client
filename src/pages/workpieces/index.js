@@ -87,6 +87,8 @@ const Styles = StyleSheet.create({
 		height: "100%",
 		paddingRight: Metrics.spacing.small,
 		paddingLeft: Metrics.spacing.small,
+		overflowX: "hidden",
+		overflowY: "auto",
 	},
 	innerContainer: {
 		maxWidth: 976,

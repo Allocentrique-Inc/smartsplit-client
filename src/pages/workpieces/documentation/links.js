@@ -90,9 +90,9 @@ const LinkRow = observer((props) => {
 				style={{ flex: 5 }}
 				placeholder={t("document:links.addLink")}
 				value={model.links[name]}
-				onChange={(v) => {
+				onChangeText={(v) => {
 					model.links.setItem(name, v)
-					console.log(model.toJS())
+					//console.log(model.toJS())
 				}}
 			/>
 		</Row>
@@ -139,7 +139,12 @@ export const LinksForm = observer((props) => {
 					<Paragraph>{t("document:links.paragraph")}</Paragraph>
 					<Spacer of="group" />
 					{defaultLinks.map((name) => (
-						<LinkRow name={name} Icon={icons[name]} model={model} />
+						<LinkRow
+							name={name}
+							Icon={icons[name]}
+							model={model}
+							key={`link-${name}`}
+						/>
 					))}
 
 					{/* <Row valign="center">
