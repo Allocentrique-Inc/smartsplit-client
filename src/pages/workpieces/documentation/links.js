@@ -75,7 +75,7 @@ export default observer(function Links(props) {
 	)
 })
 
-export function LinksForm(props) {
+export const LinksForm = observer((props) => {
 	const { t } = useTranslation()
 
 	const { model } = props
@@ -230,7 +230,7 @@ export function LinksForm(props) {
 			</Row>
 		</>
 	)
-}
+})
 
 export function EndModal(props) {
 	const { t } = useTranslation()
