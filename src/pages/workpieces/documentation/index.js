@@ -20,7 +20,7 @@ import { useDocsModel } from "../../../mobX/hooks"
 
 const DocumentationPage = observer(() => {
 	const workpieceId = useCurrentWorkpiece().id
-	const model = useDocsModel(workpieceId)	
+	const model = useDocsModel(workpieceId)
 	const { t } = useTranslation()
 	const [endModal, setEndModal] = useState(false)
 	const history = useHistory()
@@ -101,7 +101,7 @@ const DocumentationPage = observer(() => {
 	}
 
 	function toNextPage() {
-		console.log("model",model)
+		console.log("model", model)
 		model.save(type)
 		type === "creation" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/performance`)
@@ -134,7 +134,7 @@ const DocumentationPage = observer(() => {
 					onClick={() => {
 						model.save()
 					}}
-				// disabled={!rightsSplits.$hasChanged}
+					// disabled={!rightsSplits.$hasChanged}
 				/>
 			}
 			formNav={
@@ -151,9 +151,9 @@ const DocumentationPage = observer(() => {
 							(type === "links"
 								? t("general:buttons.end")
 								: t("general:buttons.continue"),
-								type === "files"
-									? t("general:buttons.pass")
-									: t("general:buttons.continue"))
+							type === "files"
+								? t("general:buttons.pass")
+								: t("general:buttons.continue"))
 						}
 						onClick={toNextPage}
 					/>
