@@ -1,4 +1,4 @@
-import BaseState, { save, session } from "../BaseState"
+import BaseState from "../BaseState"
 import { observable, computed, action, when, reaction, runInAction } from "mobx"
 import { Platform, AsyncStorage } from "react-native"
 import * as AuthAPI from "../../../api/auth"
@@ -21,7 +21,8 @@ import ChangePasswordModel from "../models/auth/ChangePasswordModel"
 export default class AuthState extends BaseState {
 	//history
 	reInitializeOnAuth = false
-
+	save = { ignoreNewUser: false, isReturning: false }
+	session = { accessToken: false, user_id: false }
 	constructor(root) {
 		super(root)
 		this.tokenChanged = reaction(
@@ -40,11 +41,9 @@ export default class AuthState extends BaseState {
 	@observable error = null
 	@observable isLoggedIn = null
 
-	@save
 	@observable
 	isReturning = false
 
-	@save
 	@observable
 	ignoreNewUser = false
 
@@ -72,11 +71,9 @@ export default class AuthState extends BaseState {
 		this.ignoreNewUser = true
 	}
 
-	@session
 	@observable
 	accessToken = null
 
-	@session
 	@observable
 	user_id = null
 
@@ -176,8 +173,8 @@ export default class AuthState extends BaseState {
 		//console.log("logout called")
 		this.isLoading = false
 		this.isLoggedIn = false
-		this.accessToken = null
-		this.user_id = null
+		this.accessToken = false
+		this.user_id = false
 		this.error = error
 
 		/*
