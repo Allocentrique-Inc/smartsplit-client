@@ -302,7 +302,7 @@ export const LinksForm = observer((props) => {
 						selection={model.otherPlatforms.array}
 						onSelect={(selection) => {
 							console.log(selection)
-							//model.links.setItem(selection.name, "")
+							model.links.setItem(selection.name, "")
 						}}
 						/* 	onUnselect={
 							(selection) => model.otherPlatforms.remove(selection)
