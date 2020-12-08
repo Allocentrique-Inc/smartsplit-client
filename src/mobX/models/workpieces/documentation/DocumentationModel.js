@@ -8,8 +8,10 @@ import DocReleaseModel from "./DocReleaseModel"
 import DocInfosModel from "./DocInfosModel"
 import BaseModel from "../../../BaseModel/BaseModel"
 import { saveDocumentation } from "../../../../../api/workpieces"
+import DocStreamingModel from "./DocStreamingModel"
 
 const makeObservable = () => {}
+
 export default class DocumentationModel extends BaseModel {
 	workpiece
 	@observable creation = new DocCreationModel(this)
@@ -19,6 +21,7 @@ export default class DocumentationModel extends BaseModel {
 	@observable recording = new DocRecordingModel(this)
 	@observable release = new DocReleaseModel(this)
 	@observable infos = new DocInfosModel(this)
+	@observable streaming = new DocStreamingModel(this)
 	constructor(parent, workpiece) {
 		super()
 		makeObservable(this)
@@ -35,6 +38,7 @@ export default class DocumentationModel extends BaseModel {
 	 * @return {Promise<*>}
 	 */
 	async save(section) {
+		if (section === "links") section = "streaming"
 		console.log(`workpiece  id is ${this.workpiece.id}`)
 		let data
 		let isDirty = false
