@@ -4,22 +4,20 @@ import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 import { useStorePath, useStores } from "../../../mobX"
 import Layout from "../layout"
-
 import { Row, Column, Flex, Hairline } from "../../../layout"
 import { Form, RadioGroup, RadioGroupButton, FileField } from "../../../forms"
 import { Heading, Paragraph, Text } from "../../../text"
 import Button from "../../../widgets/button"
 import { useProtectModel } from "../../../mobX/hooks"
-
-import Selection from "./selection"
+import SelectionPage from "./selection"
 import Certificate from "./certificate"
 
 const ProtectWork = observer(() => {
+	const { workpieces } = useStores()
+	const [endModal, setEndModal] = useState(false)
 	const { t } = useTranslation()
 	const history = useHistory()
 	const { workpiece_id, type } = useParams()
-	const { workpieces } = useStores()
-	const [endModal, setEndModal] = useState(false)
 
 	const model = useProtectModel(workpiece_id)
 	const workpiece = useStorePath("workpieces").fetch(workpiece_id)
@@ -30,7 +28,7 @@ const ProtectWork = observer(() => {
 
 	const protectPage = {
 		selection: {
-			form: Selection,
+			form: SelectionPage,
 			progress: 25,
 			title: t("protect:navbar.pages.selection"),
 		},
@@ -77,7 +75,7 @@ const ProtectWork = observer(() => {
 					onClick={() => {
 						model.save()
 					}}
-					// disabled={!rightsSplits.$hasChanged}
+				// disabled={!rightsSplits.$hasChanged}
 				/>
 			}
 			formNav={
@@ -94,9 +92,9 @@ const ProtectWork = observer(() => {
 							(type === "links"
 								? t("general:buttons.end")
 								: t("general:buttons.continue"),
-							type === "files"
-								? t("general:buttons.pass")
-								: t("general:buttons.continue"))
+								type === "files"
+									? t("general:buttons.pass")
+									: t("general:buttons.continue"))
 						}
 						onClick={toNextPage}
 					/>
