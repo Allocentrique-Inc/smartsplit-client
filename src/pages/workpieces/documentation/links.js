@@ -27,12 +27,14 @@ import YoutubeIcon from "../../../svg/workpieces/youtube"
 import SoundcloudIcon from "../../../svg/workpieces/soundcloud"
 import PandoraIcon from "../../../svg/workpieces/pandora"
 import DeezerIcon from "../../../svg/workpieces/deezer"
+import TidalIcon from "../../../svg/workpieces/tidal"
 import HighFive from "../../../../assets/svg/high-five.svg"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
-import AddPlatformDropdown from "../../../smartsplit/components/add-platform-dropdown"
+import AddPlatform from "../../../smartsplit/components/AddPlatformDropdown"
 import { DialogModal } from "../../../widgets/modal"
 import { observer } from "mobx-react"
 import { useDocsModel } from "../../../mobX/hooks"
+import { titleCase } from "../../../utils/utils"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -54,7 +56,7 @@ export default observer(function Links(props) {
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
 	const model: DocStreamingModel = useDocsModel(workpieceId, "streaming")
-	console.log(model)
+	//console.log(model)
 	function saveAndQuit() {
 		history.push("/dashboard/")
 	}
@@ -125,6 +127,32 @@ export const LinksForm = observer((props) => {
 		soundcloud: SoundcloudIcon,
 		deezer: DeezerIcon,
 	}
+
+	const [searchPlatforms, setSearchPlatforms] = useState("")
+
+	const fakeSearchResults = [
+		{
+			id: "123",
+			name: "Tidal",
+		},
+		{
+			id: "1234",
+			name: "My Space From the Death",
+		},
+		{
+			id: "12345",
+			name: "Napster",
+		},
+	]
+
+	const platformResults = fakeSearchResults
+
+	const searchResultsPlatforms = platformResults.map((platform) => {
+		return {
+			id: platform.id,
+			name: titleCase(platform.name),
+		}
+	})
 
 	return (
 		<>
@@ -262,7 +290,25 @@ export const LinksForm = observer((props) => {
 							placeholder={t("document:links.addLink")}
 						/>
 					</Row> */}
-					<AddPlatformDropdown placeholder={t("document:links.addPlatform")} />
+					<AddPlatform
+						noIcon={false}
+						searchResults={searchResultsPlatforms.filter(
+							(p) =>
+								p.name.toLowerCase().indexOf(searchPlatforms.toLowerCase()) > -1
+						)}
+						search={searchPlatforms}
+						onSearchChange={setSearchPlatforms}
+						selection={model.otherPlatforms.array}
+						onSelect={(selection) => {
+							let exists =
+								model.otherPlatforms.array.filter((p) => p.id === selection.id)
+									.length > 0
+							if (!exists) model.otherPlatforms.add(selection)
+						}}
+						/* 	onUnselect={
+							(selection) => model.otherPlatforms.remove(selection)
+						} */
+					/>
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>

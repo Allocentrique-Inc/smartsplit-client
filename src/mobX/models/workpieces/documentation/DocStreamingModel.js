@@ -10,4 +10,7 @@ export default class DocStreamingModel extends BaseModel {
 		})
 		return { links: links }
 	}
+	@observable otherPlatforms = new Field(this, "otherPlatforms", {
+		type: FieldType.collection,
+	})
 }

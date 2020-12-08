@@ -175,11 +175,11 @@ export const GeneralInfosForm = observer((props) => {
 						//console.log(model.toJS())
 					}}
 				/>
-				{/* Secondary Genres */}
 				{/* console.log(searchGenres) */}
 				{/* console.log(searchResultsGenres) */}
+
+				{/* Secondary Genres */}
 				<SearchAndTag
-					style={Styles.lists}
 					noIcon={true}
 					label={t("document:infos.secondaryGenre")}
 					searchResults={searchResultsGenres.filter(
