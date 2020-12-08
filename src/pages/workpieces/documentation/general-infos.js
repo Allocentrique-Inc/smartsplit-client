@@ -12,7 +12,7 @@ import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import MusicNoteIcon from "../../../svg/music-note"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
-import AddInfluenceDropdown from "../../../smartsplit/components/add-influence-dropdown"
+import AddInfluenceDropdown from "../../../smartsplit/components/AddInfluenceDropdown"
 import AddGenreDropdown from "../../../smartsplit/components/AddGenreDropdown"
 import { useDocsModel } from "../../../mobX/hooks"
 import { toJS } from "mobx"
@@ -130,11 +130,7 @@ export const GeneralInfosForm = observer((props) => {
 
 	const searchResultsInfluences = ["Stromae", "Apollo Brown", "Daft Punk"]
 	const [searchInfluences, setSearchInfluences] = useState("")
-	const [selectedInfluences, setSelectedInfluences] = useState([
-		"Stromae",
-		"Apollo Brown",
-		"Daft Punk",
-	])
+	const [selectedInfluences, setSelectedInfluences] = useState("")
 	//console.log(model.toJS())
 
 	return (
@@ -205,26 +201,6 @@ export const GeneralInfosForm = observer((props) => {
 					placeholder={t("document:infos.addGenre")}
 				/>
 
-				<SearchAndTag
-					noIcon={true}
-					label={t("document:infos.influence")}
-					undertext={t("document:infos.influenceExample")}
-					searchResults={searchResultsInfluences.filter(
-						(g) => g.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
-					)}
-					search={searchInfluences}
-					onSearchChange={setSearchInfluences}
-					selection={selectedInfluences}
-					onSelect={(selection) =>
-						setSelectedInfluences([...selectedInfluences, selection])
-					}
-					onUnselect={(selection) =>
-						setSelectedInfluences(
-							selectedInfluences.filter((i) => i !== selection)
-						)
-					}
-					placeholder={t("document:infos.addInfluence")}
-				/>
 				{/* <AddGenreDropdown
 						style={{ flex: 1 }}
 						noIcon={true}
@@ -245,27 +221,48 @@ export const GeneralInfosForm = observer((props) => {
 						}
 					/> */}
 
-				{/* <AddInfluenceDropdown
-						style={{ flex: 1 }}
-						noIcon={true}
-						placeholder={t("document:infos.addInfluence")}
-						searchResults={searchResultsInfluences.filter((v) =>
-							v
-								? v.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
-								: true
-						)}
-						search={searchInfluences}
-						onSearchChange={setSearchInfluences}
-						selection={selectedInfluences}
-						onSelect={(selection) =>
-							setSelectedInfluenbces([...selectedInfluences, selection])
-						}
-						onUnselect={(selection) =>
-							setSelectedInfluences(
-								selectedInfluences.filter((i) => i !== selection)
-							)
-						}
-					/> */}
+				{/* <SearchAndTag
+					noIcon={true}
+					label={t("document:infos.influence")}
+					undertext={t("document:infos.influenceExample")}
+					searchResults={searchResultsInfluences.filter(
+						(g) => g.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
+					)}
+					search={searchInfluences}
+					onSearchChange={setSearchInfluences}
+					selection={selectedInfluences}
+					onSelect={(selection) =>
+						setSelectedInfluences([...selectedInfluences, selection])
+					}
+					onUnselect={(selection) =>
+						setSelectedInfluences(
+							selectedInfluences.filter((i) => i !== selection)
+						)
+					}
+					placeholder={t("document:infos.addInfluence")}
+				/> */}
+
+				<AddInfluenceDropdown
+					style={{ flex: 1 }}
+					noIcon={true}
+					placeholder={t("document:infos.addInfluence")}
+					searchResults={searchResultsInfluences.filter((v) =>
+						v
+							? v.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
+							: true
+					)}
+					search={searchInfluences}
+					onSearchChange={setSearchInfluences}
+					selection={selectedInfluences}
+					onSelect={(selection) =>
+						setSelectedInfluences([...selectedInfluences, selection])
+					}
+					onUnselect={(selection) =>
+						setSelectedInfluences(
+							selectedInfluences.filter((i) => i !== selection)
+						)
+					}
+				/>
 			</Column>
 			<Flex />
 			<Column of="group" flex={4}>

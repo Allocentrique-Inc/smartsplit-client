@@ -29,6 +29,7 @@ export default function AddInfluenceDropdown({
 	return (
 		<Column of="component">
 			<Autocomplete
+				alwaysShowAdd
 				leftIcon={false}
 				search={influence}
 				onSearcheChange={setInfluence}
@@ -45,7 +46,7 @@ export default function AddInfluenceDropdown({
 						<Row of="component" padding="component" style={Styles.actionFrame}>
 							<PlusCircle />
 							<Text bold action>
-								{t("document:add")} <Text bold>{nextProps.search}</Text>
+								{t("document:add")} {nextProps.search}
 							</Text>
 						</Row>
 					</TouchableWithoutFeedback>
