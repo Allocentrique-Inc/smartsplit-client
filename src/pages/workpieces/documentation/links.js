@@ -166,12 +166,13 @@ export const LinksForm = observer((props) => {
 					<Heading level={1}>{t("document:links.title")}</Heading>
 					<Paragraph>{t("document:links.paragraph")}</Paragraph>
 					<Spacer of="group" />
-					{defaultLinks.map((name) => (
+					{Object.keys(model.links.value).map((name) => (
 						<LinkRow
 							name={name}
 							Icon={icons[name]}
 							model={model}
 							key={`link-${name}`}
+							value={model.links.value[name]}
 						/>
 					))}
 
@@ -300,10 +301,8 @@ export const LinksForm = observer((props) => {
 						onSearchChange={setSearchPlatforms}
 						selection={model.otherPlatforms.array}
 						onSelect={(selection) => {
-							let exists =
-								model.otherPlatforms.array.filter((p) => p.id === selection.id)
-									.length > 0
-							if (!exists) model.otherPlatforms.add(selection)
+							console.log(selection)
+							//model.links.setItem(selection.name, "")
 						}}
 						/* 	onUnselect={
 							(selection) => model.otherPlatforms.remove(selection)

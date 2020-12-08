@@ -34,31 +34,13 @@ const AddPlatform = observer((props) => {
 	const model: DocStreamingModel = useDocsModel(workpieceId, "streaming")
 
 	let { selection, onUnselect, onSelect, field, error, ...nextProps } = props
-	if (field) {
-		if (field.type !== FieldType.collection)
-			throw new Error("Platform not on the list")
-		label = t(field.label)
-		error = t(field.error)
-		selection = field.value
-		onSelect = action((item) => {
-			field.addItem(item.name, "")
-		})
-		onUnselect = action((item) => {
-			let index = field.value.indexOf(item)
-			field.value.splice(index, 1)
-			//field.setValue([...field.value])
-		})
-	}
+
 	const [search, setSearch] = useState("")
 
 	return (
 		<Column of="component">
 			{otherLinks.map((name) => (
 				<Autocomplete
-					value={model.links[name]}
-					onChangeText={(v) => {
-						model.links.setItem(name, v)
-					}}
 					icon={PlusCircle}
 					placeholder={t("document:links.addPlatform")}
 					error={error}
