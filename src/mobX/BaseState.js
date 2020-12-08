@@ -1,4 +1,4 @@
-import { action, toJS } from "mobx"
+import { action, toJS, reaction } from "mobx"
 import { Platform, AsyncStorage } from "react-native"
 
 export default class BaseState {
@@ -184,14 +184,8 @@ export default class BaseState {
 		await this.restoreInitialState()
 	}
 }
-try {
-	const platformSessionStorage =
-		Platform.OS === "web" ? window.sessionStorage : AsyncStorage
-	const platformLocalStorage =
-		Platform.OS === "web" ? window.localStorage : AsyncStorage
 
-	console.log(platformSessionStorage)
-	console.log(platformLocalStorage)
-} catch (e) {
-	console.log(e)
-}
+const platformSessionStorage =
+	Platform.OS === "web" ? window.sessionStorage : AsyncStorage
+const platformLocalStorage =
+	Platform.OS === "web" ? window.localStorage : AsyncStorage

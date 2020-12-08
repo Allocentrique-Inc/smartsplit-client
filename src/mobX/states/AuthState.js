@@ -92,6 +92,7 @@ export default class AuthState extends BaseState {
 		//console.log("AuthState::init called")
 		//console.log(`access token is ${this.accessToken}`)
 		//this.history = useHistory()
+		await super.init()
 		this.regModel = new RegisterModel()
 		this.regModel.init()
 		this.resetModel = new PasswordModel()
