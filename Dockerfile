@@ -6,7 +6,7 @@ RUN yarn install
 FROM node-modules AS production-bundle
 WORKDIR /app
 COPY . .
-RUN yarn run expo build:web -d
+RUN yarn run expo build:web
 
 FROM nginx:stable-alpine AS production-server
 WORKDIR /app

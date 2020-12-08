@@ -17,7 +17,7 @@ import AddGenreDropdown from "../../../smartsplit/components/AddGenreDropdown"
 import { useDocsModel } from "../../../mobX/hooks"
 import { toJS } from "mobx"
 import { observer } from "mobx-react"
-import genres from "../../../../assets/data/genres-smartsplit"
+import genres from "../../../data/genres-smartsplit"
 import { titleCase } from "../../../utils/utils"
 
 const Styles = StyleSheet.create({

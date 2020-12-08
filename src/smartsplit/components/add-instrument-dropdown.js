@@ -6,7 +6,7 @@ import { Row, Column, Layer, Spacer } from "../../layout"
 import { Text } from "../../text"
 import { Colors } from "../../theme"
 import PlusCircle from "../../svg/plus-circle"
-import InstrumentList from "../../../assets/data/instruments-smartsplit"
+import InstrumentList from "../../data/instruments-smartsplit"
 const Styles = StyleSheet.create({
 	actionFrame: {
 		borderTopWidth: 1,
