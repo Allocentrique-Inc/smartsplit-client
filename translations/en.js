@@ -694,11 +694,10 @@ export const document = {
 		description: {
 			mainArtist: 'Also called "Featured Artist " or "Solo Artist"',
 			guestArtist:
-			"Artist or group member invited to collaborate on a musical piece",
-			groupMember:
-			"Musician or singer taking part in the artistic entity",
+				"Artist or group member invited to collaborate on a musical piece",
+			groupMember: "Musician or singer taking part in the artistic entity",
 			backupArtist: "Performer hired during studio recording sessions",
-		}
+		},
 	},
 
 	recording: {
@@ -845,6 +844,19 @@ export const document = {
 		paragraph:
 			"You are one click away being able to publish the credits of this piece on a webpage and therefore increase your discoverability in data web.",
 	},
+}
+export const protect = {
+	navbar: {
+		protect: "Protect your work",
+		pages: {
+			selection: "Select",
+			certificate: "Review the certificate"
+		},
+	},
+	help: "Help",
+	selection: {
+		what: "What"
+	}
 }
 export const collaborators = {
 	email: "Collaborator's email address",
