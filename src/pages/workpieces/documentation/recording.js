@@ -12,7 +12,6 @@ import { Metrics } from "../../../theme"
 import RecordingIcon from "../../../svg/recording"
 import UserTag from "../../../smartsplit/user/UserTag"
 import { Dropdown, DateField, TextField, SearchAndTag } from "../../../forms"
-import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 import AddContributorDropdown from "../../../smartsplit/components/AddContributorDropdown"
 import { observer } from "mobx-react"
 import {
@@ -26,7 +25,7 @@ import ContributorModel from "../../../mobX/models/user/ContributorModel"
 import DocRecordingModel from "../../../mobX/models/workpieces/documentation/DocRecordingModel"
 import { toJS } from "mobx"
 import Field from "../../../mobX/BaseModel/Field"
-import searchResultsStudio from "../../../../assets/data/studios-smartsplit"
+import searchResultsStudio from "../../../data/studios-smartsplit"
 
 const Styles = StyleSheet.create({
 	category: {
