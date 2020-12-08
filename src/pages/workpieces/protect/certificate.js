@@ -35,7 +35,7 @@ const Styles = StyleSheet.create({
 
 const frameStyle = [CardStyles.frame, Styles.frame]
 
-const SelectPage = observer(() => {
+const CertificatePage = observer(() => {
 	const { t } = useTranslation()
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
@@ -55,11 +55,11 @@ const SelectPage = observer(() => {
 
 					<Heading level={4}>{t("protect:selection.why")}</Heading>
 
-					<Text secondary>{t("protect:selection.whyContent")}</Text>
+					<Text secondary>{t("protect:certificate.whyContent")}</Text>
 				</Column>
 			</Column>
 		</Row>
 	)
 })
 
-export default SelectPage
+export default CertificatePage

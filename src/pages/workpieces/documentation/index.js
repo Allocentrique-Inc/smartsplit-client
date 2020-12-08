@@ -20,7 +20,7 @@ import { useDocsModel } from "../../../mobX/hooks"
 
 const DocumentationPage = observer(() => {
 	const workpieceId = useCurrentWorkpiece().id
-	const model = useDocsModel(workpieceId)
+	const model = useDocsModel(workpieceId)	
 	const { t } = useTranslation()
 	const [endModal, setEndModal] = useState(false)
 	const history = useHistory()

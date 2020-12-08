@@ -1,6 +1,7 @@
 import { createCrudObservable, createEntityListObservable } from "../crud"
 import WorkpiecesCrudAPI, {
 	getDocumentation,
+	getProtection,
 	listForUser,
 } from "../../../api/workpieces"
 import {
@@ -13,6 +14,7 @@ import {
 	toJS,
 } from "mobx"
 import DocumentationModel from "../models/workpieces/documentation/DocumentationModel"
+import ProtectionModel from "../models/workpieces/protect/ProtectionModel"
 import RightsSplits from "./WorkpieceStates/RightsSplits"
 import WorkpieceModel from "../models/workpieces/WorkpieceModel"
 
@@ -28,6 +30,8 @@ export class Workpiece extends WorkpieceObservable {
 	 * the documentation model
 	 */
 	@observable documentation: DocumentationModel
+	@observable protection: ProtectionModel
+
 	constructor(id, initData = null, initState) {
 		const { files, rightSplit, ...data } = initData || {}
 		super(id, data, initState)
@@ -44,6 +48,15 @@ export class Workpiece extends WorkpieceObservable {
 		//this.documentation.init()
 		//console.log(toJS(this.documentation))
 		//console.log(this.documentation.toJS())
+
+		this.protection = new ProtectionModel(
+			null,
+			this
+		)
+
+		getProtection(id).then((docs) => {
+			this.protection.init({})
+		})
 	}
 
 	/**

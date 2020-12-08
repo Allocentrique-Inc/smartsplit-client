@@ -3,25 +3,26 @@ import { Redirect, useHistory, useParams } from "react-router"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 import { useStorePath, useStores } from "../../../mobX"
-import { useSubpath } from "../../../appstate/react"
-import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 
 import { Row, Column, Flex, Hairline } from "../../../layout"
 import { Form, RadioGroup, RadioGroupButton, FileField } from "../../../forms"
 import { Heading, Paragraph, Text } from "../../../text"
 import Button from "../../../widgets/button"
+import { useProtectModel } from "../../../mobX/hooks"
 
 import Selection from "./selection"
+import Certificate from "./certificate"
 
 const ProtectWork = observer(() => {
 	const { t } = useTranslation()
-	const workpiece = useCurrentWorkpiece()
 	const history = useHistory()
-	const form = useRef()
 	const { workpiece_id, type } = useParams()
 	const { workpieces } = useStores()
 	const [endModal, setEndModal] = useState(false)
+
+	const model = useProtectModel(workpiece_id)
+	const workpiece = useStorePath("workpieces").fetch(workpiece_id)
 
 	if (!workpiece_id) navigateToSummary()
 	else if (!type)
@@ -34,7 +35,7 @@ const ProtectWork = observer(() => {
 			title: t("protect:navbar.pages.selection"),
 		},
 		certificate: {
-			form: null,
+			form: Certificate,
 			progress: 87.5,
 			title: t("protect:navbar.pages.certificate"),
 		},
@@ -45,18 +46,23 @@ const ProtectWork = observer(() => {
 	}
 
 	const navigateToSummary = () => {
-		history.push(`/workpieces/${workpiece.id}/protect`)
+		history.push(`/workpieces/${workpiece.id}`)
 	}
 
 	const toPreviousPage = () => {
 		model.save(type)
 		type === "selection" && navigateToSummary()
 		type === "certificate" &&
-			history.push(`/workpieces/${workpiece.id}/protect/certificate`)
+			history.push(`/workpieces/${workpiece.id}/protect/selection`)
 	}
 
 	const toNextPage = () => {
 		model.save(type)
+		type === "selection" &&
+			history.push(`/workpieces/${workpiece.id}/protect/certificate`)
+		if (type === "certificate") {
+			setEndModal(true)
+		}
 	}
 
 	return (
@@ -64,7 +70,16 @@ const ProtectWork = observer(() => {
 			workpiece={workpiece}
 			progress={protectPage[type].progress}
 			path={[t("protect:navbar.protect"), protectPage[type].title]}
-			actions={<Button tertiary text="Abandonner" onClick={goToHome} />}
+			actions={
+				<Button
+					tertiary
+					text={t("general:buttons.saveClose")}
+					onClick={() => {
+						model.save()
+					}}
+					// disabled={!rightsSplits.$hasChanged}
+				/>
+			}
 			formNav={
 				<Row style={{ maxWidth: 464 }} flex={1}>
 					<Button

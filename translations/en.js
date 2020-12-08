@@ -850,13 +850,19 @@ export const protect = {
 		protect: "Protect your work",
 		pages: {
 			selection: "Select",
-			certificate: "Review the certificate"
+			certificate: "Review the certificate",
 		},
 	},
 	help: "Help",
 	selection: {
-		what: "What"
-	}
+		why: "Why protect my work?",
+		whyContent:
+			"Registering your work on the blockchain with Smartsplit is equivalent to sending it by registered mail to yourself in order to be able to demonstrate your parternity if necessary.",
+	},
+	certificate: {
+		why: "Why protect my work?",
+		whyContent: "whyContent",
+	},
 }
 export const collaborators = {
 	email: "Collaborator's email address",

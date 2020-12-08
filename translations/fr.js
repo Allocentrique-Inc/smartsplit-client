@@ -853,6 +853,26 @@ export const document = {
 	},
 }
 
+export const protect = {
+	navbar: {
+		protect: "Protège ton oeuvre",
+		pages: {
+			selection: "Sélectionner",
+			certificate: "Réviser le certificat",
+		},
+	},
+	help: "Aide",
+	selection: {
+		why: "Pourquoi protéger mon oeuvre?",
+		whyContent:
+			"Enregistrer son oeuvre sur la blockchain avec Smartsplit est équivalent de se l’envoyer par courrier recommandé à soi-même afin de pouvoir démontrer au besoin sa parternité.",
+	},
+	certificate: {
+		why: "À rédiger",
+		whyContent: "À rédiger",
+	},
+}
+
 export const collaborators = {
 	email: "L'adresse courriel du collaborateur",
 }
