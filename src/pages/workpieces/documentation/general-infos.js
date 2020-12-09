@@ -100,7 +100,7 @@ export const GeneralInfosForm = observer((props) => {
 	const [searchGenres, setSearchGenres] = useState("")
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
-	const model = useDocsModel(workpieceId, "infos")
+	const model = useDocsModel(workpieceId, "info")
 	//console.log(model.toJS()) importer puis loger dans console pour vérifier valeurs puis comment out sinon trop
 
 	// const searchResultsGenres = ["Electrofunk", "Future Funk", "Mega Funk"]
