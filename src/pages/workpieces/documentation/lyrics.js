@@ -89,11 +89,11 @@ export const LyricsForm = observer((props) => {
 					<Column of="tiny">
 						<TextInput
 							label={t("document:lyrics.label")}
-							value={model.texts.value}
+							value={model.text.value}
 							multiline={true}
 							style={formStyle.textAreaContainer}
 							onChangeText={(text) => {
-								model.texts.setValue(text)
+								model.text.setValue(text)
 							}}
 						/>
 						<Text secondary small>
