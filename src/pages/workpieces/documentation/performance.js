@@ -39,7 +39,7 @@ import UserAvatar from "../../../smartsplit/user/avatar"
 import HelpCircleFull from "../../../svg/help-circle-full"
 import XIcon from "../../../svg/x"
 import Field from "../../../mobX/BaseModel/Field"
-
+import InstrumentTag from "../../../smartsplit/components/InstrumentTag"
 import IconDescriptionSelect, {
 	IconDescriptionItem,
 } from "../../../forms/IconDescriptionSelect"
@@ -343,7 +343,13 @@ export const PerformanceOptions = observer((props) => {
 					{model.isMusician.value && (
 						<Column>
 							{model.instruments.array.map((entry, index) => (
-								<AddInstrumentDropdown
+								<InstrumentTag
+									instrument={entry.instrument.value}
+									index={index}
+									field={model.instruments}
+								/>
+							))}
+							{/* <AddInstrumentDropdown
 									hideEmpty
 									style={{ flex: 1 }}
 									key={`instr-${index}`}
@@ -353,8 +359,7 @@ export const PerformanceOptions = observer((props) => {
 										model.instruments.setItem(index, { instrument: selection })
 									}
 									onUnselect={() => model.instruments.remove(index)}
-								/>
-							))}
+								/> */}
 							<AddInstrumentDropdown
 								style={{ flex: 1 }}
 								placeholder={t("document:performance.addInstrument")}
