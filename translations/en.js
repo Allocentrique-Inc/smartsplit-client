@@ -450,6 +450,23 @@ export const workpieces = {
 			title: "Protect your work",
 			desc:
 				"Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain.",
+				selection:{
+					heading1: "Which version of the work would you like to protect?",
+					para1: "Here, you send your work to a computer encoder.",
+					para2: "The algorithm behind this page will take your artwork and create a unique digital fingerprint from it called a",
+					heading2: "File to protect",
+					addFileLabel: "Add a file",
+					underText: "All formats accepted, 2 MB maximum.",
+					heading3: "Working version",
+					idea: "Idea",
+					demo: "Demo",
+					roughMix: "Rough Mix",
+					finalMaster: "Final version (mastered)",
+					help: "HELP",
+					heading4: "Why protect my work?",
+					desc: "Registering your work on the blockchain with <i> Smartsplit </i> is equivalent to sending it by registered mail to yourself in order to be able to demonstrate your authorship if necessary",
+					heading5: "Choose a custom name"
+				}
 		},
 		documentYourWork: {
 			title: "Document your work",

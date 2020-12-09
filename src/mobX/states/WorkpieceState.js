@@ -54,8 +54,10 @@ export class Workpiece extends WorkpieceObservable {
 			this
 		)
 
-		getProtection(id).then((docs) => {
-			this.protection.init({})
+		getProtection(id).then((pro) => {
+			this.protection.init({
+				files: []
+			})
 		})
 	}
 

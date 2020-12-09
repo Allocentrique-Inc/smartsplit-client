@@ -13,6 +13,8 @@ import { observer } from "mobx-react"
 import { CardStyles } from "../../../widgets/card"
 import { Form, RadioGroup, RadioGroupButton, FileField } from "../../../forms"
 import TextField from "../../../forms/text"
+import SelectionModel from "../../../mobX/models/workpieces/protect/SelectionModel"
+import { useProtectModel } from "../../../mobX/hooks"
 
 const Styles = StyleSheet.create({
     category: {
@@ -40,59 +42,66 @@ const Styles = StyleSheet.create({
 })
 
 const frameStyle = [CardStyles.frame, Styles.frame]
+//Pour info genre dropdown use this
 
 
 const SelectionPage = observer(() => {
+
     const { t } = useTranslation()
     const workpiece = useCurrentWorkpiece()
     const workpieceId = workpiece.id
-    const [files, setFiles] = useState([])// useCurrentWorkpiece("files", "$all")
+    const model: SelectionModel = useProtectModel(workpieceId, "selection");
+    const files = model.files.array// useCurrentWorkpiece("files", "$all")
     const [versionType, setVersionType] = useState("")
-    const [demoName, setDemoName] = useState("");
-    const [fileId, setFileId] = useState("");
-    const [file, setFile] = useState(null);
 
     const handleChangeVersionType = (val) => {
-        setVersionType(val)
+        model.versionType.value = val
+    }
+
+    const onChangeRadioFile = (val) => {
+        model.fileSelectedId.value = val;
     }
 
     const onChangeFile = (val) => {
-        console.log("val", val);
-        setFile(val);
+        model.fileSelectedId.value = "0"
+        model.fileAdd = val
     }
-
+    const onChangeDemoName = (val) => {
+        if (model.versionType.value === "demo") {
+            model.demoName.value = val
+        }
+    }
     return (
         <Row>
             <Column of="group" flex={5}>
                 <Column of="section" flex={6}>
                     <Column of="component">
                         <Heading level={1}>
-                            Quelle version de l'oeuvre aimerais-tu protéger?
-				</Heading>
+                            {t("workpieces:cards:protectYourWork:selection:heading1")}
+                        </Heading>
                         <Paragraph>
-                            Ici, tu envoies ton oeuvre dans un encodeur informatique.
-				</Paragraph>
+                            {t("workpieces:cards:protectYourWork:selection:para1")}
+                        </Paragraph>
                         <Paragraph>
-                            L'algorithme derrière cette page prendra ton oeuvre et créera à partir
-					d'elle une empreinte numérique unique que l'on nomme un <i>hash</i>.
-				</Paragraph>
+                            {t("workpieces:cards:protectYourWork:selection:para2")} <i>hash</i>.
+				        </Paragraph>
                     </Column>
 
                     <Column of="component">
-                        <Heading level={3}>Fichier à protéger</Heading>
+                        <Heading level={3}>{t("workpieces:cards:protectYourWork:selection:heading2")}</Heading>
 
-                        <RadioGroup name="file_id" value={fileId} onChange={setFileId}>
+                        <RadioGroup name="file_id" value={model.fileSelectedId.value} onChange={onChangeRadioFile} >
                             <Column of="inside">
                                 {files.map((file) => (
-                                    <FileRadioButton key={file.data.file_id} file={file} />
+                                    <FileRadioButton key={file.file_id} file={file} />
                                 ))}
 
-                                <RadioGroupButton value="another">
+                                <RadioGroupButton value="0">
                                     <Flex>
                                         <FileField
                                             name="file_upload"
-                                            label="Ajouter un fichier"
-                                            undertext="Tous formats acceptés, 2 Mo maximum."
+                                            label={t("workpieces:cards:protectYourWork:selection:addFileLabel")}
+                                            undertext={t("workpieces:cards:protectYourWork:selection:underText")}
                                             onFileChange={onChangeFile}
                                         />
                                     </Flex>
@@ -104,22 +113,22 @@ const SelectionPage = observer(() => {
                     <Hairline />
 
                     <Column of="component">
-                        <Heading level={3}>Version de travail</Heading>
-                        <RadioGroup name="versionType" value={versionType} onChange={handleChangeVersionType}>
+                        <Heading level={3}>{t("workpieces:cards:protectYourWork:selection:heading3")}</Heading>
+                        <RadioGroup name="versionType" value={model.versionType.value} onChange={handleChangeVersionType}>
                             <Column of="inside">
-                                <RadioGroupButton value="idea" label="Idée" />
-                                <RadioGroupButton value="demo" label="Démo" />
-                                {versionType === "demo" && <Column style={Styles.option_text}>
-                                    <Heading level={5}>Choisis un nom personnalisé</Heading>
+                                <RadioGroupButton value="idea" label={t("workpieces:cards:protectYourWork:selection:idea")} />
+                                <RadioGroupButton value="demo" label={t("workpieces:cards:protectYourWork:selection:demo")} />
+                                {model.versionType.value === "demo" && <Column style={Styles.option_text}>
+                                    <Heading level={5}>{t("workpieces:cards:protectYourWork:selection:heading5")}</Heading>
                                     <Flex>
-                                        <TextField value={demoName} onChange={setDemoName} />
+                                        <TextField value={model.demoName.value} onChange={onChangeDemoName} />
                                     </Flex>
                                 </Column>}
 
-                                <RadioGroupButton value="rough-mix" label="Rough Mix" />
+                                <RadioGroupButton value="rough-mix" label={t("workpieces:cards:protectYourWork:selection:roughMix")} />
                                 <RadioGroupButton
                                     value="final-master"
-                                    label="Version finale (masterisée)"
+                                    label={t("workpieces:cards:protectYourWork:selection:finalMaster")}
                                 />
                             </Column>
                         </RadioGroup>
@@ -131,18 +140,16 @@ const SelectionPage = observer(() => {
                 <Column of="component" padding="component" layer="underground">
                     <Column of="inside">
                         <Text small bold tertiary>
-                            AIDE
-    					</Text>
+                            {t("workpieces:cards:protectYourWork:selection:help")}
+                        </Text>
                         <Hairline />
                     </Column>
 
-                    <Heading level={4}>Pourquoi protéger mon oeuvre?</Heading>
+                    <Heading level={4}>{t("workpieces:cards:protectYourWork:selection:heading4")}</Heading>
 
-                    <Text secondary>
-                        Enregistrer son oeuvre sur la blockchain avec <i>Smartsplit</i> est
-    					équivalent à se l'envoyer par courrier recommandé à soi-même afin de
-    					pouvoir démontrer au besoin sa paternité
-    				</Text>
+                    <Text secondary >
+                        {t("workpieces:cards:protectYourWork:selection:desc")}
+                    </Text>
                 </Column>
             </Column>
         </Row>

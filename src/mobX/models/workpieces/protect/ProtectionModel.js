@@ -1,12 +1,12 @@
 import { observable, action, computed, toJS, isObservable } from "mobx"
-import ProtectSelectionModel from "./SelectionModel"
+import SelectionModel from "./SelectionModel"
 import BaseModel from "../../../BaseModel/BaseModel"
 import { saveProtection } from "../../../../../api/workpieces"
 
-const makeObservable = () => {}
+const makeObservable = () => { }
 export default class ProtectionModel extends BaseModel {
 	workpiece
-	@observable selection = new ProtectSelectionModel(this)
+	@observable selection = new SelectionModel(this)
 	constructor(parent, workpiece) {
 		super()
 		makeObservable(this)
@@ -41,7 +41,7 @@ export default class ProtectionModel extends BaseModel {
 			if (isDirty) await saveProtection(this.workpiece.id, section, data)
 			else console.log(`model to save is not dirty, not saving`)
 			return true
-		} catch (e) {}
+		} catch (e) { }
 	}
 }
 

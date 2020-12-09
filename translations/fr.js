@@ -445,6 +445,23 @@ export const workpieces = {
 			title: "Protège ton œuvre",
 			desc:
 				"Associe dès aujourd’hui ton enregistrement sonore à ses ayant droits et laisse des traces indélébiles de ça sur une blockchain.",
+			selection:{
+				heading1: "Quelle version de l'oeuvre aimerais-tu protéger?",
+				para1: "Ici, tu envoies ton oeuvre dans un encodeur informatique.",
+				para2: "L'algorithme derrière cette page prendra ton oeuvre et créera à partird'elle une empreinte numérique unique que l'on nomme un",
+				heading2: "Fichier à protéger",
+				addFileLabel: "Ajouter un fichier",
+				underText: "Tous formats acceptés, 2 Mo maximum.",
+				heading3: "Version de travail",
+				idea: "Idée",
+				demo: "Démo",
+				roughMix: "Rough Mix",
+				finalMaster: "Version finale (masterisée)",
+				help: "AIDE",
+				heading4: "Pourquoi protéger mon oeuvre?",
+				desc: "Enregistrer son oeuvre sur la blockchain avec <i>Smartsplit</i> est équivalent à se l'envoyer par courrier recommandé à soi-même afin de pouvoir démontrer au besoin sa paternité",
+				heading5: "Choisis un nom personnalisé"
+			}	
 		},
 		documentYourWork: {
 			title: "Documente ton œuvre",
