@@ -106,6 +106,7 @@ export const errors = {
 		"Aucun utilisateur n'a été trouvé avec cette adresse courriel. Peut-être avez-vous utilisé une autre addresse ?",
 	invalidDate: "Date invalide",
 	invalidPhoneNumber: "Numéro de téléphone invalide",
+	invalidUrl: "l'URL n'est pas valide",
 	password: {
 		weak: "Mot de passe faible",
 		average: "Mot de passe moyen",

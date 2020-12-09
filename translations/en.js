@@ -121,6 +121,7 @@ export const errors = {
 	requiredField: "Required Field",
 	invalidName: "must contain only letters and numbers",
 	acceptTerms: "You must accept the terms",
+	invalidUrl: "Url is invalid",
 }
 
 export const publicNavbarWeb = {
@@ -694,11 +695,10 @@ export const document = {
 		description: {
 			mainArtist: 'Also called "Featured Artist " or "Solo Artist"',
 			guestArtist:
-			"Artist or group member invited to collaborate on a musical piece",
-			groupMember:
-			"Musician or singer taking part in the artistic entity",
+				"Artist or group member invited to collaborate on a musical piece",
+			groupMember: "Musician or singer taking part in the artistic entity",
 			backupArtist: "Performer hired during studio recording sessions",
-		}
+		},
 	},
 
 	recording: {

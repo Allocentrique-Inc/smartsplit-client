@@ -35,6 +35,7 @@ import { DialogModal } from "../../../widgets/modal"
 import { observer } from "mobx-react"
 import { useDocsModel } from "../../../mobX/hooks"
 import { titleCase } from "../../../utils/utils"
+import { urlValidator } from "../../../mobX/models/validators"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -80,6 +81,8 @@ export default observer(function Links(props) {
 const LinkRow = observer((props) => {
 	const { model, Icon, name } = props
 	const { t } = useTranslation()
+	const [focus, setFocus] = useState(false)
+	const [wasBlurred, setWasBlurred] = useState(false)
 	return (
 		<Row valign="center">
 			<Column flex={0.5}>
@@ -91,7 +94,21 @@ const LinkRow = observer((props) => {
 			<TextField
 				style={{ flex: 5 }}
 				placeholder={t("document:links.addLink")}
-				value={model.links[name]}
+				value={model.links.value[name]}
+				onBlur={() => {
+					setFocus(false)
+					setWasBlurred(true)
+				}}
+				onFocus={() => {
+					setFocus(true)
+				}}
+				error={
+					(!focus || wasBlurred) &&
+					model.links.value[name] &&
+					urlValidator(model.links.value[name])
+						? t("errors:invalidUrl")
+						: false
+				}
 				onChangeText={(v) => {
 					model.links.setItem(name, v)
 					console.log(model.toJS())
