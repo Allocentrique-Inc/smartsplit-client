@@ -11,16 +11,6 @@ import GooglePlayIcon from "../../../../svg/workpieces/google-play"
 export default class DocStreamingModel extends BaseModel {
 	@observable links = new Field(this, "links", {
 		type: FieldType.map,
-		default: {
-			spotify: "",
-			google: "",
-			apple: "",
-			amazon: "",
-			youtube: "",
-			pendora: "",
-			soundcloud: "",
-			deezer: "",
-		},
 	})
 	importData(obj) {
 		if (!obj) return null

@@ -94,7 +94,7 @@ const LinkRow = observer((props) => {
 				value={model.links[name]}
 				onChangeText={(v) => {
 					model.links.setItem(name, v)
-					//console.log(model.toJS())
+					console.log(model.toJS())
 				}}
 			/>
 		</Row>
@@ -126,6 +126,7 @@ export const LinksForm = observer((props) => {
 		pendora: PandoraIcon,
 		soundcloud: SoundcloudIcon,
 		deezer: DeezerIcon,
+		tidal: TidalIcon,
 	}
 
 	const [searchPlatforms, setSearchPlatforms] = useState("")
@@ -169,7 +170,9 @@ export const LinksForm = observer((props) => {
 					{Object.keys(model.links.value).map((name) => (
 						<LinkRow
 							name={name}
-							Icon={icons[name]}
+							Icon={
+								icons[name.toLowerCase()] ? icons[name.toLowerCase()] : LinkIcon
+							}
 							model={model}
 							key={`link-${name}`}
 							value={model.links.value[name]}
