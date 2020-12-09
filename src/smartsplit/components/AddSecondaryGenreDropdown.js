@@ -14,7 +14,7 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function AddInfluenceDropdown({
+export default function AddSecondaryGenreDropdown({
 	selection,
 	onUnselect,
 	onSelectionChange,
@@ -25,6 +25,7 @@ export default function AddInfluenceDropdown({
 }) {
 	const { t, i18n } = useTranslation()
 	const [influence, setInfluence] = useState("")
+
 	const quotation = i18n.language === "en" ? '"' : "« "
 	const quotationEnd = i18n.language === "en" ? '"' : " »"
 

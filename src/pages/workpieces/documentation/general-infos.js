@@ -12,8 +12,9 @@ import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import MusicNoteIcon from "../../../svg/music-note"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
-import AddInfluenceDropdown from "../../../smartsplit/components/AddInfluenceDropdown"
 import AddGenreDropdown from "../../../smartsplit/components/AddGenreDropdown"
+import AddInfluenceDropdown from "../../../smartsplit/components/AddInfluenceDropdown"
+import AddSecondaryGenreDropdown from "../../../smartsplit/components/AddSecondaryGenreDropdown"
 import { useDocsModel } from "../../../mobX/hooks"
 import { toJS } from "mobx"
 import { observer } from "mobx-react"
@@ -111,7 +112,7 @@ export const GeneralInfosForm = observer((props) => {
 		}
 	})
 
-	const fakeSearchResults = [
+	/* 	const fakeSearchResults = [
 		{
 			id: "123",
 			name: "Electrofunk",
@@ -126,7 +127,7 @@ export const GeneralInfosForm = observer((props) => {
 		},
 	]
 
-	const genreResults = fakeSearchResults
+	const genreResults = fakeSearchResults */
 
 	const searchResultsInfluences = ["Stromae", "Apollo Brown", "Daft Punk"]
 	const [searchInfluences, setSearchInfluences] = useState("")
@@ -155,10 +156,32 @@ export const GeneralInfosForm = observer((props) => {
 					<TextField name="bpm" label="BPM" placeholder="" />
 				</Row>
 
+				{/* <AddGenreDropdown
+						style={{ flex: 1 }}
+						noIcon={true}
+						placeholder={t("document:infos.addGenre")}
+						searchResults={searchResultsGenres.filter((v) =>
+							v
+								? v.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
+								: true
+						)}
+						search={searchGenres}
+						onSearchChange={setSearchGenres}
+						selection={selectedGenres}
+						onSelect={(selection) =>
+							setSelectedGenres([...selectedGenres, selection])
+						}
+						onUnselect={(selection) =>
+							setSelectedGenres(selectedGenres.filter((i) => i !== selection))
+						}
+					/> */}
+
 				{/* Main Genres */}
 				<AddGenreDropdown
 					hideIcon={false}
-					genres={genreResults}
+					genres={searchResultsGenres.filter(
+						(g) => g.name.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
+					)}
 					placeholder=""
 					noFocusToggle
 					tooltip=""
@@ -175,7 +198,34 @@ export const GeneralInfosForm = observer((props) => {
 				{/* console.log(searchResultsGenres) */}
 
 				{/* Secondary Genres */}
-				<SearchAndTag
+
+				{/* <SearchAndTag
+					alwaysShowAdd
+					noIcon={true}
+					label={t("document:infos.secondaryGenre")}
+					searchResults={searchResultsGenres.filter(
+						(g) => g.name.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
+					)}
+					search={searchGenres}
+					onSearchChange={setSearchGenres}
+
+					selection={model.secondaryGenres.array}
+					onSelect={(selection) => {
+						let exists =
+							model.secondaryGenres.array.filter((g) => g.id === selection.id)
+								.length > 0
+						if (!exists) model.secondaryGenres.add(selection)
+					}}
+					onUnselect={
+						(selection) => model.secondaryGenres.remove(selection)
+					}
+					placeholder={t("document:infos.addGenre")}
+				/> */}
+
+				<AddSecondaryGenreDropdown
+					style={{ flex: 1 }}
+					noIcon={true}
+					alwaysShowAdd
 					noIcon={true}
 					label={t("document:infos.secondaryGenre")}
 					searchResults={searchResultsGenres.filter(
@@ -201,26 +251,6 @@ export const GeneralInfosForm = observer((props) => {
 					placeholder={t("document:infos.addGenre")}
 				/>
 
-				{/* <AddGenreDropdown
-						style={{ flex: 1 }}
-						noIcon={true}
-						placeholder={t("document:infos.addGenre")}
-						searchResults={searchResultsGenres.filter((v) =>
-							v
-								? v.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
-								: true
-						)}
-						search={searchGenres}
-						onSearchChange={setSearchGenres}
-						selection={selectedGenres}
-						onSelect={(selection) =>
-							setSelectedGenres([...selectedGenres, selection])
-						}
-						onUnselect={(selection) =>
-							setSelectedGenres(selectedGenres.filter((i) => i !== selection))
-						}
-					/> */}
-
 				{/* <SearchAndTag
 					noIcon={true}
 					label={t("document:infos.influence")}
@@ -245,6 +275,7 @@ export const GeneralInfosForm = observer((props) => {
 				<AddInfluenceDropdown
 					style={{ flex: 1 }}
 					noIcon={true}
+					label={t("document:infos.influence")}
 					placeholder={t("document:infos.addInfluence")}
 					searchResults={searchResultsInfluences.filter((v) =>
 						v
