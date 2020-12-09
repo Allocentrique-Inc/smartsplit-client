@@ -152,13 +152,8 @@ export const GeneralInfosForm = observer((props) => {
 				<Spacer of="group" />
 
 				<Row of="component">
-					<TextField
-						name="length"
-						label={t("document:infos.length")}
-						placeholder=""
-					/>
-
-					<TextField name="bpm" label="BPM" placeholder="" />
+					<TextField field={model.length} />
+					<TextField field={model.BPM} />
 				</Row>
 
 				{/* <AddGenreDropdown
@@ -205,7 +200,6 @@ export const GeneralInfosForm = observer((props) => {
 				{/* Secondary Genres */}
 
 				<SearchAndTag
-					alwaysShowAdd
 					noIcon={true}
 					label={t("document:infos.secondaryGenre")}
 					searchResults={searchResultsGenres.filter(
@@ -241,30 +235,33 @@ export const GeneralInfosForm = observer((props) => {
 				</SearchAndTag>
 
 				{/* <AddSecondaryGenreDropdown
-					style={{ flex: 1 }}
-					noIcon={true}
-					alwaysShowAdd
-					noIcon={true}
-					label={t("document:infos.secondaryGenre")}
-					searchResults={searchResultsGenres.filter(
-						(g) => g.name.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
-					)}
-					search={searchGenres}
-					onSearchChange={setSearchGenres}
-					selection={model.secondaryGenres.array}
-					onSelect={(selection) => {
-						let exists =
-							model.secondaryGenres.array.filter((g) => g.id === selection.id)
-								.length > 0
-						if (!exists) model.secondaryGenres.add(selection)
-				
-					}}
-					onUnselect={
-						(selection) => model.secondaryGenres.remove(selection)
-						
-					}
-					placeholder={t("document:infos.addGenre")}
-				/> */}
+                    style={{ flex: 1 }}
+                    noIcon={true}
+                    alwaysShowAdd
+                    noIcon={true}
+                    label={t("document:infos.secondaryGenre")}
+                    searchResults={searchResultsGenres.filter(
+                        (g) => g.name.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
+                    )}
+                    search={searchGenres}
+                    onSearchChange={setSearchGenres}
+                    .array or .value
+                    selection={model.secondaryGenres.array}
+                    onSelect={(selection) => {
+                        console.log(selection)
+                        Vérifier si ajout existe déjà
+                        let exists =
+                            model.secondaryGenres.array.filter((g) => g.id === selection.id)
+                                .length > 0
+                        if (!exists) model.secondaryGenres.add(selection)
+                        console.log(model.toJS())}
+                    }}
+                    onUnselect={
+                        (selection) => model.secondaryGenres.remove(selection)
+                        setSelectedGenres(selectedGenres.filter((i) => i !== selection))
+                    }
+                    placeholder={t("document:infos.addGenre")}
+                /> */}
 
 				<SearchAndTag
 					noIcon={true}
