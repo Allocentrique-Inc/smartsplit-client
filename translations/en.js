@@ -778,13 +778,12 @@ export const document = {
 		},
 		dropdownDownloads: {
 			public: "Public - Downloadable by all",
-			publicUndertext: "All users will be able to download the original file.",
+			publicUndertext: "All users are able to download the original file.",
 			invitation: "On invitation - Downloadable by some",
 			invitationUndertext:
-				"Users providing the unique sharable link will be able to download the original file. Practical for journalists and professionnals!",
+				"Only users with the unique sharable link can download.",
 			private: "Private - Prevent the download",
-			privateUndertext:
-				"No one will be able to download the original image, except you.",
+			privateUndertext: "No one except you can download the original image.",
 		},
 		dropdownAccess: {
 			public: "Public - Make the information visible for all",
