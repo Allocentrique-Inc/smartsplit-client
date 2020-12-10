@@ -14,8 +14,6 @@ import MusicNoteIcon from "../../../svg/music-note"
 import PlusCircle from "../../../svg/plus-circle"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import AddGenreDropdown from "../../../smartsplit/components/AddGenreDropdown"
-import AddInfluenceDropdown from "../../../smartsplit/components/AddInfluenceDropdown"
-import AddSecondaryGenreDropdown from "../../../smartsplit/components/AddSecondaryGenreDropdown"
 import { useDocsModel } from "../../../mobX/hooks"
 import { toJS } from "mobx"
 import { observer } from "mobx-react"
@@ -234,43 +232,14 @@ export const GeneralInfosForm = observer((props) => {
 					</TouchableWithoutFeedback>
 				</SearchAndTag>
 
-				{/* <AddSecondaryGenreDropdown
-                    style={{ flex: 1 }}
-                    noIcon={true}
-                    alwaysShowAdd
-                    noIcon={true}
-                    label={t("document:infos.secondaryGenre")}
-                    searchResults={searchResultsGenres.filter(
-                        (g) => g.name.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
-                    )}
-                    search={searchGenres}
-                    onSearchChange={setSearchGenres}
-                    .array or .value
-                    selection={model.secondaryGenres.array}
-                    onSelect={(selection) => {
-                        console.log(selection)
-                        Vérifier si ajout existe déjà
-                        let exists =
-                            model.secondaryGenres.array.filter((g) => g.id === selection.id)
-                                .length > 0
-                        if (!exists) model.secondaryGenres.add(selection)
-                        console.log(model.toJS())}
-                    }}
-                    onUnselect={
-                        (selection) => model.secondaryGenres.remove(selection)
-                        setSelectedGenres(selectedGenres.filter((i) => i !== selection))
-                    }
-                    placeholder={t("document:infos.addGenre")}
-                /> */}
-
 				<SearchAndTag
 					noIcon={true}
 					label={t("document:infos.influence")}
 					undertext={t("document:infos.influenceExample")}
 					searchResults={searchResultsInfluences
 						.filter(
-							(g) =>
-								g.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
+							(i) =>
+								i.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
 						)
 						.splice(0, 10)}
 					search={searchInfluences}
@@ -296,29 +265,6 @@ export const GeneralInfosForm = observer((props) => {
 						</Row>
 					</TouchableWithoutFeedback>
 				</SearchAndTag>
-
-				{/* <AddInfluenceDropdown
-					style={{ flex: 1 }}
-					noIcon={true}
-					label={t("document:infos.influence")}
-					placeholder={t("document:infos.addInfluence")}
-					searchResults={searchResultsInfluences.filter((v) =>
-						v
-							? v.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
-							: true
-					)}
-					search={searchInfluences}
-					onSearchChange={setSearchInfluences}
-					selection={selectedInfluences}
-					onSelect={(selection) =>
-						setSelectedInfluences([...selectedInfluences, selection])
-					}
-					onUnselect={(selection) =>
-						setSelectedInfluences(
-							selectedInfluences.filter((i) => i !== selection)
-						)
-					}
-				/> */}
 			</Column>
 			<Flex />
 			<Column of="group" flex={4}>

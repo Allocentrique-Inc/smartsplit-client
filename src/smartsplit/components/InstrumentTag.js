@@ -39,12 +39,12 @@ const InstrumentTag = observer((props) => {
 	console.log(toJS(instrument))
 	return (
 		<Row of="component" padding="tiny" style={frameStyle} key={instrument.id}>
-			<Column flex={1} padding="tiny">
+			<Column of="inside" flex={1} padding="tiny">
 				<Text bold size="tiny">
-					{instrument.name}
+					{instrument.value.name}
 				</Text>
 			</Column>
-			<Column padding="tiny">
+			<Column of="inside" padding="tiny">
 				<TouchableWithoutFeedback onPress={() => field.remove(index)}>
 					<View>
 						<XIcon />
