@@ -41,7 +41,8 @@ const InstrumentTag = observer((props) => {
 		<Row of="component" padding="tiny" style={frameStyle} key={instrument.id}>
 			<Column of="inside" flex={1} padding="tiny">
 				<Text bold size="tiny">
-					{instrument.value.name}
+					{instrument.name}
+					{/* {instrument.value.name} */}
 				</Text>
 			</Column>
 			<Column of="inside" padding="tiny">

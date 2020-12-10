@@ -341,7 +341,7 @@ export const PerformanceOptions = observer((props) => {
 					</CheckBoxGroup>
 
 					{model.isMusician.value && (
-						<Column>
+						<Column of="tiny">
 							{model.instruments.array.map((entry, index) => (
 								<InstrumentTag
 									instrument={entry.instrument.value}
