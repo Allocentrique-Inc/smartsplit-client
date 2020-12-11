@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react"
+import React, { useState, useMemo, PureComponent } from "react"
 import { useHistory } from "react-router"
 import { useTranslation } from "react-i18next"
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
@@ -10,6 +10,8 @@ import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import { observer } from "mobx-react"
 import { CardStyles } from "../../../widgets/card"
+import TextField from "../../../forms/text"
+import { render } from "react-dom"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -42,9 +44,65 @@ const CertificatePage = observer(() => {
 
 	return (
 		<Row>
-			<Column of="group" flex={5}></Column>
+			<Column of="group" flex={7}>
+				<Column of="section" flex={6}>
+					<Column of="component">
+						<Heading level={1}>
+							{t("protect:certificate:heading1")}
+						</Heading>
+						<Paragraph>
+							{t("protect:certificate:para1")}
+						</Paragraph>
+					</Column>
+					<Column of="component">
+						<Heading level={3}>
+							{t("protect:certificate:musicalPiece")}
+						</Heading>
+						<Row>
+							<Text bold style={{ flex: 7 }}>{t("protect:certificate:sourceFile")}</Text>
+							<Text secondary style={{ flex: 9 }}>Value</Text>
+						</Row>
+						<Row>
+							<Text bold style={{ flex: 7 }}>{t("protect:certificate:format")}</Text>
+							<Text secondary style={{ flex: 9 }}>Value</Text>
+						</Row>
+						<Row>
+							<Text bold style={{ flex: 7 }}>{t("protect:certificate:versionName")}</Text>
+							<Text secondary style={{ flex: 9 }}>Value</Text>
+						</Row>
+						<Row>
+							<Text bold style={{ flex: 7 }}>{t("protect:certificate:workingVersion")}</Text>
+							<Text secondary style={{ flex: 9 }}>Value</Text>
+						</Row>
+						<Row>
+							<Text bold style={{ flex: 7 }}>{t("protect:certificate:listedBy")}</Text>
+							<Text secondary style={{ flex: 9 }}>Value</Text>
+						</Row>
+					</Column>
+					<Hairline />
+					<Column of="component">
+						<Heading level={3}>
+							{t("protect:certificate:fileDigitalFingerprints")}
+						</Heading>
+						<Row>
+							<Text bold style={{ flex: 7 }}>{t("protect:certificate:sha256")}</Text>
+							<Text secondary style={{ flex: 9 }}>Value</Text>
+						</Row>
+						<Row>
+							<Text bold style={{ flex: 7 }}>{t("protect:certificate:md5")}</Text>
+							<Text secondary style={{ flex: 9 }}>Value</Text>
+						</Row>
+					</Column>
+					<Hairline />
+					<Column of="component">
+						<Heading level={3}>
+							{t("protect:certificate:addiction")}
+						</Heading>
+					</Column>
+				</Column>
+			</Column >
 			<Flex />
-			<Column of="group" flex={4}>
+			<Column of="group" flex={5}>
 				<Column of="component" padding="component" layer="underground">
 					<Column of="inside">
 						<Text small bold tertiary>
@@ -52,13 +110,15 @@ const CertificatePage = observer(() => {
 						</Text>
 						<Hairline />
 					</Column>
-
-					<Heading level={4}>{t("protect:selection.why")}</Heading>
-
-					<Text secondary>{t("protect:certificate.whyContent")}</Text>
+					<Heading level={4}>
+						{t("protect:certificate.why")}
+					</Heading>
+					<Text secondary>
+						{t("protect:certificate.whyContent")}
+					</Text>
 				</Column>
 			</Column>
-		</Row>
+		</Row >
 	)
 })
 

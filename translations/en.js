@@ -450,23 +450,7 @@ export const workpieces = {
 			title: "Protect your work",
 			desc:
 				"Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain.",
-				selection:{
-					heading1: "Which version of the work would you like to protect?",
-					para1: "Here, you send your work to a computer encoder.",
-					para2: "The algorithm behind this page will take your artwork and create a unique digital fingerprint from it called a",
-					heading2: "File to protect",
-					addFileLabel: "Add a file",
-					underText: "All formats accepted, 2 MB maximum.",
-					heading3: "Working version",
-					idea: "Idea",
-					demo: "Demo",
-					roughMix: "Rough Mix",
-					finalMaster: "Final version (mastered)",
-					help: "HELP",
-					heading4: "Why protect my work?",
-					desc: "Registering your work on the blockchain with <i> Smartsplit </i> is equivalent to sending it by registered mail to yourself in order to be able to demonstrate your authorship if necessary",
-					heading5: "Choose a custom name"
-				}
+				
 		},
 		documentYourWork: {
 			title: "Document your work",
@@ -871,14 +855,41 @@ export const protect = {
 		},
 	},
 	help: "Help",
-	selection: {
+	selection:{
+		heading1: "Which version of the work would you like to protect?",
+		para1: "Here, you send your work to a computer encoder.",
+		para2: "The algorithm behind this page will take your artwork and create a unique digital fingerprint from it called a",
+		heading2: "File to protect",
+		addFileLabel: "Add a file",
+		underText: "All formats accepted, 2 MB maximum.",
+		heading3: "Working version",
+		idea: "Idea",
+		demo: "Demo",
+		roughMix: "Rough Mix",
+		finalMaster: "Final version (mastered)",
+		help: "HELP",
+		heading4: "Why protect my work?",
+		desc: "Registering your work on the blockchain with <i> Smartsplit </i> is equivalent to sending it by registered mail to yourself in order to be able to demonstrate your authorship if necessary",
+		heading5: "Choose a custom name",
 		why: "Why protect my work?",
 		whyContent:
 			"Registering your work on the blockchain with Smartsplit is equivalent to sending it by registered mail to yourself in order to be able to demonstrate your parternity if necessary.",
 	},
 	certificate: {
-		why: "Why protect my work?",
-		whyContent: "whyContent",
+		heading1:"Review your certificate",
+		para1: "You are about to send proof that you are the author of this musical piece on the blockchain.",
+		musicalPiece: "Musical piece",
+		sourceFile: "Source file",
+		why: "To write up",
+		whyContent: "To write up",
+		format: "Format",
+		versionName: "Version name",
+		workingVersion: "Working version",
+		listedBy: "Listed by",
+		fileDigitalFingerprints: "File digital fingerprints",
+		sha256: "SHA256",
+		md5: "MD5",
+		addiction:"Addiction"
 	},
 }
 export const collaborators = {

@@ -2,11 +2,13 @@ import { observable, action, computed, toJS, isObservable } from "mobx"
 import SelectionModel from "./SelectionModel"
 import BaseModel from "../../../BaseModel/BaseModel"
 import { saveProtection } from "../../../../../api/workpieces"
+import CertificateModel from "./CertificateModel"
 
 const makeObservable = () => { }
 export default class ProtectionModel extends BaseModel {
 	workpiece
 	@observable selection = new SelectionModel(this)
+	@observable certificate = new CertificateModel(this)
 	constructor(parent, workpiece) {
 		super()
 		makeObservable(this)
@@ -23,6 +25,7 @@ export default class ProtectionModel extends BaseModel {
 	 * @return {Promise<*>}
 	 */
 	async save(section) {
+		console.log("section", section);
 		console.log(`workpiece id is ${this.workpiece.id}`)
 		let data
 		let isDirty = false

@@ -69,7 +69,7 @@ const ProtectWork = observer(() => {
 			progress={protectPage[type].progress}
 			path={[t("protect:navbar.protect"), protectPage[type].title]}
 			actions={
-				<Button
+				< Button
 					tertiary
 					text={t("general:buttons.saveClose")}
 					onClick={() => {
@@ -79,7 +79,7 @@ const ProtectWork = observer(() => {
 				/>
 			}
 			formNav={
-				<Row style={{ maxWidth: 464 }} flex={1}>
+				< Row style={{ maxWidth: 464 }} flex={1} >
 					<Button
 						secondary
 						text={t("general:buttons.back")}
@@ -98,7 +98,7 @@ const ProtectWork = observer(() => {
 						}
 						onClick={toNextPage}
 					/>
-				</Row>
+				</Row >
 			}
 		>
 			{!workpieces.isLoading &&
@@ -108,7 +108,7 @@ const ProtectWork = observer(() => {
 						setEndModal(false)
 					},
 				})}
-		</Layout>
+		</Layout >
 	)
 })
 

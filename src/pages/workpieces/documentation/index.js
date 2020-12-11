@@ -101,7 +101,6 @@ const DocumentationPage = observer(() => {
 	}
 
 	function toNextPage() {
-		console.log("model", model)
 		model.save(type)
 		type === "creation" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/performance`)

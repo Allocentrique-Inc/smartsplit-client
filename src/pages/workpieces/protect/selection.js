@@ -77,18 +77,18 @@ const SelectionPage = observer(() => {
                 <Column of="section" flex={6}>
                     <Column of="component">
                         <Heading level={1}>
-                            {t("workpieces:cards:protectYourWork:selection:heading1")}
+                            {t("protect:selection:heading1")}
                         </Heading>
                         <Paragraph>
-                            {t("workpieces:cards:protectYourWork:selection:para1")}
+                            {t("protect:selection:para1")}
                         </Paragraph>
                         <Paragraph>
-                            {t("workpieces:cards:protectYourWork:selection:para2")} <i>hash</i>.
+                            {t("protect:selection:para2")} <i>hash</i>.
 				        </Paragraph>
                     </Column>
 
                     <Column of="component">
-                        <Heading level={3}>{t("workpieces:cards:protectYourWork:selection:heading2")}</Heading>
+                        <Heading level={3}>{t("protect:selection:heading2")}</Heading>
 
                         <RadioGroup name="file_id" value={model.fileSelectedId.value} onChange={onChangeRadioFile} >
                             <Column of="inside">
@@ -100,8 +100,8 @@ const SelectionPage = observer(() => {
                                     <Flex>
                                         <FileField
                                             name="file_upload"
-                                            label={t("workpieces:cards:protectYourWork:selection:addFileLabel")}
-                                            undertext={t("workpieces:cards:protectYourWork:selection:underText")}
+                                            label={t("protect:selection:addFileLabel")}
+                                            undertext={t("protect:selection:underText")}
                                             onFileChange={onChangeFile}
                                         />
                                     </Flex>
@@ -113,22 +113,22 @@ const SelectionPage = observer(() => {
                     <Hairline />
 
                     <Column of="component">
-                        <Heading level={3}>{t("workpieces:cards:protectYourWork:selection:heading3")}</Heading>
+                        <Heading level={3}>{t("protect:selection:heading3")}</Heading>
                         <RadioGroup name="versionType" value={model.versionType.value} onChange={handleChangeVersionType}>
                             <Column of="inside">
-                                <RadioGroupButton value="idea" label={t("workpieces:cards:protectYourWork:selection:idea")} />
-                                <RadioGroupButton value="demo" label={t("workpieces:cards:protectYourWork:selection:demo")} />
+                                <RadioGroupButton value="idea" label={t("protect:selection:idea")} />
+                                <RadioGroupButton value="demo" label={t("protect:selection:demo")} />
                                 {model.versionType.value === "demo" && <Column style={Styles.option_text}>
-                                    <Heading level={5}>{t("workpieces:cards:protectYourWork:selection:heading5")}</Heading>
+                                    <Heading level={5}>{t("protect:selection:heading5")}</Heading>
                                     <Flex>
                                         <TextField value={model.demoName.value} onChange={onChangeDemoName} />
                                     </Flex>
                                 </Column>}
 
-                                <RadioGroupButton value="rough-mix" label={t("workpieces:cards:protectYourWork:selection:roughMix")} />
+                                <RadioGroupButton value="rough-mix" label={t("protect:selection:roughMix")} />
                                 <RadioGroupButton
                                     value="final-master"
-                                    label={t("workpieces:cards:protectYourWork:selection:finalMaster")}
+                                    label={t("protect:selection:finalMaster")}
                                 />
                             </Column>
                         </RadioGroup>
@@ -140,15 +140,15 @@ const SelectionPage = observer(() => {
                 <Column of="component" padding="component" layer="underground">
                     <Column of="inside">
                         <Text small bold tertiary>
-                            {t("workpieces:cards:protectYourWork:selection:help")}
+                            {t("protect:selection:help")}
                         </Text>
                         <Hairline />
                     </Column>
 
-                    <Heading level={4}>{t("workpieces:cards:protectYourWork:selection:heading4")}</Heading>
+                    <Heading level={4}>{t("protect:selection:heading4")}</Heading>
 
                     <Text secondary >
-                        {t("workpieces:cards:protectYourWork:selection:desc")}
+                        {t("protect:selection:desc")}
                     </Text>
                 </Column>
             </Column>
