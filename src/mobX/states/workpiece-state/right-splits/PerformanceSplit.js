@@ -1,15 +1,15 @@
-import CircledStar from "../../../../../svg/circled-star"
+import CircledStar from "../../../../svg/circled-star"
 import { computed } from "mobx"
-import SplitUIState from "./SplitUIState"
-import PerformanceForm from "../../../../../pages/workpieces/rights-splits/performance"
-import { Colors, Metrics } from "../../../../../theme"
+import RightSplitState from "./RightSplitState"
+import { Colors, Metrics } from "../../../../theme"
+import PerformanceForm from "../../../../pages/workpieces/right-splits/performance"
 
 /**
  *  Performance form page UI state
  **/
-export default class PerformanceSplit extends SplitUIState {
-	constructor(rightSplit, shareholderColors) {
-		super(rightSplit, CircledStar, shareholderColors)
+export default class PerformanceSplit extends RightSplitState {
+	constructor(domainState, shareholderColors) {
+		super(domainState, CircledStar, shareholderColors)
 	}
 	progress = (2 / 3) * 100
 	form = PerformanceForm
@@ -17,8 +17,7 @@ export default class PerformanceSplit extends SplitUIState {
 		const sharesData = []
 		const seenShareholders = []
 		const shareQty =
-			this.rightSplit.domainState.majorShares.length +
-			this.rightSplit.domainState.minorShares.length
+			this.domainState.majorShares.length + this.domainState.minorShares.length
 		function extractShareData(share) {
 			let percent
 			if (shareQty > 0 && share.shares) {
@@ -34,11 +33,11 @@ export default class PerformanceSplit extends SplitUIState {
 				percent: percent,
 			}
 		}
-		this.rightSplit.domainState.majorShares.forEach((share) => {
+		this.domainState.majorShares.forEach((share) => {
 			sharesData.push(extractShareData(share))
 			seenShareholders.push(share.shareholderId)
 		})
-		this.rightSplit.domainState.minorShares.forEach((share) => {
+		this.domainState.minorShares.forEach((share) => {
 			sharesData.push(extractShareData(share))
 			seenShareholders.push(share.shareholderId)
 		})
@@ -66,8 +65,8 @@ export default class PerformanceSplit extends SplitUIState {
 
 	genChartProps() {
 		return super.genChartProps([
-			...this.rightSplit.domainState.majorShares,
-			...this.rightSplit.domainState.minorShares,
+			...this.domainState.majorShares,
+			...this.domainState.minorShares,
 		])
 	}
 }

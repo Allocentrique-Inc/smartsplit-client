@@ -13,7 +13,7 @@ import {
 	toJS,
 } from "mobx"
 import DocumentationModel from "../models/workpieces/documentation/DocumentationModel"
-import RightsSplits from "./WorkpieceStates/RightsSplits"
+import RightSplitsModel from "../models/workpieces/right-splits/RightSplitsModel"
 import WorkpieceModel from "../models/workpieces/WorkpieceModel"
 
 const WorkpieceObservable = createCrudObservable(
@@ -31,7 +31,7 @@ export class Workpiece extends WorkpieceObservable {
 	constructor(id, initData = null, initState) {
 		const { files, rightSplit, ...data } = initData || {}
 		super(id, data, initState)
-		this.rightsSplits = new RightsSplits(this, rightSplit)
+		this.rightSplits = new RightSplitsModel(null, this)
 
 		// initialising the documentation by passing the workpiece for id, etc
 		this.documentation = new DocumentationModel(
@@ -47,9 +47,9 @@ export class Workpiece extends WorkpieceObservable {
 	}
 
 	/**
-	 * the rights splits data observable  used for the rights dividing section
+	 * the right splits data observable wich contains model for various sections of the rights dividing pages
 	 */
-	@observable rightsSplits
+	@observable rightSplits
 
 	/**
 	 * the documentation observable which contains models for the various sections
@@ -61,7 +61,7 @@ export class Workpiece extends WorkpieceObservable {
 		if (props.data) {
 			const { rightSplit } = props.data
 			if (rightSplit) {
-				this.rightsSplits._updateRightsSplits(rightSplit)
+				this.rightSplits._updateRightsSplits(rightSplit)
 			}
 		}
 	}
