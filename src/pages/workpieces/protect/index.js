@@ -29,7 +29,7 @@ const ProtectWork = observer(() => {
 	const protectPage = {
 		selection: {
 			form: SelectionPage,
-			progress: 25,
+			progress: 50,
 			title: t("protect:navbar.pages.selection"),
 		},
 		certificate: {
@@ -89,11 +89,11 @@ const ProtectWork = observer(() => {
 					<Button
 						primary
 						text={
-							(type === "links"
+							(type === "certificate"
 								? t("general:buttons.end")
 								: t("general:buttons.continue"),
-								type === "files"
-									? t("general:buttons.pass")
+								type === "certificate"
+									? t("protect:publishOnBlockchain")
 									: t("general:buttons.continue"))
 						}
 						onClick={toNextPage}

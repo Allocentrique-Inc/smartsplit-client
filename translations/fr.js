@@ -897,8 +897,14 @@ export const protect = {
 		fileDigitalFingerprints: "Empreintes numériques du fichier",
 		sha256: "SHA256",
 		md5: "MD5",
-		addiction:"Dépendance"
+		addiction:"Dépendance",
+		addBirth: "Ajouter une date de naissance",
+		addBirthFieldTitle: "Date de naissance de Debbie Tebbs",
+		addBirthUnderText: "Cette information sert à vous identifier en tant qu’individu unique et restera privée.",
+		save: "Sauvegarder",
 	},
+	publishOnBlockchain: "Publier sur la blockchain",
+	beforePosting: "Avant de publier le tout..."
 }
 
 export const collaborators = {
