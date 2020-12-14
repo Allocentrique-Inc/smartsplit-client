@@ -20,6 +20,7 @@ import {
 	CheckBoxGroup,
 	CheckBoxGroupButton,
 } from "../../forms"
+import PlaceSearchAndTag from "../../forms/PlaceSearchAndTag"
 import { Section, Column, Row, NoSpacer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import Button from "../../widgets/button"
@@ -34,7 +35,11 @@ import { ProIdList } from "../../smartsplit/components/pro-id-list"
 import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
 import { Colors } from "../../theme"
 import AddCollaboratorDropdown from "../../smartsplit/components/AddCollaboratorDropdown"
-
+import AutocompleteLoading from "../../svg/autocomplete-loading"
+import BaseModel from "../../mobX/BaseModel/BaseModel"
+import Field, { FieldType } from "../../mobX/BaseModel/Field"
+import { observable } from "mobx"
+import { observer } from "mobx-react"
 export default function FormsTest() {
 	return (
 		<Section of="group">
@@ -45,6 +50,7 @@ export default function FormsTest() {
 			<TestBasicDropdowns />
 			<TestSearchAndTag />
 			<TestCheckboxes />
+			<TestGooglePlace />
 		</Section>
 	)
 }
@@ -409,4 +415,26 @@ function TestTooltips() {
 			/>
 		</Row>
 	)
+}
+class TestPlaceModel extends BaseModel {
+	@observable test = new Field(this, "test", { type: FieldType.collection })
+}
+
+@observer
+class TestGooglePlace extends React.Component {
+	@observable model = new TestPlaceModel()
+	componentDidMount() {
+		this.model.init()
+	}
+	render() {
+		return (
+			<Row of="component">
+				<PlaceSearchAndTag
+					field={this.model.test}
+					label={"testing google place"}
+					placeholder={"enter a place"}
+				/>
+			</Row>
+		)
+	}
 }
