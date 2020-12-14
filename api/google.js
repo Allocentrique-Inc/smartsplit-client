@@ -17,7 +17,7 @@ export async function googlePlaceAutocomplete(term) {
 		return response.data
 	} catch (e) {
 		console.error(e)
-		return { ok: false }
+		return { ok: false, pre }
 	}
 }
 
