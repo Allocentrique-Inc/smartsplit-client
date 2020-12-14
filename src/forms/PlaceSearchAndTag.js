@@ -11,7 +11,7 @@ import { action } from "mobx"
 import { useTranslation } from "react-i18next"
 import { observer } from "mobx-react"
 import { googlePlaceAutocomplete, googlePlaceDetails } from "../../api/google"
-import PlaceTag from "../smartsplit/components/PlaceTag";
+import PlaceTag from "../smartsplit/components/PlaceTag"
 
 const Styles = StyleSheet.create({
 	tag: {
@@ -35,29 +35,24 @@ const PlaceSearchAndTag = observer((props) => {
 	const { t } = useTranslation()
 	const [term, setTerm] = useState("")
 	const [searchResults, setSearchResults] = useState([])
-	let {
-		field,
-		label,
-		error,
-		selection
-		...nextProps
-	} = props
+	let { field, label, error, selection, ...nextProps } = props
 	if (field) {
 		if (field.type !== FieldType.collection)
 			throw new Error(
 				"Search and tag must be mapped to a field of type collection"
 			)
-		label = label?label:t(field.label)
-		error = error?error:t(field.error)
+		label = label ? label : t(field.label)
+		error = error ? error : t(field.error)
 		selection = field.array
 	}
 	const [search, setSearch] = useState("")
+	const [loading, setLoading] = useState(false)
 	const renderSelectedItems = () => {
 		//ToDo: Si n'entre rien dans le champ ne pas ajouter de tag en cliquant sur Ajouter
 		return (
 			<Row wrap style={Styles.tagContainer}>
-				{selection.map((place,i) => (
-					<PlaceTag place={place} field={field} index={i}/>
+				{selection.map((place, i) => (
+					<PlaceTag place={place} field={field} index={i} />
 				))}
 			</Row>
 		)
@@ -65,40 +60,41 @@ const PlaceSearchAndTag = observer((props) => {
 	return (
 		<Column of="component">
 			<Autocomplete
+				loading={loading}
 				label={label}
 				error={error}
 				icon={Search}
 				search={search}
-				onUnselect={(place)=>{
-	
-						let index = -1
-						field.array.forEach((entry,i)=>{if(entry.id === place.id) index =i})
-						if(index>-1)
-							field.removeItem(index)
-			
+				onUnselect={(place) => {
+					let index = -1
+					field.array.forEach((entry, i) => {
+						if (entry.id === place.id) index = i
+					})
+					if (index > -1) field.removeItem(index)
 				}}
 				onSelect={async (place) => {
 					// if entry already exists, ignore it
 					if (field.array.filter((entry) => entry.id === place.id).length)
 						return
 					// otherwise we add it directly
-					if(field)
-						field.add(place)
+					if (field) field.add(place)
 					const response = await googlePlaceDetails(place.id)
 					if (response.OK) {
-              field.array.forEach((entry, index) =>{
-                if (entry.id === response.result.place_id) {
-                  field.setItem(index, {
-                    ...entry,
-                    address: response.result.formatted_address,
-                  })
-                }
-              })
+						field.array.forEach((entry, index) => {
+							if (entry.id === response.result.place_id) {
+								field.setItem(index, {
+									...entry,
+									address: response.result.formatted_address,
+								})
+							}
+						})
 					}
 				}}
 				onSearchChange={async (text) => {
 					setSearch(text)
+					setLoading(true)
 					const response = await googlePlaceAutocomplete(search)
+					setLoading(false)
 					let results = []
 					if (response.OK) {
 						results = response.predictions.map((place) => ({

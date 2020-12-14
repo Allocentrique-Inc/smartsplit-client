@@ -34,6 +34,7 @@ import { ProIdList } from "../../smartsplit/components/pro-id-list"
 import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
 import { Colors } from "../../theme"
 import AddCollaboratorDropdown from "../../smartsplit/components/AddCollaboratorDropdown"
+import AutocompleteLoading from "../../svg/autocomplete-loading"
 
 export default function FormsTest() {
 	return (
@@ -45,6 +46,7 @@ export default function FormsTest() {
 			<TestBasicDropdowns />
 			<TestSearchAndTag />
 			<TestCheckboxes />
+			<TestLoaders />
 		</Section>
 	)
 }
@@ -407,6 +409,14 @@ function TestTooltips() {
 				formulaire et mise en page utilisées dans les formulaires à travers le
 				site"
 			/>
+		</Row>
+	)
+}
+
+function TestLoaders() {
+	return (
+		<Row of="component">
+			<AutocompleteLoading />
 		</Row>
 	)
 }
