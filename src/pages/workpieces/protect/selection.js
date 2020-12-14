@@ -138,7 +138,6 @@ const SelectionPage = observer(() => {
 										</Flex>
 									</Column>
 								)}
-
 								<RadioGroupButton
 									value="rough-mix"
 									label={t("protect:selection:roughMix")}
@@ -161,12 +160,8 @@ const SelectionPage = observer(() => {
 						</Text>
 						<Hairline />
 					</Column>
-
 					<Heading level={4}>{t("protect:selection:heading4")}</Heading>
-
-					<Text secondary>
-						<HTML source={{ html: t("protect:selection:desc") }} />
-					</Text>
+					<Text secondary dangerouslySetInnerHTML={{ __html: t("protect:selection:desc") }} />
 				</Column>
 			</Column>
 		</Row>

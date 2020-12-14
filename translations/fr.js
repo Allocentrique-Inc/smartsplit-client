@@ -906,6 +906,9 @@ export const protect = {
 		post: "Publiée le {{publishedDate, LL}} par {{author}} · ",
 		viewCertificate: "Voir le certificat"
 	},
+	verify1:'<b>Je déclare être réellement {{firstName}}</b>. Je comprends que le fait me faire passer pour quelqu’un d’autre constituerait une faute grave passible de poursuites judiciaires.',
+	verify2:'<b>Je prends la pleine responsabilité</b> de conserver le fichier suivant dans mes archives personnelles :<br> {{firstName}}',
+	verify3:'<b>Je comprends</b> que ce fichier est la seule et unique clée permettant de démontrer la parternité et l’antériorité de la pièce musicale {{firstName}}.',
 	publishOnBlockchain: "Publier sur la blockchain",
 	beforePosting: "Avant de publier le tout..."
 }

@@ -6,9 +6,8 @@ import { useCurrentWorkpiece } from "../context"
 import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, NoSpacer, Group } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
-import { Colors, Metrics } from "../../../theme"
+import { Metrics } from "../../../theme"
 import { observer } from "mobx-react"
-import { CardStyles } from "../../../widgets/card"
 import CertificateModel from "../../../mobX/models/workpieces/protect/CertificateModel"
 import { useProtectModel } from "../../../mobX/hooks"
 import ShowUserTag from "../../../smartsplit/user/ShowUserTag"
@@ -23,31 +22,28 @@ const Styles = StyleSheet.create({
 		alignItems: "center",
 		display: "flex",
 	},
-	logo: {
-		marginRight: Metrics.spacing.component,
+	checkbox: {
+		paddingLeft: Metrics.spacing.small,
 	},
-	frame: {
-		backgroundColor: Colors.background.underground,
-	},
-	frame_error: {
-		borderWidth: 1,
-		borderColor: Colors.error,
-		borderStyle: "solid",
-	},
-	frame_yourself: {
-		borderWidth: 1,
-		borderColor: Colors.secondaries.teal,
+	fieldContent: {
+		fontWeight: "bold",
+		flex: 7,
 	},
 })
 
-const frameStyle = [CardStyles.frame, Styles.frame]
-
 export default observer(function Certificate(props) {
+	const workpiece = useCurrentWorkpiece()
+	const workpieceId = workpiece.id
+	const model: CertificateModel = useProtectModel(workpieceId, "certificate")
 	const { modalVisible, closeModal } = props
 	return (
 		<>
-			<CertificatePage></CertificatePage>
-			<NextModal visible={modalVisible} onRequestClose={closeModal}></NextModal>
+			<CertificatePage model={model}></CertificatePage>
+			<VerifyModal
+				model={model}
+				visible={modalVisible}
+				onRequestClose={closeModal}
+			></VerifyModal>
 		</>
 	)
 })
@@ -119,9 +115,7 @@ const CertificatePage = observer((props) => {
 							</Heading>
 							<Row>
 								<Column flex={5}>
-									<Text bold style={{ flex: 7 }}>
-										{t("protect:certificate:sourceFile")}
-									</Text>
+									<Text bold>{t("protect:certificate:sourceFile")}</Text>
 								</Column>
 								<Column flex={7}>
 									<Text secondary style={{ flex: 9 }}>
@@ -131,9 +125,7 @@ const CertificatePage = observer((props) => {
 							</Row>
 							<Row>
 								<Column flex={5}>
-									<Text bold style={{ flex: 7 }}>
-										{t("protect:certificate:format")}
-									</Text>
+									<Text bold>{t("protect:certificate:format")}</Text>
 								</Column>
 								<Column flex={7}>
 									<Text secondary style={{ flex: 9 }}>
@@ -143,9 +135,7 @@ const CertificatePage = observer((props) => {
 							</Row>
 							<Row>
 								<Column flex={5}>
-									<Text bold style={{ flex: 7 }}>
-										{t("protect:certificate:versionName")}
-									</Text>
+									<Text bold>{t("protect:certificate:versionName")}</Text>
 								</Column>
 								<Column flex={7}>
 									<Text secondary style={{ flex: 9 }}>
@@ -155,9 +145,7 @@ const CertificatePage = observer((props) => {
 							</Row>
 							<Row>
 								<Column flex={5}>
-									<Text bold style={{ flex: 7 }}>
-										{t("protect:certificate:workingVersion")}
-									</Text>
+									<Text bold>{t("protect:certificate:workingVersion")}</Text>
 								</Column>
 								<Column flex={7}>
 									<Text secondary style={{ flex: 9 }}>
@@ -167,9 +155,7 @@ const CertificatePage = observer((props) => {
 							</Row>
 							<Row>
 								<Column flex={5}>
-									<Text bold style={{ flex: 7 }}>
-										{t("protect:certificate:listedBy")}
-									</Text>
+									<Text bold>{t("protect:certificate:listedBy")}</Text>
 								</Column>
 								<Column flex={7}>
 									<Row>
@@ -257,63 +243,89 @@ const CertificatePage = observer((props) => {
 	)
 })
 
-export function NextModal(props) {
+export function VerifyModal(props) {
 	const { t } = useTranslation()
 	function navigateToSummary() {
 		history.push(`/workpieces/${workpiece_id}`)
 	}
+	const model: CertificateModel = props.model
+	const [selection, setSelection] = useState([])
+	const [isEnoughSelect, setIsEnoughSelect] = useState(false)
+
+	const handleSelection = (val) => {
+		setSelection(val)
+		if (val.length === 3) setIsEnoughSelect(true)
+		else setIsEnoughSelect(false)
+	}
+
 	return (
-		<>
-			<DialogModal
-				visible={props.visible}
-				onRequestClose={props.onRequestClose}
-				title={t("protect:beforePosting")}
-				buttons={
-					<>
-						<Button tertiary text={t("general:buttons.cancel")}></Button>
-						<Button
-							text={t("protect:publishOnBlockchain")}
-							//onClick={navigateToSummary}
-							/* 						onClick={() => {
-							console.log(t("document:finalModal.title"))
-						}} */
-						/>
-					</>
-				}
-			>
-				<Group
-					of="group"
-					style={{ maxWidth: 560, alignSelf: "center", textAlign: "center" }}
-				>
-					<CheckBoxGroup
-						field="{model.defaultRoles}"
-						label={t("forms:labels.defaultRoles")}
-						undertext={t("forms:undertexts.defaultRoles")}
-					>
-						<CheckBoxGroupButton
-							value="xzczxc"
-							key="{role.value}"
-							label="{role.label}"
-						/>
-						<CheckBoxGroupButton
-							value="{role.value}"
-							key="{role.value}"
-							label="{role.label}"
-						/>
-						<CheckBoxGroupButton
-							value="{role.value}"
-							key="{role.value}"
-							label="{role.label}"
-						/>
-						<CheckBoxGroupButton
-							value="{role.value}"
-							key="{role.value}"
-							label="{role.label}"
-						/>
-					</CheckBoxGroup>
-				</Group>
-			</DialogModal>
-		</>
+		<DialogModal
+			visible={props.visible}
+			onRequestClose={props.onRequestClose}
+			title={t("protect:beforePosting")}
+			buttons={
+				<>
+					<Button
+						tertiary
+						text={t("general:buttons.cancel")}
+						onClick={props.onRequestClose}
+					></Button>
+					<Button
+						disabled={!isEnoughSelect}
+						text={t("protect:publishOnBlockchain")}
+						onClick={navigateToSummary}
+						/* 						onClick={() => {
+					console.log(t("document:finalModal.title"))
+				}} */
+					/>
+				</>
+			}
+		>
+			<Group of="group" style={{ maxWidth: 560 }}>
+				<CheckBoxGroup selection={selection} onChange={handleSelection} error>
+					<Row>
+						<Column flex={1}>
+							<CheckBoxGroupButton value="1" />
+						</Column>
+						<Column flex={11}>
+							<Text
+								style={Styles.checkbox}
+								dangerouslySetInnerHTML={{
+									__html: t("protect:verify1", { firstName: model.firstName }),
+								}}
+							/>
+						</Column>
+					</Row>
+
+					<Row>
+						<Column flex={1}>
+							<CheckBoxGroupButton value="2" />
+						</Column>
+						<Column flex={11}>
+							<Text
+								style={Styles.checkbox}
+								dangerouslySetInnerHTML={{
+									__html: t("protect:verify2", { firstName: model.firstName }),
+								}}
+							/>
+						</Column>
+					</Row>
+					<Row>
+						<Column flex={1}>
+							<CheckBoxGroupButton value="3" />
+						</Column>
+						<Column flex={11}>
+							<Text
+								style={Styles.checkbox}
+								dangerouslySetInnerHTML={{
+									__html: t("protect:verify3", { firstName: model.firstName }),
+								}}
+							/>
+						</Column>
+					</Row>
+				</CheckBoxGroup>
+			</Group>
+		</DialogModal>
 	)
 }
 
@@ -337,8 +349,8 @@ export function EndModal(props) {
 						text={t("general:buttons.seeSummary")}
 						onClick={navigateToSummary}
 						/* 						onClick={() => {
-						console.log(t("document:finalModal.title"))
-					}} */
+					console.log(t("document:finalModal.title"))
+				}} */
 					/>
 				</>
 			}

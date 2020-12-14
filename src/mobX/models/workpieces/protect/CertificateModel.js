@@ -26,6 +26,8 @@ export default class CertificateModel extends BaseModel {
     @observable md5 = new Field(this, "md5", { type: FieldType.string })
 
     @observable title = ""
+
+    @observable firstName = "First Name"
     toJS(excludePrimary) {
         return cleanUsersForPosting(super.toJS())
     }
