@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next"
 import { observer } from "mobx-react"
 import { googlePlaceAutocomplete, googlePlaceDetails } from "../../api/google"
 import PlaceTag from "../smartsplit/components/PlaceTag"
-
+import { toJS } from "mobx"
 const Styles = StyleSheet.create({
 	tag: {
 		marginRight: Metrics.spacing.small,
@@ -35,7 +35,15 @@ const PlaceSearchAndTag = observer((props) => {
 	const { t } = useTranslation()
 	const [term, setTerm] = useState("")
 	const [searchResults, setSearchResults] = useState([])
-	let { field, label, error, selection, ...nextProps } = props
+	let {
+		field,
+		label,
+		error,
+		selection,
+		onSelect,
+		onUnselect,
+		...nextProps
+	} = props
 	if (field) {
 		if (field.type !== FieldType.collection)
 			throw new Error(
@@ -43,6 +51,14 @@ const PlaceSearchAndTag = observer((props) => {
 			)
 		label = label ? label : t(field.label)
 		error = error ? error : t(field.error)
+		onSelect = (place) => {
+			field.add(place)
+		}
+		onUnselect = (place) => {
+			field.array.forEach((entry, i) => {
+				if (entry.id === place.id) field.removeItem(i)
+			})
+		}
 		selection = field.array
 	}
 	const [search, setSearch] = useState("")
@@ -65,44 +81,50 @@ const PlaceSearchAndTag = observer((props) => {
 				error={error}
 				icon={Search}
 				search={search}
-				onUnselect={(place) => {
-					let index = -1
-					field.array.forEach((entry, i) => {
-						if (entry.id === place.id) index = i
-					})
-					if (index > -1) field.removeItem(index)
-				}}
+				onUnselect={onUnselect}
 				onSelect={async (place) => {
 					// if entry already exists, ignore it
-					if (field.array.filter((entry) => entry.id === place.id).length)
+					if (toJS(selection).filter((entry) => entry.id === place.id).length)
 						return
 					// otherwise we add it directly
-					if (field) field.add(place)
-					const response = await googlePlaceDetails(place.id)
-					if (response.OK) {
-						field.array.forEach((entry, index) => {
-							if (entry.id === response.result.place_id) {
-								field.setItem(index, {
-									...entry,
-									address: response.result.formatted_address,
+					if (field) {
+						field.add(place)
+						try {
+							const response = await googlePlaceDetails(place.id)
+							if (response.OK) {
+								field.array.forEach((entry, index) => {
+									if (entry.id === response.result.place_id) {
+										field.setItem(index, {
+											...entry,
+											address: response.result.formatted_address,
+										})
+									}
 								})
 							}
-						})
+						} catch (e) {
+							console.error(e)
+						}
+					} else {
+						onSelect(place)
 					}
 				}}
 				onSearchChange={async (text) => {
 					setSearch(text)
 					setLoading(true)
-					const response = await googlePlaceAutocomplete(search)
-					setLoading(false)
 					let results = []
-					if (response.OK) {
-						results = response.predictions.map((place) => ({
-							id: place.place_id,
-							name: place.description,
-							address: "",
-						}))
+					try {
+						const response = await googlePlaceAutocomplete(search)
+						if (response.OK) {
+							results = response.predictions.map((place) => ({
+								id: place.place_id,
+								name: place.description,
+								address: "",
+							}))
+						}
+					} catch (e) {
+						console.error(e)
 					}
+					setLoading(false)
 					setSearchResults(results)
 				}}
 				{...nextProps}
