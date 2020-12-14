@@ -889,7 +889,10 @@ export const protect = {
 		fileDigitalFingerprints: "File digital fingerprints",
 		sha256: "SHA256",
 		md5: "MD5",
-		addiction:"Addiction"
+		addiction:"Addiction",
+		await: "Awaiting publication",
+		post: "Posted on {{publishedDate, LL}} by {{author}} · ",
+		viewCertificate: "View certificate"		
 	},
 }
 export const collaborators = {

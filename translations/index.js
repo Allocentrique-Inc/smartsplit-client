@@ -43,6 +43,10 @@ const translations = i18n
 		defaultNS: "general",
 		interpolation: {
 			escapeValue: false,
+			format: function (value, format, lng) {
+				if (value instanceof Date) return moment(value).format(format)
+				return value
+			},
 		},
 		returnObjects: true, // pour traductions qui retournent un Fragment
 	})

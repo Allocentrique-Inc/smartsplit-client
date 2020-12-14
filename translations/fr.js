@@ -902,6 +902,9 @@ export const protect = {
 		addBirthFieldTitle: "Date de naissance de Debbie Tebbs",
 		addBirthUnderText: "Cette information sert à vous identifier en tant qu’individu unique et restera privée.",
 		save: "Sauvegarder",
+		await: "En attente de publication",
+		post: "Publiée le {{publishedDate, LL}} par {{author}} · ",
+		viewCertificate: "Voir le certificat"
 	},
 	publishOnBlockchain: "Publier sur la blockchain",
 	beforePosting: "Avant de publier le tout..."
