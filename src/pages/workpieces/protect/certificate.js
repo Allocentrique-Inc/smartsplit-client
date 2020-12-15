@@ -14,6 +14,7 @@ import ShowUserTag from "../../../smartsplit/user/ShowUserTag"
 import AddBirthModal from "../../../smartsplit/user/AddBirthModal"
 import { DialogModal } from "../../../widgets/modal"
 import HighFive from "../../../../assets/svg/high-five.svg"
+import QuestionIcon from "../../../svg/help-circle-full"
 import { CheckBoxGroup, CheckBoxGroupButton } from "../../../forms/checkbox"
 import DependanceRow from "../../../smartsplit/protect/dependance-row"
 
@@ -28,6 +29,9 @@ const Styles = StyleSheet.create({
 	fieldContent: {
 		fontWeight: "bold",
 		flex: 7,
+	},
+	flexDirectionRow: {
+		flexDirection: "row",
 	},
 })
 
@@ -53,44 +57,9 @@ const CertificatePage = observer((props) => {
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
 	const model: CertificateModel = useProtectModel(workpieceId, "certificate")
-	const [authors, setAuthors] = useState([
-		{
-			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb",
-			firstName: "Willy",
-			lastName: "Nilly",
-			artistName: "Willy the Poo",
-			avatarUrl:
-				"https://apiv2-dev.smartsplit.org/v1/users/09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb/avatar",
-		},
-	])
 	const [modalVisible, setModalVisible] = useState(false)
-	const [addictions, setAddictions] = useState([
-		{
-			id: 1,
-			status: 0,
-			name: "Valaire - Fantome v2 mixdown.wav",
-			time: new Date(),
-			author: "Inscience",
-			tag: "Demo",
-		},
-		{
-			id: 2,
-			status: 1,
-			name: "Valaire - Fantome v1.wav",
-			time: new Date(2020, 11, 10),
-			author: "Inscience",
-			tag: "Mix",
-		},
-		{
-			id: 3,
-			status: 1,
-			name: "Valaire - Fantome v1.wav",
-			time: new Date(2020, 11, 8),
-			author: "Inscience",
-			tag: "Mix",
-		},
-	])
-
+	const user = model.listedBy.value
+	const addictions = model.addictions.array
 	const itemsCount = addictions.length
 	const oneItem = itemsCount === 1
 
@@ -118,9 +87,7 @@ const CertificatePage = observer((props) => {
 									<Text bold>{t("protect:certificate:sourceFile")}</Text>
 								</Column>
 								<Column flex={7}>
-									<Text secondary style={{ flex: 9 }}>
-										{model.format.sourceFile}
-									</Text>
+									<Text secondary>{model.sourceFile.value}</Text>
 								</Column>
 							</Row>
 							<Row>
@@ -128,9 +95,7 @@ const CertificatePage = observer((props) => {
 									<Text bold>{t("protect:certificate:format")}</Text>
 								</Column>
 								<Column flex={7}>
-									<Text secondary style={{ flex: 9 }}>
-										{model.format.value}
-									</Text>
+									<Text secondary>{model.format.value}</Text>
 								</Column>
 							</Row>
 							<Row>
@@ -138,9 +103,7 @@ const CertificatePage = observer((props) => {
 									<Text bold>{t("protect:certificate:versionName")}</Text>
 								</Column>
 								<Column flex={7}>
-									<Text secondary style={{ flex: 9 }}>
-										{model.versionName.value}
-									</Text>
+									<Text secondary>{model.versionName.value}</Text>
 								</Column>
 							</Row>
 							<Row>
@@ -148,9 +111,7 @@ const CertificatePage = observer((props) => {
 									<Text bold>{t("protect:certificate:workingVersion")}</Text>
 								</Column>
 								<Column flex={7}>
-									<Text secondary style={{ flex: 9 }}>
-										{model.workingVersion.value}
-									</Text>
+									<Text secondary>{model.workingVersion.value}</Text>
 								</Column>
 							</Row>
 							<Row>
@@ -159,13 +120,7 @@ const CertificatePage = observer((props) => {
 								</Column>
 								<Column flex={7}>
 									<Row>
-										{authors.map((user) => (
-											<ShowUserTag
-												user={user}
-												field={authors}
-												key={user.user_id}
-											/>
-										))}
+										<ShowUserTag user={user} key={user.user_id} />
 									</Row>
 									<Row style={{ marginTop: "20px" }}>
 										<TouchableWithoutFeedback
@@ -187,20 +142,22 @@ const CertificatePage = observer((props) => {
 								{t("protect:certificate:fileDigitalFingerprints")}
 							</Heading>
 							<Row>
-								<Text bold style={{ flex: 7 }}>
-									{t("protect:certificate:sha256")}
-								</Text>
-								<Text secondary style={{ flex: 9 }}>
-									{model.sha256.value}
-								</Text>
+								<Column flex={5} style={Styles.flexDirectionRow}>
+									<Text bold>{t("protect:certificate:sha256")}</Text>
+									<QuestionIcon size={Metrics.size.medium / 2} />
+								</Column>
+								<Column flex={7}>
+									<Text secondary>{model.sha256.value}</Text>
+								</Column>
 							</Row>
 							<Row>
-								<Text bold style={{ flex: 7 }}>
-									{t("protect:certificate:md5")}
-								</Text>
-								<Text secondary style={{ flex: 9 }}>
-									{model.md5.value}
-								</Text>
+								<Column flex={5} style={Styles.flexDirectionRow}>
+									<Text bold>{t("protect:certificate:md5")}</Text>
+									<QuestionIcon size={Metrics.size.medium / 2} />
+								</Column>
+								<Column flex={7}>
+									<Text secondary>{model.md5.value}</Text>
+								</Column>
 							</Row>
 						</Column>
 						<Hairline />

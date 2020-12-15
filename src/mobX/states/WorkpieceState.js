@@ -49,14 +49,53 @@ export class Workpiece extends WorkpieceObservable {
 		//console.log(toJS(this.documentation))
 		//console.log(this.documentation.toJS())
 
-		this.protection = new ProtectionModel(
-			null,
-			this
-		)
+		this.protection = new ProtectionModel(null, this)
 
 		getProtection(id).then((pro) => {
 			this.protection.init({
-				files: []
+				files: [],
+				certificate: {
+					listedBy: {
+						user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb",
+						firstName: "Willy",
+						lastName: "Nilly",
+						artistName: "Willy the Poo",
+						avatarUrl:
+							"https://apiv2-dev.smartsplit.org/v1/users/09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb/avatar",
+					},
+					sourceFile: "Valaire - Fantome v1.wav",
+					format: "WAV 44,1 kHz",
+					versionName: "Fantôme V1",
+					workingVersion: "Démo",
+					sha256: "0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+					md5: "d41d8cd98f00b204e9800998ecf8427e",
+					addictions: [
+						{
+							id: 1,
+							status: 0,
+							name: "Valaire - Fantome v2 mixdown.wav",
+							time: new Date(),
+							author: "Inscience",
+							tag: "Demo",
+						},
+						{
+							id: 2,
+							status: 1,
+							name: "Valaire - Fantome v1.wav",
+							time: new Date(2020, 11, 10),
+							author: "Inscience",
+							tag: "Mix",
+						},
+						{
+							id: 3,
+							status: 1,
+							name: "Valaire - Fantome v1.wav",
+							time: new Date(2020, 11, 8),
+							author: "Inscience",
+							tag: "Mix",
+						},
+					]
+				},
 			})
 		})
 	}

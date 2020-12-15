@@ -20,10 +20,12 @@ export default class CertificateModel extends BaseModel {
         type: FieldType.string
     })
     @observable listedBy = new Field(this, "listedBy", {
-        type: FieldType.string
+        type: FieldType.object
     })
     @observable sha256 = new Field(this, "sha256", { type: FieldType.string })
     @observable md5 = new Field(this, "md5", { type: FieldType.string })
+
+    @observable addictions = new Field(this, "addictions", { type: FieldType.set })
 
     @observable title = ""
 
