@@ -18,28 +18,36 @@ export default class DocRecordingModel extends BaseModel {
 		type: FieldType.collection,
 	})
 	@observable recordingStudio = new Field(this, "recordingStudio", {
-		type: FieldType.collection,
+		type: FieldType.string,
 	})
-	@observable masteringStudio = new Field(this, "masteringStudio", {
-		type: FieldType.collection,
-	})
-	@observable recordingDates = new Field(this, "recordingDates", {
-		type: FieldType.collection,
-	})
-	@observable mixingDates = new Field(this, "mixingDates", {
-		type: FieldType.collection,
-	})
-	@observable masteringDates = new Field(this, "masteringDates", {
-		type: FieldType.collection,
+	@observable recordingDate = new Field(this, "recordingDates", {
+		type: FieldType.date,
 	})
 	@observable isrc = new Field(this, "isrc", { type: FieldType.string })
 
-	toJS() {
+	populateEntry(engineers, date, studio) {
+		let entry = { engineers: engineers }
+		if (date) entry.date = { from: date }
+		if (studio) entry.studio = studio.name
+		return entry
+	}
+	toJS(excludePrimary) {
 		/// return blank object for now
+		let values = super.toJS(excludePrimary)
+
 		return {
-			recording: [],
-			mixing: [],
-			mastering: [],
+			director: values.director,
+			producer: values.producer,
+			isrc: values.isrc,
+			recording: [
+				this.populateEntry(
+					values.recordedBy,
+					values.recordingDate,
+					values.recordingStudio
+				),
+			],
+			mixing: [this.populateEntry(values.mixedBy)],
+			mastering: [this.populateEntry(values.masteredBy)],
 		}
 	}
 }
