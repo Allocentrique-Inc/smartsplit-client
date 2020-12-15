@@ -50,8 +50,8 @@ const TextField = observer(function (props) {
 			value: field.value,
 		}
 	}
-
-	const newProps = { ...props, ...addProps }
+	// override passed props over field derived props
+	const newProps = { ...addProps, ...props }
 	return <Label {...newProps} component={FramedTextField} />
 })
 export default TextField
