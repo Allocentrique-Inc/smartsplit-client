@@ -22,12 +22,13 @@ import { useProtectModel } from "../../mobX/hooks"
 import { useCurrentWorkpiece } from "../../pages/workpieces/context"
 import TextField from "../../forms/text"
 import { Heading, Text } from "../../text"
+import { DateField } from "../../forms"
 
-export default observer(function AddBirthModal(props) {
+export default observer(function AddPlaceBirthModal(props) {
 	const { onRequestClose } = props
 	const workpiece = props.workpiece
 	const workpiece_id = workpiece.id
-	const model: CertificateModel = props.model
+	const model: CertificateModel = useProtectModel(workpiece_id, "certificate")
 	//console.dir(toJS(model.ids.value).find)
 	const [rs, setRs] = useState("")
 	const { t } = useTranslation()
@@ -36,25 +37,24 @@ export default observer(function AddBirthModal(props) {
 		p: <CircledP size={Metrics.size.small} />,
 		star: <CircledStar size={Metrics.size.small} />,
 	}
-	const user = model.listedBy.initialValue
-	console.log("userFirstName", user)
+
 	const handleChangeText = (val) => {
 		setRs(val)
 	}
 	return (
 		<DialogModal
-			key="add-birth"
+			key="add-place-birth"
 			size="medium"
 			visible={props.visible}
 			onRequestClose={onRequestClose}
 			noScroll={true}
-			title={t("protect:certificate:addBirth")}
+			title={t("protect:certificate:addPlaceBirth")}
 			buttons={
 				<>
 					<Button
 						text={t("general:buttons.add")}
 						onClick={() => {
-							model.addBirth = rs
+							model.addPlaceBirth = rs
 							onRequestClose()
 						}}
 					/>
@@ -62,16 +62,12 @@ export default observer(function AddBirthModal(props) {
 			}
 		>
 			<Group of="group">
-				{/**
-				 * Below we filter options to exclude those already in our list
-				 * model.ids.value is an array of {name:"org", value:"id"}
-				 */}
-				<TextField
-					label={t("protect:certificate:addBirthFieldTitle", {
+				<DateField
+					label={t("protect:certificate:addPlaceBirthModal", {
 						name: `${user.firstName} ${user.lastName}`,
 					})}
 					onChangeText={handleChangeText}
-					undertext={t("protect:certificate:addBirthUnderText")}
+					undertext={t("protect:certificate:addPlaceBirthUnderText")}
 					placeholder={"YYYY-MM-DD"}
 				/>
 				{model.saveError && <Text error>{model.saveError}</Text>}

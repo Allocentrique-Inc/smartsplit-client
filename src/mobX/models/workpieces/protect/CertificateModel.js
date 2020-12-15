@@ -27,7 +27,9 @@ export default class CertificateModel extends BaseModel {
 
     @observable addictions = new Field(this, "addictions", { type: FieldType.set })
 
-    @observable title = ""
+    @observable addBirth = ""
+
+    @observable addPlaceBirth = ""
 
     @observable firstName = "First Name"
     toJS(excludePrimary) {
