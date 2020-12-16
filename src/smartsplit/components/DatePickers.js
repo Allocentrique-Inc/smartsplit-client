@@ -13,11 +13,12 @@ import { DateInput } from "semantic-ui-calendar-react" // For web
 import "semantic-ui-css/semantic.min.css"
 //import DatePicker from "react-datepicker"
 //import "react-datepicker/dist/react-datepicker-cssmodules.css"
+import { Colors } from "../../theme"
 
 const DatePickerStyle = StyleSheet.create({
 	container: {
-		display: "block",
-		width: "100%",
+		borderRadius: 2,
+		borderColor: Colors.stroke,
 	},
 })
 
@@ -51,14 +52,13 @@ export class WebDatePicker extends React.Component {
 	render() {
 		return (
 			<DateInput
+				//style={DatePickerStyle.container}
 				name="date"
 				dateFormat="DD-MM-YYYY"
 				placeholder="DD-MM-YYYY"
 				value={this.state.date}
-				iconPosition="left"
 				onChange={this.handleChange}
 				icon={null}
-				localization={i18n.language}
 			/>
 		)
 	}
