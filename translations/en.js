@@ -902,6 +902,9 @@ export const protect = {
 		post: "Posted on {{publishedDate, LL}} by {{author}} · ",
 		viewCertificate: "View certificate",
 		addPlaceBirth: "Add a place of birth",
+		addPlaceBirthModal: "{{name}} place of birth",
+		addPlaceBirthUnderText:
+			"This information is used to associate your identity with the file and will remain confidential.",
 	},
 	verify1:
 		"<b> I declare that I am actually {{firstName}} </b>. I understand that impersonating someone else would constitute serious misconduct liable to prosecution.",
@@ -911,6 +914,7 @@ export const protect = {
 		"<b> I understand </b> that this file is the one and only key to demonstrate the parternity and the anteriority of the musical piece {{song}}.",
 	publishOnBlockchain: "Publish on the blockchain",
 	beforePosting: "Before publishing it all ...",
+	btnPublishFinal: "View certificate",
 }
 export const collaborators = {
 	email: "Collaborator's email address",

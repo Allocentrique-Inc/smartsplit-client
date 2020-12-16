@@ -927,6 +927,7 @@ export const protect = {
 		"Ton empreinte sonore est correctement publiée sur la blockchain !",
 	finalContent:
 		"Cette empreinte est aussi liée à l'empreinte des métadonnées descriptives portant sur cet enregistrement sonore. Tu peux maintenant prendre possession de ton certificat !",
+	btnPublishFinal: "Voir le certificat",
 }
 
 export const collaborators = {

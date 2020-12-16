@@ -67,7 +67,8 @@ export class Workpiece extends WorkpieceObservable {
 					format: "WAV 44,1 kHz",
 					versionName: "Fantôme V1",
 					workingVersion: "Démo",
-					sha256: "0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+					sha256:
+						"0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
 					md5: "d41d8cd98f00b204e9800998ecf8427e",
 					addictions: [
 						{
@@ -94,7 +95,13 @@ export class Workpiece extends WorkpieceObservable {
 							author: "Inscience",
 							tag: "Mix",
 						},
-					]
+					],
+				},
+				selection: {
+					files: [
+						{ fileId: "1", name: "Fantome_Mix_v01.wav" },
+						{ fileId: "2", name: "Fantome_Demo_v01.wav" },
+					],
 				},
 			})
 		})

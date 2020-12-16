@@ -39,52 +39,72 @@ export function PublishModal(props) {
 	function navigateToSummary() {
 		history.push(`/workpieces/${workpiece.id}`)
 	}
+
 	const [selection, setSelection] = useState([])
 	const [isEnoughSelect, setIsEnoughSelect] = useState(false)
-	const [showVerify, setShowVerify] = useState(true)
-	const [showWaiting, setShowWaiting] = useState(false)
-	const [showFinal, setShowFinal] = useState(false)
+
+	const [orderShow, setOrderShow] = useState(1)
+	const [textPublishBtn, setTextPublishBtn] = useState(
+		t("protect:publishOnBlockchain").toString()
+	)
+
 	const verifyCallback = (val) => {
 		setSelection(val)
 		if (val.length === 3) setIsEnoughSelect(true)
 		else setIsEnoughSelect(false)
 	}
 
-	const handleClickPublish = (val) => {
-		if (showVerify) {
-			setShowVerify(false)
-			setShowWaiting(true)
-			setShowFinal(false)
-		} else if (showWaiting) {
-			setShowVerify(false)
-			setShowWaiting(false)
-			setShowFinal(true)
-		} else {
+	const waitingPublish = () => {
+		setTimeout(
+			function () {
+				setOrderShow(3)
+			}.bind(this),
+			2000
+		)
+	}
+
+	const handleClickPublish = (e) => {
+		if (orderShow === 1) {
+			setOrderShow(2)
+			waitingPublish()
+			setTextPublishBtn(t("protect:btnPublishFinal").toString())
+		} else if (orderShow === 3) {
 			navigateToSummary()
 		}
 	}
+
+	const clearOnCloseDialog = () => {
+		setSelection([])
+		setOrderShow(1)
+		props.onRequestClose()
+	}
+
 	return (
 		<DialogModal
 			visible={props.visible}
-			onRequestClose={props.onRequestClose}
+			onRequestClose={clearOnCloseDialog}
 			title={t("protect:beforePosting")}
 			buttons={
 				<>
-					<Button
-						tertiary
-						text={t("general:buttons.cancel")}
-						onClick={props.onRequestClose}
-					></Button>
-					<Button
-						disabled={!isEnoughSelect}
-						text={t("protect:publishOnBlockchain")}
-						onClick={handleClickPublish}
-					/>
+					{orderShow != 3 && (
+						<Button
+							tertiary
+							text={t("general:buttons.cancel")}
+							onClick={clearOnCloseDialog}
+						></Button>
+					)}
+					{orderShow != 2 && (
+						<Button
+							disabled={!isEnoughSelect}
+							text={textPublishBtn}
+							onClick={handleClickPublish}
+						/>
+					)}
 				</>
 			}
 		>
 			<Group of="group" style={{ maxWidth: 560 }}>
-				{showVerify && (
+				{orderShow === 1 && (
 					<Row>
 						<VerifyModal
 							selection={selection}
@@ -93,12 +113,12 @@ export function PublishModal(props) {
 						/>
 					</Row>
 				)}
-				{showWaiting && (
+				{orderShow === 2 && (
 					<Row>
 						<WaitingModal workpiece={workpiece} />
 					</Row>
 				)}
-				{showFinal && <FinalModal workpiece={workpiece} />}
+				{orderShow === 3 && <FinalModal workpiece={workpiece} />}
 			</Group>
 		</DialogModal>
 	)

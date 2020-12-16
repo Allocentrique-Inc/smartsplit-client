@@ -37,7 +37,6 @@ export default observer(function AddBirthModal(props) {
 		star: <CircledStar size={Metrics.size.small} />,
 	}
 	const user = model.listedBy.initialValue
-	console.log("userFirstName", user)
 	const handleChangeText = (val) => {
 		setRs(val)
 	}

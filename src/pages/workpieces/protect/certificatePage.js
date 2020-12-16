@@ -48,7 +48,8 @@ const CertificatePage = observer((props) => {
 				"https://apiv2-dev.smartsplit.org/v1/users/09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb/avatar",
 		},
 	])
-	const [modalVisible, setModalVisible] = useState(false)
+	const [addBirhModalVisible, setAddBirhModalVisible] = useState(false)
+	const [addPlaceModalVisible, setAddPlaceModalVisible] = useState(false)
 	const user = model.listedBy.value
 	const addictions = model.addictions.array
 	const itemsCount = addictions.length
@@ -58,20 +59,20 @@ const CertificatePage = observer((props) => {
 	return (
 		<>
 			<AddBirthModal
-				visible={modalVisible}
+				visible={addBirhModalVisible}
 				onRequestClose={() => {
-					setModalVisible(false)
+					setAddBirhModalVisible(false)
 				}}
 				workpiece={workpiece}
 				model={model}
 			/>
-			{/* <AddPlaceBirthModal
-				visible={modalVisible}
+			<AddPlaceBirthModal
+				visible={addPlaceModalVisible}
 				onRequestClose={() => {
-					setModalVisible(false)
+					setAddPlaceModalVisible(false)
 				}}
 				workpiece={workpiece}
-			/> */}
+			/>
 			<Row>
 				<Column of="group" flex={7}>
 					<Column of="section" flex={7}>
@@ -133,7 +134,7 @@ const CertificatePage = observer((props) => {
 									<Row style={Styles.touchable}>
 										<TouchableWithoutFeedback
 											onPress={() => {
-												setModalVisible(true)
+												setAddBirhModalVisible(true)
 											}}
 										>
 											<Text action bold>
@@ -144,7 +145,7 @@ const CertificatePage = observer((props) => {
 									<Row style={Styles.touchable}>
 										<TouchableWithoutFeedback
 											onPress={() => {
-												setModalVisible(true)
+												setAddPlaceModalVisible(true)
 											}}
 										>
 											<Text action bold>
@@ -187,6 +188,15 @@ const CertificatePage = observer((props) => {
 								</Column>
 								<Column flex={7}>
 									<Text secondary>{model.sha256.value}</Text>
+								</Column>
+							</Row>
+							<Row>
+								<Column flex={5} style={Styles.flexDirectionRow}>
+									<Text bold>{t("protect:certificate:md5")}</Text>
+									<QuestionIcon size={Metrics.size.medium / 2} />
+								</Column>
+								<Column flex={7}>
+									<Text secondary>{model.md5.value}</Text>
 								</Column>
 							</Row>
 						</Column>

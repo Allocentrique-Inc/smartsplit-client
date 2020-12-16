@@ -14,6 +14,7 @@ import { RadioGroup, RadioGroupButton, FileField } from "../../../forms"
 import TextField from "../../../forms/text"
 import SelectionModel from "../../../mobX/models/workpieces/protect/SelectionModel"
 import { useProtectModel } from "../../../mobX/hooks"
+import { useSubpath } from "../../../appstate/react"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -49,7 +50,6 @@ const SelectionPage = observer(() => {
 	const workpieceId = workpiece.id
 	const model: SelectionModel = useProtectModel(workpieceId, "selection")
 	const files = model.files.array // useCurrentWorkpiece("files", "$all")
-	const [versionType, setVersionType] = useState("")
 
 	const handleChangeVersionType = (val) => {
 		model.versionType.value = val
@@ -90,7 +90,11 @@ const SelectionPage = observer(() => {
 						>
 							<Column of="inside">
 								{files.map((file) => (
-									<FileRadioButton key={file.file_id} file={file} />
+									<RadioGroupButton
+										key={file.fileId}
+										value={file.fileId}
+										label={file.name}
+									/>
 								))}
 
 								<RadioGroupButton value="0">
@@ -161,15 +165,13 @@ const SelectionPage = observer(() => {
 						<Hairline />
 					</Column>
 					<Heading level={4}>{t("protect:selection:heading4")}</Heading>
-					<Text secondary dangerouslySetInnerHTML={{ __html: t("protect:selection:desc") }} />
+					<Text
+						secondary
+						dangerouslySetInnerHTML={{ __html: t("protect:selection:desc") }}
+					/>
 				</Column>
 			</Column>
 		</Row>
 	)
 })
 export default SelectionPage
-
-function FileRadioButton({ file }) {
-	const data = useSubpath(file, "data")
-	return <RadioGroupButton value={data.file_id} label={data.name} />
-}

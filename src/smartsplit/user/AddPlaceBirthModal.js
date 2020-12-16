@@ -29,6 +29,7 @@ export default observer(function AddPlaceBirthModal(props) {
 	const workpiece = props.workpiece
 	const workpiece_id = workpiece.id
 	const model: CertificateModel = useProtectModel(workpiece_id, "certificate")
+	console.log("model", model)
 	//console.dir(toJS(model.ids.value).find)
 	const [rs, setRs] = useState("")
 	const { t } = useTranslation()
@@ -62,13 +63,12 @@ export default observer(function AddPlaceBirthModal(props) {
 			}
 		>
 			<Group of="group">
-				<DateField
+				<TextField
 					label={t("protect:certificate:addPlaceBirthModal", {
-						name: `${user.firstName} ${user.lastName}`,
+						name: `${model.listedBy.initialValue.firstName} ${model.listedBy.initialValue.lastName}`,
 					})}
 					onChangeText={handleChangeText}
 					undertext={t("protect:certificate:addPlaceBirthUnderText")}
-					placeholder={"YYYY-MM-DD"}
 				/>
 				{model.saveError && <Text error>{model.saveError}</Text>}
 			</Group>

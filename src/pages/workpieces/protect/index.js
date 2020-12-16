@@ -18,7 +18,6 @@ const ProtectWork = observer(() => {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const { workpiece_id, type } = useParams()
-
 	const model = useProtectModel(workpiece_id)
 	const workpiece = useStorePath("workpieces").fetch(workpiece_id)
 
