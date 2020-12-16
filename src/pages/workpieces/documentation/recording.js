@@ -285,8 +285,8 @@ const RecordingForm = observer((props) => {
 				/>*/}
 					<DateField
 						label={t("document:recording.date")}
-						value={date}
-						onChangeText={setDate}
+						value={model.recordingDate.value}
+						onChangeText={(v) => model.recordingDate.setValue(v)}
 						placeholder={t("forms:placeholders.date")}
 						tooltip=""
 					/>
@@ -364,6 +364,7 @@ const RecordingForm = observer((props) => {
 						name="isrc"
 						label={t("document:recording.isrc")}
 						tooltip={t("document:recording.tooltips.isrc")}
+						field={model.isrc}
 					/>
 				</Column>
 				<Flex />
