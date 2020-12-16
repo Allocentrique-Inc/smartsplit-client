@@ -16,21 +16,13 @@ const DatePickerStyle = StyleSheet.create({
 		display: "block",
 		width: "100%",
 	},
-	reactDatepickerWrapper: {
-		display: "block",
-		width: "100%",
-	},
-	reactDatepickerInputContainer: {
-		display: "block",
-		width: "100%",
-	},
 })
 
 export const WebDatePicker = () => {
 	const [startDate, setStartDate] = useState(new Date())
 	return (
 		<DatePicker
-			style={DatePickerStyle.reactDatepickerWrapper}
+			style={DatePickerStyle.container}
 			selected={startDate}
 			onChange={(date) => setStartDate(date)}
 		/>
