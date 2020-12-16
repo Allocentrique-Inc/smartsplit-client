@@ -20,6 +20,7 @@ import {
 	CheckBoxGroup,
 	CheckBoxGroupButton,
 } from "../../forms"
+import DatePickers from "../../smartsplit/components/DatePickers"
 import PlaceSearchAndTag from "../../forms/PlaceSearchAndTag"
 import { Section, Column, Row, NoSpacer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
@@ -40,6 +41,7 @@ import BaseModel from "../../mobX/BaseModel/BaseModel"
 import Field, { FieldType } from "../../mobX/BaseModel/Field"
 import { observable } from "mobx"
 import { observer } from "mobx-react"
+import DatePicker from "react-datepicker" //For web
 export default function FormsTest() {
 	return (
 		<Section of="group">
@@ -51,6 +53,7 @@ export default function FormsTest() {
 			<TestSearchAndTag />
 			<TestCheckboxes />
 			<TestGooglePlace />
+			<TestDatePicker />
 		</Section>
 	)
 }
@@ -275,6 +278,7 @@ function TestBasicDropdowns() {
 		</>
 	)
 }
+
 function TestCheckboxes() {
 	const [testCheckBox1, setTestCheckBox1] = useState(false)
 
@@ -434,6 +438,17 @@ class TestGooglePlace extends React.Component {
 					label={"testing google place"}
 					placeholder={"enter a place"}
 				/>
+			</Row>
+		)
+	}
+}
+
+class TestDatePicker extends React.Component {
+	render() {
+		return (
+			<Row of="component">
+				<Text>Test Datepicker</Text>
+				<DatePickers />
 			</Row>
 		)
 	}
