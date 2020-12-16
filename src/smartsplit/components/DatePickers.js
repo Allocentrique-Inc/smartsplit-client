@@ -39,9 +39,6 @@ export class WebDatePicker extends React.Component {
 
 		this.state = {
 			date: "",
-			time: "",
-			dateTime: "",
-			datesRange: "",
 		}
 	}
 
@@ -55,10 +52,13 @@ export class WebDatePicker extends React.Component {
 		return (
 			<DateInput
 				name="date"
-				placeholder="Date"
+				dateFormat="DD-MM-YYYY"
+				placeholder="DD-MM-YYYY"
 				value={this.state.date}
 				iconPosition="left"
 				onChange={this.handleChange}
+				icon={null}
+				localization={i18n.language}
 			/>
 		)
 	}
