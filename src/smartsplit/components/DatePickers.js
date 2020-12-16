@@ -6,10 +6,13 @@ import {
 	View,
 	StyleSheet,
 } from "react-native"
+import { withTranslation } from "react-i18next"
 import styled from "styled-components/native"
 import DateTimePicker from "@react-native-community/datetimepicker" //For mobile
-import DatePicker from "react-datepicker" //For web
-import "react-datepicker/dist/react-datepicker-cssmodules.css"
+import { DateInput } from "semantic-ui-calendar-react" // For web
+import "semantic-ui-css/semantic.min.css"
+//import DatePicker from "react-datepicker"
+//import "react-datepicker/dist/react-datepicker-cssmodules.css"
 
 const DatePickerStyle = StyleSheet.create({
 	container: {
@@ -18,7 +21,8 @@ const DatePickerStyle = StyleSheet.create({
 	},
 })
 
-export const WebDatePicker = () => {
+/* export const WebDatePicker = () => {
+	const { DateInput } = SemanticUiCalendarReact
 	const [startDate, setStartDate] = useState(new Date())
 	return (
 		<DatePicker
@@ -27,6 +31,37 @@ export const WebDatePicker = () => {
 			onChange={(date) => setStartDate(date)}
 		/>
 	)
+} */
+
+export class WebDatePicker extends React.Component {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			date: "",
+			time: "",
+			dateTime: "",
+			datesRange: "",
+		}
+	}
+
+	handleChange = (event, { name, value }) => {
+		if (this.state.hasOwnProperty(name)) {
+			this.setState({ [name]: value })
+		}
+	}
+
+	render() {
+		return (
+			<DateInput
+				name="date"
+				placeholder="Date"
+				value={this.state.date}
+				iconPosition="left"
+				onChange={this.handleChange}
+			/>
+		)
+	}
 }
 
 const DatePickerContainer = styled.TouchableOpacity`
