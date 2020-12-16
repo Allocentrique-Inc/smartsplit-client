@@ -1,7 +1,7 @@
 import { Platform } from "react-native"
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
-import { locales as deviceLocales } from "expo-localization"
+import { locales } from "expo-localization"
 import moment from "moment"
 
 import * as english from "./en"
@@ -12,13 +12,14 @@ export const defaultLocale = "fr"
 
 export function getDeviceLocale() {
 	let locale = defaultLocale
+	const deviceLocales = locales.map((lang) => lang.replace(/[_-].*$/, ""))
 
-	for (let lang of deviceLocales) {
-		lang = lang.replace(/[_-].*$/, "")
-
-		if (validLanguages.includes(lang)) {
-			locale = lang
-			break
+	if (!deviceLocales.includes(locale)) {
+		for (let lang of deviceLocales) {
+			if (validLanguages.includes(lang)) {
+				locale = lang
+				break
+			}
 		}
 	}
 
