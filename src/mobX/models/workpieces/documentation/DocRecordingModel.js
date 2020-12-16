@@ -20,7 +20,7 @@ export default class DocRecordingModel extends BaseModel {
 	@observable recordingStudio = new Field(this, "recordingStudio", {
 		type: FieldType.string,
 	})
-	@observable recordingDate = new Field(this, "recordingDates", {
+	@observable recordingDate = new Field(this, "recordingDate", {
 		type: FieldType.date,
 	})
 	@observable isrc = new Field(this, "isrc", { type: FieldType.string })
