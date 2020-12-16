@@ -10,6 +10,7 @@ import { GOOGLE_API_KEY, GOOGLE_AUTOCOMPLETE_PARAMS } from "../config"
  * @return {Promise<void>}
  */
 export async function googlePlaceAutocomplete(term) {
+	if (!term) return { ok: true, predictions: [] }
 	term = encodeURI(term)
 	const URL = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${GOOGLE_API_KEY}&input=${term}&types=establishment&components=${GOOGLE_AUTOCOMPLETE_PARAMS.components}`
 	try {
@@ -17,7 +18,7 @@ export async function googlePlaceAutocomplete(term) {
 		return response.data
 	} catch (e) {
 		console.error(e)
-		return { ok: false, pre }
+		return { ok: false, predictions: [] }
 	}
 }
 
