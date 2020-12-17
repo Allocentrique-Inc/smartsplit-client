@@ -6,7 +6,7 @@ import {
 	View,
 	StyleSheet,
 } from "react-native"
-import { withTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 import styled from "styled-components/native"
 import DateTimePicker from "@react-native-community/datetimepicker" //For mobile
 import { DateInput } from "semantic-ui-calendar-react" // For web
@@ -34,35 +34,26 @@ const DatePickerStyle = StyleSheet.create({
 	)
 } */
 
-export class WebDatePicker extends React.Component {
-	constructor(props) {
-		super(props)
-
-		this.state = {
-			date: "",
+export const WebDatePicker = (props) => {
+	const [value, setValue] = useState(new Date()) //new créer un nouvel objet, comme constructor, par défaut existe dans browser JS
+	const handleChange = (event, { name, value }) => {
+		if (name === "date") {
+			setValue(value)
 		}
 	}
-
-	handleChange = (event, { name, value }) => {
-		if (this.state.hasOwnProperty(name)) {
-			this.setState({ [name]: value })
-		}
-	}
-
-	render() {
-		return (
-			<DateInput
-				//style={DatePickerStyle.container}
-				name="date"
-				dateFormat="DD-MM-YYYY"
-				placeholder="DD-MM-YYYY"
-				value={this.state.date}
-				onChange={this.handleChange}
-				icon={null}
-				localization="fr"
-			/>
-		)
-	}
+	const { t, i18n } = useTranslation()
+	return (
+		<DateInput
+			//style={DatePickerStyle.container}
+			name="date"
+			dateFormat="DD-MM-YYYY"
+			placeholder="DD-MM-YYYY"
+			value={value}
+			onChange={handleChange}
+			icon={null}
+			localization={i18n.language}
+		/>
+	)
 }
 
 const DatePickerContainer = styled.TouchableOpacity`
@@ -125,9 +116,14 @@ export class MobileDatePicker extends React.Component {
 }
 
 export default function DatePickers(props) {
+	const [date, setDate] = useState(new Date()) //En attendant de binder
 	return (
 		<View>
-			{Platform.OS === "web" ? <WebDatePicker /> : <MobileDatePicker />}
+			{Platform.OS === "web" ? (
+				<WebDatePicker value={date} onChange={(v) => setDate(v)} />
+			) : (
+				<MobileDatePicker />
+			)}
 		</View>
 	)
 }
