@@ -19,7 +19,6 @@ const Styles = StyleSheet.create({
 
 const FinalModal = observer(function (props) {
 	const { t } = useTranslation()
-	const workpiece = props.workpiece
 	return (
 		<Column flex={12}>
 			<Row al>

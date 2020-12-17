@@ -22,7 +22,7 @@ export default observer(function Certificate(props) {
 		<>
 			<CertificatePage workpiece={workpiece} model={model}></CertificatePage>
 			<PublishModal
-				workpiece={workpiece}
+				workpieceId={workpieceId}
 				model={model}
 				visible={modalVisible}
 				onRequestClose={closeModal}
@@ -34,10 +34,10 @@ export default observer(function Certificate(props) {
 export function PublishModal(props) {
 	const { t } = useTranslation()
 	const model: CertificateModel = props.model
-	const workpiece = props.workpiece
+	const workpieceId = props.workpieceId
 	const history = useHistory()
 	function navigateToSummary() {
-		history.push(`/workpieces/${workpiece.id}`)
+		history.push(`/workpieces/${workpieceId}`)
 	}
 
 	const [selection, setSelection] = useState([])
@@ -115,10 +115,14 @@ export function PublishModal(props) {
 				)}
 				{orderShow === 2 && (
 					<Row>
-						<WaitingModal workpiece={workpiece} />
+						<WaitingModal />
 					</Row>
 				)}
-				{orderShow === 3 && <FinalModal workpiece={workpiece} />}
+				{orderShow === 3 && (
+					<Row>
+						<FinalModal />
+					</Row>
+				)}
 			</Group>
 		</DialogModal>
 	)

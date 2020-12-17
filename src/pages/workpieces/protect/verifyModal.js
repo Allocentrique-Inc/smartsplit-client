@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import CertificateModel from "../../../mobX/models/workpieces/protect/CertificateModel"
 import { Metrics } from "../../../theme"
 import { StyleSheet } from "react-native"
 import { useTranslation } from "react-i18next"
@@ -12,7 +11,7 @@ const Styles = StyleSheet.create({
 		alignItems: "center",
 		display: "flex",
 	},
-	checkbox: {
+	textCheckbox: {
 		paddingLeft: Metrics.spacing.small,
 	},
 	fieldContent: {
@@ -31,19 +30,14 @@ export function VerifyModal(props) {
 	}
 
 	return (
-		<CheckBoxGroup
-			flex={12}
-			selection={selection}
-			onChange={sendDataSelection}
-			error
-		>
+		<CheckBoxGroup flex={12} selection={selection} onChange={sendDataSelection}>
 			<Row>
 				<Column flex={1}>
 					<CheckBoxGroupButton value="1" />
 				</Column>
 				<Column flex={11}>
 					<Text
-						style={Styles.checkbox}
+						style={Styles.textCheckbox}
 						dangerouslySetInnerHTML={{
 							__html: t("protect:verify1", {
 								firstName: model.firstName,
@@ -59,7 +53,7 @@ export function VerifyModal(props) {
 				</Column>
 				<Column flex={11}>
 					<Text
-						style={Styles.checkbox}
+						style={Styles.textCheckbox}
 						dangerouslySetInnerHTML={{
 							__html: t("protect:verify2", {
 								file: model.firstName,
@@ -75,7 +69,7 @@ export function VerifyModal(props) {
 				</Column>
 				<Column flex={11}>
 					<Text
-						style={Styles.checkbox}
+						style={Styles.textCheckbox}
 						dangerouslySetInnerHTML={{
 							__html: t("protect:verify3", {
 								song: model.firstName,

@@ -1,12 +1,10 @@
-import React, { useRef, useState } from "react"
+import React, { useState } from "react"
 import { Redirect, useHistory, useParams } from "react-router"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 import { useStorePath, useStores } from "../../../mobX"
 import Layout from "../layout"
-import { Row, Column, Flex, Hairline } from "../../../layout"
-import { Form, RadioGroup, RadioGroupButton, FileField } from "../../../forms"
-import { Heading, Paragraph, Text } from "../../../text"
+import { Row, Flex } from "../../../layout"
 import Button from "../../../widgets/button"
 import { useProtectModel } from "../../../mobX/hooks"
 import SelectionPage from "./selection"
@@ -38,10 +36,6 @@ const ProtectWork = observer(() => {
 		},
 	}
 
-	const goToHome = () => {
-		history.push("/workpieces/" + workpiece.id)
-	}
-
 	const navigateToSummary = () => {
 		history.push(`/workpieces/${workpiece.id}`)
 	}
@@ -68,17 +62,17 @@ const ProtectWork = observer(() => {
 			progress={protectPage[type].progress}
 			path={[t("protect:navbar.protect"), protectPage[type].title]}
 			actions={
-				< Button
+				<Button
 					tertiary
 					text={t("general:buttons.saveClose")}
 					onClick={() => {
 						model.save()
 					}}
-				// disabled={!rightsSplits.$hasChanged}
+					// disabled={!rightsSplits.$hasChanged}
 				/>
 			}
 			formNav={
-				< Row style={{ maxWidth: 464 }} flex={1} >
+				<Row style={{ maxWidth: 464 }} flex={1}>
 					<Button
 						secondary
 						text={t("general:buttons.back")}
@@ -91,13 +85,13 @@ const ProtectWork = observer(() => {
 							(type === "certificate"
 								? t("general:buttons.end")
 								: t("general:buttons.continue"),
-								type === "certificate"
-									? t("protect:publishOnBlockchain")
-									: t("general:buttons.continue"))
+							type === "certificate"
+								? t("protect:publishOnBlockchain")
+								: t("general:buttons.continue"))
 						}
 						onClick={toNextPage}
 					/>
-				</Row >
+				</Row>
 			}
 		>
 			{!workpieces.isLoading &&
@@ -107,7 +101,7 @@ const ProtectWork = observer(() => {
 						setEndModal(false)
 					},
 				})}
-		</Layout >
+		</Layout>
 	)
 })
 

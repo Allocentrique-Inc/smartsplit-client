@@ -1,9 +1,6 @@
-import React, { useState, useMemo } from "react"
-import { useHistory } from "react-router"
+import React from "react"
 import { useTranslation } from "react-i18next"
 import { StyleSheet } from "react-native"
-import HTML from "react-native-render-html"
-import { toJS } from "mobx"
 import { useCurrentWorkpiece } from "../context"
 import { Column, Row, Flex, Hairline } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
@@ -14,7 +11,6 @@ import { RadioGroup, RadioGroupButton, FileField } from "../../../forms"
 import TextField from "../../../forms/text"
 import SelectionModel from "../../../mobX/models/workpieces/protect/SelectionModel"
 import { useProtectModel } from "../../../mobX/hooks"
-import { useSubpath } from "../../../appstate/react"
 
 const Styles = StyleSheet.create({
 	category: {

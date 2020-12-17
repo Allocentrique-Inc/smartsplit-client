@@ -63,7 +63,6 @@ const CertificatePage = observer((props) => {
 				onRequestClose={() => {
 					setAddBirhModalVisible(false)
 				}}
-				workpiece={workpiece}
 				model={model}
 			/>
 			<AddPlaceBirthModal
@@ -71,7 +70,7 @@ const CertificatePage = observer((props) => {
 				onRequestClose={() => {
 					setAddPlaceModalVisible(false)
 				}}
-				workpiece={workpiece}
+				workpieceId={workpiece.id}
 			/>
 			<Row>
 				<Column of="group" flex={7}>

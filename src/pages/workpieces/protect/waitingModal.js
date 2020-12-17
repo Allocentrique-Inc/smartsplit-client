@@ -1,7 +1,7 @@
 import { observer } from "mobx-react"
 import { StyleSheet, View } from "react-native"
 import { Column, Row } from "../../../layout"
-import { Heading, Paragraph } from "../../../text"
+import { Paragraph } from "../../../text"
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import ProgressBar from "../../../widgets/progress-bar"
@@ -18,8 +18,6 @@ const Styles = StyleSheet.create({
 
 const WaitingModal = observer(function (props) {
 	const { t } = useTranslation()
-	const [secondState, setSecondState] = useState({ second: 0 })
-	const { workpiece } = props
 
 	return (
 		<Column flex={12}>
