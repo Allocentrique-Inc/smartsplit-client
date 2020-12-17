@@ -59,6 +59,7 @@ export class WebDatePicker extends React.Component {
 				value={this.state.date}
 				onChange={this.handleChange}
 				icon={null}
+				localization="fr"
 			/>
 		)
 	}
