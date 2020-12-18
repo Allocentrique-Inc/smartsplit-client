@@ -19,6 +19,7 @@ const TypographyStyles = {
 		base: {
 			fontFamily: getFont(Typography.font, Typography.Weight.normal, false),
 			color: Colors.primary,
+			wordBreak: "break-word"
 		},
 
 		regular_italic: {
