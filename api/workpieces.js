@@ -72,3 +72,30 @@ export async function getDocumentation(workpieceId, section) {
 		url: url,
 	})
 }
+
+
+export async function saveProtection(workpieceId, section, data) {
+	let url = `/workpieces/${workpieceId}/protect`
+	if (section) {
+		url += `/${section}`
+	}
+	console.log(`API patch to save documentation is "${url}"`)
+	return await client.request({
+		method: "patch",
+		url: url,
+		data: data,
+	})
+}
+
+export async function getProtection(workpieceId, section) {
+	let url = `/workpieces/${workpieceId}/documentation`
+	if (section) {
+		url += `/${section}`
+	}
+	console.log(`API patch to get protect is "${url}"`)
+	return await client.request({
+		method: "get",
+		url: url,
+	})
+}
+
