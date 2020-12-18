@@ -24,6 +24,7 @@ export function VerifyModal(props) {
 	const { t } = useTranslation()
 	const [selection, setSelection] = useState(props.selection)
 	const model = props.model
+	console.log("model", model)
 	const sendDataSelection = (val) => {
 		setSelection(val)
 		props.parentCallback(selection)
@@ -40,7 +41,7 @@ export function VerifyModal(props) {
 						style={Styles.textCheckbox}
 						dangerouslySetInnerHTML={{
 							__html: t("protect:verify1", {
-								firstName: model.firstName,
+								firstName: `${model.listedBy.initialValue.firstName} ${model.listedBy.initialValue.lastName}`,
 							}),
 						}}
 					/>
@@ -56,7 +57,7 @@ export function VerifyModal(props) {
 						style={Styles.textCheckbox}
 						dangerouslySetInnerHTML={{
 							__html: t("protect:verify2", {
-								file: model.firstName,
+								file: model.sourceFile.initialValue,
 							}),
 						}}
 					/>
@@ -72,7 +73,7 @@ export function VerifyModal(props) {
 						style={Styles.textCheckbox}
 						dangerouslySetInnerHTML={{
 							__html: t("protect:verify3", {
-								song: model.firstName,
+								song: model.sourceFile.initialValue,
 							}),
 						}}
 					/>

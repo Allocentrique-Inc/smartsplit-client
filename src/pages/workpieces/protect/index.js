@@ -9,6 +9,7 @@ import Button from "../../../widgets/button"
 import { useProtectModel } from "../../../mobX/hooks"
 import SelectionPage from "./selection"
 import Certificate from "./certificate"
+import ProtectionModel from "../../../mobX/models/workpieces/protect/ProtectionModel"
 
 const ProtectWork = observer(() => {
 	const { workpieces } = useStores()
@@ -16,7 +17,7 @@ const ProtectWork = observer(() => {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const { workpiece_id, type } = useParams()
-	const model = useProtectModel(workpiece_id)
+	const model: ProtectionModel = useProtectModel(workpiece_id)
 	const workpiece = useStorePath("workpieces").fetch(workpiece_id)
 
 	if (!workpiece_id) navigateToSummary()

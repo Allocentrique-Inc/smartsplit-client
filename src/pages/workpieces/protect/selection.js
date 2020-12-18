@@ -6,7 +6,6 @@ import { Column, Row, Flex, Hairline } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import { observer } from "mobx-react"
-import { CardStyles } from "../../../widgets/card"
 import { RadioGroup, RadioGroupButton, FileField } from "../../../forms"
 import TextField from "../../../forms/text"
 import SelectionModel from "../../../mobX/models/workpieces/protect/SelectionModel"
@@ -37,7 +36,6 @@ const Styles = StyleSheet.create({
 	},
 })
 
-const frameStyle = [CardStyles.frame, Styles.frame]
 //Pour info genre dropdown use this
 
 const SelectionPage = observer(() => {

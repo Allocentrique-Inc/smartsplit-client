@@ -38,16 +38,6 @@ const Styles = StyleSheet.create({
 const CertificatePage = observer((props) => {
 	const { t } = useTranslation()
 	const model: CertificateModel = props.model
-	const [authors, setAuthors] = useState([
-		{
-			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb",
-			firstName: "Willy",
-			lastName: "Nilly",
-			artistName: "Willy the Poo",
-			avatarUrl:
-				"https://apiv2-dev.smartsplit.org/v1/users/09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb/avatar",
-		},
-	])
 	const [addBirhModalVisible, setAddBirhModalVisible] = useState(false)
 	const [addPlaceModalVisible, setAddPlaceModalVisible] = useState(false)
 	const user = model.listedBy.value
