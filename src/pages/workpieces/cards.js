@@ -41,7 +41,7 @@ function useNavigation(workpieceId, path) {
 export const ShareYourCopyright = observer(() => {
 	const { t } = useTranslation()
 	const workpieceId = useCurrentWorkpiece().id
-	const toNextPage = useNavigation(workpieceId, "rights-splits")
+	const toNextPage = useNavigation(workpieceId, "right-splits")
 
 	return (
 		<Card style={styles.card}>

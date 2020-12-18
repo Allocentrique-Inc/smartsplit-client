@@ -1,13 +1,14 @@
-import CircledP from "../../../../../svg/circled-p"
-import SplitUIState from "./SplitUIState"
-import RecordingForm from "../../../../../pages/workpieces/rights-splits/recording"
+import CircledP from "../../../../svg/circled-p"
+import RightSplitState from "./RightSplitState"
+
 import { computed } from "mobx"
-import { Colors } from "../../../../../theme"
+import { Colors } from "../../../../theme"
+import RecordingForm from "../../../../pages/workpieces/right-splits/recording"
 
 /**
  *  Recording form page UI state
  **/
-export default class RecordingSplit extends SplitUIState {
+export default class RecordingSplit extends RightSplitState {
 	constructor(rightSplit, shareholderColors) {
 		super(rightSplit, CircledP, shareholderColors)
 	}

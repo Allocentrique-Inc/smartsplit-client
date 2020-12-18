@@ -1,22 +1,19 @@
 import { action, computed } from "mobx"
-import CircledC from "../../../../../svg/circled-c"
-import SplitUIState from "./SplitUIState"
-import CopyrightForm from "../../../../../pages/workpieces/rights-splits/copyright"
+import CircledC from "../../../../svg/circled-c"
+import RightSplitState from "./RightSplitState"
+import CopyrightForm from "../../../../pages/workpieces/right-splits/copyright"
 
 /**
  *  Copyright form page UI state
  **/
-export default class CopyrightSplit extends SplitUIState {
-	constructor(rightSplit, shareholdersColors) {
-		super(rightSplit, CircledC, shareholdersColors)
+export default class CopyrightSplit extends RightSplitState {
+	constructor(domainState, shareholdersColors) {
+		super(domainState, CircledC, shareholdersColors)
 	}
 
 	progress = (1 / 3) * 100
 	form = CopyrightForm
-	/**
-	 *	Action to initialize the ui state. Shares are an array
-	 *	of shareholders stripped values from their observables
-	 **/
+
 	@action init(pageTitle, titleLeft, titleRight) {
 		super.init(pageTitle)
 		// Titles of Dual pie chart halfs
@@ -47,28 +44,24 @@ export default class CopyrightSplit extends SplitUIState {
 	}
 
 	isMixerDisabled(roles) {
-		return (
-			!this.rightSplit.domainState.composerChosen && !roles.includes("mixer")
-		)
+		return !this.domainState.composerChosen && !roles.includes("mixer")
 	}
 
 	isAdapterDisabled(roles) {
-		return (
-			!this.rightSplit.domainState.authorChosen && !roles.includes("adapter")
-		)
+		return !this.domainState.authorChosen && !roles.includes("adapter")
 	}
 
 	genChartProps(mode) {
 		if (mode === "roles") {
 			return {
 				dataLeft: this.sharesToChartData(
-					this.rightSplit.domainState.lyricsContributors.map((contrib) => ({
+					this.domainState.lyricsContributors.map((contrib) => ({
 						...contrib,
 						shares: 1,
 					}))
 				),
 				dataRight: this.sharesToChartData(
-					this.rightSplit.domainState.musicContributors.map((contrib) => ({
+					this.domainState.musicContributors.map((contrib) => ({
 						...contrib,
 						shares: contrib.weighting,
 					}))
