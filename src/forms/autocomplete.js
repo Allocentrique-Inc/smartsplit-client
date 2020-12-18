@@ -10,6 +10,7 @@ import { mapFragmentChildren } from "../utils/react"
 import PlusCircle from "../svg/plus-circle"
 import { Colors } from "../theme"
 import UserAvatar from "../smartsplit/user/avatar"
+import AutocompleteLoading from "../svg/autocomplete-loading"
 const Styles = StyleSheet.create({
 	actionFrame: {
 		borderTopWidth: 1,
@@ -38,6 +39,7 @@ export default function Autocomplete({
 	onSelect,
 	onUnselect,
 	search,
+	loading,
 	alwaysShowAdd,
 	onSearchChange, // = () => {},
 	searchResults,
@@ -51,6 +53,11 @@ export default function Autocomplete({
 		return (
 			<>
 				<ScrollView style={FormStyles.select_scroll}>
+					{loading ? (
+						<Column valign="center" align="center" padding={"tiny"}>
+							<AutocompleteLoading />
+						</Column>
+					) : null}
 					{searchResults.length
 						? searchResults.map((result, index) => (
 								<TouchableWithoutFeedback
