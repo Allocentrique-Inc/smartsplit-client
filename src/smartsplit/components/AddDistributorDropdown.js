@@ -18,16 +18,16 @@ const Styles = StyleSheet.create({
 	},
 })
 
-class AddGenreDropdown extends React.PureComponent {
+class AddDistributorDropdown extends React.PureComponent {
 	constructor(props) {
 		super(props)
 		this.state = {
 			searchText: props.searchText || "",
 			value: props.defaultValue || props.value || null,
-			genres: props.genres, // TODO: Plus tard, base de donnée + API
+			distributors: props.distributors, // TODO: Plus tard, base de donnée + API
 			focused: false,
 		}
-		this.state.text = props.genres[this.state.value] || ""
+		this.state.text = props.distributors[this.state.value] || ""
 	}
 
 	handleSearchChange = (text) => {
@@ -63,52 +63,30 @@ class AddGenreDropdown extends React.PureComponent {
 
 	render() {
 		const { t, i18n } = this.props
-		//filtre puis map, retournent array
-		const genres = this.state.genres
-			.filter((g) => compareGenres(g.name, this.state.searchText))
-			// i = index
+		const distributors = this.state.distributors
+			.filter((g) => compareDistributors(g.name, this.state.searchText))
 			.map((g, i) => (
-				<GenreDropdownRow
+				<DistributorDropdownRow
 					key={i}
-					genreKey={g.id}
+					distributorKey={g.id}
 					value={g.name}
 					onSelect={this.handleSelectionChange}
 					search={this.state.searchText}
 				/>
 			))
 
-		const quotation = i18n.language === "en" ? '"' : "« "
-		const quotationEnd = i18n.language === "en" ? '"' : " »"
-
-		/* 		const addNew = (
-			<TouchableWithoutFeedback onPress={this.addSearchAsNew}>
-				<Row of="component" padding="component" style={Styles.actionFrame}>
-					<PlusCircle />
-					<Text bold action>
-						{t("document:add")}
-						{this.state.searchText ? quotation : null}
-						{this.state.searchText}
-						{this.state.searchText ? quotationEnd : null}
-					</Text>
-				</Row>
-			</TouchableWithoutFeedback>
-		) */
-
 		return (
 			<TextDropdown
-				label={t("document:infos.mainGenre")}
-				placeholder={t("document:infos.addGenre")}
+				label={t("document:release.supports.distribution")}
+				placeholder={t("document:release.supports.addDistribution")}
 				value={this.state.focused ? this.state.searchText : this.state.text}
 				onChangeText={this.handleSearchChange}
 				onFocus={this.handleFocus}
 				onBlur={this.handleBlur}
-				//{...labelProps(this.props)}
 			>
 				<Layer layer="overground_moderate">
 					<ScrollView style={FormStyles.select_scroll}>
-						{genres}
-						{/* {this.state.searchText ? addNew : null} */}
-						{/* {addNew} */}
+						{distributors}
 					</ScrollView>
 				</Layer>
 			</TextDropdown>
@@ -116,12 +94,11 @@ class AddGenreDropdown extends React.PureComponent {
 	}
 }
 
-export default withTranslation()(AddGenreDropdown)
+export default withTranslation()(AddDistributorDropdown)
 
-export function GenreDropdownRow(props) {
-	//console.log(props)
+export function DistributorDropdownRow(props) {
 	function handleSelect() {
-		props.onSelect(props.genreKey, props.value)
+		props.onSelect(props.distributorKey, props.value)
 	}
 
 	return (
@@ -133,10 +110,6 @@ export function GenreDropdownRow(props) {
 	)
 }
 
-export function compareGenres(a, b) {
-	//console.log(typeof a)
-	//console.log(typeof b)
-	//console.log(a)
-	//console.log(b)
+export function compareDistributors(a, b) {
 	return a.toLowerCase().indexOf(b.toLowerCase()) > -1
 }

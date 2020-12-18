@@ -20,7 +20,7 @@ export default class DocumentationModel extends BaseModel {
 	@observable files = new DocFilesModel(this)
 	@observable recording = new DocRecordingModel(this)
 	@observable release = new DocReleaseModel(this)
-	@observable infos = new DocInfosModel(this)
+	@observable info = new DocInfosModel(this)
 	@observable streaming = new DocStreamingModel(this)
 	constructor(parent, workpiece) {
 		super()
@@ -38,7 +38,6 @@ export default class DocumentationModel extends BaseModel {
 	 * @return {Promise<*>}
 	 */
 	async save(section) {
-		if (section === "links") section = "streaming"
 		console.log(`workpiece  id is ${this.workpiece.id}`)
 		let data
 		let isDirty = false

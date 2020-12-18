@@ -88,3 +88,12 @@ export function NotificationValidator(v) {
 	if (v > 7 || v < 0) return "invalid_notification_setting"
 	else return null
 }
+
+export function urlValidator(v) {
+	if (
+		!/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(
+			v
+		)
+	)
+		return "errors:invalidUrl"
+}
