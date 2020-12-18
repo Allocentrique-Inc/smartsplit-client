@@ -15,9 +15,8 @@ import {
 } from "mobx"
 import DocumentationModel from "../models/workpieces/documentation/DocumentationModel"
 import ProtectionModel from "../models/workpieces/protect/ProtectionModel"
-import RightsSplits from "./WorkpieceStates/RightsSplits"
 import WorkpieceModel from "../models/workpieces/WorkpieceModel"
-
+import RightSplitsModel from "../models/workpieces/right-splits/RightSplitsModel"
 const WorkpieceObservable = createCrudObservable(
 	WorkpiecesCrudAPI,
 	"workpiece_id"
