@@ -6,6 +6,7 @@ export default StyleSheet.create({
 		height: Metrics.size.xlarge,
 		flexDirection: "row",
 		alignItems: "center",
+		cursor: "pointer",
 	},
 
 	dashboard_row_cover: {

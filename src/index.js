@@ -16,6 +16,7 @@ import UserSettings from "./pages/user/settings"
 import AdminPage from "./pages/admin"
 import WorkpiecesRouter from "./pages/workpieces"
 import { observer } from "mobx-react"
+window.makeObservable = function (instance) {}
 // TMP keep redux for now
 // import { Provider } from "react-redux"
 // import { createStore, applyMiddleware } from "redux"

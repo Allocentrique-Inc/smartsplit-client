@@ -2,15 +2,13 @@ import React from "react"
 import {
 	Switch,
 	Route,
-	Redirect,
-	generatePath,
 	useHistory,
 	useRouteMatch,
 	useParams,
 } from "react-router"
 import { StyleSheet, View } from "react-native"
-import { WorkpieceContext, useCurrentWorkpiece } from "./context"
-import RightsSplitsPage from "./rights-splits"
+import { CurrentWorkpiece, WorkpieceContext } from "./context"
+import RightSplitsPage from "./right-splits"
 import ProtectWork from "./protect"
 import { Column, Row, Spacer } from "../../layout"
 import { Colors, Metrics } from "../../theme"
@@ -31,9 +29,10 @@ import DocumentationPage from "./documentation"
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
 	const workpiece = useStorePath("workpieces").fetch(match.params.workpiece_id)
+	const workpieceContext = new CurrentWorkpiece(workpiece)
 
 	return (
-		<WorkpieceContext.Provider value={workpiece}>
+		<WorkpieceContext.Provider value={workpieceContext}>
 			<Switch>
 				<Route
 					path="/workpieces/:workpiece_id"
@@ -43,10 +42,10 @@ const WorkpiecesRouter = observer(() => {
 
 				<Route
 					path={[
-						"/workpieces/:workpiece_id/rights-splits/:split_type",
-						"/workpieces/:workpiece_id/rights-splits",
+						"/workpieces/:workpiece_id/right-splits/:split_type",
+						"/workpieces/:workpiece_id/right-splits",
 					]}
-					component={RightsSplitsPage}
+					component={RightSplitsPage}
 				/>
 				<Route
 					path={[
@@ -56,9 +55,13 @@ const WorkpiecesRouter = observer(() => {
 					component={DocumentationPage}
 				/>
 
-				<Route path="/workpieces/:workpiece_id/protect">
-					<ProtectWork />
-				</Route>
+				<Route
+					path={[
+						"/workpieces/:workpiece_id/protect/:type",
+						"/workpieces/:workpiece_id/protect",
+					]}
+					component={ProtectWork}
+				/>
 
 				{/*<Route path="/workpieces/:workpiece_id/documentation/recording">*/}
 				{/*	<Recording />*/}
@@ -84,20 +87,22 @@ export const demoPiece = {
 const Styles = StyleSheet.create({
 	outerContainer: {
 		backgroundColor: Colors.background.underground,
-		height: "100%",
+		height: "100vh",
 		paddingRight: Metrics.spacing.small,
 		paddingLeft: Metrics.spacing.small,
+		overflowX: "hidden",
+		overflowY: "auto",
 	},
 	innerContainer: {
 		maxWidth: 976,
-		width: "100%",
+		width: "100wh",
 		marginLeft: "auto",
 		marginRight: "auto",
 		paddingRight: Metrics.spacing.small,
 		paddingLeft: Metrics.spacing.small,
 	},
 	tabContainer: {
-		height: "100%",
+		height: "70vh",
 		marginRight: -Metrics.spacing.small,
 		marginLeft: -Metrics.spacing.small,
 	},

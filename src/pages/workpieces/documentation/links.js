@@ -27,11 +27,17 @@ import YoutubeIcon from "../../../svg/workpieces/youtube"
 import SoundcloudIcon from "../../../svg/workpieces/soundcloud"
 import PandoraIcon from "../../../svg/workpieces/pandora"
 import DeezerIcon from "../../../svg/workpieces/deezer"
+import TidalIcon from "../../../svg/workpieces/tidal"
 import HighFive from "../../../../assets/svg/high-five.svg"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
-import AddPlatformDropdown from "../../../smartsplit/components/add-platform-dropdown"
+import AddPlatform from "../../../smartsplit/components/AddPlatformDropdown"
 import { DialogModal } from "../../../widgets/modal"
 import { observer } from "mobx-react"
+import { useDocsModel } from "../../../mobX/hooks"
+import { titleCase } from "../../../utils/utils"
+import { urlValidator } from "../../../mobX/models/validators"
+import DocStreamingModel from "../../../mobX/models/workpieces/documentation/DocStreamingModel"
+
 const Styles = StyleSheet.create({
 	category: {
 		alignItems: "center",
@@ -50,8 +56,9 @@ export default observer(function Links(props) {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const workpiece = useCurrentWorkpiece()
-	//console.log(modalVisible)
-
+	const workpieceId = workpiece.id
+	const model: DocStreamingModel = useDocsModel(workpieceId, "streaming")
+	//console.log(model)
 	function saveAndQuit() {
 		history.push("/dashboard/")
 	}
@@ -66,14 +73,105 @@ export default observer(function Links(props) {
 
 	return (
 		<>
-			<LinksForm />
+			<LinksForm model={model} />
 			<EndModal visible={modalVisible} onRequestClose={closeModal} />
 		</>
 	)
 })
 
-export function LinksForm(props) {
+const LinkRow = observer((props) => {
+	const { model, Icon, name } = props
 	const { t } = useTranslation()
+	const [focus, setFocus] = useState(false)
+	const [wasBlurred, setWasBlurred] = useState(false)
+	return (
+		<Row valign="center">
+			<Column flex={0.5}>
+				<Icon />
+			</Column>
+			<Column flex={2}>
+				<Text primary>{name.substr(0, 1).toUpperCase() + name.substr(1)}</Text>
+			</Column>
+			<TextField
+				style={{ flex: 5 }}
+				placeholder={t("document:links.addLink")}
+				value={model.links.value[name]}
+				onBlur={() => {
+					setFocus(false)
+					setWasBlurred(true)
+				}}
+				onFocus={() => {
+					setFocus(true)
+				}}
+				error={
+					(!focus || wasBlurred) &&
+					model.links.value[name] &&
+					urlValidator(model.links.value[name])
+						? t("errors:invalidUrl")
+						: false
+				}
+				onChangeText={(v) => {
+					model.links.setItem(name, v)
+					console.log(model.toJS())
+				}}
+			/>
+		</Row>
+	)
+})
+
+export const LinksForm = observer((props) => {
+	const { t } = useTranslation()
+
+	const { model } = props
+
+	const defaultLinks = [
+		"spotify",
+		"google",
+		"apple",
+		"amazon",
+		"youtube",
+		"pendora",
+		"soundcloud",
+		"deezer",
+	]
+
+	const icons = {
+		spotify: SpotifyIcon,
+		google: GooglePlayIcon,
+		apple: ITunesIcon,
+		amazon: AmazonIcon,
+		youtube: YoutubeIcon,
+		pendora: PandoraIcon,
+		soundcloud: SoundcloudIcon,
+		deezer: DeezerIcon,
+		tidal: TidalIcon,
+	}
+
+	const [searchPlatforms, setSearchPlatforms] = useState("")
+
+	const fakeSearchResults = [
+		{
+			id: "123",
+			name: "Tidal",
+		},
+		{
+			id: "1234",
+			name: "My Space From the Death",
+		},
+		{
+			id: "12345",
+			name: "Napster",
+		},
+	]
+
+	const platformResults = fakeSearchResults
+
+	const searchResultsPlatforms = platformResults.map((platform) => {
+		return {
+			id: platform.id,
+			name: titleCase(platform.name),
+		}
+	})
 
 	return (
 		<>
@@ -86,10 +184,20 @@ export function LinksForm(props) {
 					</Text>
 					<Heading level={1}>{t("document:links.title")}</Heading>
 					<Paragraph>{t("document:links.paragraph")}</Paragraph>
-
 					<Spacer of="group" />
+					{Object.keys(model.links.value).map((name) => (
+						<LinkRow
+							name={name}
+							Icon={
+								icons[name.toLowerCase()] ? icons[name.toLowerCase()] : LinkIcon
+							}
+							model={model}
+							key={`link-${name}`}
+							value={model.links.value[name]}
+						/>
+					))}
 
-					<Row valign="center">
+					{/* <Row valign="center">
 						<Column flex={0.5}>
 							<SpotifyIcon />
 						</Column>
@@ -100,6 +208,10 @@ export function LinksForm(props) {
 							style={{ flex: 5 }}
 							name="spotify"
 							placeholder={t("document:links.addLink")}
+							value={model.links["spotify"]}
+							onChange={(v) => {
+								model.links.setItem("spotify", v)
+							}}
 						/>
 					</Row>
 
@@ -199,8 +311,24 @@ export function LinksForm(props) {
 							name="soundcloud"
 							placeholder={t("document:links.addLink")}
 						/>
-					</Row>
-					<AddPlatformDropdown placeholder={t("document:links.addPlatform")} />
+					</Row> */}
+					<AddPlatform
+						noIcon={false}
+						searchResults={searchResultsPlatforms.filter(
+							(p) =>
+								p.name.toLowerCase().indexOf(searchPlatforms.toLowerCase()) > -1
+						)}
+						search={searchPlatforms}
+						onSearchChange={setSearchPlatforms}
+						selection={model.otherPlatforms.array}
+						onSelect={(selection) => {
+							console.log(selection)
+							model.links.setItem(selection.name, "")
+						}}
+						/* 	onUnselect={
+							(selection) => model.otherPlatforms.remove(selection)
+						} */
+					/>
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>
@@ -221,7 +349,7 @@ export function LinksForm(props) {
 			</Row>
 		</>
 	)
-}
+})
 
 export function EndModal(props) {
 	const { t } = useTranslation()
@@ -242,9 +370,9 @@ export function EndModal(props) {
 					<Button
 						text={t("general:buttons.seeSummary")}
 						onClick={navigateToSummary}
-						/* 						onClick={() => {
-							console.log(t("document:finalModal.title"))
-						}} */
+					/* 						onClick={() => {
+						console.log(t("document:finalModal.title"))
+					}} */
 					/>
 				</>
 			}

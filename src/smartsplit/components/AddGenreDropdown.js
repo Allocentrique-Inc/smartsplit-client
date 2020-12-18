@@ -80,7 +80,7 @@ class AddGenreDropdown extends React.PureComponent {
 		const quotation = i18n.language === "en" ? '"' : "« "
 		const quotationEnd = i18n.language === "en" ? '"' : " »"
 
-		const addNew = (
+		/* 		const addNew = (
 			<TouchableWithoutFeedback onPress={this.addSearchAsNew}>
 				<Row of="component" padding="component" style={Styles.actionFrame}>
 					<PlusCircle />
@@ -92,7 +92,7 @@ class AddGenreDropdown extends React.PureComponent {
 					</Text>
 				</Row>
 			</TouchableWithoutFeedback>
-		)
+		) */
 
 		return (
 			<TextDropdown
@@ -108,7 +108,7 @@ class AddGenreDropdown extends React.PureComponent {
 					<ScrollView style={FormStyles.select_scroll}>
 						{genres}
 						{/* {this.state.searchText ? addNew : null} */}
-						{addNew}
+						{/* {addNew} */}
 					</ScrollView>
 				</Layer>
 			</TextDropdown>

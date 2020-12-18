@@ -8,8 +8,10 @@ import DocReleaseModel from "./DocReleaseModel"
 import DocInfosModel from "./DocInfosModel"
 import BaseModel from "../../../BaseModel/BaseModel"
 import { saveDocumentation } from "../../../../../api/workpieces"
+import DocStreamingModel from "./DocStreamingModel"
 
-const makeObservable = () => {}
+const makeObservable = () => { }
+
 export default class DocumentationModel extends BaseModel {
 	workpiece
 	@observable creation = new DocCreationModel(this)
@@ -18,7 +20,8 @@ export default class DocumentationModel extends BaseModel {
 	@observable files = new DocFilesModel(this)
 	@observable recording = new DocRecordingModel(this)
 	@observable release = new DocReleaseModel(this)
-	@observable infos = new DocInfosModel(this)
+	@observable info = new DocInfosModel(this)
+	@observable streaming = new DocStreamingModel(this)
 	constructor(parent, workpiece) {
 		super()
 		makeObservable(this)
@@ -53,7 +56,7 @@ export default class DocumentationModel extends BaseModel {
 			if (isDirty) await saveDocumentation(this.workpiece.id, section, data)
 			else console.log(`model to save is not dirty, not saving`)
 			return true
-		} catch (e) {}
+		} catch (e) { }
 	}
 }
 

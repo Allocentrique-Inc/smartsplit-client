@@ -20,17 +20,13 @@ import {
 } from "../../../forms"
 import { toJS } from "mobx"
 import { observer } from "mobx-react"
-import {
-	useArtistAutocomplete,
-	useAuthUser,
-	useDocsModel,
-	ResultsOrder,
-} from "../../../mobX/hooks"
+import { useDocsModel, ResultsOrder } from "../../../mobX/hooks"
 import { useStores } from "../../../mobX"
 import ContributorsState from "../../../mobX/states/ContributorsState"
 import ContributorModel from "../../../mobX/models/user/ContributorModel"
 import DocReleaseModel from "../../../mobX/models/workpieces/documentation/DocReleaseModel"
 import Field from "../../../mobX/BaseModel/Field"
+import AddDistributorDropdown from "../../../smartsplit/components/AddDistributorDropdown"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -49,7 +45,6 @@ const ReleaseForm = observer((props) => {
 	const { t } = useTranslation()
 	const [showDigitalOptions, setShowDigitalOptions] = useState()
 	const [showEP, setShowEP] = useState()
-
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
 	const model: DocReleaseModel = useDocsModel(workpieceId, "release")
@@ -137,24 +132,56 @@ export function EP(props) {
 		</Column>
 	)
 }
-
-export function DigitalOptions() {
+export const DigitalOptions = observer((props) => {
 	const { t } = useTranslation()
+
+	const [search, setSearch] = useState("")
+	const workpiece = useCurrentWorkpiece()
+	const workpieceId = workpiece.id
+	const model: DocReleaseModel = useDocsModel(workpieceId, "release")
+	const [selectedDistributor, setSelectedDistributor] = useState("")
+	const [searchDistributor, setSearchDistributor] = useState("")
+	const distributorsList = [
+		{
+			id: 1,
+			name: "Distributor 1",
+		},
+		{
+			id: 2,
+			name: "Distributor 2",
+		},
+		{
+			id: 3,
+			name: "Distributor 3",
+		},
+	]
+	const searchResultsDistributors = distributorsList.map((distributor) => {
+		return {
+			id: distributor.id,
+			name: distributor.name,
+		}
+	})
+
 	return (
 		<Column of="component" style={Styles.dropdown}>
-			<Dropdown
-				label={t("document:release.supports.distribution")}
-				placeholder={t("document:release.supports.addDistribution")}
+			<AddDistributorDropdown
+				distributors={searchResultsDistributors.filter((d) =>
+					d.name.toLowerCase().indexOf(searchDistributor.toLowerCase() > -1)
+				)}
 				noFocusToggle
 				tooltip=""
 				style={{ flex: 1 }}
+				onSelect={(distributor) => {
+					model.distributors.setValue(distributor)
+				}}
+				onSearchChange={setSearchDistributor}
 			/>
-			<Dropdown
+			{console.log(searchDistributor)}
+			<TextField
 				label={t("document:release.supports.upc")}
-				noFocusToggle
 				tooltip=""
 				style={{ flex: 1 }}
 			/>
 		</Column>
 	)
-}
+})

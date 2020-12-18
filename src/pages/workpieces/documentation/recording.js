@@ -25,7 +25,7 @@ import ContributorModel from "../../../mobX/models/user/ContributorModel"
 import DocRecordingModel from "../../../mobX/models/workpieces/documentation/DocRecordingModel"
 import { toJS } from "mobx"
 import Field from "../../../mobX/BaseModel/Field"
-import searchResultsStudio from "../../../../assets/data/studios-smartsplit"
+import searchResultsStudio from "../../../data/studios-smartsplit"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -285,8 +285,8 @@ const RecordingForm = observer((props) => {
 				/>*/}
 					<DateField
 						label={t("document:recording.date")}
-						value={date}
-						onChangeText={setDate}
+						value={model.recordingDate.value}
+						onChangeText={(v) => model.recordingDate.setValue(v)}
 						placeholder={t("forms:placeholders.date")}
 						tooltip=""
 					/>
@@ -364,6 +364,7 @@ const RecordingForm = observer((props) => {
 						name="isrc"
 						label={t("document:recording.isrc")}
 						tooltip={t("document:recording.tooltips.isrc")}
+						field={model.isrc}
 					/>
 				</Column>
 				<Flex />

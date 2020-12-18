@@ -14,7 +14,9 @@ import LyricsIcon from "../../../svg/feather"
 import EyeIcon from "../../../svg/eye"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import AddLanguageDropdown from "../../../smartsplit/components/AddLanguageDropdown"
-
+import { useDocsModel } from "../../../mobX/hooks"
+import DocLyricsModel from "../../../mobX/models/workpieces/documentation/DocLyricsModel"
+import { observer } from "mobx-react"
 const formStyle = StyleSheet.create({
 	textAreaContainer: {
 		padding: 5,
@@ -49,7 +51,7 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export function LyricsForm(props) {
+export const LyricsForm = observer((props) => {
 	const searchResults = ["English", "Français"]
 	const [search, setSearch] = useState("")
 	const [selected, setSelected] = useState(["English", "Français"])
@@ -57,6 +59,7 @@ export function LyricsForm(props) {
 	const [text, setText] = React.useState("")
 	const workpiece = useCurrentWorkpiece()
 
+	const model: DocLyricsModel = useDocsModel(workpiece.id, "lyrics")
 	return (
 		<>
 			<Row>
@@ -86,10 +89,12 @@ export function LyricsForm(props) {
 					<Column of="tiny">
 						<TextInput
 							label={t("document:lyrics.label")}
-							value={text}
+							value={model.text.value}
 							multiline={true}
 							style={formStyle.textAreaContainer}
-							onChangeText={(text) => setText(text)}
+							onChangeText={(text) => {
+								model.text.setValue(text)
+							}}
 						/>
 						<Text secondary small>
 							{t("document:lyrics.undertext")}
@@ -106,11 +111,9 @@ export function LyricsForm(props) {
 						)}
 						search={search}
 						onSearchChange={setSearch}
-						selection={selected}
-						onSelect={(selection) => setSelected([...selected, selection])}
-						onUnselect={(selection) =>
-							setSelected(selected.filter((i) => i !== selection))
-						}
+						selection={model.languages.array}
+						onSelect={(selection) => model.languages.add(selection)}
+						onUnselect={(selection) => model.languages.remove(selection)}
 						placeholder={t("document:lyrics.addLanguage")}
 					/>
 
@@ -146,4 +149,4 @@ export function LyricsForm(props) {
 			</Row>
 		</>
 	)
-}
+})
