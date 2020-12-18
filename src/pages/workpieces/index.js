@@ -2,13 +2,15 @@ import React from "react"
 import {
 	Switch,
 	Route,
+	Redirect,
+	generatePath,
 	useHistory,
 	useRouteMatch,
 	useParams,
 } from "react-router"
 import { StyleSheet, View } from "react-native"
-import { CurrentWorkpiece, WorkpieceContext } from "./context"
-import RightSplitsPage from "./right-splits"
+import { WorkpieceContext, useCurrentWorkpiece } from "./context"
+import RightsSplitsPage from "./rights-splits"
 import ProtectWork from "./protect"
 import { Column, Row, Spacer } from "../../layout"
 import { Colors, Metrics } from "../../theme"
@@ -29,10 +31,9 @@ import DocumentationPage from "./documentation"
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
 	const workpiece = useStorePath("workpieces").fetch(match.params.workpiece_id)
-	const workpieceContext = new CurrentWorkpiece(workpiece)
 
 	return (
-		<WorkpieceContext.Provider value={workpieceContext}>
+		<WorkpieceContext.Provider value={workpiece}>
 			<Switch>
 				<Route
 					path="/workpieces/:workpiece_id"
@@ -42,10 +43,10 @@ const WorkpiecesRouter = observer(() => {
 
 				<Route
 					path={[
-						"/workpieces/:workpiece_id/right-splits/:split_type",
-						"/workpieces/:workpiece_id/right-splits",
+						"/workpieces/:workpiece_id/rights-splits/:split_type",
+						"/workpieces/:workpiece_id/rights-splits",
 					]}
-					component={RightSplitsPage}
+					component={RightsSplitsPage}
 				/>
 				<Route
 					path={[

@@ -487,7 +487,7 @@ export const identity = {
 	),
 }
 
-export const rightSplits = {
+export const rightsSplits = {
 	navbar: {
 		rightSplits: "Right Split",
 		page: "Page Name",

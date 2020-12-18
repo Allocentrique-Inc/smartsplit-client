@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Redirect, useParams, useHistory } from "react-router"
 import { useStores } from "../../../mobX"
 import Layout from "../layout"
@@ -7,7 +7,7 @@ import { Flex, Row } from "../../../layout"
 import { Text } from "../../../text"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
-import { useCurrentWorkpiece, useRightSplits } from "../context"
+import { useCurrentWorkpiece, useRightsSplits } from "../context"
 
 /**
  *	Split forms wrapper
@@ -15,32 +15,54 @@ import { useCurrentWorkpiece, useRightSplits } from "../context"
  *	- Shows global information like the progress bar or the page title
  *	- Initializes the split UI states with the splits of the current workpiece
  **/
-const RightSplitsPage = observer(() => {
-	const { t } = useTranslation("rightSplits")
+const RightsSplitsPage = observer(() => {
+	const { t } = useTranslation("rightsSplits")
 	const history = useHistory()
 	const { workpiece_id, split_type } = useParams()
 
 	if (!workpiece_id) navigateToSummary()
 	else if (!split_type)
 		return (
-			<Redirect to={`/workpieces/${workpiece_id}/right-splits/copyright`} />
+			<Redirect to={`/workpieces/${workpiece_id}/rights-splits/copyright`} />
 		)
 	const workpiece = useCurrentWorkpiece()
-	const rightSplits = useRightSplits()
-
+	const rightsSplits = useRightsSplits()
+	//FOR TESTING PURPOSE
+	// rightsSplits.copyright.domainState.addShareholder(
+	// 	"235556b5-3bbb-4c90-9411-4468d873969b"
+	// )
+	// rightsSplits.copyright.domainState.addShareholder(
+	// 	"c84d5b32-25ee-48df-9651-4584b4b78f28"
+	// )
+	// rightsSplits.performance.domainState.addShareholder(
+	// 	"4f4950de-e5cd-41ea-84cb-997fc8f9183f"
+	// )
+	// rightsSplits.performance.domainState.addShareholder(
+	// 	"4154a7d5-578a-4fd9-b43b-98b1330c0fd1"
+	// )
+	// rightsSplits.recording.domainState.addShareholder(
+	// 	"b549ebd3-5c3b-4184-a3dd-bc5b8895073a"
+	// )
+	// rightsSplits.recording.domainState.addShareholder(
+	// 	"7e7984ac-1d9e-4ed3-b150-0560062caee0"
+	// )
 	// Loading translation to UIStates. Surely there is
 	// a better way to do that :-)
-	rightSplits.copyright.init(t("copyright.title"), t("lyrics"), t("music"))
-	rightSplits.performance.init(t("performance.title"))
-	rightSplits.recording.init(t("recording.title"))
+	rightsSplits.copyright.UIState.init(
+		t("copyright.title"),
+		t("lyrics"),
+		t("music")
+	)
+	rightsSplits.performance.UIState.init(t("performance.title"))
 
+	rightsSplits.recording.UIState.init(t("recording.title"))
 	const { workpieces } = useStores()
 	const currentSplit = split_type
 
 	//TODO: refactor rights splits saving
 	async function saveAndQuit() {
 		try {
-			await rightSplits.save()
+			await rightsSplits.save()
 			history.push(`/workpieces/${workpiece.id}`)
 		} catch (error) {
 			console.error("Error saving rights splits", error)
@@ -53,30 +75,33 @@ const RightSplitsPage = observer(() => {
 	function toPreviousPage() {
 		currentSplit === "copyright" && navigateToSummary()
 		currentSplit === "performance" &&
-			history.push(`/workpieces/${workpiece.id}/right-splits/copyright`)
+			history.push(`/workpieces/${workpiece.id}/rights-splits/copyright`)
 		currentSplit === "recording" &&
-			history.push(`/workpieces/${workpiece.id}/right-splits/performance`)
+			history.push(`/workpieces/${workpiece.id}/rights-splits/performance`)
 	}
 
 	function toNextPage() {
 		currentSplit === "copyright" &&
-			history.push(`/workpieces/${workpiece.id}/right-splits/performance`)
+			history.push(`/workpieces/${workpiece.id}/rights-splits/performance`)
 		currentSplit === "performance" &&
-			history.push(`/workpieces/${workpiece.id}/right-splits/recording`)
+			history.push(`/workpieces/${workpiece.id}/rights-splits/recording`)
 		currentSplit === "recording" && navigateToSummary()
 	}
 
 	return (
 		<Layout
 			workpiece={workpiece}
-			progress={rightSplits[currentSplit].progress}
-			path={[t("navbar.rightSplits"), rightSplits[currentSplit].pageTitle]}
+			progress={rightsSplits[currentSplit].UIState.progress}
+			path={[
+				t("navbar.rightSplits"),
+				rightsSplits[currentSplit].UIState.pageTitle,
+			]}
 			actions={
 				<Button
 					tertiary
 					text={t("general:buttons.saveClose")}
 					onClick={saveAndQuit}
-					disabled={!rightSplits.$hasChanged}
+					disabled={!rightsSplits.$hasChanged}
 				/>
 			}
 			formNav={
@@ -95,17 +120,17 @@ const RightSplitsPage = observer(() => {
 						/>
 					</Row>
 					<Row flex={1}>
-						{rightSplits.$error && (
-							<Text error>{rightSplits.$error.message}</Text>
+						{rightsSplits.$error && (
+							<Text error>{rightsSplits.$error.message}</Text>
 						)}
 					</Row>
 				</>
 			}
 		>
 			{!workpieces.isLoading &&
-				React.createElement(rightSplits[currentSplit].form)}
+				React.createElement(rightsSplits[currentSplit].UIState.form)}
 		</Layout>
 	)
 })
 
-export default RightSplitsPage
+export default RightsSplitsPage

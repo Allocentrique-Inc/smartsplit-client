@@ -35,7 +35,6 @@ export default class ModelCollection extends Field {
 		this.modelClass = options.modelClass
 		this.value = []
 	}
-
 	@computed get array() {
 		return this.value
 	}

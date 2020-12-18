@@ -64,12 +64,10 @@ const SearchAndTag = observer((props) => {
 					>
 						{typeof item === "string" ? (
 							<Text>{item}</Text>
-						) : item.name ? (
-							<Text>{item.name}</Text>
-						) : (
+						) : (item.name ? <Text>{item.name}</Text> : (
 							<View>{item}</View>
-						)}
-					</Tag>
+						))}
+					</Tag> 
 				))}
 			</Row>
 		)
