@@ -106,6 +106,7 @@ export const errors = {
 		"Aucun utilisateur n'a été trouvé avec cette adresse courriel. Peut-être avez-vous utilisé une autre addresse ?",
 	invalidDate: "Date invalide",
 	invalidPhoneNumber: "Numéro de téléphone invalide",
+	invalidUrl: "l'URL n'est pas valide",
 	password: {
 		weak: "Mot de passe faible",
 		average: "Mot de passe moyen",
@@ -752,7 +753,7 @@ export const document = {
 		},
 	},
 	files: {
-		category: "FILES",
+		category: "FICHIERS",
 		title: "Quels fichiers veux-tu rendre accessible ?",
 		paragraph:
 			"Ici, tu peux ajouter les fichiers relatifs à cette pièce musicale.",
@@ -783,13 +784,13 @@ export const document = {
 		dropdownDownloads: {
 			public: "Publique - Téléchargeable par tous",
 			publicUndertext:
-				"Tous les utilisateurs pourront télécharger le fichier original.",
+				"Tous les utilisateurs peuvent télécharger le fichier original.",
 			invitation: "Sur invitation - Téléchargeable par certains",
 			invitationUndertext:
-				"Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
+				"Seuls les utilisateurs munis du lien de partage unique peuvent télécharger.",
 			private: "Privé - Empêcher le téléchargement",
 			privateUndertext:
-				"Personne ne pourra télécharger l'image originale, sauf vous.",
+				"Personne ne peut télécharger l'image originale, sauf vous.",
 		},
 		dropdownAccess: {
 			public: "Publique - Rendre l'information visible de tous",

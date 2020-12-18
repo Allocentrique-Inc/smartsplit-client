@@ -60,7 +60,7 @@ const DocumentationPage = observer(() => {
 			progress: 62.5,
 			title: t("document:navbar.pages.files"),
 		},
-		infos: {
+		info: {
 			form: GeneralInfosForm,
 			progress: 75,
 			title: t("document:navbar.pages.infos"),
@@ -70,7 +70,7 @@ const DocumentationPage = observer(() => {
 			progress: 87.5,
 			title: t("document:navbar.pages.lyrics"),
 		},
-		links: {
+		streaming: {
 			form: Links,
 			progress: 100,
 			title: t("document:navbar.pages.links"),
@@ -92,11 +92,11 @@ const DocumentationPage = observer(() => {
 			history.push(`/workpieces/${workpiece.id}/documentation/recording`)
 		type === "files" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/release`)
-		type === "infos" &&
+		type === "info" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/files`)
 		type === "lyrics" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/release`)
-		type === "links" &&
+			history.push(`/workpieces/${workpiece.id}/documentation/info`)
+		type === "streaming" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/lyrics`)
 	}
 
@@ -111,12 +111,12 @@ const DocumentationPage = observer(() => {
 		type === "release" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/files`)
 		type === "files" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/infos`)
-		type === "infos" &&
+			history.push(`/workpieces/${workpiece.id}/documentation/info`)
+		type === "info" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/lyrics`)
 		type === "lyrics" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/links`)
-		if (type === "links") {
+			history.push(`/workpieces/${workpiece.id}/documentation/streaming`)
+		if (type === "streaming") {
 			setEndModal(true)
 		}
 	}
