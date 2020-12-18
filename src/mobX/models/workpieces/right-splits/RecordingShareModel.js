@@ -1,7 +1,7 @@
 import { FieldType, Field } from "../../../BaseModel"
-import RightSplitModel from "./RightSplitModel"
+import ShareModel from "./ShareModel"
 import { observable } from "mobx"
-export default class RecordingSplitModel extends RightSplitModel {
+export default class RecordingShareModel extends ShareModel {
 	@observable shares = new Field(this, "shares", { type: FieldType.float })
 	@observable function = new Field(this, "function", { type: FieldType.string })
 	@observable comment = new Field(this, "comment", { type: FieldType.string })
@@ -12,7 +12,11 @@ export default class RecordingSplitModel extends RightSplitModel {
 	}
 }
 
-export const initData = {
+/**
+ *	Data object to initialize a model instance with default
+ *	values
+ **/
+export const initShareData = {
 	shares: null,
 	function: null,
 	comment: "",

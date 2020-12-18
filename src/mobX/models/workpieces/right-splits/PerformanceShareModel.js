@@ -1,8 +1,8 @@
 import { FieldType, Field } from "../../../BaseModel"
-import RightSplitModel from "./RightSplitModel"
+import ShareModel from "./ShareModel"
 import { observable } from "mobx"
 
-export default class PerformanceSplitModel extends RightSplitModel {
+export default class PerformanceShareModel extends ShareModel {
 	@observable shares = new Field(this, "shares", { type: FieldType.float })
 	@observable status = new Field(this, "status", { type: FieldType.string })
 	@observable roles = new Field(this, "roles", { type: FieldType.collection })
@@ -14,7 +14,7 @@ export default class PerformanceSplitModel extends RightSplitModel {
  *	Data object to initialize a model instance with default
  *	values
  **/
-export const initData = {
+export const initShareData = {
 	shares: null,
 	roles: [],
 	status: null,

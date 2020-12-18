@@ -1,17 +1,14 @@
-import SplitDomainState from "./SplitDomainState"
-
+import RightSplitModel from "./RightSplitModel"
+import CopyrightShareModel, { initShareData } from "./CopyrightShareModel"
 import { action, computed, observable, reaction } from "mobx"
-import CopyrightSplitModel, {
-	initData,
-} from "../../../../models/workpieces/rights-splits/CopyrightSplitModel"
 
 /**
- *	Copyright split domain state derived from SplitDomainState.
- *	Contains modes (equal, roles, manual) middleware logic
+ *	Copyright split model derived from RightSplitModel
+ *	Contains split modes (equal, roles, manual) middleware logic
  **/
-export default class CopyrightSplit extends SplitDomainState {
-	constructor(rightSplit, shares) {
-		super(rightSplit, shares, CopyrightSplitModel, initData)
+export default class CopyrightSplitModel extends RightSplitModel {
+	constructor() {
+		super(CopyrightShareModel, initShareData)
 		reaction(
 			() => this.mode,
 			() => {
@@ -25,50 +22,6 @@ export default class CopyrightSplit extends SplitDomainState {
 				}
 			}
 		)
-	}
-
-	@action computeEqualMode() {
-		this.sharesValues.forEach((share) => {
-			this.updateShareField(share.shareholderId, "shares", 1)
-		})
-	}
-
-	@action computeRolesMode() {
-		this.sharesValues.forEach((share) => {
-			const musicContribNb = this.musicContributors.reduce(
-				(n, current) => n + current.weighting,
-				0
-			)
-			const lyricsContribNb = this.lyricsContributors.length
-			let score = 0
-			if (
-				this.lyricsContributors.filter(
-					(contrib) => contrib.shareholderId === share.shareholderId
-				).length > 0
-			) {
-				score += (0.5 * this.shareholders.size) / lyricsContribNb
-			}
-
-			this.musicContributors.forEach((contrib) => {
-				if (contrib.shareholderId === share.shareholderId) {
-					score +=
-						(0.5 * contrib.weighting * this.shareholders.size) / musicContribNb
-				}
-			})
-			this.updateShareField(share.shareholderId, "shares", score)
-		})
-	}
-
-	@action removeShareholder(id) {
-		super.removeShareholder(id)
-		this.setShares()
-	}
-
-	@action setRoles(id, roles) {
-		this.updateShareField(id, "roles", roles)
-		if (this.mode === "roles") {
-			this.computeRolesMode()
-		}
 	}
 
 	@observable mode = "equal"
@@ -125,6 +78,51 @@ export default class CopyrightSplit extends SplitDomainState {
 			this.sharesValues.filter((share) => share.roles.includes("author"))
 				.length > 0
 		)
+	}
+
+	@action computeEqualMode() {
+		this.sharesValues.forEach((share) => {
+			this.updateShareField(share.shareholderId, "shares", 1)
+		})
+	}
+
+	@action computeRolesMode() {
+		this.sharesValues.forEach((share) => {
+			const musicContribNb = this.musicContributors.reduce(
+				(n, current) => n + current.weighting,
+				0
+			)
+			const lyricsContribNb = this.lyricsContributors.length
+			let score = 0
+			if (
+				this.lyricsContributors.filter(
+					(contrib) => contrib.shareholderId === share.shareholderId
+				).length > 0
+			) {
+				score += (0.5 * this.sharesValues.length) / lyricsContribNb
+			}
+
+			this.musicContributors.forEach((contrib) => {
+				if (contrib.shareholderId === share.shareholderId) {
+					score +=
+						(0.5 * contrib.weighting * this.sharesValues.length) /
+						musicContribNb
+				}
+			})
+			this.updateShareField(share.shareholderId, "shares", score)
+		})
+	}
+
+	@action removeShareholder(id) {
+		super.removeShareholder(id)
+		this.setShares()
+	}
+
+	@action setRoles(id, roles) {
+		this.updateShareField(id, "roles", roles)
+		if (this.mode === "roles") {
+			this.computeRolesMode()
+		}
 	}
 
 	/**

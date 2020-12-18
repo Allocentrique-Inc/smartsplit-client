@@ -1,13 +1,25 @@
 import { createContext, useContext } from "react"
+import { observable } from "mobx"
+import RightSplitsState from "../../mobX/states/workpiece-state/right-splits/RightSplitsState"
 
-export const WorkpieceContext = createContext({})
+export const WorkpieceContext = createContext()
 
+export class CurrentWorkpiece {
+	constructor(workpiece) {
+		this.workpiece = workpiece
+
+		// Create right splits state with workpiece right split models
+		this.rightSplits = new RightSplitsState(workpiece.rightSplits)
+	}
+	@observable workpiece
+	@observable rightSplits
+}
 export function useCurrentWorkpiece() {
-	return useContext(WorkpieceContext)
+	return useContext(WorkpieceContext).workpiece
 }
 
-export function useRightsSplits(type) {
+export function useRightSplits(type) {
 	return type
-		? useCurrentWorkpiece().rightsSplits[type]
-		: useCurrentWorkpiece().rightsSplits
+		? useContext(WorkpieceContext).rightSplits[type]
+		: useContext(WorkpieceContext).rightSplits
 }

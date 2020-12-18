@@ -1,17 +1,18 @@
 import { action, computed, observable } from "mobx"
-import { Metrics } from "../../../../../theme"
-import { capValueWithinRange } from "../../../../../utils/utils"
+
+import { capValueWithinRange } from "../../../../utils/utils"
+import { Metrics } from "../../../../theme"
 
 export const CHART_MAX_SIZE = 384
 export const CHART_WINDOW_RATIO = 0.45
 /**
- *	Base class for splits UI
- *	states
+ *	Base class for split
+ *	states. Has the responsibilities of a mobx UIState
  **/
-export default class SplitUIState {
-	constructor(rightSplit, logo, shareholderColors) {
+export default class RightSplitState {
+	constructor(domainState, logo, shareholderColors) {
 		this.logo = logo
-		this.rightSplit = rightSplit
+		this.domainState = domainState
 		this.shareholderColors = shareholderColors
 	}
 	pageTitle
@@ -66,11 +67,11 @@ export default class SplitUIState {
 	}
 
 	@computed get shares() {
-		return this.rightSplit.domainState.sharesValues
+		return this.domainState.sharesValues
 	}
 
 	@computed get shareTotal() {
-		return this.rightSplit.domainState.shareTotal
+		return this.domainState.shareTotal
 	}
 
 	@computed get chartSize() {

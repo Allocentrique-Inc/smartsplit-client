@@ -9,26 +9,22 @@ import ShareCard from "../../../smartsplit/components/share-card"
 import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
 import { View } from "react-native"
 import SplitChart from "../../../smartsplit/components/split-chart"
-import { observer } from "mobx-react"
-import { useRightsSplits } from "../context"
+import { Observer, observer } from "mobx-react"
+import { useRightSplits } from "../context"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
-import { CHART_WINDOW_RATIO } from "../../../mobX/states/WorkpieceStates/RightSplitStates/UIStates/SplitUIState"
+import { CHART_WINDOW_RATIO } from "../../../mobX/states/workpiece-state/right-splits/RightSplitState"
 
 const PerformanceForm = observer(() => {
-	const { domainState, UIState } = useRightsSplits().performance
-	const { t } = useTranslation("rightsSplits")
+	const UIState = useRightSplits("performance")
+	const domainState = UIState.domainState
+
+	const { t } = useTranslation("rightSplits")
 	const [styles, setStyles] = useState({})
 
 	useEffect(() => {
 		setStyles(UIState.getStyles(window.outerWidth))
 	}, [window.outerWidth])
-
-	//FOR TESTING PURPOSE
-	// React.useEffect(() => {
-	// 	domainState.addShareholder("4f4950de-e5cd-41ea-84cb-997fc8f9183f")
-	// 	domainState.addShareholder("4154a7d5-578a-4fd9-b43b-98b1330c0fd1")
-	// }, [])
 
 	function genSelectOptions() {
 		return domainState.statusValues.map((status) => {
@@ -44,7 +40,7 @@ const PerformanceForm = observer(() => {
 			}
 		})
 	}
-	function renderShareCards() {
+	const ShareCards = observer(() => {
 		return UIState.sharesData.map((share) => (
 			<ShareCard
 				key={share.id}
@@ -60,27 +56,31 @@ const PerformanceForm = observer(() => {
 					onChange={(value) => domainState.setShareStatus(share.id, value)}
 					style={styles.selectFrame}
 				/>
-				<CheckBoxGroup
-					selection={share.roles}
-					onChange={(roles) =>
-						domainState.updateShareField(share.id, "roles", roles)
-					}
-				>
-					<Row style={styles.checkboxesContainer}>
-						<Column of="component">
-							<CheckBoxGroupButton
-								value="singer"
-								label={t("roles.singer")}
-								style={styles.checkbox}
-							/>
-							<CheckBoxGroupButton
-								value="musician"
-								label={t("roles.musician")}
-								style={styles.checkbox}
-							/>
-						</Column>
-					</Row>
-				</CheckBoxGroup>
+				<Observer>
+					{() => (
+						<CheckBoxGroup
+							selection={share.roles}
+							onChange={(roles) =>
+								domainState.updateShareField(share.id, "roles", roles)
+							}
+						>
+							<Row style={styles.checkboxesContainer}>
+								<Column of="component">
+									<CheckBoxGroupButton
+										value="singer"
+										label={t("roles.singer")}
+										style={styles.checkbox}
+									/>
+									<CheckBoxGroupButton
+										value="musician"
+										label={t("roles.musician")}
+										style={styles.checkbox}
+									/>
+								</Column>
+							</Row>
+						</CheckBoxGroup>
+					)}
+				</Observer>
 				<Row of="component" valign="center">
 					<ProgressBar
 						progress={share.percent}
@@ -92,7 +92,7 @@ const PerformanceForm = observer(() => {
 				</Row>
 			</ShareCard>
 		))
-	}
+	})
 
 	return (
 		<Row
@@ -114,7 +114,7 @@ const PerformanceForm = observer(() => {
 					</Column>
 				</Column>
 				<Column of="component">
-					{renderShareCards()}
+					<ShareCards />
 					<AddCollaboratorDropdown
 						onSelect={(id) => domainState.addShareholder(id)}
 						placeholder={t("addCollab")}
