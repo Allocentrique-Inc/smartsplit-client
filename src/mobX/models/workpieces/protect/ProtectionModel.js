@@ -1,32 +1,19 @@
 import { observable, action, computed, toJS, isObservable } from "mobx"
-import DocCreationModel from "./DocCreationModel"
-import DocPerformanceModel from "./DocPerformanceModel"
-import DocLyricsModel from "./DocLyricsModel"
-import DocRecordingModel from "./DocRecordingModel"
-import DocFilesModel from "./DocFilesModel"
-import DocReleaseModel from "./DocReleaseModel"
-import DocInfosModel from "./DocInfosModel"
+import SelectionModel from "./SelectionModel"
 import BaseModel from "../../../BaseModel/BaseModel"
-import { saveDocumentation } from "../../../../../api/workpieces"
-import DocStreamingModel from "./DocStreamingModel"
+import { saveProtection } from "../../../../../api/workpieces"
+import CertificateModel from "./CertificateModel"
 
 const makeObservable = () => { }
-
-export default class DocumentationModel extends BaseModel {
+export default class ProtectionModel extends BaseModel {
 	workpiece
-	@observable creation = new DocCreationModel(this)
-	@observable performance = new DocPerformanceModel(this)
-	@observable lyrics = new DocLyricsModel(this)
-	@observable files = new DocFilesModel(this)
-	@observable recording = new DocRecordingModel(this)
-	@observable release = new DocReleaseModel(this)
-	@observable info = new DocInfosModel(this)
-	@observable streaming = new DocStreamingModel(this)
+	@observable selection = new SelectionModel(this)
+	@observable certificate = new CertificateModel(this)
 	constructor(parent, workpiece) {
 		super()
 		makeObservable(this)
 		this.workpiece = workpiece
-		window.docModel = this
+		window.protectModel = this
 	}
 
 	/**
@@ -38,22 +25,23 @@ export default class DocumentationModel extends BaseModel {
 	 * @return {Promise<*>}
 	 */
 	async save(section) {
-		console.log(`workpiece  id is ${this.workpiece.id}`)
+		console.log("section", section);
+		console.log(`workpiece id is ${this.workpiece.id}`)
 		let data
 		let isDirty = false
 		// prepare to save the whole
 		if (!section) {
-			console.log(`saving all documention`)
+			console.log(`saving all protect`)
 			isDirty = this.isDirty
 			data = this.toJS()
 			// prepare to save a section
 		} else {
-			console.log(`saving ${section} of documentation`)
+			console.log(`saving ${section} of protect`)
 			isDirty = this[section].isDirty
 			data = this[section].toJS()
 		}
 		try {
-			if (isDirty) await saveDocumentation(this.workpiece.id, section, data)
+			if (isDirty) await saveProtection(this.workpiece.id, section, data)
 			else console.log(`model to save is not dirty, not saving`)
 			return true
 		} catch (e) { }
