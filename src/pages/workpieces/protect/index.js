@@ -10,6 +10,7 @@ import { useProtectModel } from "../../../mobX/hooks"
 import SelectionPage from "./selection"
 import Certificate from "./certificate"
 import ProtectionModel from "../../../mobX/models/workpieces/protect/ProtectionModel"
+import { PromoModal } from "./promo-Modal"
 
 const ProtectWork = observer(() => {
 	const { workpieces } = useStores()
@@ -19,6 +20,10 @@ const ProtectWork = observer(() => {
 	const { workpiece_id, type } = useParams()
 	const model: ProtectionModel = useProtectModel(workpiece_id)
 	const workpiece = useStorePath("workpieces").fetch(workpiece_id)
+	const [showPromo, setShowPromo] = useState(true)
+	const onPromoClosed = () => {
+		setShowPromo(false)
+	}
 
 	if (!workpiece_id) navigateToSummary()
 	else if (!type)
@@ -58,51 +63,57 @@ const ProtectWork = observer(() => {
 	}
 
 	return (
-		<Layout
-			workpiece={workpiece}
-			progress={protectPage[type].progress}
-			path={[t("protect:navbar.protect"), protectPage[type].title]}
-			actions={
-				<Button
-					tertiary
-					text={t("general:buttons.saveClose")}
-					onClick={() => {
-						model.save()
-					}}
-					// disabled={!rightsSplits.$hasChanged}
-				/>
-			}
-			formNav={
-				<Row style={{ maxWidth: 464 }} flex={1}>
+		<>
+			<PromoModal
+				visible={showPromo}
+				onRequestClose={onPromoClosed}
+			></PromoModal>
+			<Layout
+				workpiece={workpiece}
+				progress={protectPage[type].progress}
+				path={[t("protect:navbar.protect"), protectPage[type].title]}
+				actions={
 					<Button
-						secondary
-						text={t("general:buttons.back")}
-						onClick={toPreviousPage}
+						tertiary
+						text={t("general:buttons.saveClose")}
+						onClick={() => {
+							model.save()
+						}}
+						// disabled={!rightsSplits.$hasChanged}
 					/>
-					<Flex />
-					<Button
-						primary
-						text={
-							(type === "certificate"
-								? t("general:buttons.end")
-								: t("general:buttons.continue"),
-							type === "certificate"
-								? t("protect:publishOnBlockchain")
-								: t("general:buttons.continue"))
-						}
-						onClick={toNextPage}
-					/>
-				</Row>
-			}
-		>
-			{!workpieces.isLoading &&
-				React.createElement(protectPage[type].form, {
-					modalVisible: endModal,
-					closeModal: () => {
-						setEndModal(false)
-					},
-				})}
-		</Layout>
+				}
+				formNav={
+					<Row style={{ maxWidth: 464 }} flex={1}>
+						<Button
+							secondary
+							text={t("general:buttons.back")}
+							onClick={toPreviousPage}
+						/>
+						<Flex />
+						<Button
+							primary
+							text={
+								(type === "certificate"
+									? t("general:buttons.end")
+									: t("general:buttons.continue"),
+								type === "certificate"
+									? t("protect:publishOnBlockchain")
+									: t("general:buttons.continue"))
+							}
+							onClick={toNextPage}
+						/>
+					</Row>
+				}
+			>
+				{!workpieces.isLoading &&
+					React.createElement(protectPage[type].form, {
+						modalVisible: endModal,
+						closeModal: () => {
+							setEndModal(false)
+						},
+					})}
+			</Layout>
+		</>
 	)
 })
 

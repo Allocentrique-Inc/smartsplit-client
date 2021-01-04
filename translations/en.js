@@ -854,6 +854,23 @@ export const protect = {
 		},
 	},
 	help: "Help",
+	promo: {
+		heading: "Protect your work",
+		title: "Encrypted each file of your creation to preserve its authorship",
+		description:
+			"Description of the feature. Feature description here again. Description of the feature.",
+		codeTitle: "Did you receive a promo code?",
+		codePlaceHolder: "Enter your promo code",
+		buy: "Buy     {{price}} $",
+		validCode: "valid code",
+		codeValueContent:
+			"Luck smiles at you! <br /> <br /> Thanks to the Guilde des Musiciennes et Musiciennes du Québec, this code allows you to use all the features free of charge for another <b> {{hoursRemaining}} days </b>, that is until {{expired}}",
+		applyThisCredit: "Apply this credit",
+		amountRemaining: "You have $ {{amount}} left in the bank",
+		creditApplied: "Credit applied!",
+		dollarOfCredit: "-{{price}} $ of your credits",
+		findOutMore: "Find out more",
+	},
 	selection: {
 		heading1: "Which version of the work would you like to protect?",
 		para1: "Here, you send your work to a computer encoder.",

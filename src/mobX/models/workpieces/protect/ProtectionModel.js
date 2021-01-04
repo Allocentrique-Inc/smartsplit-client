@@ -25,24 +25,19 @@ export default class ProtectionModel extends BaseModel {
 	 * @return {Promise<*>}
 	 */
 	async save(section) {
-		console.log("section", section);
-		console.log(`workpiece id is ${this.workpiece.id}`)
 		let data
 		let isDirty = false
 		// prepare to save the whole
 		if (!section) {
-			console.log(`saving all protect`)
 			isDirty = this.isDirty
 			data = this.toJS()
 			// prepare to save a section
 		} else {
-			console.log(`saving ${section} of protect`)
 			isDirty = this[section].isDirty
 			data = this[section].toJS()
 		}
 		try {
 			if (isDirty) await saveProtection(this.workpiece.id, section, data)
-			else console.log(`model to save is not dirty, not saving`)
 			return true
 		} catch (e) { }
 	}

@@ -863,6 +863,23 @@ export const protect = {
 		},
 	},
 	help: "Aide",
+	promo: {
+		heading: "Protège ton oeuvre",
+		title: "Encrypte chaque fichier de ta création pour conserver ta paternité",
+		description:
+			"Description de la feature. Description de la feature ici encore. Description de la feature.",
+		codeTitle: "As-tu reçu un code promo?",
+		codePlaceHolder: "Entre ton code promo",
+		buy: "Acheter     {{price}}$",
+		validCode: "code valide",
+		codeValueContent:
+			"La chance te sourit ! <br /><br />Grâce à la Guilde des Musiciennes et Musiciennes du Québec, ce code te permets une utilisation gratuite de toutes les fonctionnalités pour encore <b>{{hoursRemaining}} jours</b>, soit jusqu’au {{expire}}",
+		applyThisCredit: "Appliquer ce crédit",
+		amountRemaining: "Il te reste {{amount}} $ en banque",
+		creditApplied: "Crédit appliqué !",
+		dollarOfCredit: "-{{price}}$ de vos crédits",
+		findOutMore: "En savoir plus",
+	},
 	selection: {
 		heading1: "Quelle version de l'oeuvre aimerais-tu protéger?",
 		para1: "Ici, tu envoies ton oeuvre dans un encodeur informatique.",
