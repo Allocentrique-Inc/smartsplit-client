@@ -227,7 +227,7 @@ export function PromoModal(props) {
 							</>
 						)}
 
-						{/* {(stepPromo === 1 || stepPromo === 2) && (
+						{(stepPromo === 1 || stepPromo === 2) && (
 							<Row style={[Styles.rowContent, Styles.promoAmountContent]}>
 								<Column>
 									<Text bold>
@@ -246,7 +246,7 @@ export function PromoModal(props) {
 									</TouchableWithoutFeedback>
 								</Column>
 							</Row>
-						)} */}
+						)}
 
 						<Row style={[Styles.rowContent]}>
 							{/* {stepPromo === 3 && (
