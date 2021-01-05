@@ -14,6 +14,7 @@ import "semantic-ui-css/semantic.min.css"
 //import DatePicker from "react-datepicker"
 //import "react-datepicker/dist/react-datepicker-cssmodules.css"
 import { Colors } from "../../theme"
+import { titleCase } from "../../utils/utils"
 
 const DatePickerStyle = StyleSheet.create({
 	container: {
@@ -36,6 +37,7 @@ const DatePickerStyle = StyleSheet.create({
 
 export const WebDatePicker = (props) => {
 	const [value, setValue] = useState(new Date()) //new créer un nouvel objet, comme constructor, par défaut existe dans browser JS
+
 	const handleChange = (event, { name, value }) => {
 		if (name === "date") {
 			setValue(value)

@@ -70,6 +70,7 @@ export const Colors = {
 	stroke: "#DCDFE1",
 	inactive: "#8DA0B3",
 	alert_warning: "#A55108",
+	alert_positive: "#DFF8E3",
 
 	secondaries: {
 		purple: "#BCBBF2",

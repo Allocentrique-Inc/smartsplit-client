@@ -485,7 +485,7 @@ export const identity = {
 	),
 }
 
-export const rightsSplits = {
+export const rightSplits = {
 	navbar: {
 		rightSplits: "Partage des droits",
 		page: "Nom de la page",
@@ -852,6 +852,83 @@ export const document = {
 		paragraph:
 			"Tu es à un clic de pouvoir publier les crédits de cette pièce sur une page web et ainsi d’augmenter ta découvrabilité dans le web des données.",
 	},
+}
+
+export const protect = {
+	navbar: {
+		protect: "Protège ton oeuvre",
+		pages: {
+			selection: "Sélectionner",
+			certificate: "Réviser le certificat",
+		},
+	},
+	help: "Aide",
+	selection: {
+		heading1: "Quelle version de l'oeuvre aimerais-tu protéger?",
+		para1: "Ici, tu envoies ton oeuvre dans un encodeur informatique.",
+		para2:
+			"L'algorithme derrière cette page prendra ton oeuvre et créera à partird'elle une empreinte numérique unique que l'on nomme un",
+		heading2: "Fichier à protéger",
+		addFileLabel: "Ajouter un fichier",
+		underText: "Tous formats acceptés, 2 Mo maximum.",
+		heading3: "Version de travail",
+		idea: "Idée",
+		demo: "Démo",
+		roughMix: "Rough Mix",
+		finalMaster: "Version finale (masterisée)",
+		help: "AIDE",
+		heading4: "Pourquoi protéger mon oeuvre?",
+		desc:
+			"Enregistrer son oeuvre sur la blockchain avec <i>Smartsplit</i> est équivalent à se l'envoyer par courrier recommandé à soi-même afin de pouvoir démontrer au besoin sa paternité",
+		heading5: "Choisis un nom personnalisé",
+		why: "Pourquoi protéger mon oeuvre?",
+		whyContent:
+			"Enregistrer son oeuvre sur la blockchain avec Smartsplit est équivalent de se l’envoyer par courrier recommandé à soi-même afin de pouvoir démontrer au besoin sa parternité.",
+	},
+	certificate: {
+		heading1: "Révise ton certificat",
+		para1:
+			"Tu es sur le point d’envoyer la preuve que tu es bien l’auteur de cette pièce musicale sur la blockchain.",
+		musicalPiece: "Pièce musicale",
+		sourceFile: "Fichier source",
+		why: "L’importance de bien réviser",
+		whyContent:
+			"Il est important de bien réviser l’information sur cette page.<br>Les données sur la personne déposant le fichier  seront associées au fichier de manière indélébile et irreversible.",
+		format: "Format",
+		versionName: "Nom de la version",
+		workingVersion: "Version de travail",
+		listedBy: "Inscrite par",
+		fileDigitalFingerprints: "Empreintes numériques du fichier",
+		sha256: "SHA256",
+		md5: "MD5",
+		addiction: "Dépendance",
+		addBirth: "Ajouter une date de naissance",
+		addBirthFieldTitle: "Date de naissance de {{name}}",
+		addBirthUnderText:
+			"Cette information sert à vous identifier en tant qu’individu unique et restera privée.",
+		save: "Sauvegarder",
+		await: "En attente de publication",
+		post: "Publiée le {{publishedDate, LL}} par {{author}} · ",
+		viewCertificate: "Voir le certificat",
+		addPlaceBirth: "Ajouter un lieu de naissance",
+		addPlaceBirthModal: "Lieu de naissance de {{name}}",
+		addPlaceBirthUnderText:
+			"Cette information sert à associer votre identité au fichier et restera confidentielle.",
+	},
+	verify1:
+		"<b>Je déclare être réellement {{firstName}}</b>. Je comprends que le fait me faire passer pour quelqu’un d’autre constituerait une faute grave passible de poursuites judiciaires.",
+	verify2:
+		"<b>Je prends la pleine responsabilité</b> de conserver le fichier suivant dans mes archives personnelles :<br> {{file}}",
+	verify3:
+		"<b>Je comprends</b> que ce fichier est la seule et unique clée permettant de démontrer la parternité et l’antériorité de la pièce musicale {{song}}.",
+	publishOnBlockchain: "Publier sur la blockchain",
+	beforePosting: "Avant de publier le tout...",
+	contentProgress: "En cours de publication...",
+	finalHeading:
+		"Ton empreinte sonore est correctement publiée sur la blockchain !",
+	finalContent:
+		"Cette empreinte est aussi liée à l'empreinte des métadonnées descriptives portant sur cet enregistrement sonore. Tu peux maintenant prendre possession de ton certificat !",
+	btnPublishFinal: "Voir le certificat",
 }
 
 export const collaborators = {

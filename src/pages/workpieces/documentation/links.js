@@ -36,6 +36,7 @@ import { observer } from "mobx-react"
 import { useDocsModel } from "../../../mobX/hooks"
 import { titleCase } from "../../../utils/utils"
 import { urlValidator } from "../../../mobX/models/validators"
+import DocStreamingModel from "../../../mobX/models/workpieces/documentation/DocStreamingModel"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -370,8 +371,8 @@ export function EndModal(props) {
 						text={t("general:buttons.seeSummary")}
 						onClick={navigateToSummary}
 						/* 						onClick={() => {
-							console.log(t("document:finalModal.title"))
-						}} */
+						console.log(t("document:finalModal.title"))
+					}} */
 					/>
 				</>
 			}

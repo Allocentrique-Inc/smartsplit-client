@@ -488,7 +488,7 @@ export const identity = {
 	),
 }
 
-export const rightsSplits = {
+export const rightSplits = {
 	navbar: {
 		rightSplits: "Right Split",
 		page: "Page Name",
@@ -844,6 +844,77 @@ export const document = {
 		paragraph:
 			"You are one click away being able to publish the credits of this piece on a webpage and therefore increase your discoverability in data web.",
 	},
+}
+export const protect = {
+	navbar: {
+		protect: "Protect your work",
+		pages: {
+			selection: "Select",
+			certificate: "Review the certificate",
+		},
+	},
+	help: "Help",
+	selection: {
+		heading1: "Which version of the work would you like to protect?",
+		para1: "Here, you send your work to a computer encoder.",
+		para2:
+			"The algorithm behind this page will take your artwork and create a unique digital fingerprint from it called a",
+		heading2: "File to protect",
+		addFileLabel: "Add a file",
+		underText: "All formats accepted, 2 MB maximum.",
+		heading3: "Working version",
+		idea: "Idea",
+		demo: "Demo",
+		roughMix: "Rough Mix",
+		finalMaster: "Final version (mastered)",
+		help: "HELP",
+		heading4: "Why protect my work?",
+		desc:
+			"Registering your work on the blockchain with <i> Smartsplit </i> is equivalent to sending it by registered mail to yourself in order to be able to demonstrate your authorship if necessary",
+		heading5: "Choose a custom name",
+		why: "Why protect my work?",
+		whyContent:
+			"Registering your work on the blockchain with Smartsplit is equivalent to sending it by registered mail to yourself in order to be able to demonstrate your parternity if necessary.",
+	},
+	certificate: {
+		heading1: "Review your certificate",
+		para1:
+			"You are about to send proof that you are the author of this musical piece on the blockchain.",
+		musicalPiece: "Musical piece",
+		sourceFile: "Source file",
+		why: "The importance of studying well",
+		whyContent:
+			"It is important to carefully review the information on this page.<br>Data on the person submitting the file will be associated with the file in an indelible and irreversible manner.",
+		format: "Format",
+		versionName: "Version name",
+		workingVersion: "Working version",
+		listedBy: "Listed by",
+		fileDigitalFingerprints: "File digital fingerprints",
+		sha256: "SHA256",
+		md5: "MD5",
+		addiction: "Addiction",
+		addBirth: "Add date of birth",
+		addBirthFieldTitle: "{{name}} Date of Birth",
+		addBirthUnderText:
+			"This information is to identify you as a unique individual and will remain private.",
+		save: "Save",
+		await: "Awaiting publication",
+		post: "Posted on {{publishedDate, LL}} by {{author}} · ",
+		viewCertificate: "View certificate",
+		addPlaceBirth: "Add a place of birth",
+		addPlaceBirthModal: "{{name}} place of birth",
+		addPlaceBirthUnderText:
+			"This information is used to associate your identity with the file and will remain confidential.",
+	},
+	verify1:
+		"<b> I declare that I am actually {{firstName}} </b>. I understand that impersonating someone else would constitute serious misconduct liable to prosecution.",
+	verify2:
+		"<b> I take full responsibility </b> to keep the following file in my personal archives: <br> {{file}}",
+	verify3:
+		"<b> I understand </b> that this file is the one and only key to demonstrate the parternity and the anteriority of the musical piece {{song}}.",
+	publishOnBlockchain: "Publish on the blockchain",
+	beforePosting: "Before publishing it all ...",
+	btnPublishFinal: "View certificate",
 }
 export const collaborators = {
 	email: "Collaborator's email address",
