@@ -249,7 +249,7 @@ export function PromoModal(props) {
 						)}
 
 						<Row style={[Styles.rowContent]}>
-							{/* {stepPromo === 3 && (
+							{stepPromo === 3 && (
 								<Column flex={2}>
 									<Row align="center">
 										<Text
@@ -285,7 +285,7 @@ export function PromoModal(props) {
 										</Row>
 									</Column>
 								</Column>
-							)} */}
+							)}
 							<Column flex={flexPromo}></Column>
 							<Column flex={4}>
 								<Button

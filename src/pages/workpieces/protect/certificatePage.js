@@ -12,6 +12,7 @@ import DependanceRow from "../../../smartsplit/protect/dependance-row"
 import { Colors, Metrics } from "../../../theme"
 import LockSVG from "../../../svg/lock-svg"
 import AddPlaceBirthModal from "../../../smartsplit/user/AddPlaceBirthModal"
+import CompleteIdentityModal from "./complete-identity-modal"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -45,21 +46,19 @@ const CertificatePage = observer((props) => {
 	const itemsCount = addictions.length
 	const oneItem = itemsCount === 1
 	const workpiece = props.workpiece
+	const [identityModalVisible, setIdentityModalVisible] = useState(false)
 
+	const handleEditEdentity = () => {
+		setIdentityModalVisible(true)
+	}
 	return (
 		<>
-			<AddBirthModal
-				visible={addBirhModalVisible}
+			<CompleteIdentityModal
+				visible={identityModalVisible}
 				onRequestClose={() => {
-					setAddBirhModalVisible(false)
+					setIdentityModalVisible(false)
 				}}
 				model={model}
-			/>
-			<AddPlaceBirthModal
-				visible={addPlaceModalVisible}
-				onRequestClose={() => {
-					setAddPlaceModalVisible(false)
-				}}
 				workpieceId={workpiece.id}
 			/>
 			<Row>
@@ -115,33 +114,16 @@ const CertificatePage = observer((props) => {
 									</Row>
 								</Column>
 							</Row>
-							<Row style={Styles.rowTouchable}>
-								<Column style={Styles.iconLock}>
-									<LockSVG />
+							<Row>
+								<Column flex={5}>
+									<Text bold>{t("protect:certificate:identity")}</Text>
 								</Column>
 								<Column flex={7}>
-									<Row style={Styles.touchable}>
-										<TouchableWithoutFeedback
-											onPress={() => {
-												setAddBirhModalVisible(true)
-											}}
-										>
-											<Text action bold>
-												{t("protect:certificate:addBirth")}
-											</Text>
-										</TouchableWithoutFeedback>
-									</Row>
-									<Row style={Styles.touchable}>
-										<TouchableWithoutFeedback
-											onPress={() => {
-												setAddPlaceModalVisible(true)
-											}}
-										>
-											<Text action bold>
-												{t("protect:certificate:addPlaceBirth")}
-											</Text>
-										</TouchableWithoutFeedback>
-									</Row>
+									<TouchableWithoutFeedback onPress={handleEditEdentity}>
+										<Text action bold>
+											{t("protect:certificate:conpleteIdentity")}
+										</Text>
+									</TouchableWithoutFeedback>
 								</Column>
 							</Row>
 						</Column>
