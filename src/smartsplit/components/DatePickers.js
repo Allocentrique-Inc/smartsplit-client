@@ -12,8 +12,6 @@ import styled from "styled-components/native"
 import DateTimePicker from "@react-native-community/datetimepicker" //For mobile
 import { DateInput } from "semantic-ui-calendar-react" // For web
 import "semantic-ui-css/semantic.min.css"
-//import DatePicker from "react-datepicker"
-//import "react-datepicker/dist/react-datepicker-cssmodules.css"
 import { Colors } from "../../theme"
 import { titleCase } from "../../utils/utils"
 
@@ -55,7 +53,7 @@ export const WebDatePicker = observer((props) => {
 			name="date"
 			dateFormat="DD-MM-YYYY"
 			placeholder={t("forms:placeholders.date")}
-			label={t("document:creation.date")}
+			//label={t("document:creation.date")}
 			value={field?.value}
 			onChange={handleChange}
 			icon={null}

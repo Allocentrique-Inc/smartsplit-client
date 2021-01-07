@@ -217,7 +217,10 @@ const CreationForm = observer(() => {
 
 				<Spacer of="group" />
 
-				<DatePickers field={model.creationDate} />
+				<Column of="component">
+					<Text bold>{t("document:creation.date")}</Text>
+					<DatePickers field={model.creationDate} />
+				</Column>
 				{/* <DateField
 					label={t("document:creation.date")}
 					value={model.creationDate.value}
