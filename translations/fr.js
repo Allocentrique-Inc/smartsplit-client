@@ -855,6 +855,7 @@ export const document = {
 }
 
 export const protect = {
+	completed: "Complétée",
 	navbar: {
 		protect: "Protège ton oeuvre",
 		pages: {
@@ -905,7 +906,7 @@ export const protect = {
 	certificate: {
 		heading1: "Révise ton certificat",
 		para1:
-			"Tu es sur le point d’envoyer la preuve que tu es bien l’auteur de cette pièce musicale sur la blockchain.",
+			"Tu es sur le point d’envoyer de façon irréversible sur la blockchain la preuve que tu es bel et bien lié à ce fichier.",
 		musicalPiece: "Pièce musicale",
 		sourceFile: "Fichier source",
 		why: "L’importance de bien réviser",
@@ -916,8 +917,13 @@ export const protect = {
 		workingVersion: "Version de travail",
 		listedBy: "Déposée par",
 		identity: "Identité",
-		conpleteIdentity: "Compléter mon identité",
+		completeIdDesc:
+			"Ces informations servent à préciser ton identité afin de bien l’associer à ton fichier. Celles-ci seront encryptées afin de protéger ta vie privée.",
+		completeIdentity: "Compléter mon identité",
+		encryption:
+			'"{{birth}}","{{email}}" <br> = <br> fcb95c345bc2bdfe8de22b8759a747afeb17ef07e7dd379b82f61e81c3c1b903',
 		fileDigitalFingerprints: "Empreintes numériques du fichier",
+		viewEncryption: "Voir l’encryptage numérique",
 		sha256: "SHA256",
 		md5: "MD5",
 		addiction: "Dépendance",
@@ -930,9 +936,11 @@ export const protect = {
 		post: "Publiée le {{publishedDate, LL}} par {{author}} · ",
 		viewCertificate: "Voir le certificat",
 		addPlaceBirth: "Ajouter un lieu de naissance",
-		addPlaceBirthModal: "Courriel de {{name}}",
+		addEmailModal: "Courriel de {{name}}",
 		addPlaceBirthUnderText:
 			"Cette information sert à associer votre identité au fichier et restera confidentielle.",
+		edit: "Éditer",
+		category: "Catégorie",
 	},
 	verify1:
 		"<b>Je déclare être réellement {{firstName}}</b>. Je comprends que le fait me faire passer pour quelqu’un d’autre constituerait une faute grave passible de poursuites judiciaires.",

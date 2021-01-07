@@ -1,47 +1,83 @@
 import { observer } from "mobx-react"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import moment from "moment"
 import TextField from "../../../forms/text"
-import { Group, NoSpacer } from "../../../layout"
+import { Column, Group, NoSpacer, Row } from "../../../layout"
 import Button from "../../../widgets/button"
 import { DialogModal } from "../../../widgets/modal"
-import UnionIcon from "../../../svg/user"
-import { TouchableWithoutFeedback } from "react-native"
-import { View } from "react-native-web"
 import DatePickers from "../../../smartsplit/components/DatePickers"
-import { DateIcon } from "../../../../assets/union.png"
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
-import Label from "../../../forms/label"
-import { Header } from "semantic-ui-react"
 import { Text } from "../../../text"
 import { useProtectModel } from "../../../mobX/hooks"
 import CertificateModel from "../../../mobX/models/workpieces/protect/CertificateModel"
+import { TouchableWithoutFeedback, View, StyleSheet } from "react-native"
+import ChevronRight from "../../../svg/chevron-right"
+import ChevronDown from "../../../svg/chevron-down"
 
 const displayFormat = "DD-MM-YYYY"
+
+const Styles = StyleSheet.create({
+	viewEncryption: {
+		alignItems: "center",
+		flexDirection: "row",
+	},
+})
 
 export default observer(function CompleteIdentityModal(props) {
 	const { visible, onRequestClose, workpieceId } = props
 	const { t } = useTranslation()
 	const model: CertificateModel = useProtectModel(workpieceId, "certificate")
-	const user = model.listedBy.initialValue
-	const [startDate, setStartDate] = useState(moment().format(displayFormat))
+	let user = model.listedBy.value
+	const [startDate, setStartDate] = useState("")
+	const [email, setEmail] = useState("")
+	const [showEncryption, setShowEncryption] = useState(false)
+
 	const handleChangeDate = (e, { value }) => {
 		setStartDate(value)
 	}
-	const [email, setEmail] = useState(user.email)
+
+	const handleClickSave = () => {
+		model.listedBy.value.birth = startDate
+		model.listedBy.value.email = email
+	}
+
+	const handleShowEncryption = () => {
+		if (showEncryption) setShowEncryption(false)
+		else setShowEncryption(true)
+	}
+
+	const clearOnCloseDialog = () => {
+		setShowEncryption(false)
+		props.onRequestClose()
+	}
+
+	useEffect(() => {
+		if (visible) {
+			const listedBy = model.listedBy.value
+			setEmail(listedBy.email || "")
+			setStartDate(listedBy.birth || "")
+		}
+	}, [visible])
+
 	return (
 		<DialogModal
 			key="complete-identity"
 			size="medium"
 			visible={visible}
-			onRequestClose={onRequestClose}
+			onRequestClose={clearOnCloseDialog}
 			noScroll={true}
-			title={t("protect:certificate:conpleteIdentity")}
+			title={t("protect:certificate:completeIdentity")}
 			buttons={
 				<>
-					<Button text={t("general:buttons.add")} />
+					<Button
+						tertiary
+						text={t("general:buttons.cancel")}
+						onClick={clearOnCloseDialog}
+					></Button>
+					<Button
+						onClick={handleClickSave}
+						text={t("protect:certificate:save")}
+					/>
 				</>
 			}
 		>
@@ -53,33 +89,60 @@ export default observer(function CompleteIdentityModal(props) {
 						})}
 					</Text>
 					<DatePickers
-						value={
-							// user.birth
-							// 	? moment(user.birth).format(displayFormat)
-							// 	: moment().format(displayFormat)
-							startDate
-						}
+						value={startDate}
 						icon={"calendar outline"}
 						onChange={handleChangeDate}
 						dateFormat={displayFormat}
 						style={{ width: "100%" }}
 					/>
 				</NoSpacer>
-				{model.saveError && <Text error>{model.saveError}</Text>}
 				<NoSpacer>
 					<Text style={{ paddingBottom: 12, paddingTop: 12 }} bold>
-						{t("protect:certificate:addPlaceBirthModal", {
-							name: `${model.listedBy.initialValue.firstName} ${model.listedBy.initialValue.lastName}`,
+						{t("protect:certificate:addEmailModal", {
+							name: `${user.firstName} ${user.lastName}`,
 						})}
 					</Text>
 					<TextField
+						value={email}
 						placeholder="debbietebbs@gmail.com"
-						onChange={(v) => {
+						onChangeText={(v) => {
 							setEmail(v)
 						}}
+						error={!email}
 					/>
 				</NoSpacer>
 				{model.saveError && <Text error>{model.saveError}</Text>}
+				<Text secondary style={{ paddingTop: 12 }}>
+					{t("protect:certificate:completeIdDesc", {
+						name: `${user.firstName} ${user.lastName}`,
+					})}
+				</Text>
+				<TouchableWithoutFeedback onPress={handleShowEncryption}>
+					<View>
+						<Row>
+							<Column flex={5} style={Styles.viewEncryption}>
+								<Text action bold>
+									{t("protect:certificate:viewEncryption")}
+								</Text>
+								{!showEncryption && <ChevronRight color="#2da84f" />}
+								{showEncryption && <ChevronDown color="#2da84f" />}
+							</Column>
+						</Row>
+					</View>
+				</TouchableWithoutFeedback>
+				{showEncryption && (
+					<Text
+						secondary
+						small
+						dangerouslySetInnerHTML={{
+							__html: t("protect:certificate:encryption", {
+								birth: user.birth,
+								email: user.email,
+							}),
+						}}
+						align="center"
+					/>
+				)}
 			</Group>
 		</DialogModal>
 	)

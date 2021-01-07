@@ -846,6 +846,7 @@ export const document = {
 	},
 }
 export const protect = {
+	completed: "Completed",
 	navbar: {
 		protect: "Protect your work",
 		pages: {
@@ -896,7 +897,7 @@ export const protect = {
 	certificate: {
 		heading1: "Review your certificate",
 		para1:
-			"You are about to send proof that you are the author of this musical piece on the blockchain.",
+			"Tu es sur le point d’envoyer de façon irréversible sur la blockchain la preuve que tu es bel et bien lié à ce fichier.",
 		musicalPiece: "Musical piece",
 		sourceFile: "Source file",
 		why: "The importance of studying well",
@@ -907,8 +908,11 @@ export const protect = {
 		workingVersion: "Working version",
 		listedBy: "Filed by",
 		identity: "Identity",
-		conpleteIdentity: "Complete my identity",
+		completeIdentity: "Complete my identity",
+		completeIdDesc:
+			"This information is used to specify your identity in order to correctly associate it with your file. These will be encrypted to protect your privacy.",
 		fileDigitalFingerprints: "File digital fingerprints",
+		viewEncryption: "View digital encryption",
 		sha256: "SHA256",
 		md5: "MD5",
 		addiction: "Addiction",
@@ -921,9 +925,11 @@ export const protect = {
 		post: "Posted on {{publishedDate, LL}} by {{author}} · ",
 		viewCertificate: "View certificate",
 		addPlaceBirth: "Add a place of birth",
-		addPlaceBirthModal: "Email of {{name}}",
+		addEmailModal: "Email of {{name}}",
 		addPlaceBirthUnderText:
 			"This information is used to associate your identity with the file and will remain confidential.",
+		edit: "Edit",
+		category: "Category",
 	},
 	verify1:
 		"<b> I declare that I am actually {{firstName}} </b>. I understand that impersonating someone else would constitute serious misconduct liable to prosecution.",
