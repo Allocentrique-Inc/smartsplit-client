@@ -888,8 +888,15 @@ export const protect = {
 			"L'algorithme derrière cette page prendra ton oeuvre et créera à partird'elle une empreinte numérique unique que l'on nomme un",
 		heading2: "Fichier à protéger",
 		addFileLabel: "Ajouter un fichier",
-		underText: "Tous formats acceptés, 2 Mo maximum.",
+		underText:
+			"Formats .pdf, jpeg, .png, .wav ou .mp3 acceptés. 250 Mo maximum.",
+		customName: "Nom personnalisé",
+		fileCategory: "Catégorie du fichier",
+		examplesCategories:
+			"Exemples de catégories : Pièce musicale, Partition, Tablatures, Fichier MIDI, ertc.",
 		heading3: "Version de travail",
+		workingVersionDesc:
+			"Pour une chanson, les versions de travail sont par exemple : Idée, Démo, Mix, Master.",
 		idea: "Idée",
 		demo: "Démo",
 		roughMix: "Rough Mix",
@@ -902,6 +909,8 @@ export const protect = {
 		why: "Pourquoi protéger mon oeuvre?",
 		whyContent:
 			"Enregistrer son oeuvre sur la blockchain avec Smartsplit est équivalent de se l’envoyer par courrier recommandé à soi-même afin de pouvoir démontrer au besoin sa parternité.",
+		alertNoSuportFile:
+			"Le type de fichier n'est pas pris en charge ou la taille du fichier est supérieure à celle autorisée.",
 	},
 	certificate: {
 		heading1: "Révise ton certificat",

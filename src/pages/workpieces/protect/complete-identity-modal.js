@@ -48,7 +48,7 @@ export default observer(function CompleteIdentityModal(props) {
 
 	const clearOnCloseDialog = () => {
 		setShowEncryption(false)
-		props.onRequestClose()
+		onRequestClose()
 	}
 
 	useEffect(() => {

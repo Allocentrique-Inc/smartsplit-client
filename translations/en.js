@@ -879,8 +879,15 @@ export const protect = {
 			"The algorithm behind this page will take your artwork and create a unique digital fingerprint from it called a",
 		heading2: "File to protect",
 		addFileLabel: "Add a file",
-		underText: "All formats accepted, 2 MB maximum.",
+		underText:
+			".Pdf, jpeg, .png, .wav or .mp3 formats accepted. 250 MB maximum.",
+		customName: "Custom Name",
+		fileCategory: "File Category",
+		examplesCategories:
+			"Examples of categories: Musical piece, Score, Tabs, MIDI file, ertc.",
 		heading3: "Working version",
+		workingVersionDesc:
+			"For a song, the working versions are for example: Idea, Demo, Mix, Master.",
 		idea: "Idea",
 		demo: "Demo",
 		roughMix: "Rough Mix",
@@ -893,6 +900,8 @@ export const protect = {
 		why: "Why protect my work?",
 		whyContent:
 			"Registering your work on the blockchain with Smartsplit is equivalent to sending it by registered mail to yourself in order to be able to demonstrate your parternity if necessary.",
+		alertNoSuportFile:
+			"The file type is not supported or the file size is larger than allowed.",
 	},
 	certificate: {
 		heading1: "Review your certificate",

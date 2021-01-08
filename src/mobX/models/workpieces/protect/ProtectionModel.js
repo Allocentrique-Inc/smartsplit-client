@@ -4,7 +4,7 @@ import BaseModel from "../../../BaseModel/BaseModel"
 import { saveProtection } from "../../../../../api/workpieces"
 import CertificateModel from "./CertificateModel"
 
-const makeObservable = () => { }
+const makeObservable = () => {}
 export default class ProtectionModel extends BaseModel {
 	workpiece
 	@observable selection = new SelectionModel(this)
@@ -39,7 +39,7 @@ export default class ProtectionModel extends BaseModel {
 		try {
 			if (isDirty) await saveProtection(this.workpiece.id, section, data)
 			return true
-		} catch (e) { }
+		} catch (e) {}
 	}
 }
 
