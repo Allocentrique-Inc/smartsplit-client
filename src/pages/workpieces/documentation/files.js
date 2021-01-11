@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { StyleSheet } from "react-native"
 import { useHistory } from "react-router"
 import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
@@ -24,23 +23,7 @@ import LockIcon from "../../../svg/lock"
 import Download from "../../../svg/download"
 import UnlockDownload from "../../../svg/unlock-download"
 import AlbumArt from "../../../smartsplit/media/albumArt"
-
-const Styles = StyleSheet.create({
-	category: {
-		alignItems: "center",
-		display: "flex",
-	},
-	logo: {
-		marginRight: Metrics.spacing.medium,
-	},
-	dropdown: {
-		marginLeft: Metrics.spacing.large,
-	},
-	cover: {
-		width: Metrics.size.cover,
-		height: Metrics.size.cover,
-	},
-})
+import { FormStyles } from "./FormStyles"
 
 export function FilesForm(props) {
 	const { t } = useTranslation()
@@ -49,8 +32,8 @@ export function FilesForm(props) {
 	return (
 		<Row>
 			<Column of="group" flex={5}>
-				<Text action bold style={Styles.category}>
-					<FilesIcon style={Styles.logo} />
+				<Text action bold style={FormStyles.category}>
+					<FilesIcon style={FormStyles.logo} />
 					{t("document:files.category")}
 					<Row padding="tiny" />
 				</Text>
@@ -75,7 +58,7 @@ export function FilesForm(props) {
 							/>
 						</Column>
 						<Column>
-							<AlbumArt style={[Styles.albumArt, Styles.cover]} />
+							<AlbumArt style={[FormStyles.albumArt, FormStyles.cover]} />
 						</Column>
 					</Row>
 					{/* ToDo: No green border when clicking on access and download fields */}
@@ -166,7 +149,7 @@ export function FilesForm(props) {
 						<RadioGroupButton
 							value="add"
 							label={<Text bold>{t("document:files.audio.addFile")}</Text>}
-							style={{ fontWeight: "bold" }}
+							style={FormStyles.radio_font}
 						/>
 					</RadioGroup>
 					<Row of="component">

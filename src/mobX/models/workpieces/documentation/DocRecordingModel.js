@@ -21,7 +21,7 @@ export default class DocRecordingModel extends BaseModel {
 		type: FieldType.collection,
 	})
 	@observable recordingStudio = new Field(this, "recordingStudio", {
-		type: FieldType.string,
+		type: FieldType.collection,
 	})
 	@observable recordingDate = new Field(this, "recordingDate", {
 		type: FieldType.date,

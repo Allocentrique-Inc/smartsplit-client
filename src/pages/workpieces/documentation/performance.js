@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
+import { TouchableWithoutFeedback, View } from "react-native"
 import { useHistory } from "react-router"
 import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
@@ -34,7 +34,6 @@ import ContributorModel from "../../../mobX/models/user/ContributorModel"
 import DocPerformanceModel from "../../../mobX/models/workpieces/documentation/DocPerformanceModel"
 import { Tag } from "../../../widgets/tag"
 import { toJS } from "mobx"
-import { CardStyles } from "../../../widgets/card"
 import UserAvatar from "../../../smartsplit/user/avatar"
 import HelpCircleFull from "../../../svg/help-circle-full"
 import XIcon from "../../../svg/x"
@@ -44,43 +43,10 @@ import IconDescriptionSelect, {
 	IconDescriptionItem,
 } from "../../../forms/IconDescriptionSelect"
 import { Group } from "../../../layout"
+import { CardStyles } from "../../../widgets/card"
+import { FormStyles } from "./FormStyles"
 
-const Styles = StyleSheet.create({
-	category: {
-		alignItems: "center",
-		display: "flex",
-	},
-	logo: {
-		marginRight: Metrics.spacing.medium,
-	},
-	dropdown: {
-		marginLeft: Metrics.spacing.large,
-	},
-})
-
-const Styles2 = StyleSheet.create({
-	category: {
-		alignItems: "center",
-		display: "flex",
-	},
-	logo: {
-		marginRight: Metrics.spacing.component,
-	},
-	frame: {
-		backgroundColor: Colors.background.underground,
-	},
-	frame_error: {
-		borderWidth: 1,
-		borderColor: Colors.error,
-		borderStyle: "solid",
-	},
-	frame_yourself: {
-		borderWidth: 1,
-		borderColor: Colors.secondaries.teal,
-	},
-})
-
-const frameStyle = [CardStyles.frame, Styles2.frame]
+const frameStyle = [CardStyles.frame, FormStyles.frame]
 
 const PerformanceForm = observer((props) => {
 	const [search, setSearch] = useState("")
@@ -164,8 +130,8 @@ const PerformanceForm = observer((props) => {
 	return (
 		<Row>
 			<Column of="group" flex={5}>
-				<Text action bold style={Styles.category}>
-					<PerformanceIcon style={Styles.logo} />
+				<Text action bold style={FormStyles.category}>
+					<PerformanceIcon style={FormStyles.logo} />
 					{t("document:performance.category")}
 					<Row padding="tiny" />
 				</Text>
@@ -175,7 +141,10 @@ const PerformanceForm = observer((props) => {
 				<Spacer of="group" />
 
 				{model.performers.array.map((performer, index) => (
-					<Column style={Styles.dropdown} key={"u" + performer.user.user_id}>
+					<Column
+						style={FormStyles.dropdown}
+						key={"u" + performer.user.user_id}
+					>
 						<PerformanceOptions
 							model={performer}
 							index={index}
