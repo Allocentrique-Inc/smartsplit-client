@@ -3,6 +3,7 @@ import { useStorePath } from "."
 
 export function useRightHolderSearch(terms, searchDelay = 1000, minChars = 2) {
 	const rightHolders = useStorePath("rightHolders")
+	console.log("DEBUG", rightHolders)
 	let hasSearched = false
 
 	function doSearch() {

@@ -7,13 +7,15 @@ import { Flex, Row } from "../../../layout"
 import { Text } from "../../../text"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
-import { useCurrentWorkpiece, useRightSplits } from "../context"
+import { useCurrentWorkpiece } from "../context"
+import { trace } from "mobx"
+import { useRightSplits } from "../../../mobX/hooks"
 
 /**
  *	Split forms wrapper
  *	- Manages navigation between the forms pages
  *	- Shows global information like the progress bar or the page title
- *	- Initializes the split UI states with the splits of the current workpiece
+ *	- Initializes the split UI states with data of the current workpiece
  **/
 const RightSplitsPage = observer(() => {
 	const { t } = useTranslation("rightSplits")
@@ -26,8 +28,7 @@ const RightSplitsPage = observer(() => {
 			<Redirect to={`/workpieces/${workpiece_id}/right-splits/copyright`} />
 		)
 	const workpiece = useCurrentWorkpiece()
-	const rightSplits = useRightSplits()
-
+	const rightSplits = useRightSplits(workpiece.id)
 	// Loading translation to UIStates. Surely there is
 	// a better way to do that :-)
 	rightSplits.copyright.init(t("copyright.title"), t("lyrics"), t("music"))
@@ -36,7 +37,6 @@ const RightSplitsPage = observer(() => {
 
 	const { workpieces } = useStores()
 	const currentSplit = split_type
-
 	//TODO: refactor rights splits saving
 	async function saveAndQuit() {
 		try {

@@ -4,19 +4,12 @@ import WorkpiecesCrudAPI, {
 	getProtection,
 	listForUser,
 } from "../../../api/workpieces"
-import {
-	action,
-	computed,
-	decorate,
-	observable,
-	reaction,
-	runInAction,
-	toJS,
-} from "mobx"
+import { action, observable, reaction, runInAction } from "mobx"
 import DocumentationModel from "../models/workpieces/documentation/DocumentationModel"
 import ProtectionModel from "../models/workpieces/protect/ProtectionModel"
 import WorkpieceModel from "../models/workpieces/WorkpieceModel"
-import RightSplitsModel from "../models/workpieces/right-splits/RightSplitsModel"
+import RightSplitsState from "./workpiece-state/right-splits/RightSplitsState"
+
 const WorkpieceObservable = createCrudObservable(
 	WorkpiecesCrudAPI,
 	"workpiece_id"
@@ -34,7 +27,7 @@ export class Workpiece extends WorkpieceObservable {
 	constructor(id, initData = null, initState) {
 		const { files, rightSplit, ...data } = initData || {}
 		super(id, data, initState)
-		this.rightSplits = new RightSplitsModel(null, this)
+		this.rightSplits = new RightSplitsState({}, this)
 
 		// initialising the documentation by passing the workpiece for id, etc
 		this.documentation = new DocumentationModel(

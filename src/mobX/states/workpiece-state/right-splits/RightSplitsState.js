@@ -6,20 +6,21 @@ import { Colors } from "../../../../theme"
 import { lightenDarkenColor } from "../../../../utils/utils"
 
 /**
- *	Contains the 3 right split states (copyright, performance, recording). Manage a list of unique sets of shareholderId - color, which is used in the split pages
+ *	Contains the 3 right split states (copyright, performance, recording). Manage a list of unique sets of shareholderId - color, which is used in the split pages. Save in and load split
+ models from the backend
  **/
 export default class RightSplitsState {
-	constructor(rightSplits) {
+	constructor(models) {
 		this.copyright = new CopyrightSplit(
-			rightSplits.copyright,
+			models.copyright,
 			this.shareholderColors
 		)
 		this.performance = new PerformanceSplit(
-			rightSplits.performance,
+			models.performance,
 			this.shareholderColors
 		)
 		this.recording = new RecordingSplit(
-			rightSplits.recording,
+			models.recording,
 			this.shareholderColors
 		)
 		reaction(
@@ -66,7 +67,6 @@ export default class RightSplitsState {
 	// Map <shareholderId, Color(hex)> that holds unique pairs of shareholder
 	// Id and color
 	@observable shareholderColors = new Map()
-
 	// Pool of available colors, i.e. color not already assignated to a shareholder ID
 	availableColors = Object.values(Colors.secondaries)
 
