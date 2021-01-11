@@ -2,13 +2,13 @@ import { action, computed } from "mobx"
 import CircledC from "../../../../svg/circled-c"
 import RightSplitState from "./RightSplitState"
 import CopyrightForm from "../../../../pages/workpieces/right-splits/copyright"
+import CopyrightSplitModel from "../../../models/workpieces/right-splits/CopyrightSplitModel"
 
-/**
- *  Copyright form page UI state
- **/
 export default class CopyrightSplit extends RightSplitState {
 	constructor(domainState, shareholdersColors) {
-		super(domainState, CircledC, shareholdersColors)
+		const model = new CopyrightSplitModel()
+		model.init()
+		super(model, CircledC, shareholdersColors)
 	}
 
 	progress = (1 / 3) * 100

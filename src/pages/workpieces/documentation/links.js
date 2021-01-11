@@ -370,7 +370,7 @@ export function EndModal(props) {
 					<Button
 						text={t("general:buttons.seeSummary")}
 						onClick={navigateToSummary}
-					/* 						onClick={() => {
+						/* 						onClick={() => {
 						console.log(t("document:finalModal.title"))
 					}} */
 					/>

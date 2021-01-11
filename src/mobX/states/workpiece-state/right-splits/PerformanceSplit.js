@@ -3,13 +3,11 @@ import { computed } from "mobx"
 import RightSplitState from "./RightSplitState"
 import { Colors, Metrics } from "../../../../theme"
 import PerformanceForm from "../../../../pages/workpieces/right-splits/performance"
+import PerformanceSplitModel from "../../../models/workpieces/right-splits/PerformanceSplitModel"
 
-/**
- *  Performance form page UI state
- **/
 export default class PerformanceSplit extends RightSplitState {
 	constructor(domainState, shareholderColors) {
-		super(domainState, CircledStar, shareholderColors)
+		super(new PerformanceSplitModel(), CircledStar, shareholderColors)
 	}
 	progress = (2 / 3) * 100
 	form = PerformanceForm

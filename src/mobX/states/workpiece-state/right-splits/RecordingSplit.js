@@ -4,13 +4,11 @@ import RightSplitState from "./RightSplitState"
 import { computed } from "mobx"
 import { Colors } from "../../../../theme"
 import RecordingForm from "../../../../pages/workpieces/right-splits/recording"
+import RecordingSplitModel from "../../../models/workpieces/right-splits/RecordingSplitModel"
 
-/**
- *  Recording form page UI state
- **/
 export default class RecordingSplit extends RightSplitState {
-	constructor(rightSplit, shareholderColors) {
-		super(rightSplit, CircledP, shareholderColors)
+	constructor(domainState, shareholderColors) {
+		super(new RecordingSplitModel(), CircledP, shareholderColors)
 	}
 	progress = (10 / 11) * 100
 	form = RecordingForm
