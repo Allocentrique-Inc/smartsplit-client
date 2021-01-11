@@ -13,6 +13,7 @@ import { useProtectModel } from "../../../mobX/hooks"
 import { AddFileInfo } from "./addFileInfo"
 
 const LimitFileSize = 262144000
+const AcceptTypeUpLoad = ["pdf", "jpeg", "png", "wav", "mp3"]
 
 const Styles = StyleSheet.create({
 	category: {
@@ -51,14 +52,16 @@ const SelectionPage = observer(() => {
 
 	const onChangeRadioFile = (val) => {
 		model.fileSelectedId.value = val
+		if (val !== "0") {
+			setFileName("")
+		}
 	}
 
 	const onChangeFile = (val) => {
-		var acceptType = ["pdf", "jpeg", "png", "wav", "mp3"]
 		var re = /(?:\.([^.]+))?$/
 		var ext = re.exec(val.name)[1]
-		if (acceptType.includes(ext) && parseInt(val.size) <= LimitFileSize) {
-			model.fileSelectedId.value = 0
+		if (AcceptTypeUpLoad.includes(ext) && parseInt(val.size) <= LimitFileSize) {
+			model.fileSelectedId.value = "0"
 			setFileName(val)
 		} else {
 			alert(t("protect:selection.alertNoSuportFile").toString())

@@ -922,6 +922,7 @@ export const protect = {
 			"This information is used to specify your identity in order to correctly associate it with your file. These will be encrypted to protect your privacy.",
 		fileDigitalFingerprints: "File digital fingerprints",
 		viewEncryption: "View digital encryption",
+		notEnoughInfo: "No date of birth or email yet.",
 		sha256: "SHA256",
 		md5: "MD5",
 		addiction: "Addiction",

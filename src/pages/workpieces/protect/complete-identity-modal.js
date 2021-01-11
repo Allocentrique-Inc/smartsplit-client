@@ -39,6 +39,15 @@ export default observer(function CompleteIdentityModal(props) {
 	const handleClickSave = () => {
 		model.listedBy.value.birth = startDate
 		model.listedBy.value.email = email
+		if (model.listedBy.value.birth && model.listedBy.value.email) {
+			setContentEncryption(
+				t("protect:certificate:encryption", {
+					birth: user.birth,
+					email: user.email,
+				}).toString()
+			)
+			onRequestClose(true)
+		} else onRequestClose(false)
 	}
 
 	const handleShowEncryption = () => {
@@ -50,6 +59,15 @@ export default observer(function CompleteIdentityModal(props) {
 		setShowEncryption(false)
 		onRequestClose()
 	}
+
+	const [contentEncryption, setContentEncryption] = useState(
+		user.birth && user.email
+			? t("protect:certificate:encryption", {
+					birth: user.birth,
+					email: user.email,
+			  }).toString()
+			: t("protect:certificate:notEnoughInfo").toString()
+	)
 
 	useEffect(() => {
 		if (visible) {
@@ -135,10 +153,7 @@ export default observer(function CompleteIdentityModal(props) {
 						secondary
 						small
 						dangerouslySetInnerHTML={{
-							__html: t("protect:certificate:encryption", {
-								birth: user.birth,
-								email: user.email,
-							}),
+							__html: contentEncryption,
 						}}
 						align="center"
 					/>

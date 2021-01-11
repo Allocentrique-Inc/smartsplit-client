@@ -46,17 +46,18 @@ const CertificatePage = observer((props) => {
 	const workpiece = props.workpiece
 	const [identityModalVisible, setIdentityModalVisible] = useState(false)
 	const [isCompleteIdentity, setCompleteId] = useState(
-		(user.birth !== null || user.birth !== undefined) &&
-			user.birth !== "" &&
-			(user.email !== null || user.email !== undefined) &&
-			user.email !== ""
+		(user.birth != null || user.birth != undefined) &&
+			user.birth != "" &&
+			(user.email != null || user.email !== undefined) &&
+			user.email != ""
 	)
 
 	const handleEditEdentity = () => {
 		setIdentityModalVisible(true)
 	}
 
-	const handleIdentityModalClose = () => {
+	const handleIdentityModalClose = (val) => {
+		setCompleteId(val)
 		setIdentityModalVisible(false)
 	}
 	return (

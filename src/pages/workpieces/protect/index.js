@@ -62,6 +62,15 @@ const ProtectWork = observer(() => {
 		}
 	}
 
+	async function saveAndClose() {
+		try {
+			model.save()
+			navigateToSummary()
+		} catch (err) {
+			alert("Error saving protect")
+		}
+	}
+
 	return (
 		<>
 			<PromoModal
@@ -75,11 +84,10 @@ const ProtectWork = observer(() => {
 				actions={
 					<Button
 						tertiary
+						bold
 						text={t("general:buttons.saveClose")}
-						onClick={() => {
-							model.save()
-						}}
-						// disabled={!rightsSplits.$hasChanged}
+						onClick={saveAndClose}
+						//disabled={!protect.$hasChanged}
 					/>
 				}
 				formNav={

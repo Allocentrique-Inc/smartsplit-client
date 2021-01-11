@@ -933,6 +933,7 @@ export const protect = {
 			'"{{birth}}","{{email}}" <br> = <br> fcb95c345bc2bdfe8de22b8759a747afeb17ef07e7dd379b82f61e81c3c1b903',
 		fileDigitalFingerprints: "Empreintes numériques du fichier",
 		viewEncryption: "Voir l’encryptage numérique",
+		notEnoughInfo: "Pas encore de date de naissance ni de courriel.",
 		sha256: "SHA256",
 		md5: "MD5",
 		addiction: "Dépendance",
