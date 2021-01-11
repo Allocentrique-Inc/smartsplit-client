@@ -29,13 +29,7 @@ export function useProtectModel(workpieceId, type = null) {
 	if (!type)
 		return useStorePath("workpieces", "list", workpieceId, "protection")
 	else
-		return useStorePath(
-			"workpieces",
-			"list",
-			workpieceId,
-			"protection",
-			type
-		)
+		return useStorePath("workpieces", "list", workpieceId, "protection", type)
 }
 
 export const ResultsOrder = {
