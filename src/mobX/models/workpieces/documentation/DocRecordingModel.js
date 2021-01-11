@@ -2,6 +2,9 @@ import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
 
 export default class DocRecordingModel extends BaseModel {
+	@computed get isEmpty() {
+		return true
+	}
 	@observable director = new Field(this, "director", {
 		type: FieldType.collection,
 	})

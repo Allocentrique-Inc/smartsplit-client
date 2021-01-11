@@ -10,10 +10,13 @@ import BaseModel from "../../../BaseModel/BaseModel"
 import { saveDocumentation } from "../../../../../api/workpieces"
 import DocStreamingModel from "./DocStreamingModel"
 
-const makeObservable = () => { }
+const makeObservable = () => {}
 
 export default class DocumentationModel extends BaseModel {
 	workpiece
+	@computed get isEmpty() {
+		return true
+	}
 	@observable creation = new DocCreationModel(this)
 	@observable performance = new DocPerformanceModel(this)
 	@observable lyrics = new DocLyricsModel(this)
@@ -56,7 +59,7 @@ export default class DocumentationModel extends BaseModel {
 			if (isDirty) await saveDocumentation(this.workpiece.id, section, data)
 			else console.log(`model to save is not dirty, not saving`)
 			return true
-		} catch (e) { }
+		} catch (e) {}
 	}
 }
 
