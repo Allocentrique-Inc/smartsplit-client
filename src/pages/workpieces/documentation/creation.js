@@ -31,6 +31,8 @@ import UserAvatar from "../../../smartsplit/user/avatar"
 import HelpCircleFull from "../../../svg/help-circle-full"
 import XIcon from "../../../svg/x"
 import Field from "../../../mobX/BaseModel/Field"
+import DatePickers from "../../../smartsplit/components/DatePickers"
+
 const Styles = StyleSheet.create({
 	category: {
 		alignItems: "center",
@@ -215,15 +217,18 @@ const CreationForm = observer(() => {
 
 				<Spacer of="group" />
 
-				{/* To Do: À confirmer si plus court que les autres field */}
-				<DateField
+				<Column of="component">
+					<Text bold>{t("document:creation.date")}</Text>
+					<DatePickers field={model.creationDate} />
+				</Column>
+				{/* <DateField
 					label={t("document:creation.date")}
 					value={model.creationDate.value}
 					onChangeText={(v) => {
 						model.creationDate.setValue(v)
 					}}
 					placeholder={t("forms:placeholders.date")}
-				/>
+				/> */}
 				{/* {console.log(Object.values(model.authors.value))} */}
 
 				<Column of="tiny">

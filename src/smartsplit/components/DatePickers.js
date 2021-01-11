@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { observer } from "mobx-react"
 import {
 	TouchableOpacity,
 	Platform,
@@ -11,17 +12,15 @@ import styled from "styled-components/native"
 import DateTimePicker from "@react-native-community/datetimepicker" //For mobile
 import { DateInput } from "semantic-ui-calendar-react" // For web
 import "semantic-ui-css/semantic.min.css"
-//import DatePicker from "react-datepicker"
-//import "react-datepicker/dist/react-datepicker-cssmodules.css"
 import { Colors } from "../../theme"
 import { titleCase } from "../../utils/utils"
 
-const DatePickerStyle = StyleSheet.create({
+/* const DatePickerStyle = StyleSheet.create({
 	container: {
 		borderRadius: 2,
 		borderColor: Colors.stroke,
 	},
-})
+}) */
 
 /* export const WebDatePicker = () => {
 	const { DateInput } = SemanticUiCalendarReact
@@ -35,12 +34,16 @@ const DatePickerStyle = StyleSheet.create({
 	)
 } */
 
-export const WebDatePicker = (props) => {
+export const WebDatePicker = observer((props) => {
+	const { field } = props
+
 	const [value, setValue] = useState(new Date()) //new créer un nouvel objet, comme constructor, par défaut existe dans browser JS
 
 	const handleChange = (event, { name, value }) => {
+		console.log(`${name}: ${value}`)
 		if (name === "date") {
-			setValue(value)
+			if (field) field.setValue(value)
+			else setValue(value)
 		}
 	}
 	const { t, i18n } = useTranslation()
@@ -49,14 +52,15 @@ export const WebDatePicker = (props) => {
 			//style={DatePickerStyle.container}
 			name="date"
 			dateFormat="DD-MM-YYYY"
-			placeholder="DD-MM-YYYY"
-			value={value}
+			placeholder={t("forms:placeholders.date")}
+			//label={t("document:creation.date")}
+			value={field?.value}
 			onChange={handleChange}
 			icon={null}
 			localization={i18n.language}
 		/>
 	)
-}
+})
 
 const DatePickerContainer = styled.TouchableOpacity`
 	background-color: ${Platform.OS === "ios" ? "#00000066" : "transparent"};
@@ -111,6 +115,8 @@ export class MobileDatePicker extends React.Component {
 						}
 					}}
 					style={{ backgroundColor: "white" }}
+					placeholder={t("forms:placeholders.date")}
+					label={t("document:creation.date")}
 				/>
 			</DatePickerContainer>
 		)
