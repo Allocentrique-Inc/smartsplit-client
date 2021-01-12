@@ -1,6 +1,9 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
 export default class DocReleaseModel extends BaseModel {
+	@computed get isEmpty() {
+		return true
+	}
 	@observable labels = new Field(this, "labels", {
 		type: FieldType.string,
 	})

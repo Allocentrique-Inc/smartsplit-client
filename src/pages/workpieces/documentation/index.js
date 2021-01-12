@@ -39,6 +39,7 @@ const DocumentationPage = observer(() => {
 			form: CreationForm,
 			progress: 12.5,
 			title: t("document:navbar.pages.creation"),
+			isEmpty: model.creation.isEmpty,
 		},
 		performance: {
 			form: PerformanceForm,
@@ -133,7 +134,7 @@ const DocumentationPage = observer(() => {
 					onClick={() => {
 						model.save()
 					}}
-				// disabled={!rightsSplits.$hasChanged}
+					// disabled={!rightsSplits.$hasChanged}
 				/>
 			}
 			formNav={
@@ -147,12 +148,11 @@ const DocumentationPage = observer(() => {
 					<Button
 						primary
 						text={
-							(type === "links"
+							type === "streaming"
 								? t("general:buttons.end")
-								: t("general:buttons.continue"),
-								type === "files"
-									? t("general:buttons.pass")
-									: t("general:buttons.continue"))
+								: documentations[type].isEmpty
+								? t("general:buttons.pass")
+								: t("general:buttons.continue")
 						}
 						onClick={toNextPage}
 					/>

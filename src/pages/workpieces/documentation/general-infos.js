@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { StyleSheet, TouchableWithoutFeedback } from "react-native"
+import { TouchableWithoutFeedback } from "react-native"
 import { useHistory } from "react-router"
 import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
@@ -7,7 +7,6 @@ import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
-import LayoutStyles from "../../../styles/layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import MusicNoteIcon from "../../../svg/music-note"
@@ -20,20 +19,9 @@ import { observer } from "mobx-react"
 import genres from "../../../data/genres-smartsplit"
 import bands from "../../../data/bands"
 import { titleCase } from "../../../utils/utils"
+//import LayoutStyles from "../../../styles/layout"
+import { FormStyles } from "./FormStyles"
 import { searchEntities } from "../../../../api/entities"
-
-const Styles = StyleSheet.create({
-	category: {
-		alignItems: "center",
-		display: "flex",
-	},
-	logo: {
-		marginRight: Metrics.spacing.medium,
-	},
-	dropdown: {
-		marginLeft: Metrics.spacing.large,
-	},
-})
 
 export default function GeneralInfos() {
 	const { t } = useTranslation()
@@ -155,8 +143,8 @@ export const GeneralInfosForm = observer((props) => {
 	return (
 		<Row>
 			<Column of="group" flex={5}>
-				<Text action bold style={Styles.category}>
-					<MusicNoteIcon color={Colors.action} style={Styles.logo} />
+				<Text action bold style={FormStyles.category}>
+					<MusicNoteIcon color={Colors.action} style={FormStyles.logo} />
 					{t("document:infos.category")}
 					<Row padding="tiny" />
 				</Text>
@@ -223,7 +211,11 @@ export const GeneralInfosForm = observer((props) => {
 							model.addNewSecondaryGenre(searchGenres)
 						}}
 					>
-						<Row of="component" padding="component" style={Styles.actionFrame}>
+						<Row
+							of="component"
+							padding="component"
+							//style={FormStyles.actionFrame}
+						>
 							<PlusCircle />
 							<Text bold action>
 								{t("document:add")}
@@ -257,7 +249,11 @@ export const GeneralInfosForm = observer((props) => {
 							model.influences.add(searchInfluences)
 						}}
 					>
-						<Row of="component" padding="component" style={Styles.actionFrame}>
+						<Row
+							of="component"
+							padding="component"
+							//style={FormStyles.actionFrame}
+						>
 							<PlusCircle />
 							<Text bold action>
 								{t("document:add")}

@@ -4,6 +4,9 @@ import ModelCollection from "../../../BaseModel/ModelCollection"
 import PerformerModel from "./PerformerModel"
 import { cleanForPosting } from "./DocumentationModel"
 export default class DocPerformanceModel extends BaseModel {
+	@computed get isEmpty() {
+		return true
+	}
 	@observable conductor = new Field(this, "conductor", {
 		type: FieldType.object,
 	})

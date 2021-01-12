@@ -6,6 +6,9 @@ import { cleanForPosting } from "./DocumentationModel"
  *
  */
 export default class DocCreationModel extends BaseModel {
+	@computed get isEmpty() {
+		return true
+	}
 	@observable creationDate = new Field(this, "creationDate", {
 		type: FieldType.date,
 	})

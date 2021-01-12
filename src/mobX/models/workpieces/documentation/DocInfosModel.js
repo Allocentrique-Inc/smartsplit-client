@@ -1,6 +1,9 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
 export default class DocInfosModel extends BaseModel {
+	@computed get isEmpty() {
+		return true
+	}
 	@observable length = new Field(this, "length", {
 		type: FieldType.string,
 		label: "document:infos.length",
