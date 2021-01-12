@@ -304,37 +304,35 @@ export const PerformanceOptions = observer((props) => {
 			<Row>
 				<Column padding="component" layer="left_overground" />
 				<Column of="component" flex={5}>
-					<Group>
-						{/**
-						 * Below we filter options to exclude those already in our list
-						 * model.ids.value is an array of {name:"org", value:"id"}
-						 */}
+					{/**
+					 * Below we filter options to exclude those already in our list
+					 * model.ids.value is an array of {name:"org", value:"id"}
+					 */}
 
-						{/* ToFix: Longer text is not wrapper in dropdown */}
-						<IconDescriptionSelect
-							options={artistTypes.map((artist) => ({
-								name: t(`document:performance.dropdown.${artist}`),
-								key: artist,
-								description: t(`document:performance.description.${artist}`),
-							}))}
-							value={selected}
-							placeholder={
-								selected ? (
-									<IconDescriptionItem
-										name={t(`document:performance.dropdown.${selected}`)}
-										description={t(
-											`document:performance.description.${selected}`
-										)}
-									/>
-								) : (
-									t("document:performance.whichPerformance")
-								)
-							}
-							onChange={(v) => {
-								setSelected(v)
-							}}
-						/>
-					</Group>
+					{/* ToFix: Longer text is not wrapper in dropdown */}
+					<IconDescriptionSelect
+						options={artistTypes.map((artist) => ({
+							name: t(`document:performance.dropdown.${artist}`),
+							key: artist,
+							description: t(`document:performance.description.${artist}`),
+						}))}
+						value={selected}
+						placeholder={
+							selected ? (
+								<IconDescriptionItem
+									name={t(`document:performance.dropdown.${selected}`)}
+									description={t(
+										`document:performance.description.${selected}`
+									)}
+								/>
+							) : (
+								t("document:performance.whichPerformance")
+							)
+						}
+						onChange={(v) => {
+							setSelected(v)
+						}}
+					/>
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
 						<CheckBox field={model.isSinger} />
 						<CheckBox field={model.isMusician} />
