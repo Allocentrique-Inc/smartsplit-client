@@ -10,7 +10,7 @@ export default class SelectionModel extends BaseModel {
 		type: FieldType.set,
 	})
 	@observable fileSelectedId = new Field(this, "fileSelectedId", {
-		type: FieldType.int,
+		type: FieldType.string,
 	})
 
 	@observable fileCustomName = new Field(this, "fileCustomName", {
@@ -21,10 +21,6 @@ export default class SelectionModel extends BaseModel {
 	})
 
 	@observable workingVersion = new Field(this, "workingVersion", {
-		type: FieldType.string,
-	})
-
-	@observable demoName = new Field(this, "demoName", {
 		type: FieldType.string,
 	})
 

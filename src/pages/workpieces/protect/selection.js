@@ -51,8 +51,8 @@ const SelectionPage = observer(() => {
 	const [fileName, setFileName] = useState("")
 
 	const onChangeRadioFile = (val) => {
-		model.fileSelectedId.value = val
-		if (val !== "0") {
+		model.fileSelectedId.setValue(val)
+		if (val != "0") {
 			setFileName("")
 		}
 	}
@@ -61,7 +61,7 @@ const SelectionPage = observer(() => {
 		var re = /(?:\.([^.]+))?$/
 		var ext = re.exec(val.name)[1]
 		if (AcceptTypeUpLoad.includes(ext) && parseInt(val.size) <= LimitFileSize) {
-			model.fileSelectedId.value = "0"
+			model.fileSelectedId.setValue("0")
 			setFileName(val)
 		} else {
 			alert(t("protect:selection.alertNoSuportFile").toString())
@@ -110,8 +110,10 @@ const SelectionPage = observer(() => {
 												style={{ marginTop: 20 }}
 												onClearFile={() => {
 													setFileName("")
+													model.fileSelectedId.setValue("")
 												}}
 												file={fileName}
+												workpieceId={workpieceId}
 											/>
 										)}
 									</Flex>
