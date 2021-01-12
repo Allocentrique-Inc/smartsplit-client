@@ -344,6 +344,7 @@ export const PerformanceOptions = observer((props) => {
 						<Column of="tiny">
 							{model.instruments.array.map((entry, index) => (
 								<InstrumentTag
+									key={entry.instrument.value.entity_id}
 									instrument={entry.instrument.value}
 									index={index}
 									field={model.instruments}

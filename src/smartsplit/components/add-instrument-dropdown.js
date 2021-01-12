@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import Autocomplete from "../../forms/autocomplete"
 import { TouchableWithoutFeedback, StyleSheet } from "react-native"
@@ -7,6 +7,8 @@ import { Text } from "../../text"
 import { Colors } from "../../theme"
 import PlusCircle from "../../svg/plus-circle"
 import InstrumentList from "../../data/instruments-smartsplit"
+import { searchEntities } from "../../../api/entities"
+
 const Styles = StyleSheet.create({
 	actionFrame: {
 		borderTopWidth: 1,
@@ -24,30 +26,42 @@ export default function AddInstrumentDropdown({
 	...nextProps
 }) {
 	const { t } = useTranslation()
-	const [instrument, setInstrument] = useState(selection ? selection.name : "")
-	let searchResults = [
+	const [search, setSearch] = useState(selection ? selection.name : "")
+	const [loading, setLoading] = useState(false)
+	const [results, setResults] = useState([])
+	/*let searchResults = [
 		...InstrumentList.filter((instr) =>
 			new RegExp(instrument, "i").test(instr.name)
 		).splice(0, 10),
-	]
-	if (selection)
-		searchResults = [{ name: "remove instrument", id: "" }, ...searchResults]
+	]*/
+
+	async function getSearchResults(search) {
+		setLoading(true)
+		let list = await searchEntities("instruments", search)
+		setResults(list)
+		setLoading(false)
+	}
+	//if (selection) setResults([{ name: "remove instrument", id: "" }, ...results])
 	if (!selection && hideEmpty) return null
 	else
 		return (
 			<Column>
 				<Autocomplete
 					leftIcon={false}
-					search={instrument}
-					onSearchChange={setInstrument}
+					search={search}
+					loading={loading}
+					onSearchChange={(text) => {
+						setSearch(text)
+						getSearchResults(text)
+					}}
 					onSelect={(selection) => {
 						if (selection.id === "") onUnselect()
 						else onSelect(selection)
 					}}
-					searchResults={searchResults}
+					searchResults={results}
 					{...nextProps}
 				>
-					{!searchResults.length && (
+					{search.length && (
 						<TouchableWithoutFeedback
 							onPress={() => {
 								onSelect(nextProps.search)
