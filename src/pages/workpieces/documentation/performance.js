@@ -196,6 +196,8 @@ const PerformanceForm = observer((props) => {
 							).length
 						)
 							model.performers.add({ user: selection })
+						console.log(toJS(model))
+						console.log(model.toJS())
 						setSearch("")
 					}}
 					placeholder={t("document:performance.roles.addPerformer")}

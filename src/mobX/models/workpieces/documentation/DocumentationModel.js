@@ -69,21 +69,25 @@ export default class DocumentationModel extends BaseModel {
  *
  * @return {*} an object or an array of objects with only user_ids
  */
-export function cleanUsersForPosting(input) {
+export function cleanForPosting(input) {
 	// only process pure objects
 	if (isObservable(input)) input = toJS(input)
 
+	if (input === null || input === undefined) return null
+
 	// for arrays process each entry
 	if (Array.isArray(input)) {
-		return input.map((obj) => cleanUsersForPosting(obj))
+		return input.map((obj) => cleanForPosting(obj))
 		// for objects that are users also process
 	} else if (input.user_id) {
 		return input.user_id
 		// for other objects recurse into properties
+	} else if (input.entity_id) {
+		return input.entity_id
 	} else if (typeof input === "object") {
 		let cleanedObject = {}
 		Object.keys(input).forEach((key) => {
-			cleanedObject[key] = cleanUsersForPosting(input[key])
+			cleanedObject[key] = cleanForPosting(input[key])
 		})
 		return cleanedObject
 		// for non objects return literals
