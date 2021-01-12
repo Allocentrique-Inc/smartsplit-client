@@ -30,6 +30,7 @@ import DocumentationPage from "./documentation"
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
 	const workpiece = useStorePath("workpieces").fetch(match.params.workpiece_id)
+	console.log(workpiece)
 
 	return (
 		<WorkpieceContext.Provider value={workpiece}>

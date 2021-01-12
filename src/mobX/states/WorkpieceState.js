@@ -8,6 +8,7 @@ import { action, observable, reaction, runInAction } from "mobx"
 import DocumentationModel from "../models/workpieces/documentation/DocumentationModel"
 import ProtectionModel from "../models/workpieces/protect/ProtectionModel"
 import WorkpieceModel from "../models/workpieces/WorkpieceModel"
+import RightSplitsModel from "../models/workpieces/right-splits/RightSplitsModel"
 import RightSplitsState from "./workpiece-state/right-splits/RightSplitsState"
 
 const WorkpieceObservable = createCrudObservable(
@@ -23,12 +24,14 @@ export class Workpiece extends WorkpieceObservable {
 	 */
 	@observable documentation: DocumentationModel
 	@observable protection: ProtectionModel
+	@observable rightSplits: RightSplitsModel
 
 	constructor(id, initData = null, initState) {
 		const { files, rightSplit, ...data } = initData || {}
 		super(id, data, initState)
-		this.rightSplits = new RightSplitsState({}, this)
-
+		
+		this.rightSplits = new RightSplitsModel(this)
+		this.rightSplitsState = new RightSplitsState({}, this)
 		// initialising the documentation by passing the workpiece for id, etc
 		this.documentation = new DocumentationModel(
 			null,

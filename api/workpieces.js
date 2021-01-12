@@ -8,6 +8,7 @@ export async function listForUser(user_id) {
 	}
 
 	const response = await client.request(`/workpieces/by-owner/${user_id}/`)
+	console.log("DEBUG WORKPIECES", response.data)
 	return response.data
 }
 
