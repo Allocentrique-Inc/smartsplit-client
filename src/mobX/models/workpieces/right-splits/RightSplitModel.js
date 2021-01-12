@@ -6,8 +6,8 @@ import BaseModel, { ModelCollection } from "../../../BaseModel"
  **/
 export default class RightSplitModel extends BaseModel {
 	@observable shareholders
-	constructor(modelClass, initShareData) {
-		super()
+	constructor(parent, modelClass, initShareData) {
+		super(parent)
 		this.shareholders = new ModelCollection(this, "shareholders", {
 			modelClass,
 		})

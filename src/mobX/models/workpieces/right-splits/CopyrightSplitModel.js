@@ -7,8 +7,8 @@ import { action, computed, observable, reaction } from "mobx"
  *	Contains split modes (equal, roles, manual) middleware logic
  **/
 export default class CopyrightSplitModel extends RightSplitModel {
-	constructor() {
-		super(CopyrightShareModel, initShareData)
+	constructor(parent) {
+		super(parent, CopyrightShareModel, initShareData)
 		reaction(
 			() => this.mode,
 			() => {
