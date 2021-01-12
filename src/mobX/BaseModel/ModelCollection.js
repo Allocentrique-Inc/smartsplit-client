@@ -23,6 +23,7 @@ const makeObservable = () => {}
  */
 export default class ModelCollection extends Field {
 	modelClass
+	isModelCollection = true
 	initialValue: Array<*> = []
 	constructor(model, fieldName, options) {
 		options.type = FieldType.modelCollection
