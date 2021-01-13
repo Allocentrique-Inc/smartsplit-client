@@ -15,12 +15,12 @@ import "semantic-ui-css/semantic.min.css"
 import { Colors } from "../../theme"
 import { titleCase } from "../../utils/utils"
 
-/* const DatePickerStyle = StyleSheet.create({
+const DatePickerStyle = StyleSheet.create({
 	container: {
 		borderRadius: 2,
 		borderColor: Colors.stroke,
 	},
-}) */
+})
 
 /* export const WebDatePicker = () => {
 	const { DateInput } = SemanticUiCalendarReact

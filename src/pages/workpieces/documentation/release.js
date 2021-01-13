@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { StyleSheet } from "react-native"
 import { useHistory } from "react-router"
 import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
@@ -27,19 +26,8 @@ import ContributorModel from "../../../mobX/models/user/ContributorModel"
 import DocReleaseModel from "../../../mobX/models/workpieces/documentation/DocReleaseModel"
 import Field from "../../../mobX/BaseModel/Field"
 import AddDistributorDropdown from "../../../smartsplit/components/AddDistributorDropdown"
+import { FormStyles } from "./FormStyles"
 
-const Styles = StyleSheet.create({
-	category: {
-		alignItems: "center",
-		display: "flex",
-	},
-	logo: {
-		marginRight: Metrics.spacing.medium,
-	},
-	dropdown: {
-		marginLeft: Metrics.spacing.large,
-	},
-})
 const ReleaseForm = observer((props) => {
 	const [date, setDate] = useState("")
 	const { t } = useTranslation()
@@ -52,8 +40,8 @@ const ReleaseForm = observer((props) => {
 	return (
 		<Row>
 			<Column of="group" flex={5}>
-				<Text action bold style={Styles.category}>
-					<ReleasetIcon style={Styles.logo} />
+				<Text action bold style={FormStyles.category}>
+					<ReleasetIcon style={FormStyles.logo} />
 					{t("document:release.category")}
 					<Row padding="tiny" />
 				</Text>
@@ -163,7 +151,7 @@ export const DigitalOptions = observer((props) => {
 	})
 
 	return (
-		<Column of="component" style={Styles.dropdown}>
+		<Column of="component" style={FormStyles.dropdown}>
 			<AddDistributorDropdown
 				distributors={searchResultsDistributors.filter((d) =>
 					d.name.toLowerCase().indexOf(searchDistributor.toLowerCase() > -1)

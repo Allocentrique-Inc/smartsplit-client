@@ -15,6 +15,18 @@ const makeObservable = () => {}
 export default class DocumentationModel extends BaseModel {
 	root
 	workpiece
+	@computed get isEmpty() {
+		return (
+			this.creation.isEmpty &&
+			this.performance.isEmpty &&
+			this.lyrics.isEmpty &&
+			this.files.isEmpty &&
+			this.recording.isEmpty &&
+			this.release.isEmpty &&
+			this.info.isEmpty &&
+			this.streaming.isEmpty
+		)
+	}
 	@observable creation = new DocCreationModel(this)
 	@observable performance = new DocPerformanceModel(this)
 	@observable lyrics = new DocLyricsModel(this)

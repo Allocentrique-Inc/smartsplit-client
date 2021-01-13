@@ -153,9 +153,13 @@ export default class BaseModel {
 		//now we add all our fields
 		this.__submittable.forEach((k) => {
 			if (excludePrimary && k === this.primaryKey) return
-			const value = toJS(this[k].transform(this[k].value, this))
-			if (this[k].postAlias) js[this[k].postAlias] = value
-			else js[k] = toJS(this[k].transform(this[k].value, this))
+			if (this[k].isModelCollection) {
+				js[k] = this[k].toJS()
+			} else {
+				const value = toJS(this[k].transform(this[k].value, this))
+				if (this[k].postAlias) js[this[k].postAlias] = value
+				else js[k] = toJS(this[k].transform(this[k].value, this))
+			}
 		})
 
 		//additionally any properties that are models
