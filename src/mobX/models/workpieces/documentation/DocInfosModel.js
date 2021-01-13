@@ -2,7 +2,13 @@ import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
 export default class DocInfosModel extends BaseModel {
 	@computed get isEmpty() {
-		return true
+		return (
+			!this.length.value &&
+			!this.BPM.value &&
+			!this.primaryGenre.value &&
+			this.secondaryGenres.array.length === 0 &&
+			this.influences.array.length === 0
+		)
 	}
 	@observable length = new Field(this, "length", {
 		type: FieldType.string,

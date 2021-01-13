@@ -2,7 +2,12 @@ import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
 export default class DocReleaseModel extends BaseModel {
 	@computed get isEmpty() {
-		return true
+		return (
+			!this.labels.value &&
+			!this.formats.value &&
+			!this.titles.value &&
+			!this.distributors.value
+		)
 	}
 	@observable labels = new Field(this, "labels", {
 		type: FieldType.string,

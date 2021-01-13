@@ -5,7 +5,7 @@ import PerformerModel from "./PerformerModel"
 import { cleanForPosting } from "./DocumentationModel"
 export default class DocPerformanceModel extends BaseModel {
 	@computed get isEmpty() {
-		return true
+		return this.performers.toJS() === [] && !this.conductor.value
 	}
 	@observable conductor = new Field(this, "conductor", {
 		type: FieldType.object,
