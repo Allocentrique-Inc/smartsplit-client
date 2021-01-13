@@ -133,22 +133,22 @@ export default class CopyrightSplitModel extends RightSplitModel {
 	 *	corresponding slider UI would react without making change to the actual shares.
 	 **/
 	@action toggleShareLock(id) {
-		const share = this.shareholders.get(id)
+		const share = this.get(id)
 		if (share.locked) {
 			const otherShares = this.sharesValues.filter(
 				(share) => share.shareholderId !== id && share.locked
 			)
 			otherShares.forEach(
-				(share) => (this.shareholders.get(share.shareholderId).locked = false)
+				(share) => (this.get(share.shareholderId).locked = false)
 			)
 		} else {
 			const otherShares = this.sharesValues.filter(
 				(share) => share.shareholderId !== id && !share.locked
 			)
 			if (otherShares.length === 1) {
-				this.shareholders.get(otherShares[0].shareholderId).locked = true
+				this.get(otherShares[0].shareholderId).locked = true
 			}
 		}
-		this.shareholders.get(id).locked = !share.locked
+		this.get(id).locked = !share.locked
 	}
 }

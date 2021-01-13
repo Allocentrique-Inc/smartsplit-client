@@ -19,7 +19,7 @@ export default class RightSplitModel extends BaseModel {
 
 	/**
 	 *	Provide a data structure that makes easier
-	 *	to access and manipulate shares field values.
+	 *	to access and manipulate share field values.
 	 * 	(hence shareS valueS, because each share has
 	 *	multiple values)
 	 * 	@return: Array<{Field.value}>
@@ -34,6 +34,7 @@ export default class RightSplitModel extends BaseModel {
 
 	@action addShareholder(shareholderId, shareData = this.initShareData) {
 		if (this.includes(shareholderId)) {
+			//Temporarily print error without throwing it
 			console.log(`throw new Error("Error adding shareholder: id found")`)
 			return
 		}

@@ -10,17 +10,18 @@ import { lightenDarkenColor } from "../../../../utils/utils"
  models from the backend
  **/
 export default class RightSplitsState {
-	constructor(models) {
+	constructor(workpiece) {
+		this.workpiece = workpiece
 		this.copyright = new CopyrightSplit(
-			models.copyright,
+			this.workpiece.rightSplits.copyright,
 			this.shareholderColors
 		)
 		this.performance = new PerformanceSplit(
-			models.performance,
+			this.workpiece.rightSplits.performance,
 			this.shareholderColors
 		)
 		this.recording = new RecordingSplit(
-			models.recording,
+			this.workpiece.rightSplits.recording,
 			this.shareholderColors
 		)
 		reaction(
@@ -67,6 +68,7 @@ export default class RightSplitsState {
 	// Map <shareholderId, Color(hex)> that holds unique pairs of shareholder
 	// Id and color
 	@observable shareholderColors = new Map()
+	@observable workpiece
 	// Pool of available colors, i.e. color not already assignated to a shareholder ID
 	availableColors = Object.values(Colors.secondaries)
 

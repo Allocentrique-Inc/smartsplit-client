@@ -27,9 +27,9 @@ export function useDocsModel(workpieceId, type = null) {
 
 export function useRightSplits(workpieceId, type) {
 	if (!type) {
-		return useStorePath("workpieces", "list", workpieceId, "rightSplits")
+		return useStorePath("workpieces", "list", workpieceId, "rightSplitsState")
 	} else {
-		return useStorePath("workpieces", "list", workpieceId, "rightSplits", type)
+		return useStorePath("workpieces", "list", workpieceId, "rightSplitsState", type)
 	}
 }
 
