@@ -346,6 +346,7 @@ export default class Field {
 	}
 
 	isModel = false
+	isModelCollection = false
 
 	/**
 	 * a reference to the parent model

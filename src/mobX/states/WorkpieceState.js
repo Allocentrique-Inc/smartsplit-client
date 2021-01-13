@@ -31,7 +31,7 @@ export class Workpiece extends WorkpieceObservable {
 		super(id, data, initState)
 		
 		this.rightSplits = new RightSplitsModel(this)
-		this.rightSplitsState = new RightSplitsState({}, this)
+		this.rightSplitsState = new RightSplitsState(this)
 		// initialising the documentation by passing the workpiece for id, etc
 		this.documentation = new DocumentationModel(
 			null,
