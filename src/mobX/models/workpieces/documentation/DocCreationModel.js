@@ -7,7 +7,13 @@ import { cleanUsersForPosting } from "./DocumentationModel"
  */
 export default class DocCreationModel extends BaseModel {
 	@computed get isEmpty() {
-		return true
+		return (
+			!this.creationDate.value &&
+			!this.iswc.value &&
+			this.authors.array.length === 0 &&
+			this.composers.array.length === 0 &&
+			this.publishers.array.length === 0
+		)
 	}
 	@observable creationDate = new Field(this, "creationDate", {
 		type: FieldType.date,
