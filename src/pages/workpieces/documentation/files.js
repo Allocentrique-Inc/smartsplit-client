@@ -28,7 +28,6 @@ import DocCreationModel from "../../../mobX/models/workpieces/documentation/DocC
 import { useDocsModel } from "../../../mobX/hooks"
 import DocFilesModel from "../../../mobX/models/workpieces/documentation/DocFilesModel"
 
-
 export function FilesForm(props) {
 	const { t } = useTranslation()
 	const workpiece = useCurrentWorkpiece()
@@ -63,12 +62,15 @@ export function FilesForm(props) {
 								style={{ flex: 4 }}
 								onFileChange={(file) => {
 									console.log(file)
-									model.upload(workpiece.id, file, "art")
+									model.upload(workpiece.id, file, "private", "art")
 								}}
 							/>
 						</Column>
 						<Column>
-							<AlbumArt style={[FormStyles.albumArt, FormStyles.cover]} Image={model.art.array[0]?.url} />
+							<AlbumArt
+								style={[FormStyles.albumArt, FormStyles.cover]}
+								Image={model.art.array[0]?.url}
+							/>
 						</Column>
 					</Row>
 					{/* ToDo: No green border when clicking on access and download fields */}

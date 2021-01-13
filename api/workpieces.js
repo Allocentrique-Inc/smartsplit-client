@@ -100,7 +100,12 @@ export async function getProtection(workpieceId, section) {
 	})
 }
 
-export async function uploadDocFile(workpieceId, file, onProgress) {
+export async function uploadDocFile(
+	workpieceId,
+	file,
+	visibility = "private",
+	onProgress
+) {
 	return new Promise((resolve, reject) => {
 		const xhr = new XMLHttpRequest()
 
@@ -142,7 +147,8 @@ export async function uploadDocFile(workpieceId, file, onProgress) {
 		// prepare a file object
 		//const files = document.querySelector("[name=file]").files
 		const formData = new FormData()
-		formData.append(file.uri)
+		formData.append("file", file.file, file.file.name)
+		formData.append("visibility", visibility)
 
 		// send request
 		xhr.send(formData)
