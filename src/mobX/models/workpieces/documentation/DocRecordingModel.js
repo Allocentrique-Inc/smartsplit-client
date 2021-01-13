@@ -3,7 +3,16 @@ import { observable, action, computed } from "mobx"
 
 export default class DocRecordingModel extends BaseModel {
 	@computed get isEmpty() {
-		return true
+		return (
+			this.director.array.length === 0 &&
+			this.recordedBy.array.length === 0 &&
+			this.mixedBy.array.length === 0 &&
+			this.masteredBy.array.length === 0 &&
+			this.producedBy.array.length === 0 &&
+			this.recordingStudio.array.length === 0 &&
+			this.recordingDate.array.length === 0 &&
+			!this.isrc.value
+		)
 	}
 	@observable director = new Field(this, "director", {
 		type: FieldType.collection,
