@@ -13,4 +13,8 @@ export default class DocPerformanceModel extends BaseModel {
 	@observable performers = new ModelCollection(this, "performers", {
 		modelClass: PerformerModel,
 	})
+
+	toJS(excludePrimary) {
+		return cleanForPosting(super.toJS())
+	}
 }

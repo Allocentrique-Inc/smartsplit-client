@@ -56,6 +56,7 @@ const PerformanceForm = observer((props) => {
 	const workpieceId = workpiece.id
 	const { contributors } = useStores()
 	const model: DocPerformanceModel = useDocsModel(workpieceId, "performance")
+	window.docModel = model
 	const getResults = useArtistAutocomplete()
 	const searchResults = getResults(search, 10, ResultsOrder.contributorsFirst)
 
@@ -335,6 +336,8 @@ export const PerformanceOptions = observer((props) => {
 								placeholder={t("document:performance.addInstrument")}
 								onSelect={(selection) => {
 									model.instruments.add({ instrument: selection })
+
+									console.log(window.docModel.toJS())
 								}}
 							/>
 						</Column>

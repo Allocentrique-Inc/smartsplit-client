@@ -5,7 +5,7 @@ export async function listEntities(type) {
 }
 
 export async function searchEntities(type, search, limit = 10) {
-	if (!search) return []
+	//if (!search) return []
 	let response = await client.get(
 		`/entities/${type}/?limit=${limit}&search_terms=${search}`
 	)
