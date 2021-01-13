@@ -1,5 +1,6 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
+import { cleanForPosting } from "./DocumentationModel"
 
 export default class DocRecordingModel extends BaseModel {
 	@computed get isEmpty() {
@@ -47,7 +48,7 @@ export default class DocRecordingModel extends BaseModel {
 		/// return blank object for now
 		let values = super.toJS(excludePrimary)
 
-		return {
+		return cleanForPosting({
 			director: values.director,
 			producer: values.producer,
 			isrc: values.isrc,
@@ -60,6 +61,6 @@ export default class DocRecordingModel extends BaseModel {
 			],
 			mixing: [this.populateEntry(values.mixedBy)],
 			mastering: [this.populateEntry(values.masteredBy)],
-		}
+		})
 	}
 }

@@ -73,13 +73,14 @@ export default class DocumentationModel extends BaseModel {
 }
 
 /**
- * returns an object or array of objects cleaned from other user date except user_id
+ * in the API when we post a user we must post only the user_id instead of the object,
+ * similarly with any entities we must only post entity_id rather than the entire entity
  *
- * behavior : if an object contains a property of user_id, an object with only the user_id is returned
- *            an object without a user_id is returned unaltered
- *            an array of user objects will return an array of cleaned user objects
+ * this function will take an object (usually the output of a model.toJS() and replace
+ * any object with a user_id with a string containing only that user id, and any object
+ * that contains an entity_id with a string containing only the the entity_id
  *
- * @return {*} an object or an array of objects with only user_ids
+ * @return {*} an object or an array of objects with only user_id or entity_id strings
  */
 export function cleanForPosting(input) {
 	// only process pure objects
