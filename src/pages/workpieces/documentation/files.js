@@ -24,11 +24,16 @@ import Download from "../../../svg/download"
 import UnlockDownload from "../../../svg/unlock-download"
 import AlbumArt from "../../../smartsplit/media/albumArt"
 import { FormStyles } from "./FormStyles"
+import DocCreationModel from "../../../mobX/models/workpieces/documentation/DocCreationModel"
+import { useDocsModel } from "../../../mobX/hooks"
+import DocFilesModel from "../../../mobX/models/workpieces/documentation/DocFilesModel"
 
 export function FilesForm(props) {
 	const { t } = useTranslation()
 	const workpiece = useCurrentWorkpiece()
-
+	const model: DocFilesModel = useDocsModel(workpiece.id, "files")
+	console.log(model.toJS())
+	const workpieceId = workpiece.id
 	return (
 		<Row>
 			<Column of="group" flex={5}>
@@ -55,10 +60,17 @@ export function FilesForm(props) {
 								label={t("document:files.visual.format")}
 								undertext={t("document:files.visual.undertext")}
 								style={{ flex: 4 }}
+								onFileChange={(file) => {
+									console.log(file)
+									model.upload(workpiece.id, file, "private", "art")
+								}}
 							/>
 						</Column>
 						<Column>
-							<AlbumArt style={[FormStyles.albumArt, FormStyles.cover]} />
+							<AlbumArt
+								style={[FormStyles.albumArt, FormStyles.cover]}
+								Image={model.art.array[0]?.uri}
+							/>
 						</Column>
 					</Row>
 					{/* ToDo: No green border when clicking on access and download fields */}

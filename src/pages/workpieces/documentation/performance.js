@@ -17,6 +17,7 @@ import {
 	CheckBox,
 	CheckBoxGroup,
 	Dropdown,
+	Select,
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
 import AddInstrumentDropdown from "../../../smartsplit/components/add-instrument-dropdown"
@@ -238,12 +239,24 @@ export const PerformanceOptions = observer((props) => {
 	const { t } = useTranslation()
 	const [selected, setSelected] = useState()
 
-	const artistTypes = [
-		"mainArtist",
-		"guestArtist",
-		"groupMember",
-		"backupArtist",
-	]
+	const artistTypes = ["mainArtist", "feature", "groupMember", "backupArtist"]
+
+	function genSelectOptions() {
+		return artistTypes.map((artist) => {
+			return {
+				key: artist,
+				value: (
+					<>
+						<Text>{t(`forms:labels.dropdowns.artistTypes.${artist}`)}</Text>
+						<Text secondary>
+							{t(`forms:labels.dropdowns.artistTypesDescription.${artist}`)}
+						</Text>
+					</>
+				),
+				displayValue: t(`forms:labels.dropdowns.artistTypes.${artist}`),
+			}
+		})
+	}
 
 	return (
 		<Column of="component">
@@ -276,18 +289,21 @@ export const PerformanceOptions = observer((props) => {
 			<Row>
 				<Column padding="component" layer="left_overground" />
 				<Column of="component" flex={5}>
-					{/**
-					 * Below we filter options to exclude those already in our list
-					 * model.ids.value is an array of {name:"org", value:"id"}
-					 */}
+					<Group>
+						{/**
+						 * Below we filter options to exclude those already in our list
+						 * model.ids.value is an array of {name:"org", value:"id"}
+						 */}
 
 					{/* ToFix: Longer text is not wrapper in dropdown */}
-					<IconDescriptionSelect
-						options={artistTypes.map((artist) => ({
+
+					<Select
+						options={genSelectOptions()}
+						/* 	options={artistTypes.map((artist) => ({
 							name: t(`document:performance.dropdown.${artist}`),
 							key: artist,
 							description: t(`document:performance.description.${artist}`),
-						}))}
+						}))} */
 						value={selected}
 						placeholder={
 							selected ? (
@@ -305,6 +321,7 @@ export const PerformanceOptions = observer((props) => {
 							setSelected(v)
 						}}
 					/>
+
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
 						<CheckBox field={model.isSinger} />
 						<CheckBox field={model.isMusician} />

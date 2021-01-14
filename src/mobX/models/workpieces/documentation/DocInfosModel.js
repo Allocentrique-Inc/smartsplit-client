@@ -1,5 +1,6 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
+import { cleanUsersForPosting } from "./DocumentationModel"
 export default class DocInfosModel extends BaseModel {
 	@computed get isEmpty() {
 		return (

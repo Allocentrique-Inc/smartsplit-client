@@ -32,11 +32,13 @@ const PerformanceForm = observer(() => {
 				key: status,
 				value: (
 					<>
-						<Text>{t(`performance.artistStatuses.${status}`)}</Text>
-						<Text secondary>{t(`performance.artistStatusDef.${status}`)}</Text>
+						<Text>{t(`forms:labels.dropdowns.artistTypes.${status}`)}</Text>
+						<Text secondary>
+							{t(`forms:labels.dropdowns.artistTypesDescription.${status}`)}
+						</Text>
 					</>
 				),
-				displayValue: t(`performance.artistStatuses.${status}`),
+				displayValue: t(`forms:labels.dropdowns.artistTypes.${status}`),
 			}
 		})
 	}
