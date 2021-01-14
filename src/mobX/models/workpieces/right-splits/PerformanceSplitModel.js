@@ -15,17 +15,17 @@ export default class PerformanceSplitModel extends RightSplitModel {
 		)
 	}
 
-	statusValues = ["principal", "featured", "bandMember", "session"]
+	statusValues = ["mainArtist", "feature", "groupMember", "backupArtist"]
 
 	@computed get majorShares() {
 		return this.sharesValues.filter(
-			(share) => share.status && share.status !== "session"
+			(share) => share.status && share.status !== "backupArtist"
 		)
 	}
 
 	@computed get minorShares() {
 		return this.sharesValues.filter(
-			(share) => share.status && share.status === "session"
+			(share) => share.status && share.status === "backupArtist"
 		)
 	}
 
