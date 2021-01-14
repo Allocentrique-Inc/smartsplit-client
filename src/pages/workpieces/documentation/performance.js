@@ -289,11 +289,10 @@ export const PerformanceOptions = observer((props) => {
 			<Row>
 				<Column padding="component" layer="left_overground" />
 				<Column of="component" flex={5}>
-					<Group>
-						{/**
-						 * Below we filter options to exclude those already in our list
-						 * model.ids.value is an array of {name:"org", value:"id"}
-						 */}
+					{/**
+					 * Below we filter options to exclude those already in our list
+					 * model.ids.value is an array of {name:"org", value:"id"}
+					 */}
 
 					{/* ToFix: Longer text is not wrapper in dropdown */}
 
