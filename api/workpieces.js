@@ -75,6 +75,7 @@ export async function getDocumentation(workpieceId, section) {
 	})
 }
 
+
 export async function saveProtection(workpieceId, section, data) {
 	let url = `/workpieces/${workpieceId}/protect`
 	if (section) {

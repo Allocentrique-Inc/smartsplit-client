@@ -57,6 +57,7 @@ const PerformanceForm = observer((props) => {
 	const workpieceId = workpiece.id
 	const { contributors } = useStores()
 	const model: DocPerformanceModel = useDocsModel(workpieceId, "performance")
+	window.docModel = model
 	const getResults = useArtistAutocomplete()
 	const searchResults = getResults(search, 10, ResultsOrder.contributorsFirst)
 
@@ -166,6 +167,8 @@ const PerformanceForm = observer((props) => {
 							).length
 						)
 							model.performers.add({ user: selection })
+						console.log(toJS(model))
+						console.log(model.toJS())
 						setSearch("")
 					}}
 					placeholder={t("document:performance.roles.addPerformer")}
@@ -286,10 +289,11 @@ export const PerformanceOptions = observer((props) => {
 			<Row>
 				<Column padding="component" layer="left_overground" />
 				<Column of="component" flex={5}>
-					{/**
-					 * Below we filter options to exclude those already in our list
-					 * model.ids.value is an array of {name:"org", value:"id"}
-					 */}
+					<Group>
+						{/**
+						 * Below we filter options to exclude those already in our list
+						 * model.ids.value is an array of {name:"org", value:"id"}
+						 */}
 
 					{/* ToFix: Longer text is not wrapper in dropdown */}
 
@@ -327,6 +331,7 @@ export const PerformanceOptions = observer((props) => {
 						<Column of="tiny">
 							{model.instruments.array.map((entry, index) => (
 								<InstrumentTag
+									key={entry.instrument.value.entity_id}
 									instrument={entry.instrument.value}
 									index={index}
 									field={model.instruments}
@@ -348,6 +353,8 @@ export const PerformanceOptions = observer((props) => {
 								placeholder={t("document:performance.addInstrument")}
 								onSelect={(selection) => {
 									model.instruments.add({ instrument: selection })
+
+									console.log(window.docModel.toJS())
 								}}
 							/>
 						</Column>

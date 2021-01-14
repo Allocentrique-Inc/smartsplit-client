@@ -1,6 +1,6 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
-import { cleanUsersForPosting } from "./DocumentationModel"
+import { cleanForPosting } from "./DocumentationModel"
 
 /**
  *
@@ -36,6 +36,6 @@ export default class DocCreationModel extends BaseModel {
 	 * clean
 	 */
 	toJS(excludePrimary) {
-		return cleanUsersForPosting(super.toJS())
+		return cleanForPosting(super.toJS(excludePrimary))
 	}
 }

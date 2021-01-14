@@ -21,6 +21,7 @@ import bands from "../../../data/bands"
 import { titleCase } from "../../../utils/utils"
 //import LayoutStyles from "../../../styles/layout"
 import { FormStyles } from "./FormStyles"
+import { searchEntities } from "../../../../api/entities"
 
 export default function GeneralInfos() {
 	const { t } = useTranslation()
@@ -86,19 +87,33 @@ export const GeneralInfosForm = observer((props) => {
 
 	const [selectedGenres, setSelectedGenres] = useState("")
 	const [searchGenres, setSearchGenres] = useState("")
+	const [genreResults, setGenreResults] = useState([])
+	const [loading, setLoading] = useState(false)
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
 	const model = useDocsModel(workpieceId, "info")
+
+	async function onSearchChange(search) {
+		setSearchGenres(search)
+		if (!search) {
+			setGenreResults([])
+			return
+		}
+		setLoading(true)
+		let results = await searchEntities("musical-genres", search)
+		setGenreResults(results)
+		setLoading(false)
+	}
 	//console.log(model.toJS()) importer puis loger dans console pour vérifier valeurs puis comment out sinon trop
 
 	// const searchResultsGenres = ["Electrofunk", "Future Funk", "Mega Funk"]
 
-	const searchResultsGenres = genres.map((genre) => {
+	/*const searchResultsGenres = genres.map((genre) => {
 		return {
 			id: genre.id,
 			name: titleCase(genre.name),
 		}
-	})
+	})*/
 
 	/* 	const fakeSearchResults = [
 		{
@@ -165,20 +180,9 @@ export const GeneralInfosForm = observer((props) => {
 				{/* Main Genres */}
 				<AddGenreDropdown
 					hideIcon={false}
-					genres={searchResultsGenres.filter(
-						(g) => g.name.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
-					)}
-					placeholder=""
+					field={model.primaryGenre}
 					noFocusToggle
 					tooltip=""
-					// Todo: put error in t
-					error={model.validated && model.primaryGenre.error}
-					value={model.primaryGenre.value}
-					onSelect={(genre) => {
-						//console.log(genre)
-						model.primaryGenre.setValue(genre)
-						//console.log(model.toJS())
-					}}
 				/>
 				{/* console.log(searchGenres) */}
 				{/* console.log(searchResultsGenres) */}
@@ -188,16 +192,15 @@ export const GeneralInfosForm = observer((props) => {
 				<SearchAndTag
 					noIcon={true}
 					label={t("document:infos.secondaryGenre")}
-					searchResults={searchResultsGenres.filter(
-						(g) => g.name.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
-					)}
+					searchResults={genreResults}
 					search={searchGenres}
-					onSearchChange={setSearchGenres}
+					onSearchChange={onSearchChange}
 					selection={model.secondaryGenres.array}
 					onSelect={(selection) => {
 						let exists =
-							model.secondaryGenres.array.filter((g) => g.id === selection.id)
-								.length > 0
+							model.secondaryGenres.array.filter(
+								(g) => g.entity_id === selection.entity_id
+							).length > 0
 						if (!exists) model.secondaryGenres.add(selection)
 					}}
 					onUnselect={(selection) => model.secondaryGenres.remove(selection)}

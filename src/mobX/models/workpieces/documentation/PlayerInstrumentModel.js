@@ -12,4 +12,10 @@ export default class PlayerInstrumentModel extends BaseModel {
 	})
 	@observable role = new Field(this, "role", { type: FieldType.object })
 	@observable notes = new Field(this, "notes", { type: FieldType.string })
+	toJS() {
+		let js = super.toJS()
+		js = { ...js, instrument: js.instrument.entity_id }
+		console.log(js)
+		return js
+	}
 }
