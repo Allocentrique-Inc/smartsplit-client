@@ -69,7 +69,7 @@ export function FilesForm(props) {
 						<Column>
 							<AlbumArt
 								style={[FormStyles.albumArt, FormStyles.cover]}
-								Image={model.art.array[0]?.url}
+								Image={model.art.array[0]?.uri}
 							/>
 						</Column>
 					</Row>

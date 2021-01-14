@@ -99,7 +99,13 @@ export async function getProtection(workpieceId, section) {
 		url: url,
 	})
 }
-
+export async function docFileList(workpiece_id) {
+	const result = await client.request({
+		method: "get",
+		url: `/workpieces/${workpiece_id}/documentation/files`,
+	})
+	return result.data
+}
 export async function uploadDocFile(
 	workpieceId,
 	file,
@@ -112,8 +118,16 @@ export async function uploadDocFile(
 		// listen for `upload.load` event
 		xhr.upload.onload = () => {
 			console.log(`The upload is completed: ${xhr.status} ${xhr.response}`)
-			resolve(JSON.parse(xhr.responseText))
+			console.log(xhr.response)
+			console.log(xhr.responseText)
+			xhr.responseType
+			resolve(xhr.response)
 		}
+		xhr.addEventListener("readystatechange", function () {
+			if (this.readyState === 4) {
+				console.log(xhr.responseText)
+			}
+		})
 
 		// listen for `upload.error` event
 		xhr.upload.onerror = (e) => {
