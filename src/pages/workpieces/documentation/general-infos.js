@@ -95,10 +95,6 @@ export const GeneralInfosForm = observer((props) => {
 
 	async function onSearchChange(search) {
 		setSearchGenres(search)
-		if (!search) {
-			setGenreResults([])
-			return
-		}
 		setLoading(true)
 		let results = await searchEntities("musical-genres", search)
 		setGenreResults(results)

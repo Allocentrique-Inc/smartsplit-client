@@ -39,6 +39,9 @@ class AddGenreDropdown extends React.PureComponent {
 			text: props.field.value.name || "",
 		}
 	}
+	componentDidMount() {
+		this.handleSearchChange(this.state.text)
+	}
 
 	handleSearchChange = async (text) => {
 		this.setState({ searchText: text, loading: true })
