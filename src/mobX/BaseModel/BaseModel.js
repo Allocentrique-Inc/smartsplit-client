@@ -64,7 +64,7 @@ export default class BaseModel {
 	 * @private
 	 */
 	__fields = []
-	__submittable = []
+	__submittables = []
 	/**
 	 * this is set when BaseModel.save() is called during validation and saving
 	 * @type {boolean}
@@ -143,15 +143,61 @@ export default class BaseModel {
 	}
 
 	/**
-	 * extract an object with the field values
+	 * Extract an object with the fields values (including pseudo fields)
+	 *
 	 * @returns {{}}
 	 */
 	toJS(excludePrimary = false) {
 		// this is our return object
-		const js = {}
+		const js = this.__extractValuesFromFields(excludePrimary)
+		//Recursively extract field values from model children
+		if (this.children.length > 0) {
+			Object.keys(this).forEach((k) => {
+				//console.dir(this[k])
+				if (
+					this[k] &&
+					typeof this[k] === "object" &&
+					this[k].isModel &&
+					k !== "parent"
+				) {
+					let key = this[k].postAlias ? this[k].postAlias : k
+					js[key] = this[k].toJS()
+				}
+			})
+		}
+		return js
+	}
 
-		//now we add all our fields
-		this.__submittable.forEach((k) => {
+	/**
+	 * Model serializer.
+	 * @returns an JS object with all the submittable fields
+	 */
+	toJSON(excludePrimary = false) {
+		const js = this.__extractValuesFromFields(
+			excludePrimary,
+			this.__submittables
+		)
+		//Recursively extract field values from model children
+		if (this.children.length > 0) {
+			Object.keys(this).forEach((k) => {
+				//console.dir(this[k])
+				if (
+					this[k] &&
+					typeof this[k] === "object" &&
+					this[k].isModel &&
+					k !== "parent"
+				) {
+					let key = this[k].postAlias ? this[k].postAlias : k
+					js[key] = this[k].toJSON()
+				}
+			})
+		}
+		return js
+	}
+
+	__extractValuesFromFields(excludePrimary, fields = this.__fields) {
+		const js = {}
+		fields.forEach((k) => {
 			if (excludePrimary && k === this.primaryKey) return
 			if (this[k].isModelCollection) {
 				js[k] = this[k].toJS()
@@ -161,28 +207,7 @@ export default class BaseModel {
 				else js[k] = toJS(this[k].transform(this[k].value, this))
 			}
 		})
-
-		//additionally any properties that are models
-
-		if (this.children.length)
-			Object.keys(this).forEach((k) => {
-				//console.dir(this[k])
-				if (this[k] && typeof this[k] === "object" && this[k].isModel) {
-					let key = this[k].postAlias ? this[k].postAlias : k
-					js[key] = this[k].toJS()
-				}
-			})
 		return js
-	}
-
-	/**
-	 * to be used by JSON.stringify
-	 * @param key
-	 * @returns {*}
-	 */
-	toJSON(key = null) {
-		if (key) return this.toJS()[key]
-		return this.toJS()
 	}
 
 	//------------------------------------------

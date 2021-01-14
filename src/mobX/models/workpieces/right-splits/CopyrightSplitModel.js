@@ -82,7 +82,7 @@ export default class CopyrightSplitModel extends RightSplitModel {
 
 	@action computeEqualMode() {
 		this.sharesValues.forEach((share) => {
-			this.updateShareField(share.shareholderId, "shares", 1)
+			this.updateShareField(share.id, "shares", 1)
 		})
 	}
 
@@ -95,21 +95,20 @@ export default class CopyrightSplitModel extends RightSplitModel {
 			const lyricsContribNb = this.lyricsContributors.length
 			let score = 0
 			if (
-				this.lyricsContributors.filter(
-					(contrib) => contrib.shareholderId === share.shareholderId
-				).length > 0
+				this.lyricsContributors.filter((contrib) => contrib.id === share.id)
+					.length > 0
 			) {
 				score += (0.5 * this.sharesValues.length) / lyricsContribNb
 			}
 
 			this.musicContributors.forEach((contrib) => {
-				if (contrib.shareholderId === share.shareholderId) {
+				if (contrib.id === share.id) {
 					score +=
 						(0.5 * contrib.weighting * this.sharesValues.length) /
 						musicContribNb
 				}
 			})
-			this.updateShareField(share.shareholderId, "shares", score)
+			this.updateShareField(share.id, "shares", score)
 		})
 	}
 
@@ -123,32 +122,5 @@ export default class CopyrightSplitModel extends RightSplitModel {
 		if (this.mode === "roles") {
 			this.computeRolesMode()
 		}
-	}
-
-	/**
-	 *	Action that toggles lock state of the share with the provided id.
-	 *	Detect if the action is a locking or an unlocking. In the first case,
-	 *	if there is only one share unlocked, the action locks it too to prevent the
-	 * 	user from manually modifying it. Otherwise it would provoke a UI bug, the
-	 *	corresponding slider UI would react without making change to the actual shares.
-	 **/
-	@action toggleShareLock(id) {
-		const share = this.get(id)
-		if (share.locked) {
-			const otherShares = this.sharesValues.filter(
-				(share) => share.shareholderId !== id && share.locked
-			)
-			otherShares.forEach(
-				(share) => (this.get(share.shareholderId).locked = false)
-			)
-		} else {
-			const otherShares = this.sharesValues.filter(
-				(share) => share.shareholderId !== id && !share.locked
-			)
-			if (otherShares.length === 1) {
-				this.get(otherShares[0].shareholderId).locked = true
-			}
-		}
-		this.get(id).locked = !share.locked
 	}
 }

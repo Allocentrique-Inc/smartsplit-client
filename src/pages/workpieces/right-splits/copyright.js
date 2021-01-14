@@ -25,14 +25,12 @@ import Slider from "../../../widgets/slider"
 import { runInAction } from "mobx"
 import PercentageInput from "../../../forms/percentage"
 import { CheckBoxGroup } from "../../../forms/checkbox"
-import { CHART_WINDOW_RATIO } from "../../../mobX/states/workpiece-state/right-splits/RightSplitState"
 import { useRightSplits } from "../../../mobX/hooks"
+import { CHART_WINDOW_RATIO } from "../../../mobX/models/workpieces/right-splits/RightSplitState"
 
 const CopyrightForm = observer(() => {
 	const splitState = useRightSplits(useCurrentWorkpieceId(), "copyright")
-	// const domainState = splitState.domainState
 	const domainState = splitState.domainState
-
 	const { sharesData, shareTotal } = splitState
 	const { t } = useTranslation("rightSplits")
 	const [styles, setStyles] = useState({})
@@ -168,7 +166,7 @@ const CopyrightForm = observer(() => {
 						))}
 						<AddCollaboratorDropdown
 							onSelect={(id) =>
-								runInAction(() => splitState.domainState.addShareholder(id))
+								runInAction(() => domainState.addShareholder(id))
 							}
 							placeholder={t("addCollab")}
 						/>

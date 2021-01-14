@@ -8,9 +8,7 @@ import { action, observable, reaction, runInAction } from "mobx"
 import DocumentationModel from "../models/workpieces/documentation/DocumentationModel"
 import ProtectionModel from "../models/workpieces/protect/ProtectionModel"
 import WorkpieceModel from "../models/workpieces/WorkpieceModel"
-import RightSplitsModel from "../models/workpieces/right-splits/RightSplitsModel"
-import RightSplitsState from "./workpiece-state/right-splits/RightSplitsState"
-
+import RightSplitsState from "../models/workpieces/right-splits/RightSplitsState"
 const WorkpieceObservable = createCrudObservable(
 	WorkpiecesCrudAPI,
 	"workpiece_id"
@@ -24,14 +22,12 @@ export class Workpiece extends WorkpieceObservable {
 	 */
 	@observable documentation: DocumentationModel
 	@observable protection: ProtectionModel
-	@observable rightSplits: RightSplitsModel
+	@observable rightSplits: RightSplitsState
 
 	constructor(id, initData = null, initState) {
 		const { files, rightSplit, ...data } = initData || {}
 		super(id, data, initState)
-		
-		this.rightSplits = new RightSplitsModel(this)
-		this.rightSplitsState = new RightSplitsState(this)
+		this.rightSplits = new RightSplitsState(this)
 		// initialising the documentation by passing the workpiece for id, etc
 		this.documentation = new DocumentationModel(
 			null,
@@ -101,11 +97,6 @@ export class Workpiece extends WorkpieceObservable {
 			})
 		})
 	}
-
-	/**
-	 * the right splits data observable wich contains model for various sections of the rights dividing pages
-	 */
-	@observable rightSplits
 
 	/**
 	 * the documentation observable which contains models for the various sections

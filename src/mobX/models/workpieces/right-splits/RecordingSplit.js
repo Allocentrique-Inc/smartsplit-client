@@ -1,14 +1,14 @@
 import CircledP from "../../../../svg/circled-p"
 import RightSplitState from "./RightSplitState"
-
 import { computed } from "mobx"
-import { Colors } from "../../../../theme"
+import RecordingSplitModel from "./RecordingSplitModel"
 import RecordingForm from "../../../../pages/workpieces/right-splits/recording"
-import RecordingSplitModel from "../../../models/workpieces/right-splits/RecordingSplitModel"
+import { Colors } from "../../../../theme"
 
 export default class RecordingSplit extends RightSplitState {
-	constructor(domainState, shareholderColors) {
-		super(new RecordingSplitModel(), CircledP, shareholderColors)
+	constructor(parent, shareholderColors) {
+		super(parent, CircledP, shareholderColors)
+		this.domainState = new RecordingSplitModel(this)
 	}
 	progress = (10 / 11) * 100
 	form = RecordingForm
@@ -22,7 +22,7 @@ export default class RecordingSplit extends RightSplitState {
 				percent = 0
 			}
 			return {
-				id: share.shareholderId,
+				id: share.id,
 				shares: share.shares,
 				function: share.function,
 				percent: percent,

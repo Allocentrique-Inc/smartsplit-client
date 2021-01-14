@@ -12,9 +12,9 @@ import SplitChart from "../../../smartsplit/components/split-chart"
 import { Observer, observer } from "mobx-react"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
-import { CHART_WINDOW_RATIO } from "../../../mobX/states/workpiece-state/right-splits/RightSplitState"
 import { useRightSplits } from "../../../mobX/hooks"
 import { useCurrentWorkpieceId } from "../context"
+import { CHART_WINDOW_RATIO } from "../../../mobX/models/workpieces/right-splits/RightSplitState"
 
 const PerformanceForm = observer(() => {
 	const splitState = useRightSplits(useCurrentWorkpieceId(), "performance")

@@ -1,8 +1,12 @@
-import { FieldType, Field } from "../../../BaseModel"
-import ShareModel from "./ShareModel"
+import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable } from "mobx"
 
-export default class PerformanceShareModel extends ShareModel {
+export default class PerformanceShareModel extends BaseModel {
+	@observable shareholder = new Field(this, "shareholder", {
+		type: FieldType.string,
+		primary: true,
+		readonly: true,
+	})
 	@observable shares = new Field(this, "shares", { type: FieldType.float })
 	@observable status = new Field(this, "status", { type: FieldType.string })
 	@observable roles = new Field(this, "roles", { type: FieldType.collection })

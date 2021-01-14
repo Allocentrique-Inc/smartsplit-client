@@ -18,9 +18,9 @@ import { PercentageInput } from "../../../forms/percentage"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
 import { runInAction } from "mobx"
-import { CHART_WINDOW_RATIO } from "../../../mobX/states/workpiece-state/right-splits/RightSplitState"
 import { useRightSplits } from "../../../mobX/hooks"
 import { useCurrentWorkpieceId } from "../context"
+import { CHART_WINDOW_RATIO } from "../../../mobX/models/workpieces/right-splits/RightSplitState"
 
 const RecordingForm = observer(() => {
 	const splitState = useRightSplits(useCurrentWorkpieceId(), "recording")
