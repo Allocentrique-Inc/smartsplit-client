@@ -13,6 +13,7 @@ import DocStreamingModel from "./DocStreamingModel"
 const makeObservable = () => {}
 
 export default class DocumentationModel extends BaseModel {
+	root
 	workpiece
 	@computed get isEmpty() {
 		return (
