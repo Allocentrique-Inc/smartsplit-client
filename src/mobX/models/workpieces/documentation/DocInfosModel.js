@@ -1,6 +1,6 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
-import { cleanUsersForPosting } from "./DocumentationModel"
+import { cleanForPosting, cleanUsersForPosting } from "./DocumentationModel"
 export default class DocInfosModel extends BaseModel {
 	@computed get isEmpty() {
 		return (
@@ -35,5 +35,9 @@ export default class DocInfosModel extends BaseModel {
 		// const genre = await CreateGenre(name);
 		const genre = { id: "test" + new Date().getTime(), name: name }
 		this.secondaryGenres.add(genre)
+	}
+
+	toJS(excludePrimary) {
+		return cleanForPosting(super.toJS(excludePrimary))
 	}
 }
