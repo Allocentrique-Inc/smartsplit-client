@@ -36,7 +36,9 @@ export default class ModelCollection extends Field {
 		this.modelClass = options.modelClass
 		this.value = []
 	}
-
+	@computed get isDirty() {
+		return this.toJS() !== this.initialValue
+	}
 	@computed get array() {
 		return this.value
 	}
@@ -81,6 +83,6 @@ export default class ModelCollection extends Field {
 	}
 
 	toJS() {
-		return toJS(this.value.map((model) => model.toJS()))
+		return toJS(this.array.map((model) => model.toJS()))
 	}
 }

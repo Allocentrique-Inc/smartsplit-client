@@ -9,6 +9,9 @@ import ITunesIcon from "../../../../svg/workpieces/itunes"
 import AmazonIcon from "../../../../svg/workpieces/amazon"
 import GooglePlayIcon from "../../../../svg/workpieces/google-play"
 export default class DocStreamingModel extends BaseModel {
+	@computed get isEmpty() {
+		return true
+	}
 	@observable links = new Field(this, "links", {
 		type: FieldType.map,
 	})

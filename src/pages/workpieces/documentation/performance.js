@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
+import { TouchableWithoutFeedback, View } from "react-native"
 import { useHistory } from "react-router"
 import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
@@ -17,6 +17,7 @@ import {
 	CheckBox,
 	CheckBoxGroup,
 	Dropdown,
+	Select,
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
 import AddInstrumentDropdown from "../../../smartsplit/components/add-instrument-dropdown"
@@ -34,7 +35,6 @@ import ContributorModel from "../../../mobX/models/user/ContributorModel"
 import DocPerformanceModel from "../../../mobX/models/workpieces/documentation/DocPerformanceModel"
 import { Tag } from "../../../widgets/tag"
 import { toJS } from "mobx"
-import { CardStyles } from "../../../widgets/card"
 import UserAvatar from "../../../smartsplit/user/avatar"
 import HelpCircleFull from "../../../svg/help-circle-full"
 import XIcon from "../../../svg/x"
@@ -44,43 +44,10 @@ import IconDescriptionSelect, {
 	IconDescriptionItem,
 } from "../../../forms/IconDescriptionSelect"
 import { Group } from "../../../layout"
+import { CardStyles } from "../../../widgets/card"
+import { FormStyles } from "./FormStyles"
 
-const Styles = StyleSheet.create({
-	category: {
-		alignItems: "center",
-		display: "flex",
-	},
-	logo: {
-		marginRight: Metrics.spacing.medium,
-	},
-	dropdown: {
-		marginLeft: Metrics.spacing.large,
-	},
-})
-
-const Styles2 = StyleSheet.create({
-	category: {
-		alignItems: "center",
-		display: "flex",
-	},
-	logo: {
-		marginRight: Metrics.spacing.component,
-	},
-	frame: {
-		backgroundColor: Colors.background.underground,
-	},
-	frame_error: {
-		borderWidth: 1,
-		borderColor: Colors.error,
-		borderStyle: "solid",
-	},
-	frame_yourself: {
-		borderWidth: 1,
-		borderColor: Colors.secondaries.teal,
-	},
-})
-
-const frameStyle = [CardStyles.frame, Styles2.frame]
+const frameStyle = [CardStyles.frame, FormStyles.frame]
 
 const PerformanceForm = observer((props) => {
 	const [search, setSearch] = useState("")
@@ -90,6 +57,7 @@ const PerformanceForm = observer((props) => {
 	const workpieceId = workpiece.id
 	const { contributors } = useStores()
 	const model: DocPerformanceModel = useDocsModel(workpieceId, "performance")
+	window.docModel = model
 	const getResults = useArtistAutocomplete()
 	const searchResults = getResults(search, 10, ResultsOrder.contributorsFirst)
 
@@ -164,8 +132,8 @@ const PerformanceForm = observer((props) => {
 	return (
 		<Row>
 			<Column of="group" flex={5}>
-				<Text action bold style={Styles.category}>
-					<PerformanceIcon style={Styles.logo} />
+				<Text action bold style={FormStyles.category}>
+					<PerformanceIcon style={FormStyles.logo} />
 					{t("document:performance.category")}
 					<Row padding="tiny" />
 				</Text>
@@ -175,7 +143,10 @@ const PerformanceForm = observer((props) => {
 				<Spacer of="group" />
 
 				{model.performers.array.map((performer, index) => (
-					<Column style={Styles.dropdown} key={"u" + performer.user.user_id}>
+					<Column
+						style={FormStyles.dropdown}
+						key={"u" + performer.user.user_id}
+					>
 						<PerformanceOptions
 							model={performer}
 							index={index}
@@ -196,6 +167,8 @@ const PerformanceForm = observer((props) => {
 							).length
 						)
 							model.performers.add({ user: selection })
+						console.log(toJS(model))
+						console.log(model.toJS())
 						setSearch("")
 					}}
 					placeholder={t("document:performance.roles.addPerformer")}
@@ -266,12 +239,24 @@ export const PerformanceOptions = observer((props) => {
 	const { t } = useTranslation()
 	const [selected, setSelected] = useState()
 
-	const artistTypes = [
-		"mainArtist",
-		"guestArtist",
-		"groupMember",
-		"backupArtist",
-	]
+	const artistTypes = ["mainArtist", "feature", "groupMember", "backupArtist"]
+
+	function genSelectOptions() {
+		return artistTypes.map((artist) => {
+			return {
+				key: artist,
+				value: (
+					<>
+						<Text>{t(`forms:labels.dropdowns.artistTypes.${artist}`)}</Text>
+						<Text secondary>
+							{t(`forms:labels.dropdowns.artistTypesDescription.${artist}`)}
+						</Text>
+					</>
+				),
+				displayValue: t(`forms:labels.dropdowns.artistTypes.${artist}`),
+			}
+		})
+	}
 
 	return (
 		<Column of="component">
@@ -304,37 +289,38 @@ export const PerformanceOptions = observer((props) => {
 			<Row>
 				<Column padding="component" layer="left_overground" />
 				<Column of="component" flex={5}>
-					<Group>
-						{/**
-						 * Below we filter options to exclude those already in our list
-						 * model.ids.value is an array of {name:"org", value:"id"}
-						 */}
+					{/**
+					 * Below we filter options to exclude those already in our list
+					 * model.ids.value is an array of {name:"org", value:"id"}
+					 */}
 
-						{/* ToFix: Longer text is not wrapper in dropdown */}
-						<IconDescriptionSelect
-							options={artistTypes.map((artist) => ({
-								name: t(`document:performance.dropdown.${artist}`),
-								key: artist,
-								description: t(`document:performance.description.${artist}`),
-							}))}
-							value={selected}
-							placeholder={
-								selected ? (
-									<IconDescriptionItem
-										name={t(`document:performance.dropdown.${selected}`)}
-										description={t(
-											`document:performance.description.${selected}`
-										)}
-									/>
-								) : (
-									t("document:performance.whichPerformance")
-								)
-							}
-							onChange={(v) => {
-								setSelected(v)
-							}}
-						/>
-					</Group>
+					{/* ToFix: Longer text is not wrapper in dropdown */}
+
+					<Select
+						options={genSelectOptions()}
+						/* 	options={artistTypes.map((artist) => ({
+							name: t(`document:performance.dropdown.${artist}`),
+							key: artist,
+							description: t(`document:performance.description.${artist}`),
+						}))} */
+						value={selected}
+						placeholder={
+							selected ? (
+								<IconDescriptionItem
+									name={t(`document:performance.dropdown.${selected}`)}
+									description={t(
+										`document:performance.description.${selected}`
+									)}
+								/>
+							) : (
+								t("document:performance.whichPerformance")
+							)
+						}
+						onChange={(v) => {
+							setSelected(v)
+						}}
+					/>
+
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
 						<CheckBox field={model.isSinger} />
 						<CheckBox field={model.isMusician} />
@@ -344,6 +330,7 @@ export const PerformanceOptions = observer((props) => {
 						<Column of="tiny">
 							{model.instruments.array.map((entry, index) => (
 								<InstrumentTag
+									key={entry.instrument.value.entity_id}
 									instrument={entry.instrument.value}
 									index={index}
 									field={model.instruments}
@@ -365,6 +352,8 @@ export const PerformanceOptions = observer((props) => {
 								placeholder={t("document:performance.addInstrument")}
 								onSelect={(selection) => {
 									model.instruments.add({ instrument: selection })
+
+									console.log(window.docModel.toJS())
 								}}
 							/>
 						</Column>

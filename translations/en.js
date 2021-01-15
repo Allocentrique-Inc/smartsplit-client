@@ -184,6 +184,19 @@ export const forms = {
 			createCollaborator: "Create a new collaborator",
 			createContributor: "Create a new contributor",
 			addArtist: "Add {{searchText}} as a new artist or group",
+			artistTypes: {
+				mainArtist: "Main Artist",
+				feature: "Guest Artist",
+				groupMember: "Group Member",
+				backupArtist: "Backup Artist",
+			},
+			artistTypesDescription: {
+				mainArtist: 'Also called "Featured Artist " or "Solo Artist"',
+				feature:
+					"Artist or group member invited to collaborate on a musical piece",
+				groupMember: "Musician or singer taking part in the artistic entity",
+				backupArtist: "Performer hired during studio recording sessions",
+			},
 		},
 		defaultRoles: "Default Role(s)",
 	},
@@ -516,23 +529,6 @@ export const rightSplits = {
 				applicable.
 			</>
 		),
-		artistStatuses: {
-			principal: "Main artist",
-			featured: () => (
-				<>
-					Starred Artist (<i>featuring</i>)
-				</>
-			),
-			bandMember: "Band member",
-			session: "Accompanying artist",
-		},
-		artistStatusDef: {
-			principal: 'Also called "Starred Artist" or "Solo Artist"',
-			featured:
-				"Artist or group member invited to collaborate on a musical piece",
-			bandMember: "Musician or singer taking part in the artistic entity.",
-			session: "Accompanying Artist",
-		},
 	},
 	recording: {
 		title: "Sound recording",
@@ -686,19 +682,6 @@ export const document = {
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
 		addInstrumentDropdown: "Ajouter {{search}} comme instrument",
-		dropdown: {
-			mainArtist: "Main Artist",
-			guestArtist: "Guest Artist",
-			groupMember: "Group Member",
-			backupArtist: "Backup Artist",
-		},
-		description: {
-			mainArtist: 'Also called "Featured Artist " or "Solo Artist"',
-			guestArtist:
-				"Artist or group member invited to collaborate on a musical piece",
-			groupMember: "Musician or singer taking part in the artistic entity",
-			backupArtist: "Performer hired during studio recording sessions",
-		},
 	},
 
 	recording: {

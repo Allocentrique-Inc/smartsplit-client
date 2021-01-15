@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { StyleSheet } from "react-native"
 import { useHistory } from "react-router"
 import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
@@ -24,33 +23,22 @@ import LockIcon from "../../../svg/lock"
 import Download from "../../../svg/download"
 import UnlockDownload from "../../../svg/unlock-download"
 import AlbumArt from "../../../smartsplit/media/albumArt"
-
-const Styles = StyleSheet.create({
-	category: {
-		alignItems: "center",
-		display: "flex",
-	},
-	logo: {
-		marginRight: Metrics.spacing.medium,
-	},
-	dropdown: {
-		marginLeft: Metrics.spacing.large,
-	},
-	cover: {
-		width: Metrics.size.cover,
-		height: Metrics.size.cover,
-	},
-})
+import { FormStyles } from "./FormStyles"
+import DocCreationModel from "../../../mobX/models/workpieces/documentation/DocCreationModel"
+import { useDocsModel } from "../../../mobX/hooks"
+import DocFilesModel from "../../../mobX/models/workpieces/documentation/DocFilesModel"
 
 export function FilesForm(props) {
 	const { t } = useTranslation()
 	const workpiece = useCurrentWorkpiece()
-
+	const model: DocFilesModel = useDocsModel(workpiece.id, "files")
+	console.log(model.toJS())
+	const workpieceId = workpiece.id
 	return (
 		<Row>
 			<Column of="group" flex={5}>
-				<Text action bold style={Styles.category}>
-					<FilesIcon style={Styles.logo} />
+				<Text action bold style={FormStyles.category}>
+					<FilesIcon style={FormStyles.logo} />
 					{t("document:files.category")}
 					<Row padding="tiny" />
 				</Text>
@@ -72,10 +60,17 @@ export function FilesForm(props) {
 								label={t("document:files.visual.format")}
 								undertext={t("document:files.visual.undertext")}
 								style={{ flex: 4 }}
+								onFileChange={(file) => {
+									console.log(file)
+									model.upload(workpiece.id, file, "private", "art")
+								}}
 							/>
 						</Column>
 						<Column>
-							<AlbumArt style={[Styles.albumArt, Styles.cover]} />
+							<AlbumArt
+								style={[FormStyles.albumArt, FormStyles.cover]}
+								Image={model.art.array[0]?.uri}
+							/>
 						</Column>
 					</Row>
 					{/* ToDo: No green border when clicking on access and download fields */}
@@ -166,7 +161,7 @@ export function FilesForm(props) {
 						<RadioGroupButton
 							value="add"
 							label={<Text bold>{t("document:files.audio.addFile")}</Text>}
-							style={{ fontWeight: "bold" }}
+							style={FormStyles.radio_font}
 						/>
 					</RadioGroup>
 					<Row of="component">

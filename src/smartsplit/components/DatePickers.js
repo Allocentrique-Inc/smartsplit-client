@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { observer } from "mobx-react"
 import {
 	TouchableOpacity,
 	Platform,
@@ -11,10 +12,8 @@ import styled from "styled-components/native"
 import DateTimePicker from "@react-native-community/datetimepicker" //For mobile
 import { DateInput } from "semantic-ui-calendar-react" // For web
 import "semantic-ui-css/semantic.min.css"
-//import DatePicker from "react-datepicker"
-//import "react-datepicker/dist/react-datepicker-cssmodules.css"
 import { Colors } from "../../theme"
-import { observer } from "mobx-react"
+import { titleCase } from "../../utils/utils"
 
 const DatePickerStyle = StyleSheet.create({
 	container: {
@@ -35,24 +34,40 @@ const DatePickerStyle = StyleSheet.create({
 	)
 } */
 
-export const WebDatePicker = (props) => {
-	const { i18n } = useTranslation()
-	let defaultProps = {
-		name: "date",
-		dateFormat: "DD-MM-YYYY",
-		placeholder: "DD-MM-YYYY",
-		localization: i18n.language,
-	}
+export const WebDatePicker = observer((props) => {
+	const { field } = props
 
-	const newProps = { ...defaultProps, ...props }
+	const [value, setValue] = useState(new Date()) //new créer un nouvel objet, comme constructor, par défaut existe dans browser JS
+
+	const { t, i18n } = useTranslation()
+
+	const handleChange = (event, { name, value }) => {
+		console.log(`${name}: ${value}`)
+		//name === "date" ? setValue(value) : t("forms:placeholders.date")
+		value === setValue(value)
+			? field.setValue(value)
+			: t("forms:placeholders.date")
+
+		/* 	if (name === "date") {
+			if (field) field.setValue(value)
+			else t("forms:placeholders.date")
+		} */
+	}
 
 	return (
 		<DateInput
 			//style={DatePickerStyle.container}
-			{...newProps}
+			name="date"
+			dateFormat="DD-MM-YYYY"
+			placeholder={t("forms:placeholders.date")}
+			//label={t("document:creation.date")}
+			value={field?.value}
+			onChange={handleChange}
+			icon={null}
+			localization={i18n.language}
 		/>
 	)
-}
+})
 
 const DatePickerContainer = styled.TouchableOpacity`
 	background-color: ${Platform.OS === "ios" ? "#00000066" : "transparent"};
@@ -107,21 +122,23 @@ export class MobileDatePicker extends React.Component {
 						}
 					}}
 					style={{ backgroundColor: "white" }}
+					placeholder={t("forms:placeholders.date")}
+					label={t("document:creation.date")}
 				/>
 			</DatePickerContainer>
 		)
 	}
 }
 
-const DatePickers = observer(function (props) {
+export default function DatePickers(props) {
+	const [date, setDate] = useState(new Date()) //En attendant de binder
 	return (
 		<View>
 			{Platform.OS === "web" ? (
-				<WebDatePicker {...props} />
+				<WebDatePicker value={date} onChange={(value) => setDate(v)} />
 			) : (
 				<MobileDatePicker />
 			)}
 		</View>
 	)
-})
-export default DatePickers
+}

@@ -1,7 +1,20 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
+import { cleanForPosting } from "./DocumentationModel"
 
 export default class DocRecordingModel extends BaseModel {
+	@computed get isEmpty() {
+		return (
+			this.director.array.length === 0 &&
+			this.recordedBy.array.length === 0 &&
+			this.mixedBy.array.length === 0 &&
+			this.masteredBy.array.length === 0 &&
+			this.producedBy.array.length === 0 &&
+			this.recordingStudio.array.length === 0 &&
+			this.recordingDate.array.length === 0 &&
+			!this.isrc.value
+		)
+	}
 	@observable director = new Field(this, "director", {
 		type: FieldType.collection,
 	})
@@ -18,7 +31,7 @@ export default class DocRecordingModel extends BaseModel {
 		type: FieldType.collection,
 	})
 	@observable recordingStudio = new Field(this, "recordingStudio", {
-		type: FieldType.string,
+		type: FieldType.collection,
 	})
 	@observable recordingDate = new Field(this, "recordingDate", {
 		type: FieldType.date,
@@ -35,7 +48,7 @@ export default class DocRecordingModel extends BaseModel {
 		/// return blank object for now
 		let values = super.toJS(excludePrimary)
 
-		return {
+		return cleanForPosting({
 			director: values.director,
 			producer: values.producer,
 			isrc: values.isrc,
@@ -48,6 +61,6 @@ export default class DocRecordingModel extends BaseModel {
 			],
 			mixing: [this.populateEntry(values.mixedBy)],
 			mastering: [this.populateEntry(values.masteredBy)],
-		}
+		})
 	}
 }

@@ -1,5 +1,6 @@
 import { createCrudObservable, createEntityListObservable } from "../crud"
 import WorkpiecesCrudAPI, {
+	docFileList,
 	getDocumentation,
 	getProtection,
 	listForUser,
@@ -43,6 +44,10 @@ export class Workpiece extends WorkpieceObservable {
 		)
 		getDocumentation(id).then((docs) => {
 			this.documentation.init(docs.data)
+		})
+
+		docFileList(id).then((list) => {
+			console.log(JSON.stringify(list, null, 2))
 		})
 		//this.documentation.init()
 		//console.log(toJS(this.documentation))

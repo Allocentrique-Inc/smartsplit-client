@@ -10,6 +10,7 @@ import FormStyles from "../../styles/forms"
 import { highlightMatchedStrings } from "../../utils/utils"
 import PlusCircle from "../../svg/plus-circle"
 import { toJS } from "mobx"
+import { searchEntities } from "../../../api/entities"
 
 const Styles = StyleSheet.create({
 	actionFrame: {
@@ -19,30 +20,43 @@ const Styles = StyleSheet.create({
 })
 
 class AddGenreDropdown extends React.PureComponent {
+	state = {
+		searchText: "",
+		value: null,
+		genres: [],
+		focused: false,
+		loading: false,
+		text: "",
+	}
 	constructor(props) {
 		super(props)
 		this.state = {
-			searchText: props.searchText || "",
-			value: props.defaultValue || props.value || null,
-			genres: props.genres, // TODO: Plus tard, base de donnée + API
+			searchText: "",
+			value: props.field.value || null,
+			genres: [],
 			focused: false,
+			loading: false,
+			text: props.field.value.name || "",
 		}
-		this.state.text = props.genres[this.state.value] || ""
+	}
+	componentDidMount() {
+		this.handleSearchChange(this.state.text)
 	}
 
-	handleSearchChange = (text) => {
-		this.setState({ searchText: text })
-
-		if (this.props.onSearchChange) this.props.onSearchChange(text)
+	handleSearchChange = async (text) => {
+		this.setState({ searchText: text, loading: true })
+		let response = await searchEntities("musical-genres", text)
+		this.setState({ genres: response, loading: false })
 	}
 
-	handleSelectionChange = (key, value) => {
+	handleSelectionChange = (genre) => {
 		this.setState({
-			value: key,
-			text: value,
-			searchText: value,
+			value: genre,
+			text: genre.name,
+			searchText: genre.name,
 		})
-		if (this.props.onSelect) this.props.onSelect({ id: key, name: value })
+		if (this.props.field) this.props.field.setValue(genre)
+		//if (this.props.onSelect) this.props.onSelect({ id: key, name: value })
 	}
 
 	handleFocus = () => {
@@ -63,20 +77,6 @@ class AddGenreDropdown extends React.PureComponent {
 
 	render() {
 		const { t, i18n } = this.props
-		//filtre puis map, retournent array
-		const genres = this.state.genres
-			.filter((g) => compareGenres(g.name, this.state.searchText))
-			// i = index
-			.map((g, i) => (
-				<GenreDropdownRow
-					key={i}
-					genreKey={g.id}
-					value={g.name}
-					onSelect={this.handleSelectionChange}
-					search={this.state.searchText}
-				/>
-			))
-
 		const quotation = i18n.language === "en" ? '"' : "« "
 		const quotationEnd = i18n.language === "en" ? '"' : " »"
 
@@ -106,7 +106,15 @@ class AddGenreDropdown extends React.PureComponent {
 			>
 				<Layer layer="overground_moderate">
 					<ScrollView style={FormStyles.select_scroll}>
-						{genres}
+						{this.state.genres.map((g, i) => (
+							<GenreDropdownRow
+								key={i}
+								genreKey={g.entity_id}
+								value={g.name}
+								onSelect={() => this.handleSelectionChange(g)}
+								search={this.state.searchText}
+							/>
+						))}
 						{/* {this.state.searchText ? addNew : null} */}
 						{/* {addNew} */}
 					</ScrollView>
