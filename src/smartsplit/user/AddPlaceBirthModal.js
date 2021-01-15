@@ -12,7 +12,6 @@ import { Text } from "../../text"
 export default observer(function AddPlaceBirthModal(props) {
 	const { onRequestClose, workpieceId } = props
 	const model: CertificateModel = useProtectModel(workpieceId, "certificate")
-	console.log("model", model)
 	const [rs, setRs] = useState("")
 	const { t } = useTranslation()
 

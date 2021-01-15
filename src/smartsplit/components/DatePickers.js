@@ -14,6 +14,7 @@ import "semantic-ui-css/semantic.min.css"
 //import DatePicker from "react-datepicker"
 //import "react-datepicker/dist/react-datepicker-cssmodules.css"
 import { Colors } from "../../theme"
+import { observer } from "mobx-react"
 
 const DatePickerStyle = StyleSheet.create({
 	container: {
@@ -35,23 +36,20 @@ const DatePickerStyle = StyleSheet.create({
 } */
 
 export const WebDatePicker = (props) => {
-	const [value, setValue] = useState(new Date()) //new créer un nouvel objet, comme constructor, par défaut existe dans browser JS
-	const handleChange = (event, { name, value }) => {
-		if (name === "date") {
-			setValue(value)
-		}
+	const { i18n } = useTranslation()
+	let defaultProps = {
+		name: "date",
+		dateFormat: "DD-MM-YYYY",
+		placeholder: "DD-MM-YYYY",
+		localization: i18n.language,
 	}
-	const { t, i18n } = useTranslation()
+
+	const newProps = { ...defaultProps, ...props }
+
 	return (
 		<DateInput
 			//style={DatePickerStyle.container}
-			name="date"
-			dateFormat="DD-MM-YYYY"
-			placeholder="DD-MM-YYYY"
-			value={value}
-			onChange={handleChange}
-			icon={null}
-			localization={i18n.language}
+			{...newProps}
 		/>
 	)
 }
@@ -115,15 +113,15 @@ export class MobileDatePicker extends React.Component {
 	}
 }
 
-export default function DatePickers(props) {
-	const [date, setDate] = useState(new Date()) //En attendant de binder
+const DatePickers = observer(function (props) {
 	return (
 		<View>
 			{Platform.OS === "web" ? (
-				<WebDatePicker value={date} onChange={(v) => setDate(v)} />
+				<WebDatePicker {...props} />
 			) : (
 				<MobileDatePicker />
 			)}
 		</View>
 	)
-}
+})
+export default DatePickers
