@@ -39,14 +39,21 @@ export const WebDatePicker = observer((props) => {
 
 	const [value, setValue] = useState(new Date()) //new créer un nouvel objet, comme constructor, par défaut existe dans browser JS
 
+	const { t, i18n } = useTranslation()
+
 	const handleChange = (event, { name, value }) => {
 		console.log(`${name}: ${value}`)
-		if (name === "date") {
+		//name === "date" ? setValue(value) : t("forms:placeholders.date")
+		value === setValue(value)
+			? field.setValue(value)
+			: t("forms:placeholders.date")
+
+		/* 	if (name === "date") {
 			if (field) field.setValue(value)
-			else setValue(value)
-		}
+			else t("forms:placeholders.date")
+		} */
 	}
-	const { t, i18n } = useTranslation()
+
 	return (
 		<DateInput
 			//style={DatePickerStyle.container}
@@ -128,7 +135,7 @@ export default function DatePickers(props) {
 	return (
 		<View>
 			{Platform.OS === "web" ? (
-				<WebDatePicker value={date} onChange={(v) => setDate(v)} />
+				<WebDatePicker value={date} onChange={(value) => setDate(v)} />
 			) : (
 				<MobileDatePicker />
 			)}
