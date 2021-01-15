@@ -829,6 +829,7 @@ export const document = {
 	},
 }
 export const protect = {
+	completed: "Completed",
 	navbar: {
 		protect: "Protect your work",
 		pages: {
@@ -837,6 +838,23 @@ export const protect = {
 		},
 	},
 	help: "Help",
+	promo: {
+		heading: "Protect your work",
+		title: "Encrypted each file of your creation to preserve its authorship",
+		description:
+			"Description of the feature. Feature description here again. Description of the feature.",
+		codeTitle: "Did you receive a promo code?",
+		codePlaceHolder: "Enter your promo code",
+		buy: "Buy     {{price}} $",
+		validCode: "valid code",
+		codeValueContent:
+			"Luck smiles at you! <br /> <br /> Thanks to the Guilde des Musiciennes et Musiciennes du Québec, this code allows you to use all the features free of charge for another <b> {{hoursRemaining}} days </b>, that is until {{expired}}",
+		applyThisCredit: "Apply this credit",
+		amountRemaining: "You have $ {{amount}} left in the bank",
+		creditApplied: "Credit applied!",
+		dollarOfCredit: "-{{price}} $ of your credits",
+		findOutMore: "Find out more",
+	},
 	selection: {
 		heading1: "Which version of the work would you like to protect?",
 		para1: "Here, you send your work to a computer encoder.",
@@ -844,8 +862,15 @@ export const protect = {
 			"The algorithm behind this page will take your artwork and create a unique digital fingerprint from it called a",
 		heading2: "File to protect",
 		addFileLabel: "Add a file",
-		underText: "All formats accepted, 2 MB maximum.",
+		underText:
+			".Pdf, jpeg, .png, .wav or .mp3 formats accepted. 250 MB maximum.",
+		customName: "Custom Name",
+		fileCategory: "File Category",
+		examplesCategories:
+			"Examples of categories: Musical piece, Score, Tabs, MIDI file, ertc.",
 		heading3: "Working version",
+		workingVersionDesc:
+			"For a song, the working versions are for example: Idea, Demo, Mix, Master.",
 		idea: "Idea",
 		demo: "Demo",
 		roughMix: "Rough Mix",
@@ -858,11 +883,13 @@ export const protect = {
 		why: "Why protect my work?",
 		whyContent:
 			"Registering your work on the blockchain with Smartsplit is equivalent to sending it by registered mail to yourself in order to be able to demonstrate your parternity if necessary.",
+		alertNoSuportFile:
+			"The file type is not supported or the file size is larger than allowed.",
 	},
 	certificate: {
 		heading1: "Review your certificate",
 		para1:
-			"You are about to send proof that you are the author of this musical piece on the blockchain.",
+			"Tu es sur le point d’envoyer de façon irréversible sur la blockchain la preuve que tu es bel et bien lié à ce fichier.",
 		musicalPiece: "Musical piece",
 		sourceFile: "Source file",
 		why: "The importance of studying well",
@@ -871,8 +898,14 @@ export const protect = {
 		format: "Format",
 		versionName: "Version name",
 		workingVersion: "Working version",
-		listedBy: "Listed by",
+		listedBy: "Filed by",
+		identity: "Identity",
+		completeIdentity: "Complete my identity",
+		completeIdDesc:
+			"This information is used to specify your identity in order to correctly associate it with your file. These will be encrypted to protect your privacy.",
 		fileDigitalFingerprints: "File digital fingerprints",
+		viewEncryption: "View digital encryption",
+		notEnoughInfo: "No date of birth or email yet.",
 		sha256: "SHA256",
 		md5: "MD5",
 		addiction: "Addiction",
@@ -885,9 +918,11 @@ export const protect = {
 		post: "Posted on {{publishedDate, LL}} by {{author}} · ",
 		viewCertificate: "View certificate",
 		addPlaceBirth: "Add a place of birth",
-		addPlaceBirthModal: "{{name}} place of birth",
+		addEmailModal: "Email of {{name}}",
 		addPlaceBirthUnderText:
 			"This information is used to associate your identity with the file and will remain confidential.",
+		edit: "Edit",
+		category: "Category",
 	},
 	verify1:
 		"<b> I declare that I am actually {{firstName}} </b>. I understand that impersonating someone else would constitute serious misconduct liable to prosecution.",

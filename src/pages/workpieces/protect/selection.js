@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { StyleSheet } from "react-native"
 import { useCurrentWorkpiece } from "../context"
@@ -10,6 +10,10 @@ import { RadioGroup, RadioGroupButton, FileField } from "../../../forms"
 import TextField from "../../../forms/text"
 import SelectionModel from "../../../mobX/models/workpieces/protect/SelectionModel"
 import { useProtectModel } from "../../../mobX/hooks"
+import { AddFileInfo } from "./addFileInfo"
+
+const LimitFileSize = 262144000
+const AcceptTypeUpLoad = ["pdf", "jpeg", "png", "wav", "mp3"]
 
 const Styles = StyleSheet.create({
 	category: {
@@ -44,22 +48,23 @@ const SelectionPage = observer(() => {
 	const workpieceId = workpiece.id
 	const model: SelectionModel = useProtectModel(workpieceId, "selection")
 	const files = model.files.array // useCurrentWorkpiece("files", "$all")
-
-	const handleChangeVersionType = (val) => {
-		model.versionType.value = val
-	}
+	const [fileName, setFileName] = useState("")
 
 	const onChangeRadioFile = (val) => {
-		model.fileSelectedId.value = val
+		model.fileSelectedId.setValue(val)
+		if (val != "0") {
+			setFileName("")
+		}
 	}
 
 	const onChangeFile = (val) => {
-		model.fileSelectedId.value = "0"
-		model.fileAdd = val
-	}
-	const onChangeDemoName = (val) => {
-		if (model.versionType.value === "demo") {
-			model.demoName.value = val
+		var re = /(?:\.([^.]+))?$/
+		var ext = re.exec(val.name)[1]
+		if (AcceptTypeUpLoad.includes(ext) && parseInt(val.size) <= LimitFileSize) {
+			model.fileSelectedId.setValue("0")
+			setFileName(val)
+		} else {
+			alert(t("protect:selection.alertNoSuportFile").toString())
 		}
 	}
 	return (
@@ -98,52 +103,21 @@ const SelectionPage = observer(() => {
 											label={t("protect:selection:addFileLabel")}
 											undertext={t("protect:selection:underText")}
 											onFileChange={onChangeFile}
+											file={fileName}
 										/>
+										{fileName !== "" && (
+											<AddFileInfo
+												style={{ marginTop: 20 }}
+												onClearFile={() => {
+													setFileName("")
+													model.fileSelectedId.setValue("")
+												}}
+												file={fileName}
+												workpieceId={workpieceId}
+											/>
+										)}
 									</Flex>
 								</RadioGroupButton>
-							</Column>
-						</RadioGroup>
-					</Column>
-
-					<Hairline />
-
-					<Column of="component">
-						<Heading level={3}>{t("protect:selection:heading3")}</Heading>
-						<RadioGroup
-							name="versionType"
-							value={model.versionType.value}
-							onChange={handleChangeVersionType}
-						>
-							<Column of="inside">
-								<RadioGroupButton
-									value="idea"
-									label={t("protect:selection:idea")}
-								/>
-								<RadioGroupButton
-									value="demo"
-									label={t("protect:selection:demo")}
-								/>
-								{model.versionType.value === "demo" && (
-									<Column style={Styles.option_text}>
-										<Heading level={5}>
-											{t("protect:selection:heading5")}
-										</Heading>
-										<Flex>
-											<TextField
-												value={model.demoName.value}
-												onChange={onChangeDemoName}
-											/>
-										</Flex>
-									</Column>
-								)}
-								<RadioGroupButton
-									value="rough-mix"
-									label={t("protect:selection:roughMix")}
-								/>
-								<RadioGroupButton
-									value="final-master"
-									label={t("protect:selection:finalMaster")}
-								/>
 							</Column>
 						</RadioGroup>
 					</Column>
