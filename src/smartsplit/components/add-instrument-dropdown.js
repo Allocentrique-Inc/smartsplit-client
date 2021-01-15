@@ -38,8 +38,8 @@ export default function AddInstrumentDropdown({
 	async function getSearchResults(search) {
 		setLoading(true)
 		let list = await searchEntities("instruments", search)
-		setResults(list)
 		setLoading(false)
+		setResults(list)
 	}
 	//if (selection) setResults([{ name: "remove instrument", id: "" }, ...results])
 	if (!selection && hideEmpty) return null

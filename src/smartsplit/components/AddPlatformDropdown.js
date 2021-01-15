@@ -39,17 +39,17 @@ const AddPlatform = observer((props) => {
 
 	return (
 		<Column of="component">
-			{otherLinks.map((name) => (
-				<Autocomplete
-					icon={PlusCircle}
-					placeholder={t("document:links.addPlatform")}
-					error={error}
-					search={search}
-					onSelect={onSelect}
-					onSearchChange={setSearch}
-					{...nextProps}
-				/>
-			))}
+			{/*{otherLinks.map((name) => (*/}
+			<Autocomplete
+				icon={PlusCircle}
+				placeholder={t("document:links.addPlatform")}
+				error={error}
+				search={search}
+				onSelect={onSelect}
+				onSearchChange={setSearch}
+				{...nextProps}
+			/>
+			{/*))}*/}
 		</Column>
 	)
 })

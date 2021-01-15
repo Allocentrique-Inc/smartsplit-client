@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { TouchableWithoutFeedback } from "react-native"
 import { useHistory } from "react-router"
 import { useStorePath } from "../../../appstate/react"
@@ -92,6 +92,10 @@ export const GeneralInfosForm = observer((props) => {
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
 	const model = useDocsModel(workpieceId, "info")
+
+	useEffect(() => {
+		onSearchChange("")
+	}, [])
 
 	async function onSearchChange(search) {
 		setSearchGenres(search)
@@ -227,12 +231,7 @@ export const GeneralInfosForm = observer((props) => {
 					noIcon={true}
 					label={t("document:infos.influence")}
 					undertext={t("document:infos.influenceExample")}
-					searchResults={searchResultsInfluences
-						.filter(
-							(i) =>
-								i.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
-						)
-						.splice(0, 10)}
+					searchResults={[]}
 					search={searchInfluences}
 					onSearchChange={setSearchInfluences}
 					selection={model.influences.value}
@@ -240,25 +239,27 @@ export const GeneralInfosForm = observer((props) => {
 					onUnselect={(selection) => model.influences.remove(selection)}
 					placeholder={t("document:infos.addInfluence")}
 				>
-					<TouchableWithoutFeedback
-						onPress={() => {
-							model.influences.add(searchInfluences)
-						}}
-					>
-						<Row
-							of="component"
-							padding="component"
-							//style={FormStyles.actionFrame}
+					{searchInfluences && (
+						<TouchableWithoutFeedback
+							onPress={() => {
+								model.influences.add(searchInfluences)
+							}}
 						>
-							<PlusCircle />
-							<Text bold action>
-								{t("document:add")}
-								{searchInfluences ? quotation : null}
-								{searchInfluences}
-								{searchInfluences ? quotationEnd : null}
-							</Text>
-						</Row>
-					</TouchableWithoutFeedback>
+							<Row
+								of="component"
+								padding="component"
+								//style={FormStyles.actionFrame}
+							>
+								<PlusCircle />
+								<Text bold action>
+									{t("document:add")}
+									{searchInfluences ? quotation : null}
+									{searchInfluences}
+									{searchInfluences ? quotationEnd : null}
+								</Text>
+							</Row>
+						</TouchableWithoutFeedback>
+					)}
 				</SearchAndTag>
 			</Column>
 			<Flex />
