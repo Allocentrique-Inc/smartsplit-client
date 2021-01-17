@@ -64,7 +64,7 @@ export default class BaseModel {
 	 * @private
 	 */
 	__fields = []
-	__submittables = []
+	__submittable = []
 	/**
 	 * this is set when BaseModel.save() is called during validation and saving
 	 * @type {boolean}
@@ -143,13 +143,24 @@ export default class BaseModel {
 	}
 
 	/**
-	 * Extract an object with the fields values (including pseudo fields)
+	 * an alias for the call to .toJS() that extracts all, includinng pseudos
+	 * @returns {{}}
+	 */
+	toJsAll() {
+		return this.toJS(false, false)
+	}
+	/**
+	 * Extract an object with the fields values by default withoput pseudo field value
+	 *
 	 *
 	 * @returns {{}}
 	 */
-	toJS(excludePrimary = false) {
+	toJS(excludePrimary = false, excludePseudo = true) {
 		// this is our return object
-		const js = this.__extractValuesFromFields(excludePrimary)
+		const js = this.__extractValuesFromFields(
+			excludePrimary,
+			excludePseudo ? this.__submittable : this.__fields
+		)
 		//Recursively extract field values from model children
 		if (this.children.length > 0) {
 			Object.keys(this).forEach((k) => {
