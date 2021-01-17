@@ -343,9 +343,11 @@ export default class Field {
 					})
 			}
 		})
+		if (!this.isPseudo) this.model.__submittable.push(fieldName)
 	}
 
 	isModel = false
+	isModelCollection = false
 
 	/**
 	 * a reference to the parent model
@@ -896,12 +898,9 @@ export default class Field {
 
 	@computed
 	get isDirty() {
-		console.log(toJS(this.value))
-		console.log(toJS(this.initialValue))
-		return (
-			JSON.stringify(toJS(this.value)) !==
-			JSON.stringify(toJS(this.initialValue))
-		)
+		// console.log(toJS(this.value))
+		// console.log(toJS(this.initialValue))
+		return toJS(this.value) !== toJS(this.initialValue)
 	}
 
 	@observable

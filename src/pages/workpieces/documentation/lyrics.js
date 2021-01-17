@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { StyleSheet } from "react-native"
 import { useHistory } from "react-router"
 import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
@@ -17,39 +16,7 @@ import AddLanguageDropdown from "../../../smartsplit/components/AddLanguageDropd
 import { useDocsModel } from "../../../mobX/hooks"
 import DocLyricsModel from "../../../mobX/models/workpieces/documentation/DocLyricsModel"
 import { observer } from "mobx-react"
-const formStyle = StyleSheet.create({
-	textAreaContainer: {
-		padding: 5,
-		borderWidth: 1,
-		borderRadius: 2,
-		borderColor: Colors.stroke,
-		minHeight: 264,
-		resize: "vertical",
-		//To Do: Was not able to style the grabber of the text area:
-		"&::-webkitResizer": {
-			background: Colors.stroke,
-			border: Colors.stroke,
-			boxShadow: Colors.stroke,
-			outline: Colors.stroke,
-		},
-	},
-	textArea: {
-		justifyContent: "flex-start",
-	},
-})
-
-const Styles = StyleSheet.create({
-	category: {
-		alignItems: "center",
-		display: "flex",
-	},
-	logo: {
-		marginRight: Metrics.spacing.medium,
-	},
-	dropdown: {
-		marginLeft: Metrics.spacing.large,
-	},
-})
+import { FormStyles } from "./FormStyles"
 
 export const LyricsForm = observer((props) => {
 	const searchResults = ["English", "Français"]
@@ -64,8 +31,8 @@ export const LyricsForm = observer((props) => {
 		<>
 			<Row>
 				<Column of="group" flex={5}>
-					<Text action bold style={Styles.category}>
-						<LyricsIcon style={Styles.logo} />
+					<Text action bold style={FormStyles.category}>
+						<LyricsIcon style={FormStyles.logo} />
 						{t("document:lyrics.category")}
 						<Row padding="tiny" />
 					</Text>
@@ -81,7 +48,7 @@ export const LyricsForm = observer((props) => {
 						label={t("document:lyrics.label")}
 						value={text}
 						multiline={true}
-						style={formStyle.textAreaContainer}
+						style={FormStyles.textAreaContainer}
 						onChangeText={(text) => setText(text)}
 						undertext={t("document:lyrics.undertext")}
 					/> */}
@@ -91,7 +58,7 @@ export const LyricsForm = observer((props) => {
 							label={t("document:lyrics.label")}
 							value={model.text.value}
 							multiline={true}
-							style={formStyle.textAreaContainer}
+							style={FormStyles.textAreaContainer}
 							onChangeText={(text) => {
 								model.text.setValue(text)
 							}}

@@ -6,8 +6,8 @@ import { action, observable } from "mobx"
  *	Recording split domain state derived from SplitDomainState.
  **/
 export default class RecordingSplitModel extends RightSplitModel {
-	constructor() {
-		super(RecordingShareModel, initShareData)
+	constructor(parent) {
+		super(parent, RecordingShareModel, initShareData)
 	}
 	functionValues = [
 		"producer",

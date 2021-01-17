@@ -1,22 +1,15 @@
 import { createCrudObservable, createEntityListObservable } from "../crud"
 import WorkpiecesCrudAPI, {
+	docFileList,
 	getDocumentation,
 	getProtection,
 	listForUser,
 } from "../../../api/workpieces"
-import {
-	action,
-	computed,
-	decorate,
-	observable,
-	reaction,
-	runInAction,
-	toJS,
-} from "mobx"
+import { action, observable, reaction, runInAction } from "mobx"
 import DocumentationModel from "../models/workpieces/documentation/DocumentationModel"
 import ProtectionModel from "../models/workpieces/protect/ProtectionModel"
 import WorkpieceModel from "../models/workpieces/WorkpieceModel"
-import RightSplitsModel from "../models/workpieces/right-splits/RightSplitsModel"
+import RightSplitsState from "../models/workpieces/right-splits/RightSplitsState"
 const WorkpieceObservable = createCrudObservable(
 	WorkpiecesCrudAPI,
 	"workpiece_id"
@@ -30,12 +23,12 @@ export class Workpiece extends WorkpieceObservable {
 	 */
 	@observable documentation: DocumentationModel
 	@observable protection: ProtectionModel
+	@observable rightSplits: RightSplitsState
 
 	constructor(id, initData = null, initState) {
 		const { files, rightSplit, ...data } = initData || {}
 		super(id, data, initState)
-		this.rightSplits = new RightSplitsModel(null, this)
-
+		this.rightSplits = new RightSplitsState(this)
 		// initialising the documentation by passing the workpiece for id, etc
 		this.documentation = new DocumentationModel(
 			null,
@@ -43,6 +36,10 @@ export class Workpiece extends WorkpieceObservable {
 		)
 		getDocumentation(id).then((docs) => {
 			this.documentation.init(docs.data)
+		})
+
+		docFileList(id).then((list) => {
+			console.log(JSON.stringify(list, null, 2))
 		})
 		//this.documentation.init()
 		//console.log(toJS(this.documentation))
@@ -61,6 +58,8 @@ export class Workpiece extends WorkpieceObservable {
 						artistName: "Willy the Poo",
 						avatarUrl:
 							"https://apiv2-dev.smartsplit.org/v1/users/09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb/avatar",
+						// birth: "01/01/1987",
+						// email: "willy@iptoki.com",
 					},
 					sourceFile: "Valaire - Fantome v1.wav",
 					format: "WAV 44,1 kHz",
@@ -105,11 +104,6 @@ export class Workpiece extends WorkpieceObservable {
 			})
 		})
 	}
-
-	/**
-	 * the right splits data observable wich contains model for various sections of the rights dividing pages
-	 */
-	@observable rightSplits
 
 	/**
 	 * the documentation observable which contains models for the various sections

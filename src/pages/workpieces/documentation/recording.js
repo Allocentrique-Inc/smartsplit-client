@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { StyleSheet } from "react-native"
 import { useHistory } from "react-router"
 import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
@@ -26,16 +25,7 @@ import DocRecordingModel from "../../../mobX/models/workpieces/documentation/Doc
 import { toJS } from "mobx"
 import Field from "../../../mobX/BaseModel/Field"
 import searchResultsStudio from "../../../data/studios-smartsplit"
-
-const Styles = StyleSheet.create({
-	category: {
-		alignItems: "center",
-		display: "flex",
-	},
-	logo: {
-		marginRight: Metrics.spacing.medium,
-	},
-})
+import { FormStyles } from "./FormStyles"
 
 const RecordingForm = observer((props) => {
 	//const searchResults = ["Inie", "Manie", "Moe"]
@@ -137,8 +127,8 @@ const RecordingForm = observer((props) => {
 		<>
 			<Row>
 				<Column of="group" flex={5}>
-					<Text action bold style={Styles.category}>
-						<RecordingIcon style={Styles.logo} />
+					<Text action bold style={FormStyles.category}>
+						<RecordingIcon style={FormStyles.logo} />
 						{t("document:recording.category")}
 						<Row padding="tiny" />
 					</Text>

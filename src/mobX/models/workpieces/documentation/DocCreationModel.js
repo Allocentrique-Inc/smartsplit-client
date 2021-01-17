@@ -1,11 +1,20 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable, action, computed } from "mobx"
-import { cleanUsersForPosting } from "./DocumentationModel"
+import { cleanForPosting } from "./DocumentationModel"
 
 /**
  *
  */
 export default class DocCreationModel extends BaseModel {
+	@computed get isEmpty() {
+		return (
+			!this.creationDate.value &&
+			!this.iswc.value &&
+			this.authors.array.length === 0 &&
+			this.composers.array.length === 0 &&
+			this.publishers.array.length === 0
+		)
+	}
 	@observable creationDate = new Field(this, "creationDate", {
 		type: FieldType.date,
 	})
@@ -27,6 +36,6 @@ export default class DocCreationModel extends BaseModel {
 	 * clean
 	 */
 	toJS(excludePrimary) {
-		return cleanUsersForPosting(super.toJS())
+		return cleanForPosting(super.toJS(excludePrimary))
 	}
 }

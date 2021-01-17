@@ -1,15 +1,19 @@
-import { FieldType, Field } from "../../../BaseModel"
-import ShareModel from "./ShareModel"
+import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable } from "mobx"
-export default class RecordingShareModel extends ShareModel {
+export default class RecordingShareModel extends BaseModel {
+	@observable shareholder = new Field(this, "shareholder", {
+		type: FieldType.string,
+		primary: true,
+		readonly: true,
+	})
 	@observable shares = new Field(this, "shares", { type: FieldType.float })
 	@observable function = new Field(this, "function", { type: FieldType.string })
 	@observable comment = new Field(this, "comment", { type: FieldType.string })
 	@observable vote = new Field(this, "vote", { type: FieldType.string })
-	@observable locked = false
-	toJS() {
-		return { ...super.toJS(), locked: this.locked }
-	}
+	@observable locked = new Field(this, "locked", {
+		type: FieldType.boolean,
+		pseudo: true,
+	})
 }
 
 /**

@@ -17,7 +17,7 @@ export default observer(function AddBirthModal(props) {
 	const handleChangeText = (val) => {
 		setRs(val)
 	}
-	
+
 	return (
 		<DialogModal
 			key="add-birth"

@@ -10,18 +10,18 @@ export default class SelectionModel extends BaseModel {
 		type: FieldType.set,
 	})
 	@observable fileSelectedId = new Field(this, "fileSelectedId", {
-		type: FieldType.int
-	})
-	@observable fileAdd = new Field(this, "fileAdd", {
-		type: FieldType.object
+		type: FieldType.string,
 	})
 
-	@observable versionType = new Field(this, "versionType", {
-		type: FieldType.string
+	@observable fileCustomName = new Field(this, "fileCustomName", {
+		type: FieldType.string,
+	})
+	@observable fileCategory = new Field(this, "fileCategory", {
+		type: FieldType.string,
 	})
 
-	@observable demoName = new Field(this, "demoName", {
-		type: FieldType.string
+	@observable workingVersion = new Field(this, "workingVersion", {
+		type: FieldType.string,
 	})
 
 	/**

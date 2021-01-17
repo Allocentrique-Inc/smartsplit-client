@@ -27,8 +27,6 @@ export class RightHolders extends Observable {
 
 	search(terms) {
 		terms = terms.split(" ").map((term) => new RegExp(term, "i"))
-		const output = []
-
 		return Object.values(this)
 			.map((rh) => {
 				rh = { data: rh, score: 0 }

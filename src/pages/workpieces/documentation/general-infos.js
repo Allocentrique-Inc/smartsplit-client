@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { StyleSheet, TouchableWithoutFeedback } from "react-native"
+import React, { useState, useEffect } from "react"
+import { TouchableWithoutFeedback } from "react-native"
 import { useHistory } from "react-router"
 import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
@@ -7,7 +7,6 @@ import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
-import LayoutStyles from "../../../styles/layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import MusicNoteIcon from "../../../svg/music-note"
@@ -20,19 +19,9 @@ import { observer } from "mobx-react"
 import genres from "../../../data/genres-smartsplit"
 import bands from "../../../data/bands"
 import { titleCase } from "../../../utils/utils"
-
-const Styles = StyleSheet.create({
-	category: {
-		alignItems: "center",
-		display: "flex",
-	},
-	logo: {
-		marginRight: Metrics.spacing.medium,
-	},
-	dropdown: {
-		marginLeft: Metrics.spacing.large,
-	},
-})
+//import LayoutStyles from "../../../styles/layout"
+import { FormStyles } from "./FormStyles"
+import { searchEntities } from "../../../../api/entities"
 
 export default function GeneralInfos() {
 	const { t } = useTranslation()
@@ -98,19 +87,33 @@ export const GeneralInfosForm = observer((props) => {
 
 	const [selectedGenres, setSelectedGenres] = useState("")
 	const [searchGenres, setSearchGenres] = useState("")
+	const [genreResults, setGenreResults] = useState([])
+	const [loading, setLoading] = useState(false)
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
 	const model = useDocsModel(workpieceId, "info")
+
+	useEffect(() => {
+		onSearchChange("")
+	}, [])
+
+	async function onSearchChange(search) {
+		setSearchGenres(search)
+		setLoading(true)
+		let results = await searchEntities("musical-genres", search)
+		setGenreResults(results)
+		setLoading(false)
+	}
 	//console.log(model.toJS()) importer puis loger dans console pour vérifier valeurs puis comment out sinon trop
 
 	// const searchResultsGenres = ["Electrofunk", "Future Funk", "Mega Funk"]
 
-	const searchResultsGenres = genres.map((genre) => {
+	/*const searchResultsGenres = genres.map((genre) => {
 		return {
 			id: genre.id,
 			name: titleCase(genre.name),
 		}
-	})
+	})*/
 
 	/* 	const fakeSearchResults = [
 		{
@@ -140,8 +143,8 @@ export const GeneralInfosForm = observer((props) => {
 	return (
 		<Row>
 			<Column of="group" flex={5}>
-				<Text action bold style={Styles.category}>
-					<MusicNoteIcon color={Colors.action} style={Styles.logo} />
+				<Text action bold style={FormStyles.category}>
+					<MusicNoteIcon color={Colors.action} style={FormStyles.logo} />
 					{t("document:infos.category")}
 					<Row padding="tiny" />
 				</Text>
@@ -177,20 +180,9 @@ export const GeneralInfosForm = observer((props) => {
 				{/* Main Genres */}
 				<AddGenreDropdown
 					hideIcon={false}
-					genres={searchResultsGenres.filter(
-						(g) => g.name.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
-					)}
-					placeholder=""
+					field={model.primaryGenre}
 					noFocusToggle
 					tooltip=""
-					// Todo: put error in t
-					error={model.validated && model.primaryGenre.error}
-					value={model.primaryGenre.value}
-					onSelect={(genre) => {
-						//console.log(genre)
-						model.primaryGenre.setValue(genre)
-						//console.log(model.toJS())
-					}}
 				/>
 				{/* console.log(searchGenres) */}
 				{/* console.log(searchResultsGenres) */}
@@ -200,16 +192,15 @@ export const GeneralInfosForm = observer((props) => {
 				<SearchAndTag
 					noIcon={true}
 					label={t("document:infos.secondaryGenre")}
-					searchResults={searchResultsGenres.filter(
-						(g) => g.name.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
-					)}
+					searchResults={genreResults}
 					search={searchGenres}
-					onSearchChange={setSearchGenres}
+					onSearchChange={onSearchChange}
 					selection={model.secondaryGenres.array}
 					onSelect={(selection) => {
 						let exists =
-							model.secondaryGenres.array.filter((g) => g.id === selection.id)
-								.length > 0
+							model.secondaryGenres.array.filter(
+								(g) => g.entity_id === selection.entity_id
+							).length > 0
 						if (!exists) model.secondaryGenres.add(selection)
 					}}
 					onUnselect={(selection) => model.secondaryGenres.remove(selection)}
@@ -220,7 +211,11 @@ export const GeneralInfosForm = observer((props) => {
 							model.addNewSecondaryGenre(searchGenres)
 						}}
 					>
-						<Row of="component" padding="component" style={Styles.actionFrame}>
+						<Row
+							of="component"
+							padding="component"
+							//style={FormStyles.actionFrame}
+						>
 							<PlusCircle />
 							<Text bold action>
 								{t("document:add")}
@@ -236,12 +231,7 @@ export const GeneralInfosForm = observer((props) => {
 					noIcon={true}
 					label={t("document:infos.influence")}
 					undertext={t("document:infos.influenceExample")}
-					searchResults={searchResultsInfluences
-						.filter(
-							(i) =>
-								i.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
-						)
-						.splice(0, 10)}
+					searchResults={[]}
 					search={searchInfluences}
 					onSearchChange={setSearchInfluences}
 					selection={model.influences.value}
@@ -249,21 +239,27 @@ export const GeneralInfosForm = observer((props) => {
 					onUnselect={(selection) => model.influences.remove(selection)}
 					placeholder={t("document:infos.addInfluence")}
 				>
-					<TouchableWithoutFeedback
-						onPress={() => {
-							model.influences.add(searchInfluences)
-						}}
-					>
-						<Row of="component" padding="component" style={Styles.actionFrame}>
-							<PlusCircle />
-							<Text bold action>
-								{t("document:add")}
-								{searchInfluences ? quotation : null}
-								{searchInfluences}
-								{searchInfluences ? quotationEnd : null}
-							</Text>
-						</Row>
-					</TouchableWithoutFeedback>
+					{searchInfluences && (
+						<TouchableWithoutFeedback
+							onPress={() => {
+								model.influences.add(searchInfluences)
+							}}
+						>
+							<Row
+								of="component"
+								padding="component"
+								//style={FormStyles.actionFrame}
+							>
+								<PlusCircle />
+								<Text bold action>
+									{t("document:add")}
+									{searchInfluences ? quotation : null}
+									{searchInfluences}
+									{searchInfluences ? quotationEnd : null}
+								</Text>
+							</Row>
+						</TouchableWithoutFeedback>
+					)}
 				</SearchAndTag>
 			</Column>
 			<Flex />

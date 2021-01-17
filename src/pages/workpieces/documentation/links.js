@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { StyleSheet } from "react-native"
 import { useHistory, useParams } from "react-router"
 import { useStorePath } from "../../../appstate/react"
 import { View } from "react-native"
@@ -29,6 +28,7 @@ import PandoraIcon from "../../../svg/workpieces/pandora"
 import DeezerIcon from "../../../svg/workpieces/deezer"
 import TidalIcon from "../../../svg/workpieces/tidal"
 import HighFive from "../../../../assets/svg/high-five.svg"
+import { FormStyles } from "./FormStyles"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import AddPlatform from "../../../smartsplit/components/AddPlatformDropdown"
 import { DialogModal } from "../../../widgets/modal"
@@ -37,19 +37,6 @@ import { useDocsModel } from "../../../mobX/hooks"
 import { titleCase } from "../../../utils/utils"
 import { urlValidator } from "../../../mobX/models/validators"
 import DocStreamingModel from "../../../mobX/models/workpieces/documentation/DocStreamingModel"
-
-const Styles = StyleSheet.create({
-	category: {
-		alignItems: "center",
-		display: "flex",
-	},
-	logo: {
-		marginRight: Metrics.spacing.medium,
-	},
-	link: {
-		marginRight: Metrics.spacing.link,
-	},
-})
 
 export default observer(function Links(props) {
 	const { modalVisible, closeModal } = props
@@ -177,8 +164,8 @@ export const LinksForm = observer((props) => {
 		<>
 			<Row>
 				<Column of="group" flex={5}>
-					<Text action bold style={Styles.category}>
-						<LinkIcon style={Styles.logo} />
+					<Text action bold style={FormStyles.category}>
+						<LinkIcon style={FormStyles.logo} />
 						{t("document:links.category")}
 						<Row padding="tiny" />
 					</Text>
@@ -370,7 +357,7 @@ export function EndModal(props) {
 					<Button
 						text={t("general:buttons.seeSummary")}
 						onClick={navigateToSummary}
-					/* 						onClick={() => {
+						/* 						onClick={() => {
 						console.log(t("document:finalModal.title"))
 					}} */
 					/>

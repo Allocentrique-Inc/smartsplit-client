@@ -24,7 +24,6 @@ export function VerifyModal(props) {
 	const { t } = useTranslation()
 	const [selection, setSelection] = useState(props.selection)
 	const model = props.model
-	console.log("model", model)
 	const sendDataSelection = (val) => {
 		setSelection(val)
 		props.parentCallback(selection)

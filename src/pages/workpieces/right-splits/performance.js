@@ -10,20 +10,21 @@ import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollabora
 import { View } from "react-native"
 import SplitChart from "../../../smartsplit/components/split-chart"
 import { Observer, observer } from "mobx-react"
-import { useRightSplits } from "../context"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
-import { CHART_WINDOW_RATIO } from "../../../mobX/states/workpiece-state/right-splits/RightSplitState"
+import { useRightSplits } from "../../../mobX/hooks"
+import { useCurrentWorkpieceId } from "../context"
+import { CHART_WINDOW_RATIO } from "../../../mobX/models/workpieces/right-splits/RightSplitState"
 
 const PerformanceForm = observer(() => {
-	const UIState = useRightSplits("performance")
-	const domainState = UIState.domainState
+	const splitState = useRightSplits(useCurrentWorkpieceId(), "performance")
+	const domainState = splitState.domainState
 
 	const { t } = useTranslation("rightSplits")
 	const [styles, setStyles] = useState({})
 
 	useEffect(() => {
-		setStyles(UIState.getStyles(window.outerWidth))
+		setStyles(splitState.getStyles(window.outerWidth))
 	}, [window.outerWidth])
 
 	function genSelectOptions() {
@@ -32,20 +33,22 @@ const PerformanceForm = observer(() => {
 				key: status,
 				value: (
 					<>
-						<Text>{t(`performance.artistStatuses.${status}`)}</Text>
-						<Text secondary>{t(`performance.artistStatusDef.${status}`)}</Text>
+						<Text>{t(`forms:labels.dropdowns.artistTypes.${status}`)}</Text>
+						<Text secondary>
+							{t(`forms:labels.dropdowns.artistTypesDescription.${status}`)}
+						</Text>
 					</>
 				),
-				displayValue: t(`performance.artistStatuses.${status}`),
+				displayValue: t(`forms:labels.dropdowns.artistTypes.${status}`),
 			}
 		})
 	}
 	const ShareCards = observer(() => {
-		return UIState.sharesData.map((share) => (
+		return splitState.sharesData.map((share) => (
 			<ShareCard
 				key={share.id}
 				shareholderId={share.id}
-				color={UIState.shareholderColors.get(share.id)}
+				color={splitState.shareholderColors.get(share.id)}
 				sharePercent={share.percent}
 				onClose={() => domainState.removeShareholder(share.id)}
 			>
@@ -86,7 +89,7 @@ const PerformanceForm = observer(() => {
 						progress={share.percent}
 						size="xsmall"
 						style={{ flex: 1 }}
-						color={UIState.shareholderColors.get(share.id)}
+						color={splitState.shareholderColors.get(share.id)}
 					/>
 					<Text bold>{formatPercentage(share.percent)}</Text>
 				</Row>
@@ -97,7 +100,7 @@ const PerformanceForm = observer(() => {
 	return (
 		<Row
 			onLayout={(e) =>
-				(UIState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
+				(splitState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
 			}
 		>
 			<Column of="section" flex={1}>
@@ -125,7 +128,7 @@ const PerformanceForm = observer(() => {
 			<Column>
 				{domainState.mode && (
 					<View style={styles.chart}>
-						<SplitChart {...UIState.genChartProps()} />
+						<SplitChart {...splitState.genChartProps()} />
 					</View>
 				)}
 			</Column>

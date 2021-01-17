@@ -18,23 +18,24 @@ import {
 } from "../../../forms"
 import { useTranslation } from "react-i18next"
 import { Observer, observer } from "mobx-react"
-import { useRightSplits } from "../context"
+import { useCurrentWorkpieceId } from "../context"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
 import Slider from "../../../widgets/slider"
 import { runInAction } from "mobx"
 import PercentageInput from "../../../forms/percentage"
 import { CheckBoxGroup } from "../../../forms/checkbox"
-import { CHART_WINDOW_RATIO } from "../../../mobX/states/workpiece-state/right-splits/RightSplitState"
+import { useRightSplits } from "../../../mobX/hooks"
+import { CHART_WINDOW_RATIO } from "../../../mobX/models/workpieces/right-splits/RightSplitState"
 
 const CopyrightForm = observer(() => {
-	const UIState = useRightSplits("copyright")
-	const domainState = UIState.domainState
-	const { sharesData, shareTotal } = UIState
+	const splitState = useRightSplits(useCurrentWorkpieceId(), "copyright")
+	const domainState = splitState.domainState
+	const { sharesData, shareTotal } = splitState
 	const { t } = useTranslation("rightSplits")
 	const [styles, setStyles] = useState({})
 	useEffect(() => {
-		setStyles(UIState.getStyles(window.outerWidth))
+		setStyles(splitState.getStyles(window.outerWidth))
 	}, [window.outerWidth])
 	const LockButton = observer(({ id, locked }) => (
 		<TouchableWithoutFeedback onPress={() => domainState.toggleShareLock(id)}>
@@ -45,9 +46,9 @@ const CopyrightForm = observer(() => {
 	const ShareCardView = observer(({ share }) => (
 		<ShareCard
 			shareholderId={share.id}
-			color={UIState.shareholderColors.get(share.id)}
+			color={splitState.shareholderColors.get(share.id)}
 			sharePercent={share.percent}
-			onClose={() => domainState.removeShareholder(share.id)}
+			onClose={() => runInAction(() => domainState.removeShareholder(share.id))}
 			bottomAction={
 				domainState.mode === "manual" ? (
 					<LockButton id={share.id} locked={share.locked} />
@@ -66,7 +67,7 @@ const CopyrightForm = observer(() => {
 								<CheckBoxGroupButton
 									value="adapter"
 									label={t("roles.adapter")}
-									disabled={UIState.isAdapterDisabled(share.roles)}
+									disabled={splitState.isAdapterDisabled(share.roles)}
 								/>
 							</Column>
 							<Column flex={1} of="component">
@@ -77,7 +78,7 @@ const CopyrightForm = observer(() => {
 								<CheckBoxGroupButton
 									value="mixer"
 									label={t("roles.mixer")}
-									disabled={UIState.isMixerDisabled(share.roles)}
+									disabled={splitState.isMixerDisabled(share.roles)}
 								/>
 							</Column>
 						</Row>
@@ -92,7 +93,7 @@ const CopyrightForm = observer(() => {
 								<Slider
 									min={0}
 									max={shareTotal}
-									color={UIState.shareholderColors.get(share.id)}
+									color={splitState.shareholderColors.get(share.id)}
 									step={0.01}
 									value={share.shares}
 									disabled={share.locked}
@@ -120,7 +121,7 @@ const CopyrightForm = observer(() => {
 							progress={share.percent}
 							size="xsmall"
 							style={{ flex: 1 }}
-							color={UIState.shareholderColors.get(share.id)}
+							color={splitState.shareholderColors.get(share.id)}
 						/>
 						<Text bold>{formatPercentage(share.percent)}</Text>
 					</>
@@ -132,7 +133,7 @@ const CopyrightForm = observer(() => {
 	return (
 		<Row
 			onLayout={(e) =>
-				(UIState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
+				(splitState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
 			}
 		>
 			<Column of="section" flex={1}>
@@ -164,7 +165,9 @@ const CopyrightForm = observer(() => {
 							<ShareCardView share={share} key={share.id} />
 						))}
 						<AddCollaboratorDropdown
-							onSelect={(id) => domainState.addShareholder(id)}
+							onSelect={(id) =>
+								runInAction(() => domainState.addShareholder(id))
+							}
 							placeholder={t("addCollab")}
 						/>
 					</Column>
@@ -175,10 +178,10 @@ const CopyrightForm = observer(() => {
 				{sharesData.length > 0 && (
 					<View style={styles.chart}>
 						{domainState.mode === "roles" && (
-							<DualSplitChart {...UIState.genChartProps(domainState.mode)} />
+							<DualSplitChart {...splitState.genChartProps(domainState.mode)} />
 						)}
 						{domainState.mode !== "roles" && (
-							<SplitChart {...UIState.genChartProps(domainState.mode)} />
+							<SplitChart {...splitState.genChartProps(domainState.mode)} />
 						)}
 					</View>
 				)}

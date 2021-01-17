@@ -6,8 +6,8 @@ import BaseModel, { ModelCollection } from "../../../BaseModel"
  **/
 export default class RightSplitModel extends BaseModel {
 	@observable shareholders
-	constructor(modelClass, initShareData) {
-		super()
+	constructor(parent, modelClass, initShareData) {
+		super(parent)
 		this.shareholders = new ModelCollection(this, "shareholders", {
 			modelClass,
 		})
@@ -19,25 +19,29 @@ export default class RightSplitModel extends BaseModel {
 
 	/**
 	 *	Provide a data structure that makes easier
-	 *	to access and manipulate shares field values.
+	 *	to access and manipulate share field values.
 	 * 	(hence shareS valueS, because each share has
 	 *	multiple values)
 	 * 	@return: Array<{Field.value}>
 	 **/
 	@computed get sharesValues() {
-		return this.shareholders.toJS()
+		return this.shareholders.toJS().map((share) => {
+			const { shareholder, ...rest } = share
+			return { id: shareholder, ...rest }
+		})
 	}
 
 	@computed get shareTotal() {
 		return this.sharesValues.reduce((n, current) => n + current.shares, 0)
 	}
 
-	@action addShareholder(shareholderId, shareData = this.initShareData) {
-		if (this.includes(shareholderId)) {
-			console.log(`throw new Error("Error adding shareholder: id found")`)
+	@action addShareholder(shareholder, shareData = this.initShareData) {
+		if (this.includes(shareholder)) {
+			//Temporarily print error without throwing it
+			console.error(`Error adding shareholder: id found`)
 			return
 		}
-		this.shareholders.add({ shareholderId, ...shareData })
+		this.shareholders.add({ shareholder, ...shareData })
 	}
 
 	@action removeShareholder(id) {
@@ -55,19 +59,22 @@ export default class RightSplitModel extends BaseModel {
 		if (!this.includes(id)) {
 			throw new Error("Error: provided id not found")
 		}
+
 		this.get(id).setValue(field, value)
 	}
 
 	includes(id) {
-		return this.sharesValues.some((share) => share.shareholderId === id)
+		return this.sharesValues.some((share) => share.id === id)
 	}
 
 	indexOf(id) {
-		return this.sharesValues.findIndex((share) => share.shareholderId === id)
+		return this.sharesValues.findIndex((share) => share.id === id)
 	}
 
 	get(id) {
-		return this.shareholders.array.find((share) => share.shareholderId === id)
+		return this.shareholders.array.find(
+			(share) => share.shareholder.value === id
+		)
 	}
 
 	/**
@@ -77,10 +84,10 @@ export default class RightSplitModel extends BaseModel {
 	 */
 	@action applyDiffToShares(diff, shares) {
 		shares.forEach((share) => {
-			const index = this.indexOf(share.shareholderId)
+			const index = this.indexOf(share.id)
 			if (index) {
 				const newValue = this.sharesValues[index].shares + diff
-				this.updateShareField(share.shareholderId, "shares", newValue)
+				this.updateShareField(share.id, "shares", newValue)
 			}
 		})
 	}
@@ -89,13 +96,13 @@ export default class RightSplitModel extends BaseModel {
 	 *	Update all shares if no shares array are provided.
 	 *	args:
 	 *	- Array<ShareValues>: ShareValues must
-	 *	be an object with a valid shareholderId key
+	 *	be an object with a valid shareholder key
 	 *	- value: Value to update shares with. Default
 	 *	to 1
 	 **/
 	@action setShares(shares = this.sharesValues, value = 1) {
 		shares.forEach((share) => {
-			this.updateShareField(share.shareholderId, "shares", value)
+			this.updateShareField(share.id, "shares", value)
 		})
 	}
 
@@ -115,7 +122,7 @@ export default class RightSplitModel extends BaseModel {
 		const diff = value - oldValue
 		// Select other candidate shares
 		const sortedShares = this.sharesValues
-			.filter((share) => share.shareholderId !== id && !share.locked)
+			.filter((share) => share.id !== id && !share.locked)
 			.sort((a, b) => a.shares - b.shares)
 		if (sortedShares.length === 0) {
 			return
@@ -169,23 +176,23 @@ export default class RightSplitModel extends BaseModel {
 	 **/
 	@action toggleShareLock(id) {
 		const index = this.indexOf(id)
-		if (!index) {
-			throw new Error(`Error in toggleShareLock: share holder ${id} not found`)
+		if (index === -1) {
+			console.error(`Error in toggleShareLock: share holder ${id} not found`)
 		}
 		const share = this.sharesValues[index]
 		if (share.locked) {
 			const otherShares = this.sharesValues.filter(
-				(share) => share.shareholderId !== id && share.locked
+				(share) => share.id !== id && share.locked
 			)
 			otherShares.forEach((share) =>
-				this.updateShareField(share.shareholderId, "locked", false)
+				this.updateShareField(share.id, "locked", false)
 			)
 		} else {
 			const otherShares = this.sharesValues.filter(
-				(share) => share.shareholderId !== id && !share.locked
+				(share) => share.id !== id && !share.locked
 			)
 			if (otherShares.length === 1) {
-				this.updateShareField(otherShares[0].shareholderId, "locked", true)
+				this.updateShareField(otherShares[0].id, "locked", true)
 			}
 		}
 		this.updateShareField(id, "locked", !share.locked)
