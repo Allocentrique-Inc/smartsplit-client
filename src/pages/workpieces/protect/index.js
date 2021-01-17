@@ -10,7 +10,7 @@ import { useProtectModel } from "../../../mobX/hooks"
 import SelectionPage from "./selection"
 import Certificate from "./certificate"
 import ProtectionModel from "../../../mobX/models/workpieces/protect/ProtectionModel"
-import { PromoModal } from "./promo-Modal"
+import { PromoModal } from "./promo-modal"
 
 const ProtectWork = observer(() => {
 	const { workpieces } = useStores()
