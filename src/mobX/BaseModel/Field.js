@@ -258,6 +258,7 @@ export default class Field {
 	constructor(model: Model, fieldName: string, options: FieldOptions) {
 		this.model = model
 		this.model.__fields.push(fieldName)
+		if (!options["pseudo"]) this.model.__submittable.push(fieldName)
 		this.fieldName = fieldName
 		Object.keys(options).forEach((k) => {
 			// console.log(`metaData[target][${k}][${property}] = ${options[k]}`)
@@ -342,7 +343,7 @@ export default class Field {
 					})
 			}
 		})
-		if (!this.isPseudo) this.model.__submittables.push(fieldName)
+		if (!this.isPseudo) this.model.__submittable.push(fieldName)
 	}
 
 	isModel = false
