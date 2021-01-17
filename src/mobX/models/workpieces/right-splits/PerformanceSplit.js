@@ -1,15 +1,14 @@
 import CircledStar from "../../../../svg/circled-star"
 import { computed } from "mobx"
 import RightSplitState from "./RightSplitState"
+import PerformanceSplitModel from "./PerformanceSplitModel"
 import { Colors, Metrics } from "../../../../theme"
 import PerformanceForm from "../../../../pages/workpieces/right-splits/performance"
 
-/**
- *  Performance form page UI state
- **/
 export default class PerformanceSplit extends RightSplitState {
-	constructor(domainState, shareholderColors) {
-		super(domainState, CircledStar, shareholderColors)
+	constructor(parent, shareholderColors) {
+		super(parent, CircledStar, shareholderColors)
+		this.domainState = new PerformanceSplitModel(this)
 	}
 	progress = (2 / 3) * 100
 	form = PerformanceForm
@@ -26,7 +25,7 @@ export default class PerformanceSplit extends RightSplitState {
 				percent = 0
 			}
 			return {
-				id: share.shareholderId,
+				id: share.id,
 				shares: share.shares,
 				roles: share.roles,
 				status: share.status,
@@ -35,14 +34,14 @@ export default class PerformanceSplit extends RightSplitState {
 		}
 		this.domainState.majorShares.forEach((share) => {
 			sharesData.push(extractShareData(share))
-			seenShareholders.push(share.shareholderId)
+			seenShareholders.push(share.id)
 		})
 		this.domainState.minorShares.forEach((share) => {
 			sharesData.push(extractShareData(share))
-			seenShareholders.push(share.shareholderId)
+			seenShareholders.push(share.id)
 		})
 		this.shares.forEach((share) => {
-			if (!seenShareholders.includes(share.shareholderId)) {
+			if (!seenShareholders.includes(share.id)) {
 				sharesData.push(extractShareData(share))
 			}
 		})

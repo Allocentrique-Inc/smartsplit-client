@@ -64,10 +64,10 @@ const Styles = StyleSheet.create({
 		bottom: -4,
 		right: -11,
 	},
-    halfLinkIcon: {},
-    tag: {
-        backgroundColor: Colors.background.hell
-    }
+	halfLinkIcon: {},
+	tag: {
+		backgroundColor: Colors.background.hell,
+	},
 })
 
 const DependanceRow = observer((props) => {

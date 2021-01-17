@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import { Redirect, useParams, useHistory } from "react-router"
 import { useStores } from "../../../mobX"
 import Layout from "../layout"
@@ -7,13 +7,14 @@ import { Flex, Row } from "../../../layout"
 import { Text } from "../../../text"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
-import { useCurrentWorkpiece, useRightSplits } from "../context"
+import { useCurrentWorkpiece } from "../context"
+import { useRightSplits, useRightSplitsModel } from "../../../mobX/hooks"
 
 /**
  *	Split forms wrapper
  *	- Manages navigation between the forms pages
  *	- Shows global information like the progress bar or the page title
- *	- Initializes the split UI states with the splits of the current workpiece
+ *	- Initializes the split UI states with data of the current workpiece
  **/
 const RightSplitsPage = observer(() => {
 	const { t } = useTranslation("rightSplits")
@@ -26,8 +27,7 @@ const RightSplitsPage = observer(() => {
 			<Redirect to={`/workpieces/${workpiece_id}/right-splits/copyright`} />
 		)
 	const workpiece = useCurrentWorkpiece()
-	const rightSplits = useRightSplits()
-
+	const rightSplits = useRightSplits(workpiece.id)
 	// Loading translation to UIStates. Surely there is
 	// a better way to do that :-)
 	rightSplits.copyright.init(t("copyright.title"), t("lyrics"), t("music"))
@@ -35,16 +35,12 @@ const RightSplitsPage = observer(() => {
 	rightSplits.recording.init(t("recording.title"))
 
 	const { workpieces } = useStores()
-	const currentSplit = split_type
 
+	const currentSplit = split_type
 	//TODO: refactor rights splits saving
-	async function saveAndQuit() {
-		try {
-			await rightSplits.save()
-			history.push(`/workpieces/${workpiece.id}`)
-		} catch (error) {
-			console.error("Error saving rights splits", error)
-		}
+	function saveAndQuit() {
+		// console.log("DEBUG SPLITS", copyrightSplitState.domainState.sharesValues, workpiece.rightSplitsState.copyright.domainState.sharesValues, rightSplitsModel.copyright.sharesValues)
+		rightSplits.save()
 	}
 
 	function navigateToSummary() {
@@ -76,7 +72,7 @@ const RightSplitsPage = observer(() => {
 					tertiary
 					text={t("general:buttons.saveClose")}
 					onClick={saveAndQuit}
-					disabled={!rightSplits.$hasChanged}
+					disabled={rightSplits.isPristine}
 				/>
 			}
 			formNav={

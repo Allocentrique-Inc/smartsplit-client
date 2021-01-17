@@ -3,36 +3,29 @@ import CopyrightSplit from "./CopyrightSplit"
 import PerformanceSplit from "./PerformanceSplit"
 import RecordingSplit from "./RecordingSplit"
 import { Colors } from "../../../../theme"
+import {
+	createRightSplits,
+	updateRightSplits,
+} from "../../../../../api/workpieces"
 import { lightenDarkenColor } from "../../../../utils/utils"
+import BaseModel from "../../../BaseModel"
 
 /**
- *	Contains the 3 right split states (copyright, performance, recording). Manage a list of unique sets of shareholderId - color, which is used in the split pages
+ *	Contains the 3 right split states (copyright, performance, recording). Manage a list of unique sets of shareholder ID - color, which is used in the split pages. Save in and load split
+ models from the backend
  **/
-export default class RightSplitsState {
-	constructor(rightSplits) {
-		this.copyright = new CopyrightSplit(
-			rightSplits.copyright,
-			this.shareholderColors
-		)
-		this.performance = new PerformanceSplit(
-			rightSplits.performance,
-			this.shareholderColors
-		)
-		this.recording = new RecordingSplit(
-			rightSplits.recording,
-			this.shareholderColors
-		)
+export default class RightSplitsState extends BaseModel {
+	constructor(workpiece) {
+		super()
+		this.workpieceId = workpiece.id
+		this.copyright = new CopyrightSplit(this, this.shareholderColors)
+		this.performance = new PerformanceSplit(this, this.shareholderColors)
+		this.recording = new RecordingSplit(this, this.shareholderColors)
 		reaction(
 			() => [
-				...this.copyright.domainState.shareholders.array.map(
-					(share) => share.shareholderId
-				),
-				...this.performance.domainState.shareholders.array.map(
-					(share) => share.shareholderId
-				),
-				...this.recording.domainState.shareholders.array.map(
-					(share) => share.shareholderId
-				),
+				...this.copyright.domainState.sharesValues.map((share) => share.id),
+				...this.performance.domainState.sharesValues.map((share) => share.id),
+				...this.recording.domainState.sharesValues.map((share) => share.id),
 			],
 			(ids) => {
 				const uniqueIds = []
@@ -63,10 +56,12 @@ export default class RightSplitsState {
 		)
 	}
 
-	// Map <shareholderId, Color(hex)> that holds unique pairs of shareholder
+	// Map <shareholder ID, Color(hex)> that holds unique pairs of shareholder
 	// Id and color
 	@observable shareholderColors = new Map()
-
+	@observable copyright
+	@observable performance
+	@observable recording
 	// Pool of available colors, i.e. color not already assignated to a shareholder ID
 	availableColors = Object.values(Colors.secondaries)
 
@@ -78,5 +73,22 @@ export default class RightSplitsState {
 			lightenDarkenColor(color, this.replenishCounter * 10)
 		)
 		++this.replenishCounter
+	}
+
+	save() {
+		const data = this.toJSON()
+		console.log("DEBUG DATA TO SEND", data, this.children)
+		try {
+			let response
+			if (this.isNew) {
+				response = createRightSplits(this.workpieceId, data)
+			} else {
+				response = updateRightSplits(this.workpieceId, data)
+			}
+			console.log(response)
+		} catch (e) {
+			console.error(e)
+		}
+		console.log("DEBUG SAVE", this.isDirty)
 	}
 }

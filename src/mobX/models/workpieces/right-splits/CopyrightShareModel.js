@@ -1,17 +1,20 @@
 import { observable } from "mobx"
-import ShareModel from "./ShareModel"
-import { Field, FieldType } from "../../../BaseModel"
+import BaseModel, { Field, FieldType } from "../../../BaseModel"
 
-export default class CopyrightShareModel extends ShareModel {
+export default class CopyrightShareModel extends BaseModel {
+	@observable shareholder = new Field(this, "shareholder", {
+		type: FieldType.string,
+		primary: true,
+		readonly: true,
+	})
 	@observable shares = new Field(this, "shares", { type: FieldType.float })
 	@observable roles = new Field(this, "roles", { type: FieldType.collection })
 	@observable comment = new Field(this, "comment", { type: FieldType.string })
 	@observable vote = new Field(this, "vote", { type: FieldType.string })
-	@observable locked = false
-
-	toJS() {
-		return { ...super.toJS(), locked: this.locked }
-	}
+	@observable locked = new Field(this, "locked", {
+		type: FieldType.boolean,
+		pseudo: true,
+	})
 }
 
 /**
@@ -23,4 +26,5 @@ export const initShareData = {
 	roles: ["author", "composer"],
 	comment: "",
 	vote: "undecided",
+	locked: false,
 }

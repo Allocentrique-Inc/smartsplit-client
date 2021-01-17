@@ -7,8 +7,8 @@ import { action, computed, reaction } from "mobx"
  *	Contains 80 20 middleware
  **/
 export default class PerformanceSplitModel extends RightSplitModel {
-	constructor() {
-		super(PerformanceShareModel, initShareData)
+	constructor(parent) {
+		super(parent, PerformanceShareModel, initShareData)
 		reaction(
 			() => this.shareholders.size,
 			() => this.updateShares()
