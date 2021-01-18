@@ -165,8 +165,8 @@ const CopyrightForm = observer(() => {
 							<ShareCardView share={share} key={share.id} />
 						))}
 						<AddCollaboratorDropdown
-							onSelect={(id) =>
-								runInAction(() => domainState.addShareholder(id))
+							onSelect={(user) =>
+								runInAction(() => domainState.addShareholder(user.user_id))
 							}
 							placeholder={t("addCollab")}
 						/>

@@ -152,7 +152,7 @@ const RecordingForm = observer(() => {
 							<ShareCardView share={share} key={share.id} />
 						))}
 						<AddCollaboratorDropdown
-							onSelect={(id) => domainState.addShareholder(id)}
+							onSelect={(user) => domainState.addShareholder(user.user_id)}
 							placeholder={t("addCollab")}
 						/>
 					</Column>
