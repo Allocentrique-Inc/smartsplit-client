@@ -23,6 +23,7 @@ import { Tab, TabBar } from "../../widgets/tabs"
 import UserAvatar from "../../smartsplit/user/avatar"
 import ChevronDown from "../../svg/chevron-down"
 import { DocumentYourWork, ProtectYourWork, ShareYourCopyright } from "./cards"
+import WorkpieceSheet from "./workpiece-summary/workpiece-sheet"
 import { useStorePath, useStores } from "../../mobX"
 import { observer } from "mobx-react"
 import DocumentationPage from "./documentation"
@@ -61,6 +62,11 @@ const WorkpiecesRouter = observer(() => {
 						"/workpieces/:workpiece_id/protect",
 					]}
 					component={ProtectWork}
+				/>
+
+				<Route
+					path={["/workpieces/:workpiece_id/workpiece-summary/workpiece-sheet"]}
+					component={WorkpieceSheet}
 				/>
 
 				{/*<Route path="/workpieces/:workpiece_id/documentation/recording">*/}
