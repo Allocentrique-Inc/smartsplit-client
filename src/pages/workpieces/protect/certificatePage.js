@@ -12,6 +12,7 @@ import DependanceRow from "../../../smartsplit/protect/dependance-row"
 import { Colors, Metrics } from "../../../theme"
 import LockSVG from "../../../svg/lock-svg"
 import AddPlaceBirthModal from "../../../smartsplit/user/AddPlaceBirthModal"
+import CompleteIdentityModal from "./complete-identity-modal"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -38,28 +39,33 @@ const Styles = StyleSheet.create({
 const CertificatePage = observer((props) => {
 	const { t } = useTranslation()
 	const model: CertificateModel = props.model
-	const [addBirhModalVisible, setAddBirhModalVisible] = useState(false)
-	const [addPlaceModalVisible, setAddPlaceModalVisible] = useState(false)
 	const user = model.listedBy.value
 	const addictions = model.addictions.array
 	const itemsCount = addictions.length
 	const oneItem = itemsCount === 1
 	const workpiece = props.workpiece
+	const [identityModalVisible, setIdentityModalVisible] = useState(false)
+	const [isCompleteIdentity, setCompleteId] = useState(
+		(user.birth != null || user.birth != undefined) &&
+			user.birth != "" &&
+			(user.email != null || user.email !== undefined) &&
+			user.email != ""
+	)
 
+	const handleEditEdentity = () => {
+		setIdentityModalVisible(true)
+	}
+
+	const handleIdentityModalClose = (val) => {
+		setCompleteId(val)
+		setIdentityModalVisible(false)
+	}
 	return (
 		<>
-			<AddBirthModal
-				visible={addBirhModalVisible}
-				onRequestClose={() => {
-					setAddBirhModalVisible(false)
-				}}
+			<CompleteIdentityModal
+				visible={identityModalVisible}
+				onRequestClose={handleIdentityModalClose}
 				model={model}
-			/>
-			<AddPlaceBirthModal
-				visible={addPlaceModalVisible}
-				onRequestClose={() => {
-					setAddPlaceModalVisible(false)
-				}}
 				workpieceId={workpiece.id}
 			/>
 			<Row>
@@ -67,7 +73,7 @@ const CertificatePage = observer((props) => {
 					<Column of="section" flex={7}>
 						<Column of="component">
 							<Heading level={1}>{t("protect:certificate:heading1")}</Heading>
-							<Paragraph>{t("protect:certificate:para1")}</Paragraph>
+							<Text secondary>{t("protect:certificate:para1")}</Text>
 						</Column>
 						<Column of="component">
 							<Heading level={3}>
@@ -99,6 +105,14 @@ const CertificatePage = observer((props) => {
 							</Row>
 							<Row>
 								<Column flex={5}>
+									<Text bold>{t("protect:certificate:category")}</Text>
+								</Column>
+								<Column flex={7}>
+									<Text secondary>{model.category}</Text>
+								</Column>
+							</Row>
+							<Row>
+								<Column flex={5}>
 									<Text bold>{t("protect:certificate:workingVersion")}</Text>
 								</Column>
 								<Column flex={7}>
@@ -115,33 +129,32 @@ const CertificatePage = observer((props) => {
 									</Row>
 								</Column>
 							</Row>
-							<Row style={Styles.rowTouchable}>
-								<Column style={Styles.iconLock}>
-									<LockSVG />
+							<Row>
+								<Column flex={5}>
+									<Text bold>{t("protect:certificate:identity")}</Text>
 								</Column>
 								<Column flex={7}>
-									<Row style={Styles.touchable}>
-										<TouchableWithoutFeedback
-											onPress={() => {
-												setAddBirhModalVisible(true)
-											}}
-										>
+									{!isCompleteIdentity && (
+										<TouchableWithoutFeedback onPress={handleEditEdentity}>
 											<Text action bold>
-												{t("protect:certificate:addBirth")}
+												{t("protect:certificate:completeIdentity")}
 											</Text>
 										</TouchableWithoutFeedback>
-									</Row>
-									<Row style={Styles.touchable}>
-										<TouchableWithoutFeedback
-											onPress={() => {
-												setAddPlaceModalVisible(true)
-											}}
-										>
-											<Text action bold>
-												{t("protect:certificate:addPlaceBirth")}
-											</Text>
-										</TouchableWithoutFeedback>
-									</Row>
+									)}
+									{isCompleteIdentity && (
+										<Row>
+											<Column>
+												<Text secondary>{t("protect:completed")} . </Text>
+											</Column>
+											<Column>
+												<TouchableWithoutFeedback onPress={handleEditEdentity}>
+													<Text action bold>
+														{t("protect:certificate.edit")}
+													</Text>
+												</TouchableWithoutFeedback>
+											</Column>
+										</Row>
+									)}
 								</Column>
 							</Row>
 						</Column>
@@ -165,7 +178,7 @@ const CertificatePage = observer((props) => {
 									)
 								})}
 						</Column>
-						<Hairline />
+						{/* <Hairline />
 						<Column of="component">
 							<Heading level={3}>
 								{t("protect:certificate:fileDigitalFingerprints")}
@@ -188,7 +201,7 @@ const CertificatePage = observer((props) => {
 									<Text secondary>{model.md5.value}</Text>
 								</Column>
 							</Row>
-						</Column>
+						</Column> */}
 					</Column>
 				</Column>
 				<Flex />
