@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Autocomplete from "../../forms/autocomplete"
 import PlusCircle from "../../svg/plus-circle"
 import { TouchableWithoutFeedback, StyleSheet } from "react-native"
@@ -24,8 +24,13 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 	const { t } = useTranslation()
 	const { collaborators } = useStores()
 	const [search, setSearch] = useState("")
-	// const getResults = useArtistAutocomplete()
-
+	const [results, setResults] = useState([])
+	const getResults = useArtistAutocomplete()
+	const handleSearchChange = async (text) => {
+		setSearch(text)
+		let response = await getResults(text, 10)
+		setResults(response)
+	}
 	//console.log(search)
 	// const searchResults = getResults(search, 10, ResultsOrder.collaboratorsFirst)
 	// first we'll grab the in-house data we already have
@@ -40,7 +45,7 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 
 	// const results = searchResults.concat(rightsResults).splice(0, 10)
 
-	const results = [
+	const fakeResults = [
 		{
 			rightHolder_id: "2d3f2a65-b3d5-48b1-845d-928bb4604700",
 			firstName: "smarty",
@@ -104,20 +109,18 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 			user_id: "1a23cb22-0728-48c4-8ec8-1ef0efa8893a",
 		},
 	]
-
+	//useEffect(()=>{setResults()},[])
 	return (
 		<>
 			<Autocomplete
 				icon={PlusCircle}
 				placeholder={t("forms:labels.dropdowns.addCollaborator")}
 				search={search}
-				onSearchChange={setSearch}
+				onSearchChange={handleSearchChange}
 				{...nextProps}
 				searchResults={results}
 				onSelect={(result) => {
-					onSelect(
-						result.rightHolder_id ? result.rightHolder_id : result.user_id
-					)
+					onSelect(result)
 				}}
 			>
 				<TouchableWithoutFeedback onPress={() => collaborators.new()}>
