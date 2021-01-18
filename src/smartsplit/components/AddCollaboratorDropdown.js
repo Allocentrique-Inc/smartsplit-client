@@ -137,7 +137,7 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 				onRequestClose={() => collaborators.cancel()}
 				onAdded={(result) => {
 					//console.log(result)
-					onSelect(result.user_id)
+					onSelect(result)
 				}}
 			/>
 		</>
