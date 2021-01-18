@@ -119,7 +119,7 @@ const PerformanceForm = observer(() => {
 				<Column of="component">
 					<ShareCards />
 					<AddCollaboratorDropdown
-						onSelect={(id) => domainState.addShareholder(id)}
+						onSelect={(user) => domainState.addShareholder(user.user_id)}
 						placeholder={t("addCollab")}
 					/>
 				</Column>
