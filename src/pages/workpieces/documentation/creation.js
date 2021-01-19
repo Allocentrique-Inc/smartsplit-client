@@ -33,6 +33,7 @@ import XIcon from "../../../svg/x"
 import Field from "../../../mobX/BaseModel/Field"
 import DatePickers from "../../../smartsplit/components/DatePickers"
 import { FormStyles } from "./FormStyles"
+import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
 
 //const frameStyle = [CardStyles.frame, Styles.frame]
 
@@ -213,16 +214,11 @@ const CreationForm = observer(() => {
 				{/* {console.log(Object.values(model.authors.value))} */}
 
 				<Column of="tiny">
-					<AddContributorDropdown
+					<AddCollaboratorDropdown
 						label={t("document:creation.roles.authors")}
 						subLabel={t("document:creation.roles.authorsWho")}
-						searchResults={authorSearchResults}
-						search={search}
-						onSearchChange={setSearch}
 						alwaysShowAdd
 						onSelect={(selection) => {
-							//console.dir(toJS(selection))
-							//console.log(`the selection from add contributor dropdown was ^^`)
 							if (
 								!model.authors.array.filter(
 									(v) => v.user_id === selection.user_id
@@ -240,23 +236,17 @@ const CreationForm = observer(() => {
 				</Column>
 
 				<Column of="tiny">
-					<AddContributorDropdown
+					<AddCollaboratorDropdown
 						label={t("document:creation.roles.composers")}
 						subLabel={t("document:creation.roles.composersWho")}
-						searchResults={composerSearchResults}
-						searchInput={search}
-						onSearchChange={setSearch}
 						alwaysShowAdd
 						onSelect={(selection) => {
-							//console.dir(toJS(selection))
-							//console.log(`the selection from add contributor dropdown was ^^`)
 							if (
 								!model.composers.array.filter(
 									(v) => v.user_id === selection.user_id
 								).length
 							)
 								model.composers.add(selection)
-							setSearch("")
 						}}
 						placeholder={t("document:creation.roles.addComposer")}
 					/>
@@ -266,25 +256,17 @@ const CreationForm = observer(() => {
 				</Column>
 
 				<Column of="tiny">
-					<AddContributorDropdown
+					<AddCollaboratorDropdown
 						label={t("document:creation.roles.publishers")}
 						subLabel={t("document:creation.roles.publishersWho")}
-						searchResults={publisherSearchResults}
-						searchInput={search}
-						onSearchChange={setSearch}
 						alwaysShowAdd
 						onSelect={(selection) => {
-							console.dir(toJS(selection))
-							console.log(
-								`the selection from add contributor dropdown or modal was ^^`
-							)
 							if (
 								!model.publishers.array.filter(
 									(v) => v.user_id === selection.user_id
 								).length
 							)
 								model.publishers.add(selection)
-							setSearch("")
 						}}
 						placeholder={t("document:creation.roles.addPublisher")}
 					/>

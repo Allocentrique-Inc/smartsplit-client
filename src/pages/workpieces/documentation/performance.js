@@ -155,10 +155,7 @@ const PerformanceForm = observer((props) => {
 						<Spacer of="group" />
 					</Column>
 				))}
-				<AddContributorDropdown
-					searchResults={performerSearchResults}
-					searchInput={search}
-					onSearchChange={setSearch}
+				<AddCollaboratorDropdown
 					alwaysShowAdd
 					onSelect={(selection) => {
 						if (
@@ -167,9 +164,6 @@ const PerformanceForm = observer((props) => {
 							).length
 						)
 							model.performers.add({ user: selection })
-						console.log(toJS(model))
-						console.log(model.toJS())
-						setSearch("")
 					}}
 					placeholder={t("document:performance.roles.addPerformer")}
 				/>
