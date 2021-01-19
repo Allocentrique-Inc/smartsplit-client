@@ -10,7 +10,6 @@ import { useTranslation } from "react-i18next"
 import styled from "styled-components/native"
 import DateTimePicker from "@react-native-community/datetimepicker" //For mobile
 import { DateInput } from "semantic-ui-calendar-react" // For web
-import "semantic-ui-css/semantic.min.css"
 //import DatePicker from "react-datepicker"
 //import "react-datepicker/dist/react-datepicker-cssmodules.css"
 import { Colors } from "../../theme"

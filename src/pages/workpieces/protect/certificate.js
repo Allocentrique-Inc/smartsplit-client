@@ -17,16 +17,25 @@ export default observer(function Certificate(props) {
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
 	const model: CertificateModel = useProtectModel(workpieceId, "certificate")
+	const history = useHistory()
+	function navigateToSummary() {
+		history.push(`/workpieces/${workpieceId}/protect-certificate-final/1`)
+	}
 	const { modalVisible, closeModal } = props
+	const handleModalPublishClose = () => {
+		closeModal()
+		navigateToSummary()
+	}
+
 	return (
 		<>
-			<CertificatePage workpiece={workpiece} model={model}></CertificatePage>
+			<CertificatePage workpiece={workpiece} model={model} />
 			<PublishModal
 				workpieceId={workpieceId}
 				model={model}
 				visible={modalVisible}
-				onRequestClose={closeModal}
-			></PublishModal>
+				onRequestClose={handleModalPublishClose}
+			/>
 		</>
 	)
 })
@@ -35,10 +44,6 @@ export function PublishModal(props) {
 	const { t } = useTranslation()
 	const model: CertificateModel = props.model
 	const workpieceId = props.workpieceId
-	const history = useHistory()
-	function navigateToSummary() {
-		history.push(`/workpieces/${workpieceId}`)
-	}
 
 	const [selection, setSelection] = useState([])
 	const [isEnoughSelect, setIsEnoughSelect] = useState(false)
@@ -69,7 +74,7 @@ export function PublishModal(props) {
 			waitingPublish()
 			setTextPublishBtn(t("protect:btnPublishFinal").toString())
 		} else if (orderShow === 3) {
-			navigateToSummary()
+			props.onRequestClose()
 		}
 	}
 

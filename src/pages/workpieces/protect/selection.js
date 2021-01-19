@@ -58,8 +58,8 @@ const SelectionPage = observer(() => {
 	}
 
 	const onChangeFile = (val) => {
-		var re = /(?:\.([^.]+))?$/
-		var ext = re.exec(val.name)[1]
+		let re = /(?:\.([^.]+))?$/
+		let ext = re.exec(val.name)[1]
 		if (AcceptTypeUpLoad.includes(ext) && parseInt(val.size) <= LimitFileSize) {
 			model.fileSelectedId.setValue("0")
 			setFileName(val)

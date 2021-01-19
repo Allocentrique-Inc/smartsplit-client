@@ -26,6 +26,7 @@ import { DocumentYourWork, ProtectYourWork, ShareYourCopyright } from "./cards"
 import { useStorePath, useStores } from "../../mobX"
 import { observer } from "mobx-react"
 import DocumentationPage from "./documentation"
+import SummaryPage from "./protect/summary/index"
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
 	const workpiece = useStorePath("workpieces").fetch(match.params.workpiece_id)
@@ -38,6 +39,12 @@ const WorkpiecesRouter = observer(() => {
 					path="/workpieces/:workpiece_id"
 					exact
 					component={WorkpiecePage}
+				/>
+
+				<Route
+					path="/workpieces/:workpiece_id/protect-certificate-final/:id"
+					exact
+					component={SummaryPage}
 				/>
 
 				<Route
