@@ -173,8 +173,8 @@ export function WorkpiecePage() {
 						>
 							<Column style={Styles.innerContainer}>
 								<Row wrap style={Styles.cardContainer}>
-									<DocumentYourWork />
 									<ShareYourCopyright />
+									<DocumentYourWork />
 									<ProtectYourWork />
 								</Row>
 							</Column>
