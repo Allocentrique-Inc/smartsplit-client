@@ -1,8 +1,11 @@
 import { observable } from "mobx"
 import BaseModel, { Field, FieldType } from "../../../BaseModel"
 
+/**
+ *	Copyright shareholder model
+ **/
 export default class CopyrightShareModel extends BaseModel {
-	@observable shareholder = new Field(this, "shareholder", {
+	@observable rightHolder = new Field(this, "rightHolder", {
 		type: FieldType.string,
 		primary: true,
 		readonly: true,

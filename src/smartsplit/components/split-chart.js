@@ -164,11 +164,11 @@ function useTooltips(data, slices, center) {
 	const [tooltipData, setTooltipData] = useState(TooltipInitialState)
 	const centerVectors = generateShareCenterVectors(slices, center)
 	function handleFocus(key) {
-		const shareHolder = data.filter((shareHolder) => shareHolder.key === key)[0]
+		const shareholder = data.filter((shareholder) => shareholder.key === key)[0]
 		setTooltipData({
 			vector: centerVectors.get(key),
-			percent: (shareHolder.share / shareTotal) * 100,
-			name: shareHolder.name,
+			percent: (shareholder.share / shareTotal) * 100,
+			name: shareholder.name,
 		})
 	}
 

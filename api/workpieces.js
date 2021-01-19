@@ -37,7 +37,7 @@ export async function createRightSplits(workpiece_id, data) {
 		data: data,
 	})
 
-	return result.data
+	return result
 }
 
 export async function updateRightSplits(workpiece_id, data) {
@@ -47,7 +47,7 @@ export async function updateRightSplits(workpiece_id, data) {
 		data: data,
 	})
 
-	return result.data
+	return result
 }
 
 export async function saveDocumentation(workpieceId, section, data) {
