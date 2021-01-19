@@ -26,6 +26,7 @@ import { toJS } from "mobx"
 import Field from "../../../mobX/BaseModel/Field"
 import searchResultsStudio from "../../../data/studios-smartsplit"
 import { FormStyles } from "./FormStyles"
+import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
 
 const RecordingForm = observer((props) => {
 	//const searchResults = ["Inie", "Manie", "Moe"]
@@ -37,32 +38,6 @@ const RecordingForm = observer((props) => {
 	const workpieceId = workpiece.id
 	const { contributors } = useStores()
 	const model: DocRecordingModel = useDocsModel(workpieceId, "recording")
-	const getResults = useArtistAutocomplete()
-
-	const searchFilter = (user) => {
-		let name =
-			user.firstName +
-			" " +
-			user.lastName +
-			(user.artistName ? ` (${user.artistName})` : "")
-		return name.indexOf(search) > -1
-	}
-
-	const modelValueFilter = (
-		v: {
-			firstName: string,
-			lastName: string,
-			artistName: string,
-			user_id: string,
-		},
-		field: Field
-	) => {
-		let exists = false
-		field.array.forEach((selected) => {
-			if (v.user_id === selected.uid) exists = true
-		})
-		return !exists
-	}
 
 	const fakeSearchResults = [
 		{
@@ -99,26 +74,6 @@ const RecordingForm = observer((props) => {
 		},
 	]
 
-	const searchResults = getResults(search, 10, ResultsOrder.contributorsFirst)
-	const results = searchResults.concat(fakeSearchResults).splice(0, 10)
-	const searchFilteredResults = results.filter(searchFilter)
-
-	const directorSearchResults = searchFilteredResults.filter((result) =>
-		modelValueFilter(result, model.director)
-	)
-	const soundEngeSearchResults = searchFilteredResults.filter((result) =>
-		modelValueFilter(result, model.recordedBy)
-	)
-	const mixEngeSearchResults = searchFilteredResults.filter((result) =>
-		modelValueFilter(result, model.mixedBy)
-	)
-	const masterEngeSearchResults = searchFilteredResults.filter((result) =>
-		modelValueFilter(result, model.masteredBy)
-	)
-	const producerSearchResults = searchFilteredResults.filter((result) =>
-		modelValueFilter(result, model.producedBy)
-	)
-
 	//const searchResultsStudio = ["Zut Records", "Flip Studio", "Flop Studio"]
 	const [searchStudio, setSearchStudio] = useState("")
 	const [selectedStudio, setSelectedStudio] = useState("")
@@ -138,11 +93,8 @@ const RecordingForm = observer((props) => {
 					<Spacer of="group" />
 
 					<Column of="tiny">
-						<AddContributorDropdown
+						<AddCollaboratorDropdown
 							label={t("document:recording.roles.direction")}
-							searchResults={directorSearchResults}
-							searchInput={search}
-							onSearchChange={setSearch}
 							alwaysShowAdd
 							onSelect={(selection) => {
 								if (
@@ -161,11 +113,8 @@ const RecordingForm = observer((props) => {
 					</Column>
 
 					<Column of="tiny">
-						<AddContributorDropdown
+						<AddCollaboratorDropdown
 							label={t("document:recording.roles.soundEngineer")}
-							searchResults={soundEngeSearchResults}
-							searchInput={search}
-							onSearchChange={setSearch}
 							alwaysShowAdd
 							onSelect={(selection) => {
 								if (
@@ -188,11 +137,8 @@ const RecordingForm = observer((props) => {
 					</Column>
 
 					<Column of="tiny">
-						<AddContributorDropdown
+						<AddCollaboratorDropdown
 							label={t("document:recording.roles.soundEngineer")}
-							searchResults={mixEngeSearchResults}
-							searchInput={search}
-							onSearchChange={setSearch}
 							alwaysShowAdd
 							onSelect={(selection) => {
 								if (
@@ -211,11 +157,8 @@ const RecordingForm = observer((props) => {
 					</Column>
 
 					<Column of="tiny">
-						<AddContributorDropdown
+						<AddCollaboratorDropdown
 							label={t("document:recording.roles.master")}
-							searchResults={masterEngeSearchResults}
-							searchInput={search}
-							onSearchChange={setSearch}
 							alwaysShowAdd
 							onSelect={(selection) => {
 								if (
@@ -316,11 +259,8 @@ const RecordingForm = observer((props) => {
 					tooltip=""
 				/> */}
 					<Column of="tiny">
-						<AddContributorDropdown
+						<AddCollaboratorDropdown
 							label={t("document:recording.roles.production")}
-							searchResults={producerSearchResults}
-							searchInput={search}
-							onSearchChange={setSearch}
 							alwaysShowAdd
 							onSelect={(selection) => {
 								if (
