@@ -64,6 +64,11 @@ const WorkpiecesRouter = observer(() => {
 					component={ProtectWork}
 				/>
 
+				<Route
+					path={["/workpieces/:workpiece_id/workpiece-summary/workpiece-sheet"]}
+					component={WorkpieceSheet}
+				/>
+
 				{/*<Route path="/workpieces/:workpiece_id/documentation/recording">*/}
 				{/*	<Recording />*/}
 				{/*</Route>*/}
