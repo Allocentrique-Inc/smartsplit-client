@@ -45,11 +45,12 @@ export default class ModelCollection extends Field {
 	@computed get length() {
 		return this.value.length
 	}
-	@action init(collectionValues = []) {
+	@action initValue(collectionValues) {
 		this.initialValue = collectionValues
-		collectionValues.forEach((modelValue) => {
-			this.add(modelValue)
-		})
+		collectionValues &&
+			collectionValues.forEach((modelValue) => {
+				this.add(modelValue)
+			})
 	}
 	@action reset() {
 		this.value = []
@@ -58,14 +59,11 @@ export default class ModelCollection extends Field {
 		})
 	}
 	@action add(initValue = null) {
-		console.log(initValue)
 		let model = new this.modelClass()
 		model.init(initValue)
 		this.value.push(model)
 	}
 	@action remove(index) {
-		console.log(index)
-		console.log(toJS(this.value[index]))
 		this.value.splice(index, 1)
 		this.setValue(this.value)
 	}

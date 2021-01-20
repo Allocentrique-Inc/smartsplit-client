@@ -1,24 +1,22 @@
-import { action, computed } from "mobx"
+import { computed } from "mobx"
 import CircledC from "../../../svg/circled-c"
 import RightSplitState from "./RightSplitState"
 import CopyrightSplitModel from "../../models/workpieces/right-splits/CopyrightSplitModel.js"
 import CopyrightForm from "../../../pages/workpieces/right-splits/copyright"
+import i18next from "i18next"
 
 export default class CopyrightSplitState extends RightSplitState {
 	constructor(parent) {
-		super(parent, CircledC)
+		super(parent)
 		this.domainState = new CopyrightSplitModel(this)
 	}
 
 	progress = (1 / 3) * 100
 	form = CopyrightForm
-
-	@action init(pageTitle, titleLeft, titleRight) {
-		super.init(pageTitle)
-		// Titles of Dual pie chart halfs
-		this.titleLeft = titleLeft
-		this.titleRight = titleRight
-	}
+	logo = CircledC
+	pageTitle = i18next.t("rightSplits:copyright.title")
+	titleLeft = i18next.t("rightSplits:lyrics")
+	titleRight = i18next.t("rightSplits:music")
 
 	/**
 	 *	Computed array of data objects
