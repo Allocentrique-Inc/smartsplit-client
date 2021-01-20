@@ -14,7 +14,7 @@ import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
 import { useRightSplits } from "../../../mobX/hooks"
 import { useCurrentWorkpieceId } from "../context"
-import { CHART_WINDOW_RATIO } from "../../../mobX/models/workpieces/right-splits/RightSplitState"
+import { CHART_WINDOW_RATIO } from "../../../mobX/states/right-splits/RightSplitState"
 
 const PerformanceForm = observer(() => {
 	const splitState = useRightSplits(useCurrentWorkpieceId(), "performance")
@@ -22,7 +22,6 @@ const PerformanceForm = observer(() => {
 
 	const { t } = useTranslation("rightSplits")
 	const [styles, setStyles] = useState({})
-
 	useEffect(() => {
 		setStyles(splitState.getStyles(window.outerWidth))
 	}, [window.outerWidth])
@@ -44,7 +43,7 @@ const PerformanceForm = observer(() => {
 		})
 	}
 	const ShareCards = observer(() => {
-		return splitState.sharesData.map((share) => (
+		return splitState.shareholdersData.map((share) => (
 			<ShareCard
 				key={share.id}
 				shareholderId={share.id}

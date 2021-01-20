@@ -19,29 +19,28 @@ export default class RightSplitModel extends BaseModel {
 
 	/**
 	 *	Provide a data structure that makes easier
-	 *	to access and manipulate share field values.
-	 * 	(hence shareS valueS, because each share has
-	 *	multiple values)
+	 *	to access and use share field values.
+	 * 	(hence shareholderS valueS, because each shareholder has
+	 *	multiple Field attributes)
 	 * 	@return: Array<{Field.value}>
 	 **/
-	@computed get sharesValues() {
-		return this.shareholders.toJS().map((share) => {
-			const { shareholder, ...rest } = share
-			return { id: shareholder, ...rest }
+	@computed get shareholdersValues() {
+		return this.shareholders.toJS(false, false).map((share) => {
+			const { rightHolder, ...rest } = share
+			return { id: rightHolder, ...rest }
 		})
 	}
 
 	@computed get shareTotal() {
-		return this.sharesValues.reduce((n, current) => n + current.shares, 0)
+		return this.shareholdersValues.reduce((n, current) => n + current.shares, 0)
 	}
 
-	@action addShareholder(shareholder, shareData = this.initShareData) {
-		if (this.includes(shareholder)) {
-			//Temporarily print error without throwing it
+	@action addShareholder(rightHolder, shareData = this.initShareData) {
+		if (this.includes(rightHolder)) {
 			console.error(`Error adding shareholder: id found`)
 			return
 		}
-		this.shareholders.add({ shareholder, ...shareData })
+		this.shareholders.add({ rightHolder, ...shareData })
 	}
 
 	@action removeShareholder(id) {
@@ -64,16 +63,16 @@ export default class RightSplitModel extends BaseModel {
 	}
 
 	includes(id) {
-		return this.sharesValues.some((share) => share.id === id)
+		return this.shareholdersValues.some((share) => share.id === id)
 	}
 
 	indexOf(id) {
-		return this.sharesValues.findIndex((share) => share.id === id)
+		return this.shareholdersValues.findIndex((share) => share.id === id)
 	}
 
 	get(id) {
 		return this.shareholders.array.find(
-			(share) => share.shareholder.value === id
+			(share) => share.rightHolder.value === id
 		)
 	}
 
@@ -86,7 +85,7 @@ export default class RightSplitModel extends BaseModel {
 		shares.forEach((share) => {
 			const index = this.indexOf(share.id)
 			if (index) {
-				const newValue = this.sharesValues[index].shares + diff
+				const newValue = this.shareholdersValues[index].shares + diff
 				this.updateShareField(share.id, "shares", newValue)
 			}
 		})
@@ -100,7 +99,7 @@ export default class RightSplitModel extends BaseModel {
 	 *	- value: Value to update shares with. Default
 	 *	to 1
 	 **/
-	@action setShares(shares = this.sharesValues, value = 1) {
+	@action setShares(shares = this.shareholdersValues, value = 1) {
 		shares.forEach((share) => {
 			this.updateShareField(share.id, "shares", value)
 		})
@@ -121,7 +120,7 @@ export default class RightSplitModel extends BaseModel {
 		const oldValue = this.get(id).shares
 		const diff = value - oldValue
 		// Select other candidate shares
-		const sortedShares = this.sharesValues
+		const sortedShares = this.shareholdersValues
 			.filter((share) => share.id !== id && !share.locked)
 			.sort((a, b) => a.shares - b.shares)
 		if (sortedShares.length === 0) {
@@ -179,16 +178,16 @@ export default class RightSplitModel extends BaseModel {
 		if (index === -1) {
 			console.error(`Error in toggleShareLock: share holder ${id} not found`)
 		}
-		const share = this.sharesValues[index]
+		const share = this.shareholdersValues[index]
 		if (share.locked) {
-			const otherShares = this.sharesValues.filter(
+			const otherShares = this.shareholdersValues.filter(
 				(share) => share.id !== id && share.locked
 			)
 			otherShares.forEach((share) =>
 				this.updateShareField(share.id, "locked", false)
 			)
 		} else {
-			const otherShares = this.sharesValues.filter(
+			const otherShares = this.shareholdersValues.filter(
 				(share) => share.id !== id && !share.locked
 			)
 			if (otherShares.length === 1) {

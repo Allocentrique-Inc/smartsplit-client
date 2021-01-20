@@ -39,7 +39,7 @@ const RightSplitsPage = observer(() => {
 	const currentSplit = split_type
 	//TODO: refactor rights splits saving
 	function saveAndQuit() {
-		// console.log("DEBUG SPLITS", copyrightSplitState.domainState.sharesValues, workpiece.rightSplitsState.copyright.domainState.sharesValues, rightSplitsModel.copyright.sharesValues)
+		// console.log("DEBUG SPLITS", copyrightSplitState.domainState.shareholdersValues, workpiece.rightSplitsState.copyright.domainState.shareholdersValues, rightSplitsModel.copyright.shareholdersValues)
 		rightSplits.save()
 	}
 

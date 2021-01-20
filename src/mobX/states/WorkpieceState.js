@@ -9,7 +9,7 @@ import { action, observable, reaction, runInAction } from "mobx"
 import DocumentationModel from "../models/workpieces/documentation/DocumentationModel"
 import ProtectionModel from "../models/workpieces/protect/ProtectionModel"
 import WorkpieceModel from "../models/workpieces/WorkpieceModel"
-import RightSplitsState from "../models/workpieces/right-splits/RightSplitsState"
+import RightSplitsState from "../states/right-splits/RightSplitsState"
 const WorkpieceObservable = createCrudObservable(
 	WorkpiecesCrudAPI,
 	"workpiece_id"
