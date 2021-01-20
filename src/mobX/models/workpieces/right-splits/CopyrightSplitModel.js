@@ -35,7 +35,9 @@ export default class CopyrightSplitModel extends RightSplitModel {
 	@computed get lyricsContributors() {
 		const isLyricsContrib = (roles) =>
 			roles.includes("author") || roles.includes("adapter")
-		return this.sharesValues.filter((share) => isLyricsContrib(share.roles))
+		return this.shareholdersValues.filter((share) =>
+			isLyricsContrib(share.roles)
+		)
 	}
 
 	/**
@@ -49,7 +51,7 @@ export default class CopyrightSplitModel extends RightSplitModel {
 	@computed get musicContributors() {
 		const isMusicContrib = (roles) =>
 			roles.includes("composer") || roles.includes("mixer")
-		const contribs = this.sharesValues.filter((share) =>
+		const contribs = this.shareholdersValues.filter((share) =>
 			isMusicContrib(share.roles)
 		)
 		const list = []
@@ -68,26 +70,27 @@ export default class CopyrightSplitModel extends RightSplitModel {
 
 	@computed get composerChosen() {
 		return (
-			this.sharesValues.filter((share) => share.roles.includes("composer"))
-				.length > 0
+			this.shareholdersValues.filter((share) =>
+				share.roles.includes("composer")
+			).length > 0
 		)
 	}
 
 	@computed get authorChosen() {
 		return (
-			this.sharesValues.filter((share) => share.roles.includes("author"))
+			this.shareholdersValues.filter((share) => share.roles.includes("author"))
 				.length > 0
 		)
 	}
 
 	@action computeEqualMode() {
-		this.sharesValues.forEach((share) => {
+		this.shareholdersValues.forEach((share) => {
 			this.updateShareField(share.id, "shares", 1)
 		})
 	}
 
 	@action computeRolesMode() {
-		this.sharesValues.forEach((share) => {
+		this.shareholdersValues.forEach((share) => {
 			const musicContribNb = this.musicContributors.reduce(
 				(n, current) => n + current.weighting,
 				0
@@ -98,13 +101,13 @@ export default class CopyrightSplitModel extends RightSplitModel {
 				this.lyricsContributors.filter((contrib) => contrib.id === share.id)
 					.length > 0
 			) {
-				score += (0.5 * this.sharesValues.length) / lyricsContribNb
+				score += (0.5 * this.shareholdersValues.length) / lyricsContribNb
 			}
 
 			this.musicContributors.forEach((contrib) => {
 				if (contrib.id === share.id) {
 					score +=
-						(0.5 * contrib.weighting * this.sharesValues.length) /
+						(0.5 * contrib.weighting * this.shareholdersValues.length) /
 						musicContribNb
 				}
 			})

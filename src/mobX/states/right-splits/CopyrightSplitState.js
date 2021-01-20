@@ -1,12 +1,12 @@
 import { action, computed } from "mobx"
-import CircledC from "../../../../svg/circled-c"
+import CircledC from "../../../svg/circled-c"
 import RightSplitState from "./RightSplitState"
-import CopyrightSplitModel from "./CopyrightSplitModel"
-import CopyrightForm from "../../../../pages/workpieces/right-splits/copyright"
+import CopyrightSplitModel from "../../models/workpieces/right-splits/CopyrightSplitModel.js"
+import CopyrightForm from "../../../pages/workpieces/right-splits/copyright"
 
-export default class CopyrightSplit extends RightSplitState {
-	constructor(parent, shareholdersColors) {
-		super(parent, CircledC, shareholdersColors)
+export default class CopyrightSplitState extends RightSplitState {
+	constructor(parent) {
+		super(parent, CircledC)
 		this.domainState = new CopyrightSplitModel(this)
 	}
 
@@ -24,20 +24,20 @@ export default class CopyrightSplit extends RightSplitState {
 	 *	Computed array of data objects
 	 *	used by the UI
 	 **/
-	@computed get sharesData() {
-		return this.shares.map((share) => {
+	@computed get shareholdersData() {
+		return this.shareholders.map((shareholder) => {
 			let percent
-			if (this.shareTotal > 0 && share.shares) {
-				percent = (100 * share.shares) / this.shareTotal
+			if (this.shareTotal > 0 && shareholder.shares) {
+				percent = (100 * shareholder.shares) / this.shareTotal
 			} else {
 				percent = 0
 			}
 			return {
-				id: share.id,
-				shares: share.shares,
-				roles: share.roles,
+				id: shareholder.id,
+				shares: shareholder.shares,
+				roles: shareholder.roles,
 				percent: percent,
-				locked: share.locked || this.shares.length === 1,
+				locked: shareholder.locked || this.shareholders.length === 1,
 			}
 		})
 	}

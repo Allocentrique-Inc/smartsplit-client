@@ -42,6 +42,9 @@ export default class ModelCollection extends Field {
 	@computed get array() {
 		return this.value
 	}
+	@computed get length() {
+		return this.value.length
+	}
 	@action init(collectionValues = []) {
 		this.initialValue = collectionValues
 		collectionValues.forEach((modelValue) => {
@@ -82,7 +85,7 @@ export default class ModelCollection extends Field {
 		return validity
 	}
 
-	toJS() {
-		return toJS(this.array.map((model) => model.toJS()))
+	toJS(...args) {
+		return toJS(this.array.map((model) => model.toJS(...args)))
 	}
 }
