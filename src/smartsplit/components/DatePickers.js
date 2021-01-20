@@ -35,7 +35,7 @@ const DatePickerStyle = StyleSheet.create({
 } */
 
 export const WebDatePicker = observer((props) => {
-	const { field } = props
+	const { field, onChange } = props
 
 	const [value, setValue] = useState(new Date()) //new créer un nouvel objet, comme constructor, par défaut existe dans browser JS
 
@@ -44,10 +44,10 @@ export const WebDatePicker = observer((props) => {
 	const handleChange = (event, { name, value }) => {
 		console.log(`${name}: ${value}`)
 		//name === "date" ? setValue(value) : t("forms:placeholders.date")
-		value === setValue(value)
-			? field.setValue(value)
-			: t("forms:placeholders.date")
-
+		if (name === "date") field ? field.setValue(value) : setValue(value)
+		if (onChange) {
+			onChange(value)
+		}
 		/* 	if (name === "date") {
 			if (field) field.setValue(value)
 			else t("forms:placeholders.date")
@@ -61,7 +61,7 @@ export const WebDatePicker = observer((props) => {
 			dateFormat="DD-MM-YYYY"
 			placeholder={t("forms:placeholders.date")}
 			//label={t("document:creation.date")}
-			value={field?.value}
+			value={field ? field.value : value}
 			onChange={handleChange}
 			icon={null}
 			localization={i18n.language}
