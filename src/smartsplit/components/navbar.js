@@ -4,6 +4,7 @@ import { Row } from "../../layout"
 import ArrowLeft from "../../svg/arrow-left"
 import { View } from "react-native"
 import { Metrics } from "../../theme"
+import { Text } from "../../text"
 
 const Styles = StyleSheet.create({
 	outerContainer: {
@@ -29,7 +30,7 @@ export function Navbar({ title, onBack, actions, style }) {
 					</View>
 				</TouchableWithoutFeedback>
 				<Row of="component" valign="center">
-					{title}
+					<Text>{title}</Text>
 				</Row>
 				<View style={{ marginLeft: "auto" }}>{actions}</View>
 			</Row>
