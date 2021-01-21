@@ -184,14 +184,14 @@ export const forms = {
 			createContributor: "Créer un nouveau contributeur",
 			addArtist: "Ajouter {{searchText}} comme nouvel artiste ou groupe",
 			artistTypes: {
-				principal: "Artiste principal",
-				featured: () => (
+				mainArtist: "Artiste principal",
+				feature: () => (
 					<>
 						Artiste invité ((<i>featuring</i>))
 					</>
 				),
-				bandMember: "Membre du groupe",
-				session: "Artiste acompagnateur",
+				groupMember: "Membre du groupe",
+				backupArtist: "Artiste acompagnateur",
 			},
 			artistTypesDescription: {
 				principal: "Aussi appelé « Artiste vedette » ou « Artiste solo »",

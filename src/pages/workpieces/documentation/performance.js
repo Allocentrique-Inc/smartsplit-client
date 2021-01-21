@@ -30,6 +30,8 @@ import {
 	ResultsOrder,
 } from "../../../mobX/hooks"
 import { useStores } from "../../../mobX"
+import { useRightSplits } from "../../../mobX/hooks"
+import { useCurrentWorkpieceId } from "../context"
 import ContributorsState from "../../../mobX/states/ContributorsState"
 import ContributorModel from "../../../mobX/models/user/ContributorModel"
 import DocPerformanceModel from "../../../mobX/models/workpieces/documentation/DocPerformanceModel"
@@ -232,11 +234,30 @@ export const PerformanceOptions = observer((props) => {
 	//console.log(field)
 	const { t } = useTranslation()
 	const [selected, setSelected] = useState()
+	const splitState = useRightSplits(useCurrentWorkpieceId(), "performance")
+	const domainState = splitState.domainState
 
-	const artistTypes = ["mainArtist", "feature", "groupMember", "backupArtist"]
+	/* 	const artistTypes = ["mainArtist", "feature", "groupMember", "backupArtist"]
 
 	function genSelectOptions() {
 		return artistTypes.map((artist) => {
+			return {
+				key: artist,
+				value: (
+					<>
+						<Text>{t(`forms:labels.dropdowns.artistTypes.${artist}`)}</Text>
+						<Text secondary>
+							{t(`forms:labels.dropdowns.artistTypesDescription.${artist}`)}
+						</Text>
+					</>
+				),
+				displayValue: t(`forms:labels.dropdowns.artistTypes.${artist}`),
+			}
+		})
+	} */
+
+	function genSelectOptions() {
+		return domainState.statusValues.map((artist) => {
 			return {
 				key: artist,
 				value: (
