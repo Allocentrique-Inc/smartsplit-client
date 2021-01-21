@@ -27,6 +27,7 @@ import Field from "../../../mobX/BaseModel/Field"
 import searchResultsStudio from "../../../data/studios-smartsplit"
 import { FormStyles } from "./FormStyles"
 import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
+import DatePickers from "../../../smartsplit/components/DatePickers"
 
 const RecordingForm = observer((props) => {
 	//const searchResults = ["Inie", "Manie", "Moe"]
@@ -216,12 +217,16 @@ const RecordingForm = observer((props) => {
 					placeholder={t("document:recording.roles.addMaster")}
 					tooltip=""
 				/>*/}
-					<DateField
+					{/*<DateField
 						label={t("document:recording.date")}
 						value={model.recordingDate.value}
 						onChangeText={(v) => model.recordingDate.setValue(v)}
 						placeholder={t("forms:placeholders.date")}
 						tooltip=""
+					/>*/}
+					<DatePickers
+						label={t("document:recording.date")}
+						field={model.recordingDate}
 					/>
 					<SearchAndTag
 						noIcon={true}

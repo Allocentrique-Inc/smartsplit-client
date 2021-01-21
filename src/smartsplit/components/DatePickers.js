@@ -14,7 +14,7 @@ import { DateInput } from "semantic-ui-calendar-react" // For web
 import "semantic-ui-css/semantic.min.css"
 import { Colors } from "../../theme"
 import { titleCase } from "../../utils/utils"
-
+import Label from "../../forms/label"
 const DatePickerStyle = StyleSheet.create({
 	container: {
 		borderRadius: 2,
@@ -35,9 +35,9 @@ const DatePickerStyle = StyleSheet.create({
 } */
 
 export const WebDatePicker = observer((props) => {
-	const { field, onChange } = props
+	const { field, onChange, label, subLabel, label_hint, tooltip } = props
 
-	const [value, setValue] = useState(new Date()) //new créer un nouvel objet, comme constructor, par défaut existe dans browser JS
+	const [value, setValue] = useState(null) //new créer un nouvel objet, comme constructor, par défaut existe dans browser JS
 
 	const { t, i18n } = useTranslation()
 
@@ -55,17 +55,24 @@ export const WebDatePicker = observer((props) => {
 	}
 
 	return (
-		<DateInput
-			//style={DatePickerStyle.container}
-			name="date"
-			dateFormat="DD-MM-YYYY"
-			placeholder={t("forms:placeholders.date")}
-			//label={t("document:creation.date")}
-			value={field ? field.value : value}
-			onChange={handleChange}
-			icon={null}
-			localization={i18n.language}
-		/>
+		<Label
+			label={label}
+			subLabel={subLabel}
+			label_hint={label_hint}
+			tooltip={tooltip}
+		>
+			<DateInput
+				//style={DatePickerStyle.container}
+				name="date"
+				dateFormat="DD-MM-YYYY"
+				placeholder={t("forms:placeholders.date")}
+				//label={t("document:creation.date")}
+				value={field ? field.value : value}
+				onChange={handleChange}
+				icon={null}
+				localization={i18n.language}
+			/>
+		</Label>
 	)
 })
 
@@ -131,11 +138,19 @@ export class MobileDatePicker extends React.Component {
 }
 
 export default function DatePickers(props) {
-	const [date, setDate] = useState(new Date()) //En attendant de binder
+	const { field, onChange, label, subLabel, label_hint, tooltip } = props
+	const [date, setDate] = useState(null) //En attendant de binder
 	return (
 		<View>
 			{Platform.OS === "web" ? (
-				<WebDatePicker value={date} onChange={(value) => setDate(v)} />
+				<WebDatePicker
+					field={field}
+					onChange={onChange}
+					label={label}
+					subLabel={subLabel}
+					label_hint={label_hint}
+					tooltip={tooltip}
+				/>
 			) : (
 				<MobileDatePicker />
 			)}
