@@ -19,6 +19,7 @@ const DatePickerStyle = StyleSheet.create({
 	container: {
 		borderRadius: 2,
 		borderColor: Colors.stroke,
+		color: Colors.inactive,
 	},
 })
 
@@ -42,7 +43,7 @@ export const WebDatePicker = observer((props) => {
 	const { t, i18n } = useTranslation()
 
 	const handleChange = (event, { name, value }) => {
-		console.log(`${name}: ${value}`)
+		//console.log(`${name}: ${value}`)
 		//name === "date" ? setValue(value) : t("forms:placeholders.date")
 		if (name === "date") field ? field.setValue(value) : setValue(value)
 		if (onChange) {
