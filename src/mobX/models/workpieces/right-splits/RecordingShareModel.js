@@ -1,7 +1,11 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
 import { observable } from "mobx"
+
+/**
+ *	Recording shareholder model
+ **/
 export default class RecordingShareModel extends BaseModel {
-	@observable shareholder = new Field(this, "shareholder", {
+	@observable rightHolder = new Field(this, "rightHolder", {
 		type: FieldType.string,
 		primary: true,
 		readonly: true,

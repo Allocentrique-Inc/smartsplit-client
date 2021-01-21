@@ -26,12 +26,12 @@ import { runInAction } from "mobx"
 import PercentageInput from "../../../forms/percentage"
 import { CheckBoxGroup } from "../../../forms/checkbox"
 import { useRightSplits } from "../../../mobX/hooks"
-import { CHART_WINDOW_RATIO } from "../../../mobX/models/workpieces/right-splits/RightSplitState"
+import { CHART_WINDOW_RATIO } from "../../../mobX/states/right-splits/RightSplitState"
 
 const CopyrightForm = observer(() => {
 	const splitState = useRightSplits(useCurrentWorkpieceId(), "copyright")
 	const domainState = splitState.domainState
-	const { sharesData, shareTotal } = splitState
+	const { shareholdersData, shareTotal } = splitState
 	const { t } = useTranslation("rightSplits")
 	const [styles, setStyles] = useState({})
 	useEffect(() => {
@@ -43,23 +43,25 @@ const CopyrightForm = observer(() => {
 		</TouchableWithoutFeedback>
 	))
 
-	const ShareCardView = observer(({ share }) => (
+	const ShareCardView = observer(({ shareholder }) => (
 		<ShareCard
-			shareholderId={share.id}
-			color={splitState.shareholderColors.get(share.id)}
-			sharePercent={share.percent}
-			onClose={() => runInAction(() => domainState.removeShareholder(share.id))}
+			shareholderId={shareholder.id}
+			color={splitState.shareholderColors.get(shareholder.id)}
+			sharePercent={shareholder.percent}
+			onClose={() =>
+				runInAction(() => domainState.removeShareholder(shareholder.id))
+			}
 			bottomAction={
 				domainState.mode === "manual" ? (
-					<LockButton id={share.id} locked={share.locked} />
+					<LockButton id={shareholder.id} locked={shareholder.locked} />
 				) : null
 			}
 		>
 			<Observer>
 				{() => (
 					<CheckBoxGroup
-						selection={share.roles}
-						onChange={(roles) => domainState.setRoles(share.id, roles)}
+						selection={shareholder.roles}
+						onChange={(roles) => domainState.setRoles(shareholder.id, roles)}
 					>
 						<Row>
 							<Column flex={1} of="component">
@@ -67,7 +69,7 @@ const CopyrightForm = observer(() => {
 								<CheckBoxGroupButton
 									value="adapter"
 									label={t("roles.adapter")}
-									disabled={splitState.isAdapterDisabled(share.roles)}
+									disabled={splitState.isAdapterDisabled(shareholder.roles)}
 								/>
 							</Column>
 							<Column flex={1} of="component">
@@ -78,7 +80,7 @@ const CopyrightForm = observer(() => {
 								<CheckBoxGroupButton
 									value="mixer"
 									label={t("roles.mixer")}
-									disabled={splitState.isMixerDisabled(share.roles)}
+									disabled={splitState.isMixerDisabled(shareholder.roles)}
 								/>
 							</Column>
 						</Row>
@@ -93,20 +95,20 @@ const CopyrightForm = observer(() => {
 								<Slider
 									min={0}
 									max={shareTotal}
-									color={splitState.shareholderColors.get(share.id)}
+									color={splitState.shareholderColors.get(shareholder.id)}
 									step={0.01}
-									value={share.shares}
-									disabled={share.locked}
+									value={shareholder.shares}
+									disabled={shareholder.locked}
 									onChange={(value) =>
-										domainState.updateSharesProRata(share.id, value)
+										domainState.updateSharesProRata(shareholder.id, value)
 									}
 								/>
 								<PercentageInput
-									value={share.percent}
+									value={shareholder.percent}
 									digits={2}
 									onChange={(percentage) =>
 										domainState.updateSharesProRata(
-											share.id,
+											shareholder.id,
 											(percentage * shareTotal) / 100
 										)
 									}
@@ -118,12 +120,12 @@ const CopyrightForm = observer(() => {
 				{domainState.mode !== "manual" && (
 					<>
 						<ProgressBar
-							progress={share.percent}
+							progress={shareholder.percent}
 							size="xsmall"
 							style={{ flex: 1 }}
-							color={splitState.shareholderColors.get(share.id)}
+							color={splitState.shareholderColors.get(shareholder.id)}
 						/>
-						<Text bold>{formatPercentage(share.percent)}</Text>
+						<Text bold>{formatPercentage(shareholder.percent)}</Text>
 					</>
 				)}
 			</Row>
@@ -161,8 +163,8 @@ const CopyrightForm = observer(() => {
 						</Column>
 					</RadioGroup>
 					<Column of="component">
-						{sharesData.map((share) => (
-							<ShareCardView share={share} key={share.id} />
+						{shareholdersData.map((shareholder) => (
+							<ShareCardView shareholder={shareholder} key={shareholder.id} />
 						))}
 						<AddCollaboratorDropdown
 							onSelect={(user) =>
@@ -175,7 +177,7 @@ const CopyrightForm = observer(() => {
 			</Column>
 			<View style={styles.spacer} />
 			<Column>
-				{sharesData.length > 0 && (
+				{shareholdersData.length > 0 && (
 					<View style={styles.chart}>
 						{domainState.mode === "roles" && (
 							<DualSplitChart {...splitState.genChartProps(domainState.mode)} />
