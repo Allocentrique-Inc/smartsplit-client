@@ -58,8 +58,8 @@ export class Workpiece extends WorkpieceObservable {
 						artistName: "Willy the Poo",
 						avatarUrl:
 							"https://apiv2-dev.smartsplit.org/v1/users/09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb/avatar",
-						// birth: "01/01/1987",
-						// email: "willy@iptoki.com",
+						//birth: "01/01/1987",
+						email: "willy@iptoki.com",
 					},
 					sourceFile: "Valaire - Fantome v1.wav",
 					format: "WAV 44,1 kHz",

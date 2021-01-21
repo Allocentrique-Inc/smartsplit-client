@@ -13,6 +13,10 @@ import SendIcon from "../../../../svg/send-icon"
 import { LinkRow } from "../../../../smartsplit/protect/link-row"
 import Scrollable from "../../../../widgets/scrollable"
 import CertificateImage from "../../../../svg/certificate-image"
+import UserAvatar from "../../../../smartsplit/user/avatar"
+import { useProtectModel } from "../../../../mobX/hooks"
+import moment from "moment"
+import CertificateModel from "../../../../mobX/models/workpieces/protect/CertificateModel"
 
 const Styles = StyleSheet.create({
 	navBarCol: {
@@ -48,15 +52,41 @@ const Styles = StyleSheet.create({
 		borderBottomLeftRadius: 6,
 		borderBottomRightRadius: 6,
 	},
+	linkRow: { paddingTop: 56 },
+	rowField: {
+		paddingTop: 8,
+	},
+	fieldFiledByContent: { paddingTop: 8 },
 })
 
 const SummaryPage = observer((props) => {
-	const workpiece = useCurrentWorkpiece()
 	const { t } = useTranslation()
+	const workpiece = useCurrentWorkpiece()
+	const model: CertificateModel = useProtectModel(workpiece.id, "certificate")
+	const user = model.listedBy.value
+	let fieldTitle = 2
+	let fieldValue = 4
+	const certificateInfo = {
+		lastUpdate: new Date(2021, 1, 21, 14, 50, 0, 0),
+	}
+	console.log("from now", toJS(moment(certificateInfo.lastUpdate)))
 	const [fileArr, setFileArr] = useState([
-		{ title: "Fantôme ", desc: "Par Inscience, Valaire, Robert Meuric" },
-		{ title: "Fantôme v1", desc: "Par Inscience, Valaire, Robert Meuric" },
+		{
+			title: "Fantôme ",
+			versionFlag: 1,
+		},
+		{
+			title: "Fantôme v1",
+			versionFlag: 2,
+		},
+		{
+			title: "Fantôme demo v3",
+			versionFlag: 3,
+			transactionLinks:
+				"https://etherscan.io/tx/0xef220429gdg4589798fd40fa6d46bf2d43467e088c",
+		},
 	])
+	const fileLength = fileArr.length
 
 	return (
 		<View style={{ height: "100%" }}>
@@ -74,7 +104,7 @@ const SummaryPage = observer((props) => {
 					<Row of="component" padding="component" valign="center">
 						<AlbumArt />
 						<Text bold>Fantôme</Text>
-						<Text>· Protection de l’oeuvre</Text>
+						<Text>· {t("protect:certificate.protectionWork")}</Text>
 					</Row>
 				</Column>
 
@@ -86,7 +116,9 @@ const SummaryPage = observer((props) => {
 					<Column flex={8}>
 						<Row style={Styles.rowAlignContent}>
 							<Column flex={4}>
-								<Heading level={2}>Certificat de paternité</Heading>
+								<Heading level={2}>
+									{t("protect:certificate.certificatePaternity")}
+								</Heading>
 							</Column>
 							<Column flex={4}>
 								<Row style={{ justifyContent: "flex-end" }}>
@@ -106,7 +138,7 @@ const SummaryPage = observer((props) => {
 											</TouchableWithoutFeedback>
 											<Button
 												style={Styles.headerButton}
-												text="Protéger une nouvelle version"
+												text={t("protect:certificate.protectNewVersion")}
 											/>
 										</Row>
 									</Column>
@@ -115,54 +147,83 @@ const SummaryPage = observer((props) => {
 						</Row>
 						<Row style={Styles.rowAlignContent}>
 							<Text small secondary>
-								Mis à jour il y a 3 heures par{" "}
+								{t("protect:certificate.uploadBy", { num: 3 })}{" "}
 							</Text>
 							<Text bold small action>
-								Inscience
+								{user.firstName}
 							</Text>
 						</Row>
 						<Row style={[Styles.boxContent1]}>
 							<Column flex={6}>
-								<Heading level={3}>Informations générales</Heading>
+								<Heading level={3}>
+									{t("protect:certificate.generalInformations")}
+								</Heading>
 								<Column style={{ paddingTop: 12 }}>
-									<Row>
-										<Column flex={2}>
-											<Text bold>Pièce musicale</Text>
+									<Row style={Styles.rowField}>
+										<Column flex={fieldTitle}>
+											<Text bold>{t("protect:certificate.musicalPiece")}</Text>
 										</Column>
-										<Column flex={4}>
+										<Column flex={fieldValue}>
 											<Text secondary>Derbie Tebbs - Fantôme</Text>
 										</Column>
 									</Row>
-									<Row>
-										<Column flex={2}>
-											<Text bold>Déposée par</Text>
+									<Row style={Styles.rowField}>
+										<Column flex={fieldTitle}>
+											<Text bold>{t("protect:certificate.listedBy")}</Text>
 										</Column>
-										<Column flex={4}>
-											<Text secondary>Debbie Herbie Tebbs</Text>
-											<Text secondary>18 avril 1981</Text>
-											<Text secondary>debbietebbs@gmail.com</Text>
+										<Column flex={fieldValue}>
+											<Row style={Styles.fieldFiledByContent}>
+												<Column>
+													<UserAvatar user={user} size="small" />
+												</Column>
+												<Column style={{ paddingLeft: 5 }}>
+													<Text
+														secondary
+													>{`${user.firstName} ${user.lastName}`}</Text>
+												</Column>
+											</Row>
+											<Row style={Styles.fieldFiledByContent}>
+												<Text secondary>18 avril 1981</Text>
+											</Row>
+											<Row style={Styles.fieldFiledByContent}>
+												<Text secondary>{user.email}</Text>
+											</Row>
 										</Column>
 									</Row>
-									<Row>
-										<Column flex={2}>
-											<Text bold>Date de dépôt</Text>
+									<Row style={Styles.rowField}>
+										<Column flex={fieldTitle}>
+											<Text bold>{t("protect:certificate.depositDate")}</Text>
 										</Column>
-										<Column flex={4}>
+										<Column flex={fieldValue}>
 											<Text secondary>7 Février 2019 à 12h34 UTC</Text>
 										</Column>
 									</Row>
 								</Column>
 							</Column>
-							<Column flex={6} style={{ display: "block", textAlign: "end" }}>
+							<Column
+								flex={6}
+								style={{ display: "flex", alignItems: "flex-end" }}
+							>
 								<CertificateImage />
 							</Column>
 						</Row>
 						<Row style={Styles.boxContent2}>
 							<Column flex={12}>
-								<Heading level={3}>Versions publiées</Heading>
+								<Heading level={3}>
+									{t("protect:certificate.releasedVersions")}
+								</Heading>
 								{fileArr &&
 									fileArr.map((f, index) => {
-										return <LinkRow data={f} />
+										const lastItem = index === fileLength - 1
+										return (
+											<LinkRow
+												user={user}
+												style={Styles.linkRow}
+												data={f}
+												key={index}
+												last={lastItem}
+											/>
+										)
 									})}
 							</Column>
 						</Row>
