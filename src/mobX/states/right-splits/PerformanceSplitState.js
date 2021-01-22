@@ -4,14 +4,19 @@ import RightSplitState from "./RightSplitState"
 import PerformanceSplitModel from "../../models/workpieces/right-splits/PerformanceSplitModel"
 import { Colors, Metrics } from "../../../theme"
 import PerformanceForm from "../../../pages/workpieces/right-splits/performance"
+import i18next from "i18next"
 
 export default class PerformanceSplitState extends RightSplitState {
 	constructor(parent) {
-		super(parent, CircledStar)
+		super(parent)
 		this.domainState = new PerformanceSplitModel(this)
 	}
+
 	progress = (2 / 3) * 100
 	form = PerformanceForm
+	logo = CircledStar
+	pageTitle = i18next.t("rightSplits:performance.title")
+
 	@computed get shareholdersData() {
 		const sharesData = []
 		const seenShareholders = []

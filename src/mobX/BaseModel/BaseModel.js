@@ -95,7 +95,6 @@ export default class BaseModel {
 	 */
 	@computed
 	get isDirty() {
-		// this.fields().map(k=>this[k].isDirty).reduce((prev,current)=>prev || current,false)
 		let dirty = false
 		this.fields().forEach((k) => {
 			if (this[k].isDirty) dirty = true

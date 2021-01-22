@@ -29,6 +29,7 @@ export class Workpiece extends WorkpieceObservable {
 		const { files, rightSplit, ...data } = initData || {}
 		super(id, data, initState)
 		this.rightSplits = new RightSplitsState(this)
+		this.rightSplits.init(rightSplit)
 		// initialising the documentation by passing the workpiece for id, etc
 		this.documentation = new DocumentationModel(
 			null,

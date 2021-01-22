@@ -86,8 +86,8 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 	 * @return {Array<{firstName:string,lastName:string,artistName:string,user_id:guid}>}
 	 */
 	return (search: string, max: number = 10) => {
-		let returnList = []
-		if (!search) return returnList
+		//let returnList = []
+		if (!search) return collabList
 		//console.log(search)
 		///
 		/// first get collaborators that match

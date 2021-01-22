@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx"
+import { computed, observable } from "mobx"
 import { Metrics } from "../../../theme"
 import BaseModel from "../../BaseModel"
 import { capValueWithinRange } from "../../../utils/utils"
@@ -10,15 +10,11 @@ export const CHART_WINDOW_RATIO = 0.45
  *	states. Has the responsibilities of a mobx UIState
  **/
 export default class RightSplitState extends BaseModel {
-	constructor(parent, logo) {
+	constructor(parent) {
 		super(parent)
-		this.logo = logo
 		this.shareholderColors = parent.shareholderColors
 	}
-
-	pageTitle
 	progress
-	logo
 	@observable _chartSize = 0
 	@observable domainState
 	getStyles(windowWidth) {
@@ -61,10 +57,6 @@ export default class RightSplitState extends BaseModel {
 
 	set chartSize(size) {
 		this._chartSize = capValueWithinRange(size, [0, CHART_MAX_SIZE])
-	}
-
-	@action init(pageTitle) {
-		this.pageTitle = pageTitle
 	}
 
 	@computed get shareholders() {
