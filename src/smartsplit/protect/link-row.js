@@ -1,17 +1,25 @@
-import { Column, Flex, Row } from "../../layout"
-import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
+import ExpoClipboard from "expo-clipboard"
+
+import { Column, Row } from "../../layout"
+import React, { createRef, useEffect, useRef, useState } from "react"
 import LinkIcon from "../../svg/link-icon"
 import { Heading, Text } from "../../text"
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
+import {
+	SafeAreaView,
+	StyleSheet,
+	TouchableWithoutFeedback,
+	View,
+} from "react-native"
+import Button from "../../widgets/button"
 import ChevronDown from "../../svg/chevron-down"
 import ChevronRight from "../../svg/chevron-right"
+import ChevronUp from "../../svg/chevron-up"
 import QRCode from "react-native-qrcode-svg"
-import ShowUserTag from "../user/ShowUserTag"
-import CertificateModel from "../../mobX/models/workpieces/protect/CertificateModel"
-import { useProtectModel } from "../../mobX/hooks"
-import { useCurrentWorkpiece } from "../../pages/workpieces/context"
 import UserAvatar from "../user/avatar"
-import { useTranslation } from "react-i18next"
+import QuestionMark from "../../svg/question-mark"
+import { Tooltip } from "../../widgets/tooltip"
+// import Tooltip from "react-native-walkthrough-tooltip"
 
 const Styles = StyleSheet.create({
 	LinkRowTitle: {
@@ -45,6 +53,10 @@ const Styles = StyleSheet.create({
 		paddingLeft: 16,
 		paddingRight: 16,
 	},
+	questinMark: {
+		marginLeft: 5,
+		marginTop: 5,
+	},
 })
 
 export function LinkRow(props) {
@@ -53,6 +65,50 @@ export function LinkRow(props) {
 	const versionFlag = data.versionFlag
 	const [isExpand1, setIsExpand1] = useState(false)
 	const [isExpand2, setIsExpand2] = useState(false)
+	const tooltipAnchorRef = createRef(null)
+	const [toolTipVisible, setToolTipVisible] = useState(false)
+	const [showtt1, setShowtt1] = useState(false)
+	const [showTooltip, setShowTooltip] = useState(true)
+	const [arrowMode, setArrowMode] = useState(0)
+
+	const getWorkingVersion = (numFlag) => {
+		return numFlag == 1
+			? t("protect:master")
+			: numFlag == 2
+			? t("protect:mix")
+			: t("protect:idea")
+	}
+	const handleCopy = () => {
+		ExpoClipboard.setString(data.transactionLinks)
+	}
+	const handleExpand2 = () => {
+		if (isExpand2) {
+			setIsExpand2(false)
+		} else {
+			setIsExpand2(true)
+		}
+	}
+
+	const MODES = [
+		"bottom-center",
+		"bottom-left",
+		"left-bottom",
+		"left-center",
+		"left-top",
+		"top-left",
+		"top-center",
+		"top-right",
+		"right-top",
+		"right-center",
+		"right-bottom",
+		"bottom-right",
+	]
+
+	useEffect(() => {
+		if (!showTooltip) return
+		const timer = setTimeout(() => setArrowMode(arrowMode + 1), 1000)
+		return () => clearTimeout(timer)
+	}, [showTooltip, arrowMode])
 
 	return (
 		<Row {...props}>
@@ -68,17 +124,15 @@ export function LinkRow(props) {
 						<Row>
 							<Heading level={3}>{data.title}</Heading>
 							<Text style={Styles.LinkRowTitle} bold>
-								{versionFlag === 1
-									? "Master"
-									: versionFlag === 2
-									? "Mix"
-									: versionFlag === 3
-									? "Idée"
-									: ""}
+								{getWorkingVersion(versionFlag)}
 							</Text>
 						</Row>
 						<Row>
-							<Text secondary>Par Inscience, Valaire, Robert Meuric</Text>
+							<Text secondary>
+								{t("protect:certificate.by", {
+									people: data.postBy,
+								})}
+							</Text>
 						</Row>
 						<Row>
 							<Column flex={10}>
@@ -102,16 +156,11 @@ export function LinkRow(props) {
 											)}
 										</Row>
 									</TouchableWithoutFeedback>
-									{isExpand1 && data.versionFlag === 3 && (
+									{isExpand1 && data.transactionLinks && (
 										<Row style={Styles.rowField}>
 											<Column flex={7}>
 												<Text small secondary>
-													Ce lien ci-dessous et le code QR à droite mènent vers
-													la transaction sur la blockchain comportant les
-													empreintes numériques du fichier, le nom et les
-													données personnelles encryptées de son déposant, le
-													moment précis du dépôt, ainsi que quelques métadonnées
-													descriptives complémentaires.
+													{t("protect:certificate.descLink")}
 												</Text>
 											</Column>
 											<Column flex={3} style={{ alignItems: "flex-end" }}>
@@ -119,21 +168,23 @@ export function LinkRow(props) {
 											</Column>
 										</Row>
 									)}
-									{isExpand1 && data.versionFlag === 3 && (
+									{isExpand1 && data.transactionLinks && (
 										<Row style={Styles.rowField}>
-											<Column flex={7} style={Styles.transactionLinks}>
-												<Text>{data.transactionLinks}</Text>
+											<Column flex={7}>
+												<Text style={Styles.transactionLinks}>
+													{data.transactionLinks}
+												</Text>
 											</Column>
 											<Column flex={3} style={{ marginLeft: 16 }}>
 												<View>
-													<TouchableWithoutFeedback>
+													<TouchableWithoutFeedback onPress={handleCopy}>
 														<Text
 															style={Styles.copyLink}
 															action
 															bold
 															align="center"
 														>
-															Copier le lien
+															{t("protect:certificate.copyLink")}
 														</Text>
 													</TouchableWithoutFeedback>
 												</View>
@@ -145,31 +196,39 @@ export function LinkRow(props) {
 											<Column flex={10}>
 												<Row>
 													<Column flex={3}>
-														<Text bold>Fichier source</Text>
+														<Text bold>
+															{t("protect:certificate.sourceFile")}
+														</Text>
 													</Column>
 													<Column flex={7}>
-														<Text secondary>Fantome-Final-Master.wav</Text>
+														<Text secondary>{data.sourceFile}</Text>
 													</Column>
 												</Row>
 												<Row style={Styles.rowField}>
 													<Column flex={3}>
-														<Text bold>Format</Text>
+														<Text bold>{t("protect:certificate.format")}</Text>
 													</Column>
 													<Column flex={7}>
-														<Text secondary>WAV 44,1 kHz</Text>
+														<Text secondary>{data.format}</Text>
 													</Column>
 												</Row>
 												<Row style={Styles.rowField}>
 													<Column flex={3}>
-														<Text bold>Version de travail</Text>
+														<Text bold>
+															{t("protect:certificate.workingVersion")}
+														</Text>
 													</Column>
 													<Column flex={7}>
-														<Text secondary>Master</Text>
+														<Text secondary>
+															{getWorkingVersion(versionFlag)}
+														</Text>
 													</Column>
 												</Row>
 												<Row style={Styles.rowField}>
 													<Column flex={3}>
-														<Text bold>Inscrite par</Text>
+														<Text bold>
+															{t("protect:certificate.listedBy")}
+														</Text>
 													</Column>
 													<Column flex={7}>
 														<Row>
@@ -182,70 +241,136 @@ export function LinkRow(props) {
 																	paddingLeft: 5,
 																}}
 															>
-																<Text secondary>Debbie Herbie Tebbs</Text>
+																<Text secondary>
+																	{" "}
+																	{`${user.firstName} ${user.lastName}`}
+																</Text>
 															</Column>
 														</Row>
 													</Column>
 												</Row>
 												<Row style={Styles.rowField}>
 													<Column flex={3}>
-														<Text bold>Date d’inscription</Text>
+														<Text bold>
+															{t("protect:certificate.registrationDate")}
+														</Text>
 													</Column>
 													<Column flex={7}>
-														<Text secondary>7 Février 2019 à 12h34 UTC</Text>
+														<Text secondary>{data.registrationDate}</Text>
 													</Column>
 												</Row>
 											</Column>
 										</Row>
 									)}
-									<View style={{ paddingTop: 25 }}>
-										<TouchableWithoutFeedback
-											onPress={() => {
-												if (isExpand2) {
-													setIsExpand2(false)
-												} else {
-													setIsExpand2(true)
-												}
-											}}
-										>
-											<Row>
-												<Text action bold style={{ paddingRight: 10 }}>
-													Voir les empreintes numériques
-												</Text>
-												{isExpand2 && (
-													<ChevronDown color={"rgb(45, 168, 79)"} />
-												)}
-												{!isExpand2 && (
-													<ChevronRight color={"rgb(45, 168, 79)"} />
-												)}
-											</Row>
-										</TouchableWithoutFeedback>
-									</View>
+									{!isExpand2 && (
+										<View style={{ paddingTop: 25 }}>
+											<TouchableWithoutFeedback onPress={handleExpand2}>
+												<Row>
+													<Text action bold style={{ paddingRight: 10 }}>
+														{t("protect:certificate.viewFingerprints")}
+													</Text>
+													{isExpand2 && (
+														<ChevronDown color={"rgb(45, 168, 79)"} />
+													)}
+													{!isExpand2 && (
+														<ChevronRight color={"rgb(45, 168, 79)"} />
+													)}
+												</Row>
+											</TouchableWithoutFeedback>
+										</View>
+									)}
 									{isExpand2 && (
 										<Row style={{ paddingTop: 25 }}>
 											<Column flex={10}>
 												<Row>
 													<Column flex={3}>
-														<Text bold>SHA512</Text>
+														<Row>
+															<Text bold>
+																{t("protect:certificate.sha512")}
+															</Text>
+															{/* <View>
+																<Tooltip
+																	isVisible={toolTipVisible}
+																	content={<Text>kjhfkjds</Text>}
+																	placement="top"
+																	onClose={() => setToolTipVisible(false)}
+																	accessible={false}
+																	ref={tooltipRef}
+																>
+																	<TouchableHighlight
+																		onPress={() => setToolTipVisible(true)}
+																	>
+																		<QuestionMark />
+																	</TouchableHighlight>
+																</Tooltip>
+															</View> */}
+															<View style={Styles.questinMark}>
+																<QuestionMark />
+																{/* <Button
+																	text="Tooltip"
+																	onClick={() => setToolTipVisible(true)}
+																	viewRef={tooltipAnchorRef}
+																/> */}
+																{/* <TouchableWithoutFeedback
+																onPress={() => setToolTipVisible(true)}
+															>
+																<View viewRef={tooltipAnchorRef}>
+																	<QuestionMark />
+																</View>
+															</TouchableWithoutFeedback> */}
+
+																{/* <Tooltip
+																	arrow={"top-center"}
+																	width={300}
+																	relativeTo={tooltipAnchorRef}
+																	visible={toolTipVisible}
+																	onDismiss={setToolTipVisible}
+																	text="Cette page a pour but de démontrer les différentes composantes de
+																	formulaire et mise en page utilisées dans les formulaires à travers le
+																	site"
+																/> */}
+															</View>
+														</Row>
 													</Column>
 													<Column flex={7}>
-														<Text secondary>
-															0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-														</Text>
+														<Text secondary>{data.sha512}</Text>
 													</Column>
 												</Row>
 												<Row style={Styles.rowField}>
 													<Column flex={3}>
-														<Text bold>MD5</Text>
+														<Row>
+															<Text bold>{t("protect:certificate.md5")}</Text>
+															<View style={Styles.questinMark}>
+																<QuestionMark />
+															</View>
+														</Row>
 													</Column>
 													<Column flex={7}>
-														<Text secondary>
-															d41d8cd98f00b204e9800998ecf8427e
-														</Text>
+														<Text secondary>{data.md5}</Text>
 													</Column>
 												</Row>
 											</Column>
 										</Row>
+									)}
+									{isExpand2 && (
+										<View style={{ paddingTop: 25 }}>
+											<TouchableWithoutFeedback onPress={handleExpand2}>
+												<Row>
+													<Text action bold style={{ paddingRight: 10 }}>
+														Cacher
+													</Text>
+													{isExpand2 && (
+														<ChevronUp
+															style={{ marginTop: 8 }}
+															color={"rgb(45, 168, 79)"}
+														/>
+													)}
+													{!isExpand2 && (
+														<ChevronRight color={"rgb(45, 168, 79)"} />
+													)}
+												</Row>
+											</TouchableWithoutFeedback>
+										</View>
 									)}
 								</View>
 							</Column>
