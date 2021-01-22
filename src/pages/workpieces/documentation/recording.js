@@ -99,17 +99,17 @@ const RecordingForm = observer((props) => {
 							alwaysShowAdd
 							onSelect={(selection) => {
 								if (
-									!model.director.array.filter(
+									!model.directors.array.filter(
 										(v) => v.user_id === selection.user_id
 									).length
 								)
-									model.director.add(selection)
+									model.directors.add(selection)
 								setSearch("")
 							}}
 							placeholder={t("document:recording.roles.addDirector")}
 						/>
-						{model.director.array.map((user) => (
-							<UserTag user={user} field={model.director} key={user.user_id} />
+						{model.directors.array.map((user) => (
+							<UserTag user={user} field={model.directors} key={user.user_id} />
 						))}
 					</Column>
 

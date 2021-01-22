@@ -5,7 +5,7 @@ import { cleanForPosting } from "./DocumentationModel"
 export default class DocRecordingModel extends BaseModel {
 	@computed get isEmpty() {
 		return (
-			this.director.array.length === 0 &&
+			this.directors.array.length === 0 &&
 			this.recordedBy.array.length === 0 &&
 			this.mixedBy.array.length === 0 &&
 			this.masteredBy.array.length === 0 &&
@@ -15,7 +15,7 @@ export default class DocRecordingModel extends BaseModel {
 			!this.isrc.value
 		)
 	}
-	@observable director = new Field(this, "director", {
+	@observable directors = new Field(this, "directors", {
 		type: FieldType.collection,
 	})
 	@observable recordedBy = new Field(this, "recordedBy", {
@@ -49,8 +49,8 @@ export default class DocRecordingModel extends BaseModel {
 		let values = super.toJS(excludePrimary)
 
 		return cleanForPosting({
-			director: values.director,
-			producer: values.producer,
+			directors: values.directors,
+			producers: values.producedBy,
 			isrc: values.isrc,
 			recording: [
 				this.populateEntry(
