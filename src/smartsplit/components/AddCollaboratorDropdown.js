@@ -11,7 +11,7 @@ import { AddCollaboratorModal } from "../collaborators/AddCollaboratorsModal"
 import { useStores } from "../../mobX"
 import { observer } from "mobx-react"
 import { ResultsOrder, useArtistAutocomplete } from "../../mobX/hooks"
-
+import { toJS } from "mobx"
 const Styles = StyleSheet.create({
 	actionFrame: {
 		borderTopWidth: 1,
@@ -24,7 +24,7 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 	const { t } = useTranslation()
 	const { collaborators } = useStores()
 	const [search, setSearch] = useState("")
-	const [results, setResults] = useState([])
+	const [results, setResults] = useState(toJS(collaborators.list))
 	const getResults = useArtistAutocomplete()
 	const handleSearchChange = async (text) => {
 		setSearch(text)
