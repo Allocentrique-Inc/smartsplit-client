@@ -27,6 +27,7 @@ import DocReleaseModel from "../../../mobX/models/workpieces/documentation/DocRe
 import Field from "../../../mobX/BaseModel/Field"
 import AddDistributorDropdown from "../../../smartsplit/components/AddDistributorDropdown"
 import { FormStyles } from "./FormStyles"
+import DatePickers from "../../../smartsplit/components/DatePickers"
 
 const ReleaseForm = observer((props) => {
 	const [date, setDate] = useState("")
@@ -49,14 +50,21 @@ const ReleaseForm = observer((props) => {
 				<Paragraph>{t("document:release.paragraph")}</Paragraph>
 
 				<Spacer of="group" />
-				{/* ToDo: Undertext does not appear */}
-				<DateField
+
+				{/* <DateField
 					label={t("document:release.date")}
 					undertext={t("document:release.dateHint")}
 					value={date}
 					onChangeText={setDate}
 					placeholder={t("forms:placeholders.date")}
 					tooltip=""
+				/> */}
+
+				{/* ToDo: Undertext does not appear */}
+				<DatePickers
+					field={model.creationDate}
+					label={t("document:creation.date")}
+					undertext={t("document:release.dateHint")}
 				/>
 				<Dropdown
 					label="Label"
