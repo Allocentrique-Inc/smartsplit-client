@@ -4,14 +4,17 @@ import { computed } from "mobx"
 import RecordingSplitModel from "../../models/workpieces/right-splits/RecordingSplitModel"
 import RecordingForm from "../../../pages/workpieces/right-splits/recording"
 import { Colors } from "../../../theme"
+import i18next from "i18next"
 
 export default class RecordingSplitState extends RightSplitState {
 	constructor(parent) {
-		super(parent, CircledP)
+		super(parent)
 		this.domainState = new RecordingSplitModel(this)
 	}
 	progress = (10 / 11) * 100
 	form = RecordingForm
+	logo = CircledP
+	pageTitle = i18next.t("rightSplits:recording.title")
 
 	@computed get shareholdersData() {
 		return this.shareholders.map((shareholder) => {

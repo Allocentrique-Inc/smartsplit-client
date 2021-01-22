@@ -35,7 +35,7 @@ export default class RightSplitsState extends BaseModel {
 					}
 				})
 
-				// Check for shareholder removed from every right splits then update
+				// Check for shareholder removed from all splits then update
 				// shareholderColors and availableColors accordingly
 				for (const id in this.shareholderColors.keys()) {
 					if (uniqueIds.indexOf(id) === -1) {
@@ -76,14 +76,39 @@ export default class RightSplitsState extends BaseModel {
 		++this.replenishCounter
 	}
 
-	async save() {
+	importData(initData) {
+		if (!initData) return initData
+		const { _state, copyright, performance, recording } = initData
+		return {
+			_state,
+			copyright: {
+				domainState: {
+					shareholders: copyright,
+				},
+			},
+			performance: {
+				domainState: {
+					shareholders: performance,
+				},
+			},
+			recording: {
+				domainState: {
+					shareholders: recording,
+				},
+			},
+		}
+	}
+	exportData() {
 		const data = this.toJS()
-		const body = {
+		return {
 			_state: this._state,
 			copyright: data.copyright.domainState.shareholders,
 			performance: data.performance.domainState.shareholders,
 			recording: data.recording.domainState.shareholders,
 		}
+	}
+	async save() {
+		const body = this.exportData()
 		try {
 			let response
 			if (this.isNew) {
