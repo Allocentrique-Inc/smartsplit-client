@@ -13,7 +13,6 @@ export default class RightSplitModel extends BaseModel {
 		})
 		this.initShareData = initShareData
 	}
-
 	/**
 	 *	Provides a data structure that makes easier
 	 *	to access and use share field values.
