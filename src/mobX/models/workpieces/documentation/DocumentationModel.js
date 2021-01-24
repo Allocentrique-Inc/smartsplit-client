@@ -27,7 +27,7 @@ export default class DocumentationModel extends BaseModel {
 			this.streaming.isEmpty
 		)
 	}
-	@computed summary() {
+	@computed get summary() {
 		return this.initialData
 	}
 	@observable creation = new DocCreationModel(this)
