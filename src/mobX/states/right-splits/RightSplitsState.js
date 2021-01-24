@@ -1,14 +1,14 @@
 import { observable, reaction } from "mobx"
-import CopyrightSplit from "./CopyrightSplit"
-import PerformanceSplit from "./PerformanceSplit"
-import RecordingSplit from "./RecordingSplit"
-import { Colors } from "../../../../theme"
+import CopyrightSplitState from "./CopyrightSplitState"
+import PerformanceSplitState from "./PerformanceSplitState"
+import RecordingSplitState from "./RecordingSplitState"
+import { Colors } from "../../../theme"
 import {
 	createRightSplits,
 	updateRightSplits,
-} from "../../../../../api/workpieces"
-import { lightenDarkenColor } from "../../../../utils/utils"
-import BaseModel from "../../../BaseModel"
+} from "../../../../api/workpieces"
+import { lightenDarkenColor } from "../../../utils/utils"
+import BaseModel from "../../BaseModel"
 
 /**
  *	Contains the 3 right split states (copyright, performance, recording). Manage a list of unique sets of shareholder ID - color, which is used in the split pages. Save in and load split
@@ -18,14 +18,14 @@ export default class RightSplitsState extends BaseModel {
 	constructor(workpiece) {
 		super()
 		this.workpieceId = workpiece.id
-		this.copyright = new CopyrightSplit(this, this.shareholderColors)
-		this.performance = new PerformanceSplit(this, this.shareholderColors)
-		this.recording = new RecordingSplit(this, this.shareholderColors)
+		this.copyright = new CopyrightSplitState(this)
+		this.performance = new PerformanceSplitState(this)
+		this.recording = new RecordingSplitState(this)
 		reaction(
 			() => [
-				...this.copyright.domainState.sharesValues.map((share) => share.id),
-				...this.performance.domainState.sharesValues.map((share) => share.id),
-				...this.recording.domainState.sharesValues.map((share) => share.id),
+				...this.copyright.shareholders.map((shareholder) => shareholder.id),
+				...this.performance.shareholders.map((shareholder) => shareholder.id),
+				...this.recording.shareholders.map((shareholder) => shareholder.id),
 			],
 			(ids) => {
 				const uniqueIds = []
@@ -35,7 +35,7 @@ export default class RightSplitsState extends BaseModel {
 					}
 				})
 
-				// Check for shareholder removed from every right splits then update
+				// Check for shareholder removed from all splits then update
 				// shareholderColors and availableColors accordingly
 				for (const id in this.shareholderColors.keys()) {
 					if (uniqueIds.indexOf(id) === -1) {
@@ -62,11 +62,12 @@ export default class RightSplitsState extends BaseModel {
 	@observable copyright
 	@observable performance
 	@observable recording
+	@observable _state = "draft"
 	// Pool of available colors, i.e. color not already assignated to a shareholder ID
 	availableColors = Object.values(Colors.secondaries)
 
 	// When there is no more color available, add a new full set of colors into the pool based
-	// on Colors secondaries on which a lightening transformation is applied
+	// on Colors secondaries, on which a lightening transformation is applied
 	replenishCounter = 1
 	replenishColors() {
 		this.availableColors = Object.values(Colors.secondaries).map((color) =>
@@ -75,20 +76,49 @@ export default class RightSplitsState extends BaseModel {
 		++this.replenishCounter
 	}
 
-	save() {
-		const data = this.toJSON()
-		console.log("DEBUG DATA TO SEND", data, this.children)
+	importData(initData) {
+		if (!initData) return initData
+		const { _state, copyright, performance, recording } = initData
+		return {
+			_state,
+			copyright: {
+				domainState: {
+					shareholders: copyright,
+				},
+			},
+			performance: {
+				domainState: {
+					shareholders: performance,
+				},
+			},
+			recording: {
+				domainState: {
+					shareholders: recording,
+				},
+			},
+		}
+	}
+	exportData() {
+		const data = this.toJS()
+		return {
+			_state: this._state,
+			copyright: data.copyright.domainState.shareholders,
+			performance: data.performance.domainState.shareholders,
+			recording: data.recording.domainState.shareholders,
+		}
+	}
+	async save() {
+		const body = this.exportData()
 		try {
 			let response
 			if (this.isNew) {
-				response = createRightSplits(this.workpieceId, data)
+				response = await createRightSplits(this.workpieceId, body)
 			} else {
-				response = updateRightSplits(this.workpieceId, data)
+				response = await updateRightSplits(this.workpieceId, body)
 			}
-			console.log(response)
+			console.log("RESPONSE SPLIT SAVING", response)
 		} catch (e) {
 			console.error(e)
 		}
-		console.log("DEBUG SAVE", this.isDirty)
 	}
 }

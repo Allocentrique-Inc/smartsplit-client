@@ -10,7 +10,7 @@ export default class PerformanceSplitModel extends RightSplitModel {
 	constructor(parent) {
 		super(parent, PerformanceShareModel, initShareData)
 		reaction(
-			() => this.shareholders.size,
+			() => this.shareholders.length,
 			() => this.updateShares()
 		)
 	}
@@ -18,14 +18,14 @@ export default class PerformanceSplitModel extends RightSplitModel {
 	statusValues = ["mainArtist", "feature", "groupMember", "backupArtist"]
 
 	@computed get majorShares() {
-		return this.sharesValues.filter(
-			(share) => share.status && share.status !== "backupArtist"
+		return this.shareholdersValues.filter(
+			(shareholder) => shareholder.status && shareholder.status !== "session"
 		)
 	}
 
 	@computed get minorShares() {
-		return this.sharesValues.filter(
-			(share) => share.status && share.status === "backupArtist"
+		return this.shareholdersValues.filter(
+			(shareholder) => shareholder.status && shareholder.status === "session"
 		)
 	}
 
@@ -57,13 +57,14 @@ export default class PerformanceSplitModel extends RightSplitModel {
 				0
 			)
 		} else if (this.mode === "80-20") {
+			console.log("DEBUG", this.shareholders.length)
 			this.setShares(
 				this.majorShares,
-				(0.8 * this.shareholders.size) / this.majorShares.length
+				(0.8 * this.shareholders.length) / this.majorShares.length
 			)
 			this.setShares(
 				this.minorShares,
-				(0.2 * this.shareholders.size) / this.minorShares.length
+				(0.2 * this.shareholders.length) / this.minorShares.length
 			)
 		}
 	}

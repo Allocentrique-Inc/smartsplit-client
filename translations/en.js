@@ -191,11 +191,11 @@ export const forms = {
 				backupArtist: "Backup Artist",
 			},
 			artistTypesDescription: {
-				mainArtist: 'Also called "Featured Artist " or "Solo Artist"',
-				feature:
+				principal: 'Also called "Featured Artist " or "Solo Artist"',
+				featured:
 					"Artist or group member invited to collaborate on a musical piece",
-				groupMember: "Musician or singer taking part in the artistic entity",
-				backupArtist: "Performer hired during studio recording sessions",
+				bandMember: "Musician or singer taking part in the artistic entity",
+				session: "Performer hired during studio recording sessions",
 			},
 		},
 		defaultRoles: "Default Role(s)",

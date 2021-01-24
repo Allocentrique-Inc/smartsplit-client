@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Redirect, useParams, useHistory } from "react-router"
 import { useStores } from "../../../mobX"
 import Layout from "../layout"
@@ -8,7 +8,7 @@ import { Text } from "../../../text"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
-import { useRightSplits, useRightSplitsModel } from "../../../mobX/hooks"
+import { useRightSplits } from "../../../mobX/hooks"
 
 /**
  *	Split forms wrapper
@@ -28,19 +28,11 @@ const RightSplitsPage = observer(() => {
 		)
 	const workpiece = useCurrentWorkpiece()
 	const rightSplits = useRightSplits(workpiece.id)
-	// Loading translation to UIStates. Surely there is
-	// a better way to do that :-)
-	rightSplits.copyright.init(t("copyright.title"), t("lyrics"), t("music"))
-	rightSplits.performance.init(t("performance.title"))
-	rightSplits.recording.init(t("recording.title"))
-
 	const { workpieces } = useStores()
-
 	const currentSplit = split_type
-	//TODO: refactor rights splits saving
-	function saveAndQuit() {
-		// console.log("DEBUG SPLITS", copyrightSplitState.domainState.sharesValues, workpiece.rightSplitsState.copyright.domainState.sharesValues, rightSplitsModel.copyright.sharesValues)
-		rightSplits.save()
+	async function saveAndQuit() {
+		await rightSplits.save()
+		navigateToSummary()
 	}
 
 	function navigateToSummary() {

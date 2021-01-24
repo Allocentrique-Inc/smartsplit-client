@@ -194,11 +194,11 @@ export const forms = {
 				backupArtist: "Artiste acompagnateur",
 			},
 			artistTypesDescription: {
-				mainArtist: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
-				guestArtist:
+				principal: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
+				featured:
 					"Artiste ou membre d'un groupe invité à collaborer sur une pièce musicale",
-				groupMember: "Musicien ou chanteur prenant part à l'entité artistique",
-				backupArtist:
+				bandMember: "Musicien ou chanteur prenant part à l'entité artistique",
+				session:
 					"Interprète engagé pendant les sessions d'enregistrement studio",
 			},
 		},

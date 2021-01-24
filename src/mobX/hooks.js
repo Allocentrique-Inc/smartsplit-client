@@ -64,7 +64,7 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 	const { collaborators, contributors, users } = useStores()
 	const collabList = JSON.parse(JSON.stringify(toJS(collaborators.list)))
 	//console.log(collabList)
-	const contribList = JSON.parse(JSON.stringify(toJS(contributors.list)))
+	//const contribList = JSON.parse(JSON.stringify(toJS(contributors.list)))
 	//console.log(contribList)
 	const usersList = JSON.parse(JSON.stringify(toJS(users.list)))
 	//console.log(usersList)
@@ -85,13 +85,9 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 	 * @param order {ResultsOrder} whether collaborators or contributors should come first
 	 * @return {Array<{firstName:string,lastName:string,artistName:string,user_id:guid}>}
 	 */
-	return (
-		search: string,
-		max: number = 10,
-		order: ResultsOrder = ResultsOrder.collaboratorsFirst
-	) => {
-		let returnList = []
-		if (!search) return returnList
+	return (search: string, max: number = 10) => {
+		//let returnList = []
+		if (!search) return collabList
 		//console.log(search)
 		///
 		/// first get collaborators that match
@@ -102,7 +98,9 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 			return name.indexOf(search) > -1
 		})
 
-		//console.log(returnList)
+		return filteredCollabs.splice(0, max)
+
+		/*	//console.log(returnList)
 
 		///
 		/// next get contributors that match
@@ -116,7 +114,7 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 			}
 		)
 		if (order === ResultsOrder.collaboratorsFirst) {
-			returnList = returnList = returnList
+			returnList = returnList
 				.concat(filteredCollabs)
 				.concat(filteredContribs)
 		} else {
@@ -149,6 +147,6 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 
 		returnList = returnList.concat(filteredUsers)
 		if (returnList.length >= max) return returnList.splice(0, max)
-		return returnList
+		return returnList*/
 	}
 }

@@ -1,8 +1,7 @@
-import { action, computed, observable } from "mobx"
-
-import { capValueWithinRange } from "../../../../utils/utils"
-import BaseModel from "../../../BaseModel"
-import { Metrics } from "../../../../theme"
+import { computed, observable } from "mobx"
+import { Metrics } from "../../../theme"
+import BaseModel from "../../BaseModel"
+import { capValueWithinRange } from "../../../utils/utils"
 
 export const CHART_MAX_SIZE = 384
 export const CHART_WINDOW_RATIO = 0.45
@@ -11,15 +10,11 @@ export const CHART_WINDOW_RATIO = 0.45
  *	states. Has the responsibilities of a mobx UIState
  **/
 export default class RightSplitState extends BaseModel {
-	constructor(parent, logo, shareholderColors) {
+	constructor(parent) {
 		super(parent)
-		this.logo = logo
-		this.shareholderColors = shareholderColors
+		this.shareholderColors = parent.shareholderColors
 	}
-
-	pageTitle
 	progress
-	logo
 	@observable _chartSize = 0
 	@observable domainState
 	getStyles(windowWidth) {
@@ -41,9 +36,8 @@ export default class RightSplitState extends BaseModel {
 		}
 	}
 
-	sharesToChartData(shares = null) {
-		shares = shares ? shares : this.shares
-		return shares
+	sharesToChartData(shareholders) {
+		return shareholders
 			.filter((share) => share.shares)
 			.map((share) => ({
 				key: share.id,
@@ -53,9 +47,9 @@ export default class RightSplitState extends BaseModel {
 			}))
 	}
 
-	genChartProps(shares = null) {
+	genChartProps(shareholders = this.shareholders) {
 		return {
-			data: this.sharesToChartData(shares),
+			data: this.sharesToChartData(shareholders),
 			size: this.chartSize,
 			logo: this.logo,
 		}
@@ -65,12 +59,8 @@ export default class RightSplitState extends BaseModel {
 		this._chartSize = capValueWithinRange(size, [0, CHART_MAX_SIZE])
 	}
 
-	@action init(pageTitle) {
-		this.pageTitle = pageTitle
-	}
-
-	@computed get shares() {
-		return this.domainState.sharesValues
+	@computed get shareholders() {
+		return this.domainState.shareholdersValues
 	}
 
 	@computed get shareTotal() {

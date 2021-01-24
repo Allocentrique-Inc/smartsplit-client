@@ -14,7 +14,7 @@ import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
 import { useRightSplits } from "../../../mobX/hooks"
 import { useCurrentWorkpieceId } from "../context"
-import { CHART_WINDOW_RATIO } from "../../../mobX/models/workpieces/right-splits/RightSplitState"
+import { CHART_WINDOW_RATIO } from "../../../mobX/states/right-splits/RightSplitState"
 
 const PerformanceForm = observer(() => {
 	const splitState = useRightSplits(useCurrentWorkpieceId(), "performance")
@@ -22,29 +22,28 @@ const PerformanceForm = observer(() => {
 
 	const { t } = useTranslation("rightSplits")
 	const [styles, setStyles] = useState({})
-
 	useEffect(() => {
 		setStyles(splitState.getStyles(window.outerWidth))
 	}, [window.outerWidth])
 
 	function genSelectOptions() {
-		return domainState.statusValues.map((status) => {
+		return domainState.statusValues.map((artist) => {
 			return {
-				key: status,
+				key: artist,
 				value: (
 					<>
-						<Text>{t(`forms:labels.dropdowns.artistTypes.${status}`)}</Text>
+						<Text>{t(`forms:labels.dropdowns.artistTypes.${artist}`)}</Text>
 						<Text secondary>
-							{t(`forms:labels.dropdowns.artistTypesDescription.${status}`)}
+							{t(`forms:labels.dropdowns.artistTypesDescription.${artist}`)}
 						</Text>
 					</>
 				),
-				displayValue: t(`forms:labels.dropdowns.artistTypes.${status}`),
+				displayValue: t(`forms:labels.dropdowns.artistTypes.${artist}`),
 			}
 		})
 	}
 	const ShareCards = observer(() => {
-		return splitState.sharesData.map((share) => (
+		return splitState.shareholdersData.map((share) => (
 			<ShareCard
 				key={share.id}
 				shareholderId={share.id}
@@ -119,7 +118,7 @@ const PerformanceForm = observer(() => {
 				<Column of="component">
 					<ShareCards />
 					<AddCollaboratorDropdown
-						onSelect={(id) => domainState.addShareholder(id)}
+						onSelect={(user) => domainState.addShareholder(user.user_id)}
 						placeholder={t("addCollab")}
 					/>
 				</Column>

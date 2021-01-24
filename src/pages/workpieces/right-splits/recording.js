@@ -20,12 +20,12 @@ import { formatPercentage } from "../../../utils/utils"
 import { runInAction } from "mobx"
 import { useRightSplits } from "../../../mobX/hooks"
 import { useCurrentWorkpieceId } from "../context"
-import { CHART_WINDOW_RATIO } from "../../../mobX/models/workpieces/right-splits/RightSplitState"
+import { CHART_WINDOW_RATIO } from "../../../mobX/states/right-splits/RightSplitState"
 
 const RecordingForm = observer(() => {
 	const splitState = useRightSplits(useCurrentWorkpieceId(), "recording")
 	const domainState = splitState.domainState
-	const { sharesData, shareTotal } = splitState
+	const { shareholdersData, shareTotal } = splitState
 	const { t } = useTranslation("rightSplits")
 	const [styles, setStyles] = useState({})
 
@@ -148,11 +148,11 @@ const RecordingForm = observer(() => {
 						</Column>
 					</RadioGroup>
 					<Column of="component">
-						{sharesData.map((share) => (
+						{shareholdersData.map((share) => (
 							<ShareCardView share={share} key={share.id} />
 						))}
 						<AddCollaboratorDropdown
-							onSelect={(id) => domainState.addShareholder(id)}
+							onSelect={(user) => domainState.addShareholder(user.user_id)}
 							placeholder={t("addCollab")}
 						/>
 					</Column>
