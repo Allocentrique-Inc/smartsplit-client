@@ -16,11 +16,13 @@ import {
 import { useCurrentWorkpiece } from "../context"
 import Scrollable from "../../../widgets/scrollable"
 import { sections } from "./sections"
+import { useDocsModel } from "../../../mobX/hooks"
 
 export default function WorkpieceSheet(props) {
 	const [t] = useTranslation()
 	const workpiece = useCurrentWorkpiece()
-
+	const model = useDocsModel(workpiece.id)
+	const summary = model.summary
 	return (
 		<Scrollable>
 			<SheetNavbar />

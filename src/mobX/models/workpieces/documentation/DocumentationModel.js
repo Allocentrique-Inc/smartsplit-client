@@ -27,6 +27,9 @@ export default class DocumentationModel extends BaseModel {
 			this.streaming.isEmpty
 		)
 	}
+	@computed summary() {
+		return this.initialData
+	}
 	@observable creation = new DocCreationModel(this)
 	@observable performance = new DocPerformanceModel(this)
 	@observable lyrics = new DocLyricsModel(this)
