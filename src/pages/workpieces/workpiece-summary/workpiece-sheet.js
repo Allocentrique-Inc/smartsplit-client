@@ -23,6 +23,9 @@ export default function WorkpieceSheet(props) {
 	const workpiece = useCurrentWorkpiece()
 	const model = useDocsModel(workpiece.id)
 	const summary = model.summary
+	const workInfo = workpiece.data
+	console.log(toJS(summary))
+	console.log(toJS(workInfo))
 	return (
 		<Scrollable>
 			<SheetNavbar />
