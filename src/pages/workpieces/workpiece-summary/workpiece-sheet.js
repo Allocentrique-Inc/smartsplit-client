@@ -1,5 +1,6 @@
 import React from "react"
 import { toJS } from "mobx"
+import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 import { Row, Flex, Hairline, Spacer, Column } from "../../../layout"
 import {
@@ -19,7 +20,7 @@ import Scrollable from "../../../widgets/scrollable"
 import { sections } from "./sections"
 import { useDocsModel } from "../../../mobX/hooks"
 
-export default function WorkpieceSheet(props) {
+const WorkpieceSheet = observer((props) => {
 	const [t] = useTranslation()
 	const workpiece = useCurrentWorkpiece()
 	const model = useDocsModel(workpiece.id)
@@ -79,15 +80,15 @@ export default function WorkpieceSheet(props) {
 					<Flex flex={1} />
 					<Column of="group" flex={4}>
 						<GeneralInfoSection
-							category={t("workpieceSheet:general.header")}
+							category={t("workpieceSheet:info.header")}
 							length={sections.general.length}
 							bmp={sections.general.bmp}
 							genres={sections.general.genres}
 							styles={sections.general.styles}
 							influences={sections.general.influences}
 						/>
-						<ListeningSection category={t("workpieceSheet:listening.header")} />
-						<DownloadsSection />
+						<ListeningSection category={t("workpieceSheet:stream.header")} />
+						<DownloadsSection category={t("workpieceSheet:download.header")} />
 						<LyricsSection category={t("workpieceSheet:lyrics.header")} />
 					</Column>
 				</Row>
@@ -95,4 +96,6 @@ export default function WorkpieceSheet(props) {
 			<Spacer of="section" />
 		</Scrollable>
 	)
-}
+})
+
+export default WorkpieceSheet

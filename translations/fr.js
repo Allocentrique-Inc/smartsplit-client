@@ -1,3 +1,4 @@
+import { getInfoAsync } from "expo-file-system"
 import React from "react"
 
 export const general = {
@@ -69,6 +70,7 @@ export const general = {
 		pass: "Passer pour l'instant",
 		end: "Terminer",
 		seeSummary: "Voir le résumé",
+		access: "Demander l'accès en écriture",
 	},
 }
 
@@ -1038,5 +1040,61 @@ export const copyrightOrgs = {
 		mroc: "Droits de voisinage des artistes interprètes ou exécutants",
 		actra: "Syndicat professionnel des chanteurs",
 		cfm: "Syndicat professionnel des musiciens",
+	},
+}
+
+export const workpieceSheet = {
+	creation: {
+		header: "Création",
+		date: "Date de création",
+		authors: "Auteurs (paroles)",
+		composers: "Compositeurs (Musique)",
+		arrangers: "Arrangeurs (Musique)",
+		publishers: "Éditeurs",
+	},
+	performance: {
+		header: "Interprétation",
+		star: "Artiste vedette",
+		musician: {
+			musician: "Musicien",
+			solo: "Soliste",
+		},
+		singer: "Chanteur",
+	},
+	recording: {
+		header: "Enregistrement sonore",
+		title: "Titre de la piste",
+		director: "Réalisateurs",
+		tech: "Techniciens en enreg.",
+		mastering: "Mastering",
+		production: "Production",
+		studio: "Studio d'enregistrement",
+	},
+	release: {
+		header: "Sortie",
+		date: "Date de sortie",
+		format: "Format du produit",
+		title: "Title du produit",
+	},
+	info: {
+		header: "Informations générales",
+		length: "Durée",
+	},
+	stream: {
+		header: "Écouter",
+	},
+	download: {
+		header: "Téléchargements",
+		visual: "Visuel de l'œuvre",
+		audio: "Fichier audio",
+		partition: "Partition/Tablature",
+		midi: "Fichier MIDI",
+		download: "Télécharger",
+		copy: "Copier le lien",
+		access: "Demander l'accès",
+	},
+	lyrics: {
+		header: "Paroles",
+		check: "Voir les paroles",
 	},
 }
