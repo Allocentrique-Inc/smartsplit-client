@@ -460,6 +460,11 @@ export const workpieces = {
 			desc:
 				"Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
 		},
+		shareYourRight: {
+			title: "Partage tes droits",
+			desc:
+				"Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
+		},
 		protectYourWork: {
 			title: "Protège ton œuvre",
 			desc:
@@ -501,6 +506,26 @@ export const identity = {
 			avec {workpiece}.
 		</>
 	),
+}
+
+export const shareYourRights = {
+	sharingRights: "Partage des droits",
+	updateBy: "Créé par {{ name }} · Mis à jour {{hour}}",
+	summarySharing: "Résumé du partage",
+	tabBar: {
+		myManager: {
+			title: "Mon manager",
+		},
+		myCollaborators: {
+			title: "Mes collaborateurs",
+		},
+		myEditor: {
+			title: "Mon éditeur",
+			why: "Pourquoi faire affaire avec un éditeur?",
+			whyContent: "Un éditeur sert à explication explication explication.",
+			addEditor: "Ajouter un éditeur",
+		},
+	},
 }
 
 export const rightSplits = {

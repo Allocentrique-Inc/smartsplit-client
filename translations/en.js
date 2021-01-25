@@ -460,6 +460,11 @@ export const workpieces = {
 			desc:
 				"Create the shares on your rights using our guide. You'll see, it's much easier than you think :)",
 		},
+		shareYourRight: {
+			title: "Share your right",
+			desc:
+				"Create the shares on your rights using our guide. You'll see, it's much easier than you think :)",
+		},
 		protectYourWork: {
 			title: "Protect your work",
 			desc:
@@ -499,6 +504,27 @@ export const identity = {
 			{workpiece}.
 		</>
 	),
+}
+
+export const shareYourRights = {
+	sharingRights: "Sharing of rights",
+	updateBy: "Created by",
+	ago: "· Updated {{hour}}",
+	summarySharing: "Summary of sharing",
+	tabBar: {
+		myManager: {
+			title: "My manager",
+		},
+		myCollaborators: {
+			title: "My collaborators",
+		},
+		myEditor: {
+			title: "My editor",
+			why: "Why do business with a publisher?",
+			whyContent: "An editor serves for explanation explanation explanation.",
+			addEditor: "Add editor",
+		},
+	},
 }
 
 export const rightSplits = {
