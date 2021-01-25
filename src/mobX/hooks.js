@@ -93,6 +93,7 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 	 */
 	return (search: string, max: number = 5) => {
 		//let returnList = []
+		search = search.trim()
 		if (!search) return collabList.splice(0, max)
 		//console.log(search)
 		///

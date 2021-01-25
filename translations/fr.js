@@ -195,12 +195,10 @@ export const forms = {
 				backupArtist: "Artiste acompagnateur",
 			},
 			artistTypesDescription: {
-				principal: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
-				featured:
-					"Artiste ou membre d'un groupe invité à collaborer sur une pièce musicale",
-				bandMember: "Musicien ou chanteur prenant part à l'entité artistique",
-				session:
-					"Interprète engagé pendant les sessions d'enregistrement studio",
+				mainArtist: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
+				feature: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
+				groupMember: "Artiste prenant part à l'entité artistique",
+				backupArtist: "Interprète engagé pendant l'enregistrement",
 			},
 		},
 		defaultRoles: "Rôle(s) par défaut",
