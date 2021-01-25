@@ -106,12 +106,6 @@ export class Workpiece extends WorkpieceObservable {
 		})
 	}
 
-	/**
-	 * the documentation observable which contains models for the various sections
-	 * of the workpiece documentation section
-	 */
-	@observable documentation
-
 	set(props) {
 		if (props.data) {
 			const { rightSplit } = props.data

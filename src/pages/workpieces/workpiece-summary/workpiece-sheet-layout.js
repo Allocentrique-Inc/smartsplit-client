@@ -45,7 +45,6 @@ export function SheetNavbar() {
 
 const TagStyle = StyleSheet.create({
 	frame: {
-		marginRight: 0,
 		backgroundColor: Colors.background.hell,
 		padding: Metrics.spacing.tiny,
 		marginRight: Metrics.spacing.small,

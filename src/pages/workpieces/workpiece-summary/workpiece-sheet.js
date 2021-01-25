@@ -1,4 +1,5 @@
 import React from "react"
+import { toJS } from "mobx"
 import { useTranslation } from "react-i18next"
 import { Row, Flex, Hairline, Spacer, Column } from "../../../layout"
 import {
@@ -16,11 +17,16 @@ import {
 import { useCurrentWorkpiece } from "../context"
 import Scrollable from "../../../widgets/scrollable"
 import { sections } from "./sections"
+import { useDocsModel } from "../../../mobX/hooks"
 
 export default function WorkpieceSheet(props) {
 	const [t] = useTranslation()
 	const workpiece = useCurrentWorkpiece()
-
+	const model = useDocsModel(workpiece.id)
+	const summary = model.summary
+	const workInfo = workpiece.data
+	console.log(toJS(summary))
+	console.log(toJS(workInfo))
 	return (
 		<Scrollable>
 			<SheetNavbar />
