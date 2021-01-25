@@ -54,7 +54,7 @@ const Styles = StyleSheet.create({
 		borderBottomLeftRadius: 6,
 		borderBottomRightRadius: 6,
 	},
-	linkRow: { paddingTop: 56 },
+	linkRow: { paddingTop: 56, marginTop: 8 },
 	rowField: {
 		paddingTop: 8,
 	},

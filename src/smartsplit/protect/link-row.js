@@ -32,6 +32,7 @@ const Styles = StyleSheet.create({
 		marginLeft: 20,
 	},
 	hairline: {
+		marginTop: 4,
 		height: "calc(100% - 0px)",
 		width: 1,
 		backgroundColor: "rgb(220, 223, 225)",
