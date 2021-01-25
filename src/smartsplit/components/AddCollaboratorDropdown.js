@@ -45,7 +45,7 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 
 	// const results = searchResults.concat(rightsResults).splice(0, 10)
 
-	const fakeResults = [
+	/*const fakeResults = [
 		{
 			rightHolder_id: "2d3f2a65-b3d5-48b1-845d-928bb4604700",
 			firstName: "smarty",
@@ -108,7 +108,7 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 			lastName: "mac",
 			user_id: "1a23cb22-0728-48c4-8ec8-1ef0efa8893a",
 		},
-	]
+	]*/
 	//useEffect(()=>{setResults()},[])
 	return (
 		<>
@@ -116,6 +116,7 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 				icon={PlusCircle}
 				placeholder={t("forms:labels.dropdowns.addCollaborator")}
 				search={search}
+				withAvatar
 				onSearchChange={handleSearchChange}
 				{...nextProps}
 				searchResults={results}

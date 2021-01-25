@@ -38,7 +38,7 @@ export default class DocStreamingModel extends BaseModel {
 		let values = super.toJS().links
 		let links = []
 		Object.keys(values).forEach((key) => {
-			links.push({ platform: key, url: values[key] })
+			if (values[key]) links.push({ platform: key, url: values[key] })
 		})
 		return { links: links }
 	}

@@ -7,10 +7,10 @@ import { observable, action, computed } from "mobx"
 import PlayerInstrumentModel from "./PlayerInstrumentModel"
 const makeObservable = () => {}
 export const PerformerType = {
-	principle: "principle",
+	mainArtist: "mainArtist",
 	featured: "featured",
 	groupMember: "groupMember",
-	accompanying: "accompanying",
+	session: "backupArtist",
 }
 export default class PerformerModel extends BaseModel {
 	constructor(parent) {
@@ -24,10 +24,12 @@ export default class PerformerModel extends BaseModel {
 	isSinger = new Field(this, "isSinger", {
 		type: FieldType.bool,
 		label: "general:checkbox.singer",
+		default: false,
 	})
 	isMusician = new Field(this, "isMusician", {
 		type: FieldType.bool,
 		label: "general:checkbox.musician",
+		default: false,
 	})
 	role = new Field(this, "role", { type: FieldType.object })
 	type = new Field(this, "type", {

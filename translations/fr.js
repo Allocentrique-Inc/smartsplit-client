@@ -5,6 +5,7 @@ export const general = {
 	forgotPassword: "Mot de passe oublié ?",
 	noAccount: "Je n'ai pas de compte",
 	or: "ou",
+	me: "Moi",
 	auth: "Authentification à deux facteurs",
 	more: "En savoir plus",
 	addFile: "Choisir un fichier",
@@ -192,16 +193,22 @@ export const forms = {
 						Artiste invité ((<i>featuring</i>))
 					</>
 				),
+				featured: () => (
+					<>
+						Artiste invité ((<i>featuring</i>))
+					</>
+				),
 				groupMember: "Membre du groupe",
-				backupArtist: "Artiste acompagnateur",
+				backupArtist: "Artiste accompagnateur",
+				session: "Artiste accompagnateur",
 			},
 			artistTypesDescription: {
-				principal: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
-				featured:
-					"Artiste ou membre d'un groupe invité à collaborer sur une pièce musicale",
-				bandMember: "Musicien ou chanteur prenant part à l'entité artistique",
-				session:
-					"Interprète engagé pendant les sessions d'enregistrement studio",
+				mainArtist: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
+				feature: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
+				featured: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
+				groupMember: "Artiste prenant part à l'entité artistique",
+				backupArtist: "Interprète engagé pendant l'enregistrement",
+				session: "Interprète engagé pendant l'enregistrement",
 			},
 		},
 		defaultRoles: "Rôle(s) par défaut",
