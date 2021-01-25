@@ -337,12 +337,12 @@ export const ListeningSection = observer((props) => {
 		<Column of="group">
 			<Heading level={4}>{props.category}</Heading>
 			<Row of="inside" valign="center">
-				<ITunesIcon />
-				<YoutubeIcon />
-				<AmazonIcon />
-				<GooglePlayIcon />
-				<SoundcloudIcon />
-				<SpotifyIcon />
+				<ITunesIcon color={Colors.action} />
+				<YoutubeIcon color={Colors.action} />
+				<AmazonIcon color={Colors.action} />
+				<GooglePlayIcon color={Colors.action} />
+				<SoundcloudIcon color={Colors.action} />
+				<SpotifyIcon color={Colors.action} />
 			</Row>
 		</Column>
 	)
