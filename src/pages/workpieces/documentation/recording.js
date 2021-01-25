@@ -231,7 +231,7 @@ const RecordingForm = observer((props) => {
 						label={t("document:recording.date")}
 						field={model.recordingDate}
 					/>
-					<SearchAndTag
+					{/*<SearchAndTag
 						noIcon={true}
 						label={t("document:recording.studio")}
 						searchResults={[]}
@@ -276,13 +276,14 @@ const RecordingForm = observer((props) => {
 								</Text>
 							</Row>
 						</TouchableWithoutFeedback>
-					</SearchAndTag>
-					{/* <TextField
-					name="studio"
-					label={t("document:recording.studio")}
-					placeholder={t("document:recording.searchStudio")}
-					tooltip=""
-				/> */}
+					</SearchAndTag>*/}
+					<TextField
+						name="studio"
+						label={t("document:recording.studio")}
+						field={model.recordingStudio}
+						placeholder={t("document:recording.searchStudio")}
+						tooltip=""
+					/>
 					<Column of="tiny">
 						<AddCollaboratorDropdown
 							label={t("document:recording.roles.production")}

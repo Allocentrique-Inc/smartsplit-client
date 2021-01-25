@@ -19,7 +19,7 @@ export default class DocInfosModel extends BaseModel {
 		type: FieldType.int,
 		label: "BPM",
 	})
-	@observable primaryGenre = new Field(this, "primaryGenre", {
+	@observable mainGenre = new Field(this, "mainGenre", {
 		type: FieldType.string,
 	})
 	@observable secondaryGenres = new Field(this, "secondaryGenres", {

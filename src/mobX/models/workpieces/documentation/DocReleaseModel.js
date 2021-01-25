@@ -9,16 +9,22 @@ export default class DocReleaseModel extends BaseModel {
 			!this.distributors.value
 		)
 	}
-	@observable labels = new Field(this, "labels", {
+	@observable date = new Field(this, "date", {
+		type: FieldType.date,
+	})
+	@observable label = new Field(this, "label", {
 		type: FieldType.string,
 	})
-	@observable formats = new Field(this, "formats", {
+	@observable format = new Field(this, "format", {
 		type: FieldType.string,
 	})
-	@observable titles = new Field(this, "titles", {
+	@observable support = new Field(this, "support", {
 		type: FieldType.string,
 	})
-	@observable distributors = new Field(this, "distributors", {
+	@observable distributor = new Field(this, "distributor", {
+		type: FieldType.string,
+	})
+	@observable upc = new Field(this, "upc", {
 		type: FieldType.string,
 	})
 }
