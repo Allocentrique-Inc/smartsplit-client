@@ -24,7 +24,7 @@ const WorkpieceSheet = observer((props) => {
 	const [t] = useTranslation()
 	const workpiece = useCurrentWorkpiece()
 	const model = useDocsModel(workpiece.id)
-	const summary = model.summary
+	const summary = workpiece.docSummary
 	const workInfo = workpiece.data
 	console.log(toJS(summary))
 	console.log(toJS(workInfo))
