@@ -13,12 +13,9 @@ export default class RightSplitModel extends BaseModel {
 		})
 		this.initShareData = initShareData
 	}
-	@action init(shareholders) {
-		this.shareholders.init(shareholders)
-	}
-
+	
 	/**
-	 *	Provide a data structure that makes easier
+	 *	Provides a data structure that makes easier
 	 *	to access and use share field values.
 	 * 	(hence shareholderS valueS, because each shareholder has
 	 *	multiple Field attributes)

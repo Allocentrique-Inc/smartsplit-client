@@ -27,18 +27,18 @@ const PerformanceForm = observer(() => {
 	}, [window.outerWidth])
 
 	function genSelectOptions() {
-		return domainState.statusValues.map((status) => {
+		return domainState.statusValues.map((artist) => {
 			return {
-				key: status,
+				key: artist,
 				value: (
 					<>
-						<Text>{t(`forms:labels.dropdowns.artistTypes.${status}`)}</Text>
+						<Text>{t(`forms:labels.dropdowns.artistTypes.${artist}`)}</Text>
 						<Text secondary>
-							{t(`forms:labels.dropdowns.artistTypesDescription.${status}`)}
+							{t(`forms:labels.dropdowns.artistTypesDescription.${artist}`)}
 						</Text>
 					</>
 				),
-				displayValue: t(`forms:labels.dropdowns.artistTypes.${status}`),
+				displayValue: t(`forms:labels.dropdowns.artistTypes.${artist}`),
 			}
 		})
 	}

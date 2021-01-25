@@ -50,10 +50,6 @@ export default observer(function Links(props) {
 		history.push("/dashboard/")
 	}
 
-	function navigateToSummary() {
-		history.push(`/workpieces/${workpiece.id}`)
-	}
-
 	function navigateToInterpretation() {
 		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
 	}
@@ -343,8 +339,11 @@ export function EndModal(props) {
 	const history = useHistory()
 	const { workpiece_id } = useParams()
 	const workpiece = useCurrentWorkpiece()
+
 	function navigateToSummary() {
-		history.push(`/workpieces/${workpiece_id}`)
+		history.push(
+			`/workpieces/${workpiece.id}/workpiece-summary/workpiece-sheet`
+		)
 	}
 
 	return (
