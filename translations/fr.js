@@ -4,6 +4,7 @@ export const general = {
 	forgotPassword: "Mot de passe oublié ?",
 	noAccount: "Je n'ai pas de compte",
 	or: "ou",
+	me: "Moi",
 	auth: "Authentification à deux facteurs",
 	more: "En savoir plus",
 	addFile: "Choisir un fichier",

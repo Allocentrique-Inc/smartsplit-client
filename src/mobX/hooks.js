@@ -1,5 +1,6 @@
 import { useStorePath, useStores } from "./index"
 import { toJS } from "mobx"
+import { useTranslation } from "react-i18next"
 
 export function useEntity(paths, entityId) {
 	const entityList = useStorePath(...paths)
@@ -61,8 +62,14 @@ export const ResultsOrder = {
  * @return {function(string, number=): ([])}
  */
 export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
-	const { collaborators, contributors, users } = useStores()
-	const collabList = JSON.parse(JSON.stringify(toJS(collaborators.list)))
+	const { t, i18n } = useTranslation()
+	const { collaborators, contributors, users, auth } = useStores()
+	let current = auth.user
+	current.artistName = t("general:me")
+	const collabList = [
+		current,
+		...JSON.parse(JSON.stringify(toJS(collaborators.list))),
+	]
 	//console.log(collabList)
 	//const contribList = JSON.parse(JSON.stringify(toJS(contributors.list)))
 	//console.log(contribList)
