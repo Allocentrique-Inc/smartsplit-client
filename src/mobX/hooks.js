@@ -64,13 +64,12 @@ export const ResultsOrder = {
 export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 	const { t, i18n } = useTranslation()
 	const { collaborators, contributors, users, auth } = useStores()
-	let current = auth.user
+	let current = toJS(auth.user.data)
 	current.artistName = t("general:me")
-	const collabList = [
-		current,
-		...JSON.parse(JSON.stringify(toJS(collaborators.list))),
-	]
-	//console.log(collabList)
+	let collabList = [current]
+	collabList = collabList.concat(toJS(collaborators.list))
+
+	console.log(collabList)
 	//const contribList = JSON.parse(JSON.stringify(toJS(contributors.list)))
 	//console.log(contribList)
 	const usersList = JSON.parse(JSON.stringify(toJS(users.list)))
@@ -92,9 +91,9 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 	 * @param order {ResultsOrder} whether collaborators or contributors should come first
 	 * @return {Array<{firstName:string,lastName:string,artistName:string,user_id:guid}>}
 	 */
-	return (search: string, max: number = 10) => {
+	return (search: string, max: number = 5) => {
 		//let returnList = []
-		if (!search) return collabList
+		if (!search) return collabList.splice(0, max)
 		//console.log(search)
 		///
 		/// first get collaborators that match
