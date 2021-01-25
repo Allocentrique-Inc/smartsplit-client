@@ -67,6 +67,7 @@ export const general = {
 		pass: "Pass for now",
 		end: "Finish",
 		seeSummary: "See the Summary",
+		access: "Ask writing access",
 	},
 }
 export const menu = {
@@ -1010,5 +1011,61 @@ export const copyrightOrgs = {
 		mroc: "Performers' neighbour rights",
 		actra: "Vocalists' professional union",
 		cfm: "Musicians' professional union",
+	},
+}
+
+export const workpieceSheet = {
+	creation: {
+		header: "Creation",
+		date: "Creation Date",
+		authors: "Auteurs",
+		composers: "Composers (Music)",
+		arrangers: "Arrangers (Music)",
+		publishers: "Publishers",
+	},
+	performance: {
+		header: "Performance",
+		star: "Starring Artist",
+		musician: {
+			musician: "Musicien",
+			solo: "Solist",
+		},
+		singer: "Singer",
+	},
+	recording: {
+		header: "Audio Recording",
+		title: "Title of the track",
+		director: "Directors",
+		tech: "Recording Technicians",
+		mastering: "Mastering",
+		production: "Production",
+		studio: "Recording Studio",
+	},
+	release: {
+		header: "Release",
+		date: "Release Date",
+		format: "Product Format",
+		title: "Product Title",
+	},
+	info: {
+		header: "General Information",
+		length: "Length",
+	},
+	stream: {
+		header: "Listen",
+	},
+	download: {
+		header: "Downloads",
+		visual: "Work Visual",
+		audio: "Audio File",
+		partition: "Partition/Tablature",
+		midi: "MIDI Files",
+		download: "Download",
+		copy: "Copy the link",
+		access: "Ask for access",
+	},
+	lyrics: {
+		header: "Lyrics",
+		check: "See the lyrics",
 	},
 }
