@@ -102,7 +102,7 @@ export function IconDescriptionSelectItem(props) {
 
 export function IconDescriptionItem(props) {
 	const { icon, name, description, title } = props
-	console.log(typeof title)
+	//console.log(typeof title)
 	return (
 		<Row flex={1} style={{ padding: Metrics.spacing.inside }}>
 			<Column valign="center">{icon}</Column>

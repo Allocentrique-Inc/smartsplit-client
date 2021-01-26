@@ -176,11 +176,11 @@ export function MixinTest() {
 	let a = new A(),
 		b = new B()
 	//console.log("WithMixin inheritance test")
-	console.log(a.prototypeOrder.join(" <- ") + " : name = " + a.constructor.name)
-	console.log(b.prototypeOrder.join(" <- ") + " : name = " + b.constructor.name)
-	if (a.constructor.name === "A") console.log("a IS of type A")
+	//console.log(a.prototypeOrder.join(" <- ") + " : name = " + a.constructor.name)
+	//console.log(b.prototypeOrder.join(" <- ") + " : name = " + b.constructor.name)
+	/*	if (a.constructor.name === "A") console.log("a IS of type A")
 	else console.log("a is NOT of type A, it is of type " + b.constructor.name)
 
 	if (b.constructor.name === "B") console.log("b IS of type B")
-	else console.log("b is NOT of type B, it is of type " + b.constructor.name)
+	else console.log("b is NOT of type B, it is of type " + b.constructor.name)*/
 }

@@ -43,7 +43,7 @@ export class Workpiece extends WorkpieceObservable {
 		})
 
 		docFileList(id).then((list) => {
-			console.log(JSON.stringify(list, null, 2))
+		//	console.log(JSON.stringify(list, null, 2))
 		})
 		//this.documentation.init()
 		//console.log(toJS(this.documentation))

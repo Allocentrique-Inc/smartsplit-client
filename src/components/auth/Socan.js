@@ -87,7 +87,7 @@ class Socan extends Component {
 			axios
 				.post(`${config.API_URL}socan/join`, body)
 				.then(function (response) {
-					console.log("RESPONSE: ", response)
+					//console.log("RESPONSE: ", response)
 					toast.success(`Application sent to SOCAN API, check your email!`)
 				})
 				.catch((err) => {

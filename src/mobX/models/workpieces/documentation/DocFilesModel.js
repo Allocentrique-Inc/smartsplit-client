@@ -21,7 +21,7 @@ export default class DocFilesModel extends BaseModel {
 	@observable uploadProgress = 0
 	@observable uploadType = null
 	@action async upload(workpieceId, file, visibility = "private", type) {
-		console.log(file)
+		//console.log(file)
 		let response = await uploadDocFile(
 			workpieceId,
 			file,
