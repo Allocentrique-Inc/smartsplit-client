@@ -24,7 +24,7 @@ export class Workpiece extends WorkpieceObservable {
 	@observable documentation: DocumentationModel
 	@observable protection: ProtectionModel
 	@observable rightSplits: RightSplitsState
-
+	@observable docSummary
 	constructor(id, initData = null, initState) {
 		const { files, rightSplit, ...data } = initData || {}
 		super(id, data, initState)
@@ -38,6 +38,9 @@ export class Workpiece extends WorkpieceObservable {
 		getDocumentation(id).then((docs) => {
 			console.log(docs.data)
 			this.documentation.init(docs.data)
+			runInAction(() => {
+				this.docSummary = docs.data
+			})
 		})
 		getDocumentation(id, "create").then((docs) => {
 			console.log(docs.data)
@@ -65,7 +68,7 @@ export class Workpiece extends WorkpieceObservable {
 		})
 
 		docFileList(id).then((list) => {
-			console.log(JSON.stringify(list, null, 2))
+			//	console.log(JSON.stringify(list, null, 2))
 		})
 		//this.documentation.init()
 		//console.log(toJS(this.documentation))

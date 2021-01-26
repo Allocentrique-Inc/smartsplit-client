@@ -15,7 +15,7 @@ export default function EditModal(props) {
 
 	const [search, setSearch] = useState("")
 	const [selected, setSelected] = useState([])
-	console.log({ firstName, lastName, artistName, email, groups })
+	//console.log({ firstName, lastName, artistName, email, groups })
 	return (
 		<DialogModal
 			visible={props.visible}

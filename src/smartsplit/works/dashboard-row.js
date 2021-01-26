@@ -66,7 +66,7 @@ export default function MediaWorkRow(props) {
 			<Button
 				icon={<OverflowMenuIcon />}
 				onClick={() => {
-					console.log("show menu")
+					//	console.log("show menu")
 				}}
 			/>
 		</View>

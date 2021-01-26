@@ -36,7 +36,7 @@ const frameStyle = [CardStyles.frame, Styles.frame]
 
 const PlaceTag = observer((props) => {
 	const { place, field, index } = props
-	console.log(toJS(place))
+	//	console.log(toJS(place))
 	return (
 		<Row of="component" padding="tiny" style={frameStyle} key={instrument.id}>
 			<Column of="inside" flex={1} padding="tiny">

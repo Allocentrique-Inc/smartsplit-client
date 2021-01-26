@@ -95,7 +95,7 @@ const LinkRow = observer((props) => {
 				}
 				onChangeText={(v) => {
 					model.links.setItem(name, v)
-					console.log(model.toJS())
+					//	console.log(model.toJS())
 				}}
 			/>
 		</Row>
@@ -305,7 +305,7 @@ export const LinksForm = observer((props) => {
 						onSearchChange={setSearchPlatforms}
 						selection={model.otherPlatforms.array}
 						onSelect={(selection) => {
-							console.log(selection)
+							//	console.log(selection)
 							model.links.setItem(selection.name, "")
 						}}
 						/* 	onUnselect={

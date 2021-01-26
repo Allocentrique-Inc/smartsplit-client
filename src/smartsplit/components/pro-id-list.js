@@ -61,7 +61,7 @@ export const ProIdList = observer((props) => {
 	const [modalVisible, setModalVisible] = useState(false)
 	const ids = model.ids
 	const proIds = ids.value
-	console.log(toJS(proIds))
+	//	console.log(toJS(proIds))
 
 	return (
 		<Label label={t("forms:labels.myProIds")}>
