@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx"
+import { action, computed, observable, reaction } from "mobx"
 import BaseModel, { ModelCollection } from "../../../BaseModel"
 
 /**
@@ -12,6 +12,29 @@ export default class RightSplitModel extends BaseModel {
 			modelClass,
 		})
 		this.initShareData = initShareData
+	}
+
+	init(data) {
+		if (this.type === "copyright" || this.type === "recording") {
+			reaction(
+				() =>
+					this.shareholdersValues.map((shareholder) => ({
+						id: shareholder.id,
+						shares: shareholder.shares,
+						locked: shareholder.locked,
+					})),
+				(shareholders) => {
+					const unlocked = shareholders.filter(
+						(shareholder) => !shareholder.locked
+					)
+					if (unlocked.length === 1) {
+						this.updateShareField(unlocked[0].id, "locked", true)
+					}
+				},
+				{ fireImmediately: true }
+			)
+		}
+		super.init(data)
 	}
 	/**
 	 *	Provides a data structure that makes easier
@@ -176,19 +199,12 @@ export default class RightSplitModel extends BaseModel {
 		}
 		const share = this.shareholdersValues[index]
 		if (share.locked) {
-			const otherShares = this.shareholdersValues.filter(
+			const lockedShares = this.shareholdersValues.filter(
 				(share) => share.id !== id && share.locked
 			)
-			otherShares.forEach((share) =>
+			lockedShares.forEach((share) =>
 				this.updateShareField(share.id, "locked", false)
 			)
-		} else {
-			const otherShares = this.shareholdersValues.filter(
-				(share) => share.id !== id && !share.locked
-			)
-			if (otherShares.length === 1) {
-				this.updateShareField(otherShares[0].id, "locked", true)
-			}
 		}
 		this.updateShareField(id, "locked", !share.locked)
 	}
