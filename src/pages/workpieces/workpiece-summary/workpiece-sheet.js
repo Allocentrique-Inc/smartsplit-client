@@ -28,6 +28,7 @@ const WorkpieceSheet = observer((props) => {
 	const workInfo = workpiece.data
 	console.log(toJS(summary))
 	console.log(toJS(workInfo))
+
 	return (
 		<Scrollable>
 			<SheetNavbar />

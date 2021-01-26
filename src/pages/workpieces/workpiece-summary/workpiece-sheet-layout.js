@@ -78,6 +78,12 @@ export const SheetHeader = observer((props) => {
 		tag,
 	} = props
 
+	function getName(user) {
+		return `${user.firstName} ${user.lastName} ${
+			user.artistName ? ` (${user.artistName})` : ""
+		}`
+	}
+
 	return (
 		<Column
 			of="component"
@@ -147,6 +153,13 @@ export const CreationSection = observer((props) => {
 	const { category, creationDate, authors, composers, mixers, editors } = props
 	const CommaSpacer = () => <Text secondary>{", "}</Text>
 	const [t] = useTranslation()
+	const { firstName, lastName, artistName } = props
+
+	function getName(user) {
+		return `${user.firstName} ${user.lastName} ${
+			user.artistName ? ` (${user.artistName})` : ""
+		}`
+	}
 
 	return (
 		<Column of="group">
