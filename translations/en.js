@@ -514,6 +514,8 @@ export const shareYourRights = {
 	ago: "· Updated {{hour}}",
 	summarySharing: "Summary of sharing",
 	tabBar: {
+		version: "Version {{num}}",
+		sendToEditor: "Send to editor",
 		myManager: {
 			title: "My manager",
 		},
@@ -525,6 +527,11 @@ export const shareYourRights = {
 			why: "Why do business with a publisher?",
 			whyContent: "An editor serves for explanation explanation explanation.",
 			addEditor: "Add editor",
+		},
+		dragDrop: {
+			waitingToSend: "Waiting to send",
+			awaitingDecision: "Awaiting decision",
+			decided: "Decided",
 		},
 	},
 }

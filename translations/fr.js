@@ -522,6 +522,8 @@ export const shareYourRights = {
 	updateBy: "Créé par {{ name }} · Mis à jour {{hour}}",
 	summarySharing: "Résumé du partage",
 	tabBar: {
+		version: "Version {{num}}",
+		sendToEditor: "Envoyer à l'éditeur",
 		myManager: {
 			title: "Mon manager",
 		},
@@ -533,6 +535,11 @@ export const shareYourRights = {
 			why: "Pourquoi faire affaire avec un éditeur?",
 			whyContent: "Un éditeur sert à explication explication explication.",
 			addEditor: "Ajouter un éditeur",
+		},
+		dragDrop: {
+			waitingToSend: "En attente d’envoi",
+			awaitingDecision: "En attente de décision",
+			decided: "Décidées",
 		},
 	},
 }
