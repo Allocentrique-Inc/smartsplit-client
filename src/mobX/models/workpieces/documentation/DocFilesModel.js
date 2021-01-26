@@ -25,6 +25,7 @@ export default class DocFilesModel extends BaseModel {
 		let response = await uploadDocFile(
 			workpieceId,
 			file,
+			type,
 			visibility,
 			(percentCompleted) => {
 				console.log(percentCompleted)

@@ -16,6 +16,7 @@ import {
 	DateField,
 	TextField,
 	Select,
+	TextDropdown,
 } from "../../../forms"
 import { toJS } from "mobx"
 import { observer } from "mobx-react"
@@ -62,23 +63,35 @@ const ReleaseForm = observer((props) => {
 
 				{/* ToDo: Undertext does not appear */}
 				<DatePickers
-					field={model.creationDate}
-					label={t("document:creation.date")}
+					field={model.date}
+					label={t("document:release.date")}
 					undertext={t("document:release.dateHint")}
 				/>
-				<Dropdown
+				{/*<Dropdown
 					label="Label"
 					placeholder={t("document:release.addLabel")}
 					noFocusToggle
 					tooltip=""
+				/>*/}
+				<TextField
+					label="label"
+					placeholder={t("document:release.addLabel")}
+					field={model.label}
 				/>
 				<Select
 					label={t("document:release.format")}
 					placeholder=""
 					tooltip=""
-					options={[{ key: "EP", value: "EP" }]}
-					onChange={setShowEP}
-					checked={showEP}
+					options={[
+						{ key: "EP", value: "EP" },
+						{ key: "LP", value: "LP" },
+						{ key: "Double Album", value: "Double" },
+						{ key: "Single", value: "Single" },
+					]}
+					onChange={(v) => {
+						model.format.setValue(v)
+					}}
+					value={model.format.value}
 				/>
 				{showEP && <EP />}
 				<CheckBoxGroup label={t("document:release.supports.support")}>
@@ -131,13 +144,13 @@ export function EP(props) {
 export const DigitalOptions = observer((props) => {
 	const { t } = useTranslation()
 
-	const [search, setSearch] = useState("")
+	//const [search, setSearch] = useState("")
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
 	const model: DocReleaseModel = useDocsModel(workpieceId, "release")
-	const [selectedDistributor, setSelectedDistributor] = useState("")
-	const [searchDistributor, setSearchDistributor] = useState("")
-	const distributorsList = [
+	//const [selectedDistributor, setSelectedDistributor] = useState("")
+	//const [searchDistributor, setSearchDistributor] = useState("")
+	/*const distributorsList = [
 		{
 			id: 1,
 			name: "Distributor 1",
@@ -156,11 +169,11 @@ export const DigitalOptions = observer((props) => {
 			id: distributor.id,
 			name: distributor.name,
 		}
-	})
+	})*/
 
 	return (
 		<Column of="component" style={FormStyles.dropdown}>
-			<AddDistributorDropdown
+			{/*<AddDistributorDropdown
 				distributors={searchResultsDistributors.filter((d) =>
 					d.name.toLowerCase().indexOf(searchDistributor.toLowerCase() > -1)
 				)}
@@ -171,12 +184,17 @@ export const DigitalOptions = observer((props) => {
 					model.distributors.setValue(distributor)
 				}}
 				onSearchChange={setSearchDistributor}
+			/>*/}
+			<TextField
+				label={t("document:release.supports.distribution")}
+				placeholder={t("document:release.supports.addDistribution")}
+				field={model.distributor}
 			/>
-			{console.log(searchDistributor)}
 			<TextField
 				label={t("document:release.supports.upc")}
 				tooltip=""
 				style={{ flex: 1 }}
+				field={model.upc}
 			/>
 		</Column>
 	)

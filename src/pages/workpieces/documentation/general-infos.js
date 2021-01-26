@@ -180,7 +180,7 @@ export const GeneralInfosForm = observer((props) => {
 				{/* Main Genres */}
 				<AddGenreDropdown
 					hideIcon={false}
-					field={model.primaryGenre}
+					field={model.mainGenre}
 					noFocusToggle
 					tooltip=""
 				/>

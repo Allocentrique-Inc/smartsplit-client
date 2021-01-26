@@ -28,13 +28,16 @@ import searchResultsStudio from "../../../data/studios-smartsplit"
 import { FormStyles } from "./FormStyles"
 import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
 import DatePickers from "../../../smartsplit/components/DatePickers"
+import PlusCircle from "../../../svg/plus-circle"
+import { TouchableWithoutFeedback } from "react-native"
 
 const RecordingForm = observer((props) => {
 	//const searchResults = ["Inie", "Manie", "Moe"]
 	const [search, setSearch] = useState("")
 	const [date, setDate] = useState("")
-	const { t } = useTranslation()
-
+	const { t, i18n } = useTranslation()
+	const quotation = i18n.language === "en" ? '"' : "« "
+	const quotationEnd = i18n.language === "en" ? '"' : " »"
 	const workpiece = useCurrentWorkpiece()
 	const workpieceId = workpiece.id
 	const { contributors } = useStores()
@@ -228,24 +231,18 @@ const RecordingForm = observer((props) => {
 						label={t("document:recording.date")}
 						field={model.recordingDate}
 					/>
-					<SearchAndTag
+					{/*<SearchAndTag
 						noIcon={true}
 						label={t("document:recording.studio")}
-						searchResults={searchResultsStudio
-							.filter(
-								(g) =>
-									g.name.toLowerCase().indexOf(searchStudio.toLowerCase()) > -1
-							)
-							.splice(0, 10)}
+						searchResults={[]}
 						search={searchStudio}
 						onSearchChange={setSearchStudio}
 						selection={model.recordingStudio.array}
 						onSelect={
 							(selection) => {
 								let exists =
-									model.recordingStudio.array.filter(
-										(g) => g.id === selection.id
-									).length > 0
+									model.recordingStudio.array.filter((g) => g === selection)
+										.length > 0
 								if (!exists) model.recordingStudio.add(selection)
 							}
 							//setSelectedStudio([...selectedStudio, selection])
@@ -256,13 +253,37 @@ const RecordingForm = observer((props) => {
 						}
 						placeholder={t("document:recording.searchStudio")}
 						tooltip=""
+					>
+						<TouchableWithoutFeedback
+							onPress={() => {
+								let exists =
+									model.recordingStudio.array.filter((g) => g === searchStudio)
+										.length > 0
+								if (!exists) model.recordingStudio.add(searchStudio)
+							}}
+						>
+							<Row
+								of="component"
+								padding="component"
+								//style={FormStyles.actionFrame}
+							>
+								<PlusCircle />
+								<Text bold action>
+									{t("document:add")}
+									{searchStudio ? quotation : null}
+									{searchStudio}
+									{searchStudio ? quotationEnd : null}
+								</Text>
+							</Row>
+						</TouchableWithoutFeedback>
+					</SearchAndTag>*/}
+					<TextField
+						name="studio"
+						label={t("document:recording.studio")}
+						field={model.recordingStudio}
+						placeholder={t("document:recording.searchStudio")}
+						tooltip=""
 					/>
-					{/* <TextField
-					name="studio"
-					label={t("document:recording.studio")}
-					placeholder={t("document:recording.searchStudio")}
-					tooltip=""
-				/> */}
 					<Column of="tiny">
 						<AddCollaboratorDropdown
 							label={t("document:recording.roles.production")}

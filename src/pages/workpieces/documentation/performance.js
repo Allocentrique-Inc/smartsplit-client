@@ -35,6 +35,7 @@ import { useCurrentWorkpieceId } from "../context"
 import ContributorsState from "../../../mobX/states/ContributorsState"
 import ContributorModel from "../../../mobX/models/user/ContributorModel"
 import DocPerformanceModel from "../../../mobX/models/workpieces/documentation/DocPerformanceModel"
+import { PerformerType } from "../../../mobX/models/workpieces/documentation/PerformerModel"
 import { Tag } from "../../../widgets/tag"
 import { toJS } from "mobx"
 import UserAvatar from "../../../smartsplit/user/avatar"
@@ -257,7 +258,7 @@ export const PerformanceOptions = observer((props) => {
 	} */
 
 	function genSelectOptions() {
-		return domainState.statusValues.map((artist) => {
+		return Object.keys(PerformerType).map((artist) => {
 			return {
 				key: artist,
 				value: (
@@ -318,9 +319,9 @@ export const PerformanceOptions = observer((props) => {
 							key: artist,
 							description: t(`document:performance.description.${artist}`),
 						}))} */
-						value={selected}
+						value={model.type.value}
 						placeholder={
-							selected ? (
+							model.type.value ? (
 								<IconDescriptionItem
 									name={t(`document:performance.dropdown.${selected}`)}
 									description={t(
@@ -332,7 +333,7 @@ export const PerformanceOptions = observer((props) => {
 							)
 						}
 						onChange={(v) => {
-							setSelected(v)
+							model.type.setValue(v)
 						}}
 					/>
 
