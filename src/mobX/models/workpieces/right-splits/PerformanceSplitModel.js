@@ -57,7 +57,7 @@ export default class PerformanceSplitModel extends RightSplitModel {
 				0
 			)
 		} else if (this.mode === "80-20") {
-			console.log("DEBUG", this.shareholders.length)
+			//console.log("DEBUG", this.shareholders.length)
 			this.setShares(
 				this.majorShares,
 				(0.8 * this.shareholders.length) / this.majorShares.length

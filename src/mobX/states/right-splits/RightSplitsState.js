@@ -116,7 +116,7 @@ export default class RightSplitsState extends BaseModel {
 			} else {
 				response = await updateRightSplits(this.workpieceId, body)
 			}
-			console.log("RESPONSE SPLIT SAVING", response)
+		//	console.log("RESPONSE SPLIT SAVING", response)
 		} catch (e) {
 			console.error(e)
 		}

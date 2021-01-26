@@ -149,7 +149,7 @@ function TestBasicFields() {
 
 	function onFileSelect(file) {
 		window.selectedFile = file
-		console.log("File input: ", file)
+	//	console.log("File input: ", file)
 		setFile(file)
 	}
 

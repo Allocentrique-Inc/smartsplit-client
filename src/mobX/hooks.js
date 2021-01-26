@@ -69,7 +69,7 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 	let collabList = [current]
 	collabList = collabList.concat(toJS(collaborators.list))
 
-	console.log(collabList)
+	//console.log(collabList)
 	//const contribList = JSON.parse(JSON.stringify(toJS(contributors.list)))
 	//console.log(contribList)
 	const usersList = JSON.parse(JSON.stringify(toJS(users.list)))

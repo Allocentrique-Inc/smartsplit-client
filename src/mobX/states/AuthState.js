@@ -88,7 +88,7 @@ export default class AuthState extends BaseState {
 		return Platform.OS === "web"
 	}
 	@action async init(refreshToken = false) {
-		console.log(toJS(this))
+		//console.log(toJS(this))
 		//console.log("AuthState::init called")
 		//console.log(`access token is ${this.accessToken}`)
 		//this.history = useHistory()
