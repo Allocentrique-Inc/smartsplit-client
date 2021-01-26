@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { View, TouchableWithoutFeedback } from "react-native"
+import { View } from "react-native"
 import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
@@ -9,8 +9,6 @@ import SplitChart, {
 	DualSplitChart,
 } from "../../../smartsplit/components/split-chart"
 import CircledC from "../../../svg/circled-c"
-import Lock from "../../../svg/lock"
-import Unlock from "../../../svg/unlock"
 import {
 	CheckBoxGroupButton,
 	RadioGroup,
@@ -22,6 +20,8 @@ import { useCurrentWorkpieceId } from "../context"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
 import Slider from "../../../widgets/slider"
+import LockButton from "../../../widgets/lock-button"
+
 import { runInAction } from "mobx"
 import PercentageInput from "../../../forms/percentage"
 import { CheckBoxGroup } from "../../../forms/checkbox"
@@ -37,11 +37,6 @@ const CopyrightForm = observer(() => {
 	useEffect(() => {
 		setStyles(splitState.getStyles(window.outerWidth))
 	}, [window.outerWidth])
-	const LockButton = observer(({ id, locked }) => (
-		<TouchableWithoutFeedback onPress={() => domainState.toggleShareLock(id)}>
-			<View>{locked ? <Lock /> : <Unlock />}</View>
-		</TouchableWithoutFeedback>
-	))
 
 	const ShareCardView = observer(({ shareholder }) => (
 		<ShareCard
@@ -53,7 +48,12 @@ const CopyrightForm = observer(() => {
 			}
 			bottomAction={
 				domainState.mode === "manual" ? (
-					<LockButton id={shareholder.id} locked={shareholder.locked} />
+					<LockButton
+						id={shareholder.id}
+						locked={shareholder.locked}
+						onClick={() => domainState.toggleShareLock(shareholder.id)}
+						disabled={splitState.disabledLockButton}
+					/>
 				) : null
 			}
 		>
