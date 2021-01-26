@@ -57,9 +57,10 @@ export default class AuthState extends BaseState {
 			) {
 				if (
 					!this.user.data.lastName &&
-					this.user.data.firstName === this.user.data.email.split("@")[0]
+					this.user.data.firstName === this.user.data.emails[0].split("@")[0] &&
+					!this.ignoreNewUser
 				)
-					return !this.ignoreNewUser
+					return true
 				else return false
 			}
 
