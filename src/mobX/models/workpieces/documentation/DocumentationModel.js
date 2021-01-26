@@ -27,6 +27,7 @@ export default class DocumentationModel extends BaseModel {
 			this.streaming.isEmpty
 		)
 	}
+
 	@observable creation = new DocCreationModel(this)
 	@observable performance = new DocPerformanceModel(this)
 	@observable lyrics = new DocLyricsModel(this)
@@ -51,23 +52,25 @@ export default class DocumentationModel extends BaseModel {
 	 * @return {Promise<*>}
 	 */
 	async save(section) {
-		console.log(`workpiece  id is ${this.workpiece.id}`)
+		//console.log(`workpiece  id is ${this.workpiece.id}`)
 		let data
 		let isDirty = false
 		// prepare to save the whole
 		if (!section) {
-			console.log(`saving all documention`)
+			//console.log(`saving all documention`)
 			isDirty = this.isDirty
 			data = this.toJS()
 			// prepare to save a section
 		} else {
-			console.log(`saving ${section} of documentation`)
+			//console.log(`saving ${section} of documentation`)
 			isDirty = this[section].isDirty
 			data = this[section].toJS()
 		}
 		try {
 			if (isDirty) await saveDocumentation(this.workpiece.id, section, data)
-			else console.log(`model to save is not dirty, not saving`)
+			else {
+				/*console.log(`model to save is not dirty, not saving`)*/
+			}
 			return true
 		} catch (e) {}
 	}

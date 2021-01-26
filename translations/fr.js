@@ -1,9 +1,11 @@
+import { getInfoAsync } from "expo-file-system"
 import React from "react"
 
 export const general = {
 	forgotPassword: "Mot de passe oublié ?",
 	noAccount: "Je n'ai pas de compte",
 	or: "ou",
+	me: "Moi",
 	auth: "Authentification à deux facteurs",
 	more: "En savoir plus",
 	addFile: "Choisir un fichier",
@@ -68,6 +70,7 @@ export const general = {
 		pass: "Passer pour l'instant",
 		end: "Terminer",
 		seeSummary: "Voir le résumé",
+		access: "Demander l'accès en écriture",
 	},
 }
 
@@ -190,16 +193,22 @@ export const forms = {
 						Artiste invité ((<i>featuring</i>))
 					</>
 				),
+				featured: () => (
+					<>
+						Artiste invité ((<i>featuring</i>))
+					</>
+				),
 				groupMember: "Membre du groupe",
-				backupArtist: "Artiste acompagnateur",
+				backupArtist: "Artiste accompagnateur",
+				session: "Artiste accompagnateur",
 			},
 			artistTypesDescription: {
-				principal: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
-				featured:
-					"Artiste ou membre d'un groupe invité à collaborer sur une pièce musicale",
-				bandMember: "Musicien ou chanteur prenant part à l'entité artistique",
-				session:
-					"Interprète engagé pendant les sessions d'enregistrement studio",
+				mainArtist: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
+				feature: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
+				featured: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
+				groupMember: "Artiste prenant part à l'entité artistique",
+				backupArtist: "Interprète engagé pendant l'enregistrement",
+				session: "Interprète engagé pendant l'enregistrement",
 			},
 		},
 		defaultRoles: "Rôle(s) par défaut",
@@ -1031,5 +1040,62 @@ export const copyrightOrgs = {
 		mroc: "Droits de voisinage des artistes interprètes ou exécutants",
 		actra: "Syndicat professionnel des chanteurs",
 		cfm: "Syndicat professionnel des musiciens",
+	},
+}
+
+export const workpieceSheet = {
+	creation: {
+		header: "Création",
+		date: "Date de création",
+		authors: "Auteurs (paroles)",
+		composers: "Compositeurs (Musique)",
+		arrangers: "Arrangeurs (Musique)",
+		publishers: "Éditeurs",
+	},
+	performance: {
+		header: "Interprétation",
+		star: "Artiste vedette",
+		musician: {
+			musician: "Musicien",
+			solo: "Soliste",
+		},
+		singer: "Chanteur",
+	},
+	recording: {
+		header: "Enregistrement sonore",
+		title: "Titre de la piste",
+		director: "Réalisateurs",
+		tech: "Techniciens en enreg.",
+		mix: "Mixage",
+		mastering: "Mastering",
+		production: "Production",
+		studio: "Studio d'enregistrement",
+	},
+	release: {
+		header: "Sortie",
+		date: "Date de sortie",
+		format: "Format du produit",
+		title: "Title du produit",
+	},
+	info: {
+		header: "Informations générales",
+		length: "Durée",
+	},
+	stream: {
+		header: "Écouter",
+	},
+	download: {
+		header: "Téléchargements",
+		visual: "Visuel de l'œuvre",
+		audio: "Fichier audio",
+		partition: "Partition/Tablature",
+		midi: "Fichier MIDI",
+		download: "Télécharger",
+		copy: "Copier le lien",
+		access: "Demander l'accès",
+	},
+	lyrics: {
+		header: "Paroles",
+		check: "Voir les paroles",
 	},
 }

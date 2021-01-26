@@ -23,8 +23,9 @@ import LockDownloadIcon from "../../../svg/workpieces/lock-download"
 import { Metrics, Colors } from "../../../theme"
 import MetricsStyles from "../../../styles/metrics"
 import { joinElements } from "../../../utils/react"
+import { observer } from "mobx-react"
 
-export function SheetNavbar() {
+export const SheetNavbar = observer((props) => {
 	return (
 		<Row
 			valign="center"
@@ -41,11 +42,10 @@ export function SheetNavbar() {
 			</Row>
 		</Row>
 	)
-}
+})
 
 const TagStyle = StyleSheet.create({
 	frame: {
-		marginRight: 0,
 		backgroundColor: Colors.background.hell,
 		padding: Metrics.spacing.tiny,
 		marginRight: Metrics.spacing.small,
@@ -66,7 +66,7 @@ function PathSpacer({ of }) {
 	)
 }
 
-export function SheetHeader(props) {
+export const SheetHeader = observer((props) => {
 	const [t] = useTranslation()
 	const {
 		songTitle,
@@ -141,9 +141,9 @@ export function SheetHeader(props) {
 			</Row>
 		</Column>
 	)
-}
+})
 
-export function CreationSection(props) {
+export const CreationSection = observer((props) => {
 	const { category, creationDate, authors, composers, mixers, editors } = props
 	const CommaSpacer = () => <Text secondary>{", "}</Text>
 	const [t] = useTranslation()
@@ -196,7 +196,7 @@ export function CreationSection(props) {
 				</Row>
 				<Row>
 					<Text secondary style={{ flex: 5 }}>
-						{t("workpieceSheet:creation.mixers")}
+						{t("workpieceSheet:creation.arrangers")}
 					</Text>
 					<Row of="none" style={{ flex: 9 }}>
 						<Text>
@@ -231,9 +231,9 @@ export function CreationSection(props) {
 			</Column>
 		</Column>
 	)
-}
+})
 
-export function GeneralInfoSection(props) {
+export const GeneralInfoSection = observer((props) => {
 	const { length, bmp, genres, styles, influences } = props
 	const [t] = useTranslation()
 
@@ -242,7 +242,7 @@ export function GeneralInfoSection(props) {
 			<Heading level={4}>{props.category}</Heading>
 			<Row>
 				<Text secondary style={{ flex: 1 }}>
-					{t("workpieceSheet:general.length")}
+					{t("workpieceSheet:info.length")}
 				</Text>
 				<Text normal style={{ flex: 3 }}>
 					{length}
@@ -284,7 +284,7 @@ export function GeneralInfoSection(props) {
 			</Row>
 		</Column>
 	)
-}
+})
 
 const Performance = (props) => {
 	const ColonSpacer = () => <Text>{" : "}</Text>
@@ -294,10 +294,10 @@ const Performance = (props) => {
 		<Column of="component">
 			{props.artists.map((artist) => (
 				<Row>
-					<Text action bold style={{ flex: 5 }}>
+					<Text action bold style={{ flex: 4 }}>
 						{artist.name}
 					</Text>
-					<Column of="inside" style={{ flex: 9 }}>
+					<Column of="inside" style={{ flex: 12 }}>
 						<Row style={{ alignSelf: "left" }}>
 							<Text small style={TagStyle.frame}>
 								{artist.tag}
@@ -319,7 +319,7 @@ const Performance = (props) => {
 	)
 }
 
-export function PerformanceSection(props) {
+export const PerformanceSection = observer((props) => {
 	const [t] = useTranslation()
 	const { artists } = props
 	const category = t("workpieceSheet:performance.header")
@@ -330,9 +330,9 @@ export function PerformanceSection(props) {
 			<Performance artists={artists} />
 		</Column>
 	)
-}
+})
 
-export function ListeningSection(props) {
+export const ListeningSection = observer((props) => {
 	return (
 		<Column of="group">
 			<Heading level={4}>{props.category}</Heading>
@@ -346,7 +346,7 @@ export function ListeningSection(props) {
 			</Row>
 		</Column>
 	)
-}
+})
 
 export function DownloadsRow(props) {
 	const { downloadTitle, download } = props
@@ -354,13 +354,13 @@ export function DownloadsRow(props) {
 	const FileTypes = {
 		public: {
 			icon: <UnlockDownloadIcon />,
-			action: t("workpieceSheet:downloads.download"),
+			action: t("workpieceSheet:download.download"),
 			dot: "·",
-			link: t("workpieceSheet:downloads.link"),
+			link: t("workpieceSheet:download.copy"),
 		},
 		private: {
 			icon: <LockDownloadIcon />,
-			action: t("workpieceSheet:downloads.access"),
+			action: t("workpieceSheet:download.access"),
 		},
 	}
 	const downloadType = FileTypes[download === true ? "public" : "private"]
@@ -395,35 +395,35 @@ export function DownloadsRow(props) {
 	)
 }
 
-export function DownloadsSection(props) {
+export const DownloadsSection = observer((props) => {
 	const [t] = useTranslation()
 	return (
 		<Column of="group">
-			<Heading level={4}>{t("workpieceSheet:downloads.header")}</Heading>
+			<Heading level={4}>{props.category}</Heading>
 
 			<Column of="component">
 				<DownloadsRow
-					downloadTitle={t("workpieceSheet:downloads.visual")}
+					downloadTitle={t("workpieceSheet:download.visual")}
 					download={true}
 				/>
 				<DownloadsRow
-					downloadTitle={t("workpieceSheet:downloads.audio")}
+					downloadTitle={t("workpieceSheet:download.audio")}
 					download={true}
 				/>
 				<DownloadsRow
-					downloadTitle={t("workpieceSheet:downloads.tablature")}
+					downloadTitle={t("workpieceSheet:download.partition")}
 					download={false}
 				/>
 				<DownloadsRow
-					downloadTitle={t("workpieceSheet:downloads.midi")}
+					downloadTitle={t("workpieceSheet:download.midi")}
 					download={false}
 				/>
 			</Column>
 		</Column>
 	)
-}
+})
 
-export function RecordingSection(props) {
+export const RecordingSection = observer((props) => {
 	const [t] = useTranslation()
 	const {
 		track,
@@ -459,7 +459,7 @@ export function RecordingSection(props) {
 			</Row>
 			<Row>
 				<Text secondary style={{ flex: 5 }}>
-					{t("workpieceSheet:recording.recordTech")}
+					{t("workpieceSheet:recording.tech")}
 				</Text>
 				<Text style={{ flex: 9 }}>{tech}</Text>
 			</Row>
@@ -471,13 +471,13 @@ export function RecordingSection(props) {
 			</Row>
 			<Row>
 				<Text secondary style={{ flex: 5 }}>
-					{t("workpieceSheet:recording.master")}
+					{t("workpieceSheet:recording.mastering")}
 				</Text>
 				<Text style={{ flex: 9 }}>{master}</Text>
 			</Row>
 			<Row>
 				<Text secondary style={{ flex: 5 }}>
-					{t("workpieceSheet:recording.prod")}
+					{t("workpieceSheet:recording.production")}
 				</Text>
 				<Text style={{ flex: 9 }}>{production}</Text>
 			</Row>
@@ -492,9 +492,9 @@ export function RecordingSection(props) {
 			</Row>
 		</Column>
 	)
-}
+})
 
-export function LyricsSection(props) {
+export const LyricsSection = observer((props) => {
 	const [t] = useTranslation()
 	return (
 		<Column of="group">
@@ -511,9 +511,9 @@ export function LyricsSection(props) {
 			</Row>
 		</Column>
 	)
-}
+})
 
-export function ReleaseSection(props) {
+export const ReleaseSection = observer((props) => {
 	const [t] = useTranslation()
 	const { releaseDate, format, productTitle } = props
 	return (
@@ -541,4 +541,4 @@ export function ReleaseSection(props) {
 			</Row>
 		</Column>
 	)
-}
+})

@@ -32,7 +32,7 @@ export function FilesForm(props) {
 	const { t } = useTranslation()
 	const workpiece = useCurrentWorkpiece()
 	const model: DocFilesModel = useDocsModel(workpiece.id, "files")
-	console.log(model.toJS())
+	//	console.log(model.toJS())
 	const workpieceId = workpiece.id
 	return (
 		<Row>
@@ -61,7 +61,7 @@ export function FilesForm(props) {
 								undertext={t("document:files.visual.undertext")}
 								style={{ flex: 4 }}
 								onFileChange={(file) => {
-									console.log(file)
+									//	console.log(file)
 									model.upload(workpiece.id, file, "private", "art")
 								}}
 							/>

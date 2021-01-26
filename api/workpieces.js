@@ -112,6 +112,7 @@ export async function docFileList(workpiece_id) {
 export async function uploadDocFile(
 	workpieceId,
 	file,
+	type,
 	visibility = "private",
 	onProgress
 ) {
@@ -166,6 +167,7 @@ export async function uploadDocFile(
 		const formData = new FormData()
 		formData.append("file", file.file, file.file.name)
 		formData.append("visibility", visibility)
+		formData.append("type", type)
 
 		// send request
 		xhr.send(formData)

@@ -27,7 +27,7 @@ export default class DocStreamingModel extends BaseModel {
 			soundcloud: "",
 			deezer: "",
 		}
-		console.log(linksNormalized)
+		//console.log(linksNormalized)
 		if (obj && obj.links)
 			obj.links.forEach((link) => {
 				linksNormalized[link.platform] = link.url
@@ -38,7 +38,7 @@ export default class DocStreamingModel extends BaseModel {
 		let values = super.toJS().links
 		let links = []
 		Object.keys(values).forEach((key) => {
-			links.push({ platform: key, url: values[key] })
+			if (values[key]) links.push({ platform: key, url: values[key] })
 		})
 		return { links: links }
 	}

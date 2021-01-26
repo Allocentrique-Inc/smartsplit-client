@@ -41,7 +41,7 @@ export default class DocRecordingModel extends BaseModel {
 	populateEntry(engineers, date, studio) {
 		let entry = { engineers: engineers }
 		if (date) entry.date = { from: date }
-		if (studio) entry.studio = studio.name
+		if (studio) entry.studio = studio[0]
 		return entry
 	}
 	toJS(excludePrimary) {
@@ -62,5 +62,32 @@ export default class DocRecordingModel extends BaseModel {
 			mixing: [this.populateEntry(values.mixedBy)],
 			mastering: [this.populateEntry(values.masteredBy)],
 		})
+	}
+
+	/**
+	 * The API Schema allows for much more information than is available in the UI
+	 * this method allows us to use a simpler binding model that we currently have
+	 * it translates the more complex schema into a simpler JS object which will
+	 * initialize the model
+	 * @param data
+	 * @returns {{}}
+	 */
+	importData(data) {
+		//return data
+		let returnData = {}
+		if (data.recording.length) {
+			returnData.recordedBy = data.recording[0].engineers
+			if (data.recording[0].date)
+				returnData.recordingDate = data.recording[0].date.from
+			if (data.recording[0].studio)
+				returnData.recordingStudio = [data.recording[0].studio]
+		}
+		if (data.mixing.length) returnData.mixedBy = data.mixing[0].engineers
+		if (data.mastering.length)
+			returnData.masteredBy = data.mastering[0].engineers
+		returnData.isrc = data.isrc
+		returnData.directors = data.directors
+		returnData.producedBy = data.producers
+		return returnData
 	}
 }

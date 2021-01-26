@@ -1,5 +1,6 @@
 import { useStorePath, useStores } from "./index"
 import { toJS } from "mobx"
+import { useTranslation } from "react-i18next"
 
 export function useEntity(paths, entityId) {
 	const entityList = useStorePath(...paths)
@@ -61,8 +62,13 @@ export const ResultsOrder = {
  * @return {function(string, number=): ([])}
  */
 export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
-	const { collaborators, contributors, users } = useStores()
-	const collabList = JSON.parse(JSON.stringify(toJS(collaborators.list)))
+	const { t, i18n } = useTranslation()
+	const { collaborators, contributors, users, auth } = useStores()
+	let current = toJS(auth.user.data)
+	current.artistName = t("general:me")
+	let collabList = [current]
+	collabList = collabList.concat(toJS(collaborators.list))
+
 	//console.log(collabList)
 	//const contribList = JSON.parse(JSON.stringify(toJS(contributors.list)))
 	//console.log(contribList)
@@ -85,9 +91,10 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 	 * @param order {ResultsOrder} whether collaborators or contributors should come first
 	 * @return {Array<{firstName:string,lastName:string,artistName:string,user_id:guid}>}
 	 */
-	return (search: string, max: number = 10) => {
+	return (search: string, max: number = 5) => {
 		//let returnList = []
-		if (!search) return collabList
+		search = search.trim()
+		if (!search) return collabList.splice(0, max)
 		//console.log(search)
 		///
 		/// first get collaborators that match
