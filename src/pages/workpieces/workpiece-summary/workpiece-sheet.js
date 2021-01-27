@@ -19,15 +19,31 @@ import { useCurrentWorkpiece } from "../context"
 import Scrollable from "../../../widgets/scrollable"
 import { sections } from "./sections"
 import { useDocsModel } from "../../../mobX/hooks"
+import { useStorePath } from "../../../mobX"
 
+export function getArtistName(user) {
+	const { firstName, lastName, artistName } = user
+	if (artistName) return artistName
+	else return firstName + " " + lastName
+}
+function getFeaturedArtists(performers) {
+	let featured = []
+	let _performers = JSON.parse(JSON.stringify(performers))
+	_performers.forEach((performer) => {
+		if (performer.type === "featured") featured.push()
+	})
+	return featured
+}
 const WorkpieceSheet = observer((props) => {
 	const [t] = useTranslation()
 	const workpiece = useCurrentWorkpiece()
 	const model = useDocsModel(workpiece.id)
+	const user = useStorePath("auth", "user", "data")
 	const summary = workpiece.docSummary
 	const workInfo = workpiece.data
 	console.log(toJS(summary))
 	console.log(toJS(workInfo))
+	if (!summary) return null
 	return (
 		<Scrollable>
 			<SheetNavbar />
@@ -36,12 +52,12 @@ const WorkpieceSheet = observer((props) => {
 			<Column of="group">
 				<Column of="group" flex={1} layer="underground" align="center">
 					<SheetHeader
-						artistName={sections.header.name}
-						albumTitle={sections.header.albumTitle}
-						songTitle={sections.header.songTitle}
+						artistName={getArtistName(user)}
+						albumTitle={"Album"}
+						songTitle={workInfo.title}
 						//path={["Inscience", "Album Name", "Love You Baby"]}
 						tag={sections.header.tag}
-						featuredArtist={sections.header.featuredArtist}
+						featuredArtists={getFeaturedArtists(summary.performance.performers)}
 					/>
 				</Column>
 			</Column>
@@ -51,9 +67,9 @@ const WorkpieceSheet = observer((props) => {
 					<Column of="group" flex={7}>
 						<CreationSection
 							category={t("workpieceSheet:creation.header")}
-							creationDate={sections.creation.creationDate}
-							authors={sections.creation.authors}
-							composers={sections.creation.composers}
+							creationDate={summary.creation.date}
+							authors={summary.creation.authors}
+							composers={summary.creation.composers}
 							mixers={sections.creation.mixers}
 							editors={sections.creation.editors}
 						/>
