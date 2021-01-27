@@ -506,7 +506,7 @@ export const RecordingSection = observer((props) => {
 			</Row>
 			<Row>
 				<Text secondary style={{ flex: 5 }}>
-					{t("workpieceSheet:recording.recordTech")}
+					{t("workpieceSheet:recording.tech")}
 				</Text>
 				<Text style={{ flex: 9 }}>{tech}</Text>
 			</Row>
@@ -518,13 +518,13 @@ export const RecordingSection = observer((props) => {
 			</Row>
 			<Row>
 				<Text secondary style={{ flex: 5 }}>
-					{t("workpieceSheet:recording.master")}
+					{t("workpieceSheet:recording.mastering")}
 				</Text>
 				<Text style={{ flex: 9 }}>{master}</Text>
 			</Row>
 			<Row>
 				<Text secondary style={{ flex: 5 }}>
-					{t("workpieceSheet:recording.prod")}
+					{t("workpieceSheet:recording.production")}
 				</Text>
 				<Text style={{ flex: 9 }}>{production}</Text>
 			</Row>

@@ -69,7 +69,7 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 	let collabList = [current]
 	collabList = collabList.concat(toJS(collaborators.list))
 
-	console.log(collabList)
+	//console.log(collabList)
 	//const contribList = JSON.parse(JSON.stringify(toJS(contributors.list)))
 	//console.log(contribList)
 	const usersList = JSON.parse(JSON.stringify(toJS(users.list)))
@@ -102,7 +102,7 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 		let filteredCollabs = Object.values(toJS(collabList)).filter((collab) => {
 			//if (!search) return true
 			let name = collab.firstName + " " + collab.lastName
-			return name.indexOf(search) > -1
+			return name.toLowerCase().indexOf(search) > -1
 		})
 
 		return filteredCollabs.splice(0, max)

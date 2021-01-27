@@ -1058,6 +1058,7 @@ export const workpieceSheet = {
 		title: "Titre de la piste",
 		director: "Réalisateurs",
 		tech: "Techniciens en enreg.",
+		mix: "Mixage",
 		mastering: "Mastering",
 		production: "Production",
 		studio: "Studio d'enregistrement",

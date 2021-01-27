@@ -27,7 +27,7 @@ export default class DocStreamingModel extends BaseModel {
 			soundcloud: "",
 			deezer: "",
 		}
-		console.log(linksNormalized)
+		//console.log(linksNormalized)
 		if (obj && obj.links)
 			obj.links.forEach((link) => {
 				linksNormalized[link.platform] = link.url

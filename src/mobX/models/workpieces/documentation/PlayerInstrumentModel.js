@@ -15,7 +15,7 @@ export default class PlayerInstrumentModel extends BaseModel {
 	toJS() {
 		let js = super.toJS()
 		js = { ...js, instrument: js.instrument.entity_id }
-		console.log(js)
+		//console.log(js)
 		return js
 	}
 }

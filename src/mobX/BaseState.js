@@ -116,21 +116,21 @@ export default class BaseState {
 			let value = await storagePlatform.getItem(
 				this.constructor.name + "_" + key
 			)
-			console.log(`${value} which is a type of ${typeof value}`)
+			//console.log(`${value} which is a type of ${typeof value}`)
 			/**
 			 * a null value indicates that there was no key in storage
 			 * so we must create one by immediately saving the value after
 			 * we set the initial value
 			 */
 			if (value === null || value === undefined) {
-				console.log(`${this.constructor.name}.${key} not yet in storage.`)
+				//console.log(`${this.constructor.name}.${key} not yet in storage.`)
 				this[key] = initialValue
 				await this.saveToStorage(storagePlatform, key, initialValue)
 				return
 			}
-			console.log(
+			/*console.log(
 				`${this.constructor.name}.${key} successfully loaded from storage. value is ${value}`
-			)
+			)*/
 			this[key] = JSON.parse(value)
 		} catch (e) {
 			/**
@@ -161,14 +161,14 @@ export default class BaseState {
 				this.constructor.name + "_" + key,
 				jsonValue
 			)
-			console.log(
+			/*console.log(
 				`saved ${this.constructor.name}.${key} to storage with a value of ${jsonValue}`
-			)
+			)*/
 		} catch (e) {
-			console.error(
+			/*console.error(
 				`error saving ${this.constructor.name}.${key} to storage with a value of ${jsonValue}`
 			)
-			console.error(e)
+			console.error(e)*/
 		}
 	}
 
@@ -178,8 +178,8 @@ export default class BaseState {
 	 */
 	@action
 	async init(...args) {
-		console.log(this.save)
-		console.log(this.session)
+		//console.log(this.save)
+		//console.log(this.session)
 		this.register()
 		await this.restoreInitialState()
 	}
