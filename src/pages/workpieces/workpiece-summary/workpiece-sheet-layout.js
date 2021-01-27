@@ -371,7 +371,7 @@ const CopyToClipElement = ({ text }) => {
 			myRef.current.select()
 			document.execCommand("copy")
 			setData(null)
-			console.log(data)
+			console.log(myRef)
 		}
 	}, [data, myRef.current])
 
