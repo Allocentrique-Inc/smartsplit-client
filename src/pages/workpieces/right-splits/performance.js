@@ -127,7 +127,10 @@ const PerformanceForm = observer(() => {
 			<Column>
 				{domainState.mode && (
 					<View style={styles.chart}>
-						<SplitChart {...splitState.genChartProps()} />
+						<SplitChart
+							{...splitState.genChartProps()}
+							startAngle={splitState.startAngle}
+						/>
 					</View>
 				)}
 			</Column>

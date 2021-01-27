@@ -57,7 +57,7 @@ export default class ContributorsState extends BaseState {
 				this.list = list
 			})
 		} catch (e) {
-		//	console.log(e)
+			//	console.log(e)
 		}
 		runInAction(() => {
 			// set list
@@ -77,7 +77,7 @@ export default class ContributorsState extends BaseState {
 				console.error(e)
 			}
 		} else {
-		//	console.log(`${this.type} model is not valid`)
+			//	console.log(`${this.type} model is not valid`)
 			/*this.model
 				.fields()
 				.map((f) => console.log(`${f} : ${this.model[f].isValid}`))*/

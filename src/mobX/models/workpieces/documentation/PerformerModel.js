@@ -7,10 +7,10 @@ import { observable, action, computed } from "mobx"
 import PlayerInstrumentModel from "./PlayerInstrumentModel"
 const makeObservable = () => {}
 export const PerformerType = {
-	mainArtist: "mainArtist",
+	principal: "principal",
 	featured: "featured",
-	groupMember: "groupMember",
-	session: "backupArtist",
+	bandMember: "bandMember",
+	session: "session",
 }
 export default class PerformerModel extends BaseModel {
 	constructor(parent) {
