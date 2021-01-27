@@ -36,10 +36,35 @@ export class Workpiece extends WorkpieceObservable {
 			this /*, documentation data extracted from data */
 		)
 		getDocumentation(id).then((docs) => {
+			console.log(docs.data)
 			this.documentation.init(docs.data)
 			runInAction(() => {
 				this.docSummary = docs.data
 			})
+		})
+		getDocumentation(id, "creation").then((docs) => {
+			console.log(docs.data)
+		})
+		getDocumentation(id, "performance").then((docs) => {
+			console.log(docs.data)
+		})
+		getDocumentation(id, "lyrics").then((docs) => {
+			console.log(docs.data)
+		})
+		getDocumentation(id, "recording").then((docs) => {
+			console.log(docs.data)
+		})
+		getDocumentation(id, "release").then((docs) => {
+			console.log(docs.data)
+		})
+		getDocumentation(id, "streaming").then((docs) => {
+			console.log(docs.data)
+		})
+		getDocumentation(id, "files").then((docs) => {
+			console.log(docs.data)
+		})
+		getDocumentation(id, "info").then((docs) => {
+			console.log(docs.data)
 		})
 
 		docFileList(id).then((list) => {

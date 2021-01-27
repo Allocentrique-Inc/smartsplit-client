@@ -102,7 +102,7 @@ export function useArtistAutocomplete(): (string, number, ResultsOrder) => [] {
 		let filteredCollabs = Object.values(toJS(collabList)).filter((collab) => {
 			//if (!search) return true
 			let name = collab.firstName + " " + collab.lastName
-			return name.indexOf(search) > -1
+			return name.toLowerCase().indexOf(search) > -1
 		})
 
 		return filteredCollabs.splice(0, max)
