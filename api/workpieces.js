@@ -1,5 +1,5 @@
 import { client, createCrudClient } from "./api-client"
-import { action, runInAction } from "mobx"
+import { runInAction } from "mobx"
 import { API_BASE_URL } from "../config"
 
 export default createCrudClient("/workpieces")

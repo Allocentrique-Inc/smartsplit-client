@@ -6,7 +6,7 @@ import {
 	rotatePoint,
 } from "../utils/utils"
 
-export function usePieChartSlices(data, maxRange, clockwise, size) {
+export function usePieChartSlices(data, maxRange, clockwise, size, startAngle) {
 	const angleRange = maxRange ? maxRange : 360
 	const shareAngle =
 		(clockwise ? 1 : -1) * degreesToRadians(angleRange / getShareTotal(data))
@@ -20,7 +20,9 @@ export function usePieChartSlices(data, maxRange, clockwise, size) {
 		x: center.x,
 		y: center.y - radius,
 	}
-
+	if (startAngle) {
+		start = rotatePoint(start, center, degreesToRadians(startAngle))
+	}
 	return data.map((dataPoint) => {
 		const end = rotatePoint(start, center, dataPoint.share * shareAngle)
 		const slice = (
@@ -46,10 +48,16 @@ export function getShareTotal(shares) {
 		.reduce((a, n) => a + n, 0)
 }
 
-export function PieChart(props) {
-	const { data, clockwise, size, children, maxRange } = props
+export function PieChart({
+	data,
+	clockwise,
+	size,
+	children,
+	maxRange,
+	startAngle,
+}) {
 	const slices = data
-		? usePieChartSlices(data, maxRange, clockwise, size)
+		? usePieChartSlices(data, maxRange, clockwise, size, startAngle)
 		: null
 
 	return (

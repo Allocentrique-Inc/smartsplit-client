@@ -15,24 +15,26 @@ import { PopoverTooltip } from "../../widgets/tooltip"
 import { Text } from "../../text"
 import { Column } from "../../layout"
 
-const SplitChart = observer(({ data, logo, size = 4 * Metrics.size.huge }) => {
-	const chartCenter = { x: size / 2, y: size / 2 }
-	const preSlices = usePieChartSlices(data, null, true, size)
-	const [TooltipWrapper, handlers] = useTooltips(data, preSlices, chartCenter)
-	const [slices, currentFocus] = useFocusGroup(
-		preSlices,
-		handlers.handleFocus,
-		handlers.handleBlur
-	)
-	return (
-		<TooltipWrapper visible={!!currentFocus}>
-			<PieChart size={size}>
-				{Array.from(slices.values())}
-				<CenterLogo size={size} center={chartCenter} logo={logo} />
-			</PieChart>
-		</TooltipWrapper>
-	)
-})
+const SplitChart = observer(
+	({ data, logo, size = 4 * Metrics.size.huge, startAngle }) => {
+		const chartCenter = { x: size / 2, y: size / 2 }
+		const preSlices = usePieChartSlices(data, null, true, size, startAngle)
+		const [TooltipWrapper, handlers] = useTooltips(data, preSlices, chartCenter)
+		const [slices, currentFocus] = useFocusGroup(
+			preSlices,
+			handlers.handleFocus,
+			handlers.handleBlur
+		)
+		return (
+			<TooltipWrapper visible={!!currentFocus}>
+				<PieChart size={size}>
+					{Array.from(slices.values())}
+					<CenterLogo size={size} center={chartCenter} logo={logo} />
+				</PieChart>
+			</TooltipWrapper>
+		)
+	}
+)
 
 export function DualSplitChart({
 	dataLeft,

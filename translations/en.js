@@ -531,6 +531,25 @@ export const rightSplits = {
 				applicable.
 			</>
 		),
+		artistTypes: {
+			principal : {
+				name: "Main Artist",
+				desc: 'Also called "Featured Artist " or "Solo Artist"'
+			},
+			featured : {
+				name: "Guest Artist",
+				desc: "Artist or group member invited to collaborate on a musical piece"
+			},
+			bandMember : {
+				name: "Group Member",
+				desc: "Musician or singer taking part in the artistic entity"
+			},
+			session : {
+				name: "Backup Artist",
+				desc: "Performer hired during studio recording sessions"
+			},
+			
+		}
 	},
 	recording: {
 		title: "Sound recording",
@@ -546,6 +565,7 @@ export const rightSplits = {
 				of the investment.
 			</>
 		),
+
 		functions: {
 			producer: "Producer",
 			autoProducer: "Auto-producer",
