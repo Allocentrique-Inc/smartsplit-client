@@ -155,7 +155,7 @@ export async function uploadDocFile(
 		// open request
 		xhr.open(
 			"POST",
-			`${API_BASE_URL}/workpieces/${workpieceId}/documentation/files/`
+			`${API_BASE_URL}/workpieces/${workpieceId}/documentation/files/${type}`
 		)
 
 		xhr.setRequestHeader(
@@ -167,7 +167,6 @@ export async function uploadDocFile(
 		const formData = new FormData()
 		formData.append("file", file.file, file.file.name)
 		formData.append("visibility", visibility)
-		formData.append("type", type)
 
 		// send request
 		xhr.send(formData)

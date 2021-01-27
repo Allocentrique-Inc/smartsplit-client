@@ -142,7 +142,7 @@ const RecordingForm = observer((props) => {
 
 					<Column of="tiny">
 						<AddCollaboratorDropdown
-							label={t("document:recording.roles.soundEngineer")}
+							label={t("document:recording.roles.mix")}
 							alwaysShowAdd
 							onSelect={(selection) => {
 								if (
