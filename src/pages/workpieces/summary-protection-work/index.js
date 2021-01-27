@@ -14,6 +14,7 @@ import { Tab, TabBar } from "../../../widgets/tabs"
 import EmptyState from "../../../svg/empty-state"
 import Button from "../../../widgets/button"
 import DragDropItem from "./dragdrop-item"
+import CollaboratorModal from "./modal/collaborators-modal"
 
 const Styles = StyleSheet.create({
 	navBarCol: {
@@ -41,7 +42,7 @@ const shareInfo = {
 			{
 				version: "1",
 				updateBy: "ArtistName",
-				lastUpdate: "01/26/2021 14:30",
+				lastUpdate: "01/27/2021 12:00",
 				userUrls: [
 					"https://apiv2-dev.smartsplit.org/v1/users/09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb/avatar",
 					"",
@@ -83,85 +84,97 @@ const SummaryProtectionWorkPage = observer(() => {
 	}
 
 	const [isEmpty, setIsEmpty] = useState(shareInfo.columns ? false : true)
+	const [isCollaboratorVisible, SetCollaboratorVisible] = useState(true)
 
 	const clickArrowLeft = () => {
 		navigateToSummary()
 	}
+	const handleCollaboratorClose = () => {
+		SetCollaboratorVisible(false)
+	}
 
 	return (
-		<View style={{ height: "100%" }}>
-			<Row style={{ width: "100%" }}>
-				<Column flex={2} style={[Styles.navBarCol]}>
-					<Row of="component" padding="component" valign="center">
-						<TouchableWithoutFeedback onPress={clickArrowLeft}>
-							<View>
-								<ArrowLeft />
-							</View>
-						</TouchableWithoutFeedback>
-					</Row>
-				</Column>
-				<Column flex={8} style={[Styles.navBarCol]}>
-					<Row of="component" padding="component" valign="center">
-						<AlbumArt />
-						<Text bold>Fantôme</Text>
-						<Text>· {t("shareYourRights:sharingRights")}</Text>
-					</Row>
-				</Column>
-				<Column flex={2} style={[Styles.navBarCol]} />
-			</Row>
-			<Scrollable autoScrollToTop>
-				<Row style={{ width: "100%", paddingTop: 32, paddingBottom: 60 }}>
-					<Column flex={2} />
-					<Column flex={8}>
-						<Row>
-							<Heading level={2}>{t("shareYourRights:summarySharing")}</Heading>
-						</Row>
-						<Row>
-							<Text small secondary>
-								{t("shareYourRights:updateBy")}
-							</Text>
-							<Text bold small action>
-								{" "}
-								{shareInfo.updateBy}{" "}
-							</Text>
-							<Text secondary small>
-								{t("shareYourRights:ago", {
-									hour: moment(shareInfo.lastUpdate).startOf("hour").fromNow(),
-								})}
-							</Text>
-						</Row>
-						<Row>
-							<TabBar style={Styles.taskBar}>
-								<Tab
-									key="my-collaborators"
-									title={t("shareYourRights:tabBar.myCollaborators.title")}
-									default
-									bold
-								>
-									{isEmpty && <EmptyStateView />}
-									{!isEmpty && <DragDropItem columns={shareInfo.columns} />}
-								</Tab>
-								<Tab
-									key="my-editor"
-									title={t("shareYourRights:tabBar.myEditor.title")}
-									bold
-								>
-									<EmptyStateView />
-								</Tab>
-								<Tab
-									key="my-manager"
-									title={t("shareYourRights:tabBar.myManager.title")}
-									bold
-								>
-									<EmptyStateView />
-								</Tab>
-							</TabBar>
+		<>
+			<CollaboratorModal
+				visible={isCollaboratorVisible}
+				onRequestClose={handleCollaboratorClose}
+			/>
+			<View style={{ height: "100%" }}>
+				<Row style={{ width: "100%" }}>
+					<Column flex={2} style={[Styles.navBarCol]}>
+						<Row of="component" padding="component" valign="center">
+							<TouchableWithoutFeedback onPress={clickArrowLeft}>
+								<View>
+									<ArrowLeft />
+								</View>
+							</TouchableWithoutFeedback>
 						</Row>
 					</Column>
-					<Column flex={2} />
+					<Column flex={8} style={[Styles.navBarCol]}>
+						<Row of="component" padding="component" valign="center">
+							<AlbumArt />
+							<Text bold>Fantôme</Text>
+							<Text>· {t("shareYourRights:sharingRights")}</Text>
+						</Row>
+					</Column>
+					<Column flex={2} style={[Styles.navBarCol]} />
 				</Row>
-			</Scrollable>
-		</View>
+				<Scrollable autoScrollToTop>
+					<Row style={{ width: "100%", paddingTop: 32, paddingBottom: 60 }}>
+						<Column flex={2} />
+						<Column flex={8}>
+							<Row>
+								<Heading level={2}>
+									{t("shareYourRights:summarySharing")}
+								</Heading>
+							</Row>
+							<Row>
+								<Text
+									small
+									secondary
+									dangerouslySetInnerHTML={{
+										__html: t("shareYourRights:updateBy", {
+											name: shareInfo.updateBy,
+											hour: moment(shareInfo.lastUpdate)
+												.startOf("hour")
+												.fromNow(),
+										}),
+									}}
+								/>
+							</Row>
+							<Row>
+								<TabBar style={Styles.taskBar}>
+									<Tab
+										key="my-collaborators"
+										title={t("shareYourRights:tabBar.myCollaborators.title")}
+										default
+										bold
+									>
+										{isEmpty && <EmptyStateView />}
+										{!isEmpty && <DragDropItem columns={shareInfo.columns} />}
+									</Tab>
+									<Tab
+										key="my-editor"
+										title={t("shareYourRights:tabBar.myEditor.title")}
+										bold
+									>
+										<EmptyStateView />
+									</Tab>
+									<Tab
+										key="my-manager"
+										title={t("shareYourRights:tabBar.myManager.title")}
+										bold
+									>
+										<EmptyStateView />
+									</Tab>
+								</TabBar>
+							</Row>
+						</Column>
+						<Column flex={2} />
+					</Row>
+				</Scrollable>
+			</View>
+		</>
 	)
 })
 

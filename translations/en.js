@@ -510,29 +510,38 @@ export const identity = {
 
 export const shareYourRights = {
 	sharingRights: "Sharing of rights",
-	updateBy: "Created by",
+	updateBy:
+		"Created by <span style='color: #2DA84F; font-weight: bold;'>{{name}}</span> · Updated {{hour}}",
 	ago: "· Updated {{hour}}",
 	summarySharing: "Summary of sharing",
 	tabBar: {
 		version: "Version {{num}}",
-		sendToEditor: "Send to editor",
+
 		myManager: {
 			title: "My manager",
 		},
 		myCollaborators: {
 			title: "My collaborators",
+			sendToCollaborators: "Send to collaborators",
 		},
 		myEditor: {
 			title: "My editor",
 			why: "Why do business with a publisher?",
 			whyContent: "An editor serves for explanation explanation explanation.",
 			addEditor: "Add editor",
+			sendToEditor: "Send to editor",
 		},
 		dragDrop: {
 			waitingToSend: "Waiting to send",
 			awaitingDecision: "Awaiting decision",
 			decided: "Decided",
+			createNewversion: "Create a new version",
+			deleteThisVersion: "Delete this version",
 		},
+	},
+	collaboratorModal: {
+		underTitle:
+			"Created by <span style='color: #2DA84F; font-weight: bold;'>{{name}}</span> {{time}}",
 	},
 }
 

@@ -519,7 +519,8 @@ export const identity = {
 
 export const shareYourRights = {
 	sharingRights: "Partage des droits",
-	updateBy: "Créé par {{ name }} · Mis à jour {{hour}}",
+	updateBy:
+		"Créé par <span style='color:#2DA84F; font-weight: bold;'>{{name}}</span> · Mis à jour {{hour}}",
 	summarySharing: "Résumé du partage",
 	tabBar: {
 		version: "Version {{num}}",
@@ -529,6 +530,7 @@ export const shareYourRights = {
 		},
 		myCollaborators: {
 			title: "Mes collaborateurs",
+			sendToCollaborators: "Envoyer aux collaborateurs",
 		},
 		myEditor: {
 			title: "Mon éditeur",
@@ -540,7 +542,13 @@ export const shareYourRights = {
 			waitingToSend: "En attente d’envoi",
 			awaitingDecision: "En attente de décision",
 			decided: "Décidées",
+			createNewversion: "Créer une nouvelle version",
+			deleteThisVersion: "Supprimer cette version",
 		},
+	},
+	collaboratorModal: {
+		underTitle:
+			"Créée par <span style='color:#2DA84F; font-weight: bold;'>{{name}}</span> {{time}}",
 	},
 }
 

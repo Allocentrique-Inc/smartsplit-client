@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Column, Hairline, Row } from "../../../layout"
 import VerticalThreeDot from "../../../svg/vertical-threedot"
 import { Text } from "../../../text"
@@ -7,65 +7,68 @@ import Button from "../../../widgets/button"
 import { useTranslation } from "react-i18next"
 import UserAvatar from "../../../smartsplit/user/avatar"
 import { Image, StyleSheet, TouchableWithoutFeedback, View } from "react-native"
-// import {
-// 	MenuContext,
-// 	Menu,
-// 	MenuOptions,
-// 	MenuOption,
-// 	MenuTrigger,
-// } from "react-native-popup-menu"
+import CopySVG from "../../../svg/copy-svg"
+import RedTrash from "../../../svg/red-trash"
 
-// const styles = StyleSheet.create({
-// 	container: {
-// 		flex: 1,
-// 		alignItems: "center",
-// 		justifyContent: "center",
-// 		paddingTop: 50,
-// 		backgroundColor: "#ecf0f1",
-// 	},
-// 	dropbtn: {
-// 		backgroundColor: "#4CAF50",
-// 		color: "white",
-// 		padding: 16,
-// 		fontSize: 16,
-// 		border: "none",
-// 		cursor: "pointer",
-// 	},
-// 	dropdown: {
-// 		position: "relative",
-// 		display: "inline-block",
-// 		":hover":{
-
-// 		}
-// 	},
-// 	dropdownContent: {
-// 		display: "none",
-// 		position: "absolute",
-// 		right: 0,
-// 		backgroundColor: "#f9f9f9",
-// 		minWidth: 160,
-// 		boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
-// 		zIndex: 1,
-// 	},
-// 	dropdownContent: {
-// 		color: "black",
-// 		paddingTop: 12,
-// 		paddingBottom: 12,
-// 		paddingLeft: 16,
-// 		paddingRight: 16,
-// 		textDecoration: "none",
-// 		display: "block",
-// 		":hover": { backgroundColor: "#f1f1f1" },
-
-// 	},
-// })
+const Styles = StyleSheet.create({
+	dropdownContent: {
+		display: "none",
+		position: "absolute",
+		backgroundColor: "#FFFFFF",
+		minWidth: 296,
+		boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
+		top: 30,
+		right: 0,
+		zIndex: 1,
+	},
+	threedotItems: {
+		paddingTop: 16,
+		paddingBottom: 16,
+	},
+})
 
 function ItemBox(props) {
 	const { dataItem } = props
 	const { t } = useTranslation()
+	const [showPopup, setShowPopup] = useState(false)
 
 	return (
 		<Column>
+			<View style={[Styles.dropdownContent, showPopup && { display: "block" }]}>
+				<View>
+					<TouchableWithoutFeedback>
+						<View style={Styles.threedotItems}>
+							<Row>
+								<Column flex={1} style={{ alignItems: "center" }}>
+									<CopySVG />
+								</Column>
+								<Column flex={7}>
+									<Text>
+										{t("shareYourRights:tabBar.dragDrop.createNewversion")}
+									</Text>
+								</Column>
+							</Row>
+						</View>
+					</TouchableWithoutFeedback>
+				</View>
+				<Hairline />
+				<View>
+					<TouchableWithoutFeedback>
+						<View style={Styles.threedotItems}>
+							<Row>
+								<Column flex={1} style={{ alignItems: "center" }}>
+									<RedTrash />
+								</Column>
+								<Column flex={7}>
+									<Text error>
+										{t("shareYourRights:tabBar.dragDrop.deleteThisVersion")}
+									</Text>
+								</Column>
+							</Row>
+						</View>
+					</TouchableWithoutFeedback>
+				</View>
+			</View>
 			<Row>
 				<Column flex={2}>
 					<Text bold>
@@ -74,8 +77,12 @@ function ItemBox(props) {
 				</Column>
 				<Column>
 					<View>
-						<TouchableWithoutFeedback>
-							<View>
+						<TouchableWithoutFeedback
+							onPress={() => {
+								setShowPopup(!showPopup)
+							}}
+						>
+							<View style={{ padding: 4 }}>
 								<VerticalThreeDot />
 							</View>
 						</TouchableWithoutFeedback>
@@ -83,18 +90,16 @@ function ItemBox(props) {
 				</Column>
 			</Row>
 			<Row>
-				<Text small secondary>
-					{t("shareYourRights:updateBy")}
-				</Text>
-				<Text small action bold>
-					{" "}
-					{dataItem.updateBy}{" "}
-				</Text>
-				<Text small secondary>
-					{t("shareYourRights:ago", {
-						hour: moment(dataItem.lastUpdate).startOf("hour").fromNow(),
-					})}
-				</Text>
+				<Text
+					secondary
+					small
+					dangerouslySetInnerHTML={{
+						__html: t("shareYourRights:updateBy", {
+							name: dataItem.updateBy,
+							hour: moment(dataItem.lastUpdate).startOf("minute").fromNow(),
+						}),
+					}}
+				/>
 			</Row>
 			<Row
 				style={{
@@ -109,7 +114,11 @@ function ItemBox(props) {
 			<Hairline />
 			<Row style={{ marginTop: 16 }}>
 				<Column flex={5}>
-					<Button text={t("shareYourRights:tabBar.sendToEditor")} />
+					<Button
+						text={t(
+							"shareYourRights:tabBar.myCollaborators.sendToCollaborators"
+						)}
+					/>
 				</Column>
 			</Row>
 		</Column>
