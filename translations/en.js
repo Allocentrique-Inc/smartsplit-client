@@ -233,7 +233,7 @@ export const forms = {
 		organisations:
 			"Search among the corporate entities, compagnies, societies...",
 		delete: "delete or Delete",
-		date: "DD-MM-YYYY",
+		date: "YYYY-MM-DD",
 		myUri: "https://www.my-website.example",
 		groupSearch: "Search among groups...",
 	},
