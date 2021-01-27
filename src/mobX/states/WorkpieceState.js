@@ -42,7 +42,7 @@ export class Workpiece extends WorkpieceObservable {
 				this.docSummary = docs.data
 			})
 		})
-		getDocumentation(id, "create").then((docs) => {
+		getDocumentation(id, "creation").then((docs) => {
 			console.log(docs.data)
 		})
 		getDocumentation(id, "performance").then((docs) => {
