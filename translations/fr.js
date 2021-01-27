@@ -244,7 +244,7 @@ export const forms = {
 		organisations:
 			"Rechercher parmi les entités corporatives, entreprises, sociétés...",
 		delete: "détruire, Détruire ou detruire",
-		date: "JJ-MM-AAAA",
+		date: "AAAA-MM-JJ",
 		myUri: "https://www.mon-site-web.exemple",
 		groupSearch: "Rechercher parmi les groupes...",
 	},
