@@ -19,12 +19,13 @@ export default function WorkpieceLayout({
 	progress = 0,
 	formNav,
 	children,
+	title,
 }) {
 	return (
 		<Column flex={1}>
 			<Row of="component" padding="component" valign="center">
 				<AlbumArt />
-				<Text bold>{workpiece.data.title}</Text>
+				<Text bold>{title ? title : workpiece.data.title}</Text>
 				<Spacer size="section" />
 				{React.createElement(
 					Row,

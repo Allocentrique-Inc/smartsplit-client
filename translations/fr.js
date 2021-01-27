@@ -851,6 +851,9 @@ export const document = {
 }
 
 export const protect = {
+	master: "Master",
+	mix: "Mix",
+	idea: "Idée",
 	completed: "Complétée",
 	navbar: {
 		protect: "Protège ton oeuvre",
@@ -947,6 +950,26 @@ export const protect = {
 			"Cette information sert à associer votre identité au fichier et restera confidentielle.",
 		edit: "Éditer",
 		category: "Catégorie",
+		protectionWork: "Protection de l'oeuvre",
+		certificatePaternity: "Certificat de paternité",
+		uploadBy: "Mis à jour il y a {{num}} par",
+		protectNewVersion: "Protéger une nouvelle version",
+		generalInformations: "Informations générales",
+		musicalPiece: "Pièce musicale",
+		depositDate: "Date de dépôt",
+		releasedVersions: "Versions publiées",
+		seePermalink: "Voir le permalien",
+		descLink:
+			"This link below and the QR code on the right lead to the transaction on the blockchain comprising the digital fingerprints of the file, the name and encrypted personal data of its depositor, the precise moment of the deposit, as well as some additional descriptive metadata.",
+		copyLink: "Copier le lien",
+		registrationDate: "Date d'inscription",
+		viewFingerprints: "Voir les empreintes numériques",
+		sha512: "SHA512",
+		md5: "MD5",
+		by: "Par {{people}}",
+		sendingSoundImprint: "Envoi de l'empreinte sonore...",
+		checkAddresses:
+			"Vérifie les adresses ci-dessous où le certificat, la marche à suivre afin de démontrer la preuve et le fichier de l’enregistrement sonore ayant servi à générer les hashs seront envoyés.",
 	},
 	verify1:
 		"<b>Je déclare être réellement {{firstName}}</b>. Je comprends que le fait me faire passer pour quelqu’un d’autre constituerait une faute grave passible de poursuites judiciaires.",

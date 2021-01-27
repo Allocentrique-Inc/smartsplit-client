@@ -831,6 +831,9 @@ export const document = {
 	},
 }
 export const protect = {
+	master: "Master",
+	mix: "Mix",
+	idea: "Idea",
 	completed: "Completed",
 	navbar: {
 		protect: "Protect your work",
@@ -925,6 +928,27 @@ export const protect = {
 			"This information is used to associate your identity with the file and will remain confidential.",
 		edit: "Edit",
 		category: "Category",
+		protectionWork: "Protection of the work",
+		certificatePaternity: "Certificate of paternity",
+		uploadBy: "Updated {{num}} by",
+		protectNewVersion: "Protect a new version",
+		generalInformations: "General informations",
+		musicalPiece: "Musical piece",
+		depositDate: "Deposit date",
+		releasedVersions: "Released versions",
+		seePermalink: "See the permalink",
+		descLink:
+			"This link below and the QR code on the right lead to the transaction on the blockchain comprising the digital fingerprints of the file, the name and encrypted personal data of its depositor, the precise moment of the deposit, as well as some additional descriptive metadata.",
+		copyLink: "Copy link",
+		listedBy: "Listed by",
+		registrationDate: "Registration date",
+		viewFingerprints: "View digital fingerprints",
+		sha512: "SHA512",
+		md5: "MD5",
+		by: "By {{people}}",
+		sendingSoundImprint: "Sending the sound imprint ...",
+		checkAddresses:
+			"Check the addresses below where the certificate, the procedure for demonstrating the proof and the sound recording file used to generate the hashes will be sent.",
 	},
 	verify1:
 		"<b> I declare that I am actually {{firstName}} </b>. I understand that impersonating someone else would constitute serious misconduct liable to prosecution.",
