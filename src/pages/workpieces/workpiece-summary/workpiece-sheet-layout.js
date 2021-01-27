@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { View, StyleSheet } from "react-native"
 import { useSubpath } from "../../../appstate/react"
@@ -361,6 +361,32 @@ export const ListeningSection = observer((props) => {
 	)
 })
 
+const CopyToClipElement = ({ text }) => {
+	const myRef = React.useRef(null)
+	const [data, setData] = React.useState(text)
+	React.useEffect(() => setData(text), [text])
+
+	React.useEffect(() => {
+		if (myRef.current && data) {
+			myRef.current.select()
+			document.execCommand("copy")
+			setData(null)
+			console.log(data)
+		}
+	}, [data, myRef.current])
+
+	const [t] = useTranslation()
+	return (
+		<>
+			{data && (
+				<Text secondary small ref={myRef}>
+					{t("workpieceSheet:download.copied")}
+				</Text>
+			)}
+		</>
+	)
+}
+
 export function DownloadsRow(props) {
 	const { downloadTitle, download } = props
 	const [t] = useTranslation()
@@ -377,6 +403,9 @@ export function DownloadsRow(props) {
 		},
 	}
 	const downloadType = FileTypes[download === true ? "public" : "private"]
+
+	const [copyText, setCopyText] = React.useState("")
+	const data = [t("workpieceSheet:download.copy")]
 
 	return (
 		<Column of="component">
@@ -398,9 +427,14 @@ export function DownloadsRow(props) {
 							{" "}
 							{downloadType.dot}{" "}
 						</Text>
-						<Text bold action>
-							{downloadType.link}
-						</Text>
+
+						{data.map((text) => (
+							<Text bold action onClick={() => setCopyText(text)}>
+								{/* {downloadType.link} */}
+								{text}
+							</Text>
+						))}
+						<CopyToClipElement text={copyText} />
 					</Row>
 				</Column>
 			</Row>
