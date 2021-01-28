@@ -31,7 +31,7 @@ export default class DocRecordingModel extends BaseModel {
 		type: FieldType.collection,
 	})
 	@observable recordingStudio = new Field(this, "recordingStudio", {
-		type: FieldType.collection,
+		type: FieldType.string,
 	})
 	@observable recordingDate = new Field(this, "recordingDate", {
 		type: FieldType.date,
@@ -41,13 +41,13 @@ export default class DocRecordingModel extends BaseModel {
 	populateEntry(engineers, date, studio) {
 		let entry = { engineers: engineers }
 		if (date) entry.date = { from: date }
-		if (studio) entry.studio = studio[0]
+		if (studio) entry.studio = studio
 		return entry
 	}
 	toJS(excludePrimary) {
 		/// return blank object for now
 		let values = super.toJS(excludePrimary)
-
+		console.log(values)
 		return cleanForPosting({
 			directors: values.directors,
 			producers: values.producedBy,
