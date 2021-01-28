@@ -1,14 +1,14 @@
 <svg width="144" height="144" viewBox="0 0 144 144" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect x="22" y="26" width="96" height="96" rx="48" fill="#F5F2F3"/>
-<rect x="26" y="22" width="96" height="96" rx="48" stroke="#DCDFE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M137 49V55" stroke="#DCDFE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M140 52H134" stroke="#DCDFE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M11 104V110" stroke="#DCDFE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M14 107H8" stroke="#DCDFE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M13 2V12" stroke="#DCDFE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M13 22V32" stroke="#DCDFE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8 17H2" stroke="#DCDFE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M24 17H18" stroke="#DCDFE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="26" y="22" width="96" height="96" rx="48" stroke="#DCDFE1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M137 49V55" stroke="#DCDFE1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M140 52H134" stroke="#DCDFE1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M11 104V110" stroke="#DCDFE1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M14 107H8" stroke="#DCDFE1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M13 2V12" stroke="#DCDFE1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M13 22V32" stroke="#DCDFE1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M8 17H2" stroke="#DCDFE1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M24 17H18" stroke="#DCDFE1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 <circle cx="13" cy="17" r="1" fill="#DCDFE1"/>
 <rect width="56" height="56" transform="matrix(-1 0 0 1 100 44)" fill="url(#pattern0)"/>
 <defs>
