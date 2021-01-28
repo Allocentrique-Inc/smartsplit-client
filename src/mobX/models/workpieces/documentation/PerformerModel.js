@@ -8,9 +8,9 @@ import PlayerInstrumentModel from "./PlayerInstrumentModel"
 const makeObservable = () => {}
 export const PerformerType = {
 	mainArtist: "mainArtist",
-	feature: "feature",
+	featured: "featured",
 	groupMember: "groupMember",
-	backupArtist: "backupArtist",
+	session: "backupArtist",
 }
 export default class PerformerModel extends BaseModel {
 	constructor(parent) {
