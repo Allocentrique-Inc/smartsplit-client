@@ -18,6 +18,17 @@ export default class DocReleaseModel extends BaseModel {
 	@observable format = new Field(this, "format", {
 		type: FieldType.string,
 	})
+
+	@observable isDigital = new Field(this, "isDigital", {
+		type: FieldType.bool,
+		pseudo: true,
+	})
+
+	@observable isPhysical = new Field(this, "isPhysical", {
+		type: FieldType.bool,
+		pseudo: true,
+	})
+
 	@observable support = new Field(this, "support", {
 		type: FieldType.string,
 	})
@@ -27,4 +38,25 @@ export default class DocReleaseModel extends BaseModel {
 	@observable upc = new Field(this, "upc", {
 		type: FieldType.string,
 	})
+	toJS() {
+		let js = super.toJS()
+		js.support =
+			(this.isDigital.value ? "digital," : "") +
+			(this.isPhysical.value ? "physical" : "")
+		console.log(js)
+		return js
+	}
+
+	importData(obj) {
+		if (obj) {
+			let returnObj = JSON.parse(JSON.stringify(obj))
+			if (obj.support) {
+				returnObj.isPhysical = obj.support.indexOf("physical") > -1
+				returnObj.isDigital = obj.support.indexOf("digital") > -1
+			}
+			return returnObj
+		} else {
+			return obj
+		}
+	}
 }

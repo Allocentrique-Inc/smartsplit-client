@@ -233,7 +233,7 @@ export const forms = {
 		organisations:
 			"Search among the corporate entities, compagnies, societies...",
 		delete: "delete or Delete",
-		date: "DD-MM-YYYY",
+		date: "YYYY-MM-DD",
 		myUri: "https://www.my-website.example",
 		groupSearch: "Search among groups...",
 	},
@@ -649,6 +649,10 @@ export const document = {
 	help: "Help",
 	why: "Why share these informations?",
 	access: "Access",
+	pieceType: {
+		remix: "Remix",
+		original: "Original",
+	},
 	creation: {
 		category: "CREATION",
 		title: "Who participated in the creation of {{workpiece}}?",
@@ -679,11 +683,28 @@ export const document = {
 			musician: "Musician",
 			addPerformer: "Add a performer...",
 		},
+		vocals: {
+			mainVocals: "main vocals",
+			backupVocals: "backup vocals",
+		},
 		what: "What's a performer?",
 		whichPerformance: "Which type of performance?",
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
 		addInstrumentDropdown: "Ajouter {{search}} comme instrument",
+		artistTypes: {
+			mainArtist: "Main Artist",
+			featured: "Guest Artist",
+			groupMember: "Group Member",
+			session: "Session Artist",
+		},
+		artistTypesDescription: {
+			mainArtist: 'Also called "Featured Artist " or "Solo Artist"',
+			featured:
+				"Artist or group member invited to collaborate on a musical piece",
+			groupMember: "Musician or singer taking part in the artistic entity",
+			session: "Performer hired during studio recording sessions",
+		},
 	},
 
 	recording: {
@@ -1016,6 +1037,7 @@ export const copyrightOrgs = {
 }
 
 export const workpieceSheet = {
+	by: "by",
 	creation: {
 		header: "Creation",
 		date: "Creation Date",
@@ -1064,6 +1086,7 @@ export const workpieceSheet = {
 		midi: "MIDI Files",
 		download: "Download",
 		copy: "Copy the link",
+		copied: "Copied",
 		access: "Ask for access",
 	},
 	lyrics: {

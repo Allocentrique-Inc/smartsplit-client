@@ -66,7 +66,7 @@ export const WebDatePicker = observer((props) => {
 			<DateInput
 				//style={DatePickerStyle.container}
 				name="date"
-				dateFormat="DD-MM-YYYY"
+				dateFormat="YYYY-MM-DD"
 				placeholder={t("forms:placeholders.date")}
 				//label={t("document:creation.date")}
 				value={field ? field.value : value}
