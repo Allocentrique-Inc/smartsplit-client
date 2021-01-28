@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { View, StyleSheet } from "react-native"
 import { useSubpath } from "../../../appstate/react"
