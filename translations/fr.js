@@ -535,27 +535,27 @@ export const rightSplits = {
 		),
 
 		artistTypes: {
-			principal : {
+			principal: {
 				name: "Artiste principal",
-				desc: "Aussi appelé « Artiste vedette » ou « Artiste solo »"
+				desc: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
 			},
-			featured : {
+			featured: {
 				name: () => (
 					<>
 						Artiste invité ((<i>featuring</i>))
 					</>
 				),
-				desc: "Artiste ou membre d'un groupe invité à collaborer"
+				desc: "Artiste ou membre d'un groupe invité à collaborer",
 			},
-			bandMember : {
+			bandMember: {
 				name: "Membre du groupe",
-				desc: "Artiste prenant part à l'entité artistique"
+				desc: "Artiste prenant part à l'entité artistique",
 			},
-			session : {
+			session: {
 				name: "Artiste accompagnateur",
-				desc: "Interprète engagé pendant l'enregistrement"
+				desc: "Interprète engagé pendant l'enregistrement",
 			},
-		}
+		},
 	},
 	recording: {
 		title: "Enregistrement sonore",

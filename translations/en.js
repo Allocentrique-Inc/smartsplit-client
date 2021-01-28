@@ -532,24 +532,24 @@ export const rightSplits = {
 			</>
 		),
 		artistTypes: {
-			principal : {
+			principal: {
 				name: "Main Artist",
-				desc: 'Also called "Featured Artist " or "Solo Artist"'
+				desc: 'Also called "Featured Artist " or "Solo Artist"',
 			},
-			featured : {
+			featured: {
 				name: "Guest Artist",
-				desc: "Artist or group member invited to collaborate on a musical piece"
+				desc:
+					"Artist or group member invited to collaborate on a musical piece",
 			},
-			bandMember : {
+			bandMember: {
 				name: "Group Member",
-				desc: "Musician or singer taking part in the artistic entity"
+				desc: "Musician or singer taking part in the artistic entity",
 			},
-			session : {
+			session: {
 				name: "Backup Artist",
-				desc: "Performer hired during studio recording sessions"
+				desc: "Performer hired during studio recording sessions",
 			},
-			
-		}
+		},
 	},
 	recording: {
 		title: "Sound recording",
