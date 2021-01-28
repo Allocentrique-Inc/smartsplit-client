@@ -656,6 +656,10 @@ export const document = {
 	help: "Aide",
 	why: "Pourquoi partager ces informations ?",
 	access: "Accès",
+	pieceType: {
+		remix: "Remix",
+		original: "Piece originale",
+	},
 	creation: {
 		category: "CRÉATION",
 		title: "Qui a participé à la création de {{workpiece}} ?",
