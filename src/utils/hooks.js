@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from "react"
+import React, { useState, useRef, useLayoutEffect, useEffect } from "react"
 import { forEachChildren } from "./react"
 import { Platform } from "../platform"
 import { TouchableWithoutFeedback } from "react-native"
@@ -51,7 +51,8 @@ export function useDimensions() {
 export function useInterpolators([min0, max0], [min1, max1]) {
 	const range0 = max0 - min0
 	const range1 = max1 - min1
-
+	console.log("new ranges", range0, range1)
+	
 	function fromRange0To1(value) {
 		return ((value - min0) * range1) / range0 + min1
 	}

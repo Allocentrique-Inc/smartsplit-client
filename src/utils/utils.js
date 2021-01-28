@@ -111,6 +111,7 @@ export function getFullName(user) {
 	}`
 }
 
+
 export function assignEnumProps(target, source) {
 	Object.keys(target).forEach((key) => (target[key] = source[key]))
 }
