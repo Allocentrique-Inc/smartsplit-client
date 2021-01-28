@@ -15,9 +15,7 @@ export default class PerformanceSplitModel extends RightSplitModel {
 		)
 	}
 
-	type = "performance"
-
-	statusValues = ["mainArtist", "feature", "groupMember", "backupArtist"]
+	statusValues = ["principal", "featured", "bandMember", "session"]
 
 	@computed get majorShares() {
 		return this.shareholdersValues.filter(

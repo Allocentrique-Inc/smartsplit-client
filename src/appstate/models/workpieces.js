@@ -3,8 +3,8 @@ import { createCrudObservable, createEntityListObservable } from "../utils/api"
 import WorkpiecesCrudAPI, {
 	listForUser,
 	uploadFileToWorkpiece,
-	createNewRightsSplits,
-	updateRightsSplits,
+	createRightSplits,
+	updateRightSplits,
 } from "../../../api/workpieces"
 import { splitDataUri } from "../../utils/uri"
 
@@ -268,12 +268,12 @@ export class RightsSplits extends Observable {
 			this.set({ $hasChanged: false, $error: null })
 			let newState
 			if (this._state === "draft") {
-				newState = await updateRightsSplits(
+				newState = await updateRightSplits(
 					this[$workpiece].id,
 					this._exportRightsSplits()
 				)
 			} else {
-				newState = await createNewRightsSplits(
+				newState = await createRightSplits(
 					this[$workpiece].id,
 					this._exportRightsSplits()
 				)
