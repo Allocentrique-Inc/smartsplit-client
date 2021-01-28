@@ -193,22 +193,14 @@ export const forms = {
 						Artiste invité ((<i>featuring</i>))
 					</>
 				),
-				featured: () => (
-					<>
-						Artiste invité ((<i>featuring</i>))
-					</>
-				),
 				groupMember: "Membre du groupe",
 				backupArtist: "Artiste accompagnateur",
-				session: "Artiste accompagnateur",
 			},
 			artistTypesDescription: {
 				mainArtist: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
 				feature: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
-				featured: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
 				groupMember: "Artiste prenant part à l'entité artistique",
 				backupArtist: "Interprète engagé pendant l'enregistrement",
-				session: "Interprète engagé pendant l'enregistrement",
 			},
 		},
 		defaultRoles: "Rôle(s) par défaut",
@@ -244,7 +236,7 @@ export const forms = {
 		organisations:
 			"Rechercher parmi les entités corporatives, entreprises, sociétés...",
 		delete: "détruire, Détruire ou detruire",
-		date: "JJ-MM-AAAA",
+		date: "AAAA-MM-JJ",
 		myUri: "https://www.mon-site-web.exemple",
 		groupSearch: "Rechercher parmi les groupes...",
 	},
@@ -664,6 +656,10 @@ export const document = {
 	help: "Aide",
 	why: "Pourquoi partager ces informations ?",
 	access: "Accès",
+	pieceType: {
+		remix: "Remix",
+		original: "Piece originale",
+	},
 	creation: {
 		category: "CRÉATION",
 		title: "Qui a participé à la création de {{workpiece}} ?",
@@ -696,11 +692,31 @@ export const document = {
 			release: "Sortie",
 			addPerformer: "Ajouter un interprète...",
 		},
+		vocals: {
+			mainVocals: "chanteur principal",
+			backupVocals: "chanteur backup",
+		},
 		what: "C'est quoi un interprète ?",
 		whichPerformance: "Quel type d'interprétation ?",
 		whichRole: "Quel rôle dans la pièce musicale ?",
 		addInstrument: "Ajouter un instrument...",
 		addInstrumentDropdown: "Add {{search}} as instrument",
+		artistTypes: {
+			mainArtist: "Artiste principal",
+			featured: () => (
+				<>
+					Artiste invité ((<i>featuring</i>))
+				</>
+			),
+			groupMember: "Membre du groupe",
+			session: "Artiste accompagnateur",
+		},
+		artistTypesDescription: {
+			mainArtist: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
+			featured: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
+			groupMember: "Artiste prenant part à l'entité artistique",
+			session: "Interprète engagé pendant l'enregistrement",
+		},
 	},
 	recording: {
 		category: "ENREGISTREMENT",
@@ -1044,6 +1060,7 @@ export const copyrightOrgs = {
 }
 
 export const workpieceSheet = {
+	by: "par",
 	creation: {
 		header: "Création",
 		date: "Date de création",
@@ -1092,6 +1109,7 @@ export const workpieceSheet = {
 		midi: "Fichier MIDI",
 		download: "Télécharger",
 		copy: "Copier le lien",
+		copied: "Copié",
 		access: "Demander l'accès",
 	},
 	lyrics: {

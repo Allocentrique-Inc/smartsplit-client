@@ -74,7 +74,7 @@ const ReleaseForm = observer((props) => {
 					tooltip=""
 				/>*/}
 				<TextField
-					label="label"
+					label="Label"
 					placeholder={t("document:release.addLabel")}
 					field={model.label}
 				/>
