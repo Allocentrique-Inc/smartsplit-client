@@ -27,18 +27,16 @@ const PerformanceForm = observer(() => {
 	}, [window.outerWidth])
 
 	function genSelectOptions() {
-		return domainState.statusValues.map((artist) => {
+		return domainState.statusValues.map((type) => {
 			return {
-				key: artist,
+				key: type,
 				value: (
 					<>
-						<Text>{t(`forms:labels.dropdowns.artistTypes.${artist}`)}</Text>
-						<Text secondary>
-							{t(`forms:labels.dropdowns.artistTypesDescription.${artist}`)}
-						</Text>
+						<Text>{t(`performance.artistTypes.${type}.name`)}</Text>
+						<Text secondary>{t(`performance.artistTypes.${type}.desc`)}</Text>
 					</>
 				),
-				displayValue: t(`forms:labels.dropdowns.artistTypes.${artist}`),
+				displayValue: t(`performance.artistTypes.${type}.name`),
 			}
 		})
 	}
@@ -127,7 +125,10 @@ const PerformanceForm = observer(() => {
 			<Column>
 				{domainState.mode && (
 					<View style={styles.chart}>
-						<SplitChart {...splitState.genChartProps()} />
+						<SplitChart
+							{...splitState.genChartProps()}
+							startAngle={splitState.startAngle}
+						/>
 					</View>
 				)}
 			</Column>

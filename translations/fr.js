@@ -187,20 +187,20 @@ export const forms = {
 			createContributor: "Créer un nouveau contributeur",
 			addArtist: "Ajouter {{searchText}} comme nouvel artiste ou groupe",
 			artistTypes: {
-				mainArtist: "Artiste principal",
-				feature: () => (
+				principal: "Artiste principal",
+				featured: () => (
 					<>
 						Artiste invité ((<i>featuring</i>))
 					</>
 				),
-				groupMember: "Membre du groupe",
-				backupArtist: "Artiste accompagnateur",
+				bandMember: "Membre du groupe",
+				session: "Artiste accompagnateur",
 			},
 			artistTypesDescription: {
 				mainArtist: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
-				feature: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
-				groupMember: "Artiste prenant part à l'entité artistique",
-				backupArtist: "Interprète engagé pendant l'enregistrement",
+				featured: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
+				bandMember: "Artiste prenant part à l'entité artistique",
+				session: "Interprète engagé pendant l'enregistrement",
 			},
 		},
 		defaultRoles: "Rôle(s) par défaut",
@@ -533,6 +533,29 @@ export const rightSplits = {
 				est partagé parmi les <i>artistes accompagnateurts</i>, le cas échéant.
 			</>
 		),
+
+		artistTypes: {
+			principal: {
+				name: "Artiste principal",
+				desc: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
+			},
+			featured: {
+				name: () => (
+					<>
+						Artiste invité ((<i>featuring</i>))
+					</>
+				),
+				desc: "Artiste ou membre d'un groupe invité à collaborer",
+			},
+			bandMember: {
+				name: "Membre du groupe",
+				desc: "Artiste prenant part à l'entité artistique",
+			},
+			session: {
+				name: "Artiste accompagnateur",
+				desc: "Interprète engagé pendant l'enregistrement",
+			},
+		},
 	},
 	recording: {
 		title: "Enregistrement sonore",

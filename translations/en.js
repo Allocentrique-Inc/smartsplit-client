@@ -187,17 +187,17 @@ export const forms = {
 			createContributor: "Create a new contributor",
 			addArtist: "Add {{searchText}} as a new artist or group",
 			artistTypes: {
-				mainArtist: "Main Artist",
-				feature: "Guest Artist",
-				groupMember: "Group Member",
-				backupArtist: "Backup Artist",
+				principal: "Main Artist",
+				featured: "Guest Artist",
+				bandMember: "Group Member",
+				session: "Backup Artist",
 			},
 			artistTypesDescription: {
-				mainArtist: 'Also called "Featured Artist " or "Solo Artist"',
-				feature:
+				principal: 'Also called "Featured Artist " or "Solo Artist"',
+				featured:
 					"Artist or group member invited to collaborate on a musical piece",
-				groupMember: "Musician or singer taking part in the artistic entity",
-				backupArtist: "Performer hired during studio recording sessions",
+				bandMember: "Musician or singer taking part in the artistic entity",
+				session: "Performer hired during studio recording sessions",
 			},
 		},
 		defaultRoles: "Default Role(s)",
@@ -531,6 +531,25 @@ export const rightSplits = {
 				applicable.
 			</>
 		),
+		artistTypes: {
+			principal: {
+				name: "Main Artist",
+				desc: 'Also called "Featured Artist " or "Solo Artist"',
+			},
+			featured: {
+				name: "Guest Artist",
+				desc:
+					"Artist or group member invited to collaborate on a musical piece",
+			},
+			bandMember: {
+				name: "Group Member",
+				desc: "Musician or singer taking part in the artistic entity",
+			},
+			session: {
+				name: "Backup Artist",
+				desc: "Performer hired during studio recording sessions",
+			},
+		},
 	},
 	recording: {
 		title: "Sound recording",
@@ -546,6 +565,7 @@ export const rightSplits = {
 				of the investment.
 			</>
 		),
+
 		functions: {
 			producer: "Producer",
 			autoProducer: "Auto-producer",
