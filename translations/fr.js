@@ -533,6 +533,29 @@ export const rightSplits = {
 				est partagé parmi les <i>artistes accompagnateurts</i>, le cas échéant.
 			</>
 		),
+
+		artistTypes: {
+			principal : {
+				name: "Artiste principal",
+				desc: "Aussi appelé « Artiste vedette » ou « Artiste solo »"
+			},
+			featured : {
+				name: () => (
+					<>
+						Artiste invité ((<i>featuring</i>))
+					</>
+				),
+				desc: "Artiste ou membre d'un groupe invité à collaborer"
+			},
+			bandMember : {
+				name: "Membre du groupe",
+				desc: "Artiste prenant part à l'entité artistique"
+			},
+			session : {
+				name: "Artiste accompagnateur",
+				desc: "Interprète engagé pendant l'enregistrement"
+			},
+		}
 	},
 	recording: {
 		title: "Enregistrement sonore",

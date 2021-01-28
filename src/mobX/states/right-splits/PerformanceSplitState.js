@@ -71,9 +71,12 @@ export default class PerformanceSplitState extends RightSplitState {
 	}
 
 	genChartProps() {
-		return super.genChartProps([
-			...this.domainState.majorShares,
-			...this.domainState.minorShares,
-		])
+		return {
+			...super.genChartProps([
+				...this.domainState.majorShares,
+				...this.domainState.minorShares,
+			]),
+			startAngle: this.startAngle,
+		}
 	}
 }
