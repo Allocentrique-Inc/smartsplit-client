@@ -178,83 +178,91 @@ export const CreationSection = observer((props) => {
 						{creationDate}
 					</Text>
 				</Row>
-				<Row>
-					<Text secondary style={{ flex: 5 }}>
-						{t("workpieceSheet:creation.authors")}
-					</Text>
-					<Row of="none" style={{ flex: 9 }}>
-						<Text>
-							{joinElements(
-								authors.map((author) => (
-									<Text action bold>
-										{getArtistName(author)}
-									</Text>
-								)),
-								<Text secondary>{", "}</Text>
-							)}
+				{authors?.length > 0 ? (
+					<Row>
+						<Text secondary style={{ flex: 5 }}>
+							{t("workpieceSheet:creation.authors")}
 						</Text>
+						<Row of="none" style={{ flex: 9 }}>
+							<Text>
+								{joinElements(
+									authors.map((author) => (
+										<Text action bold>
+											{getArtistName(author)}
+										</Text>
+									)),
+									<Text secondary>{", "}</Text>
+								)}
+							</Text>
+						</Row>
 					</Row>
-				</Row>
-				<Row>
-					<Text secondary style={{ flex: 5 }}>
-						{t("workpieceSheet:creation.composers")}
-					</Text>
-					<Row of="none" style={{ flex: 9 }}>
-						<Text>
-							{joinElements(
-								composers.map((composer) => (
-									<Text action bold>
-										{getArtistName(composer)}
-									</Text>
-								)),
-								<Text secondary>{", "}</Text>
-							)}
+				) : null}
+				{composers?.length > 0 ? (
+					<Row>
+						<Text secondary style={{ flex: 5 }}>
+							{t("workpieceSheet:creation.composers")}
 						</Text>
+						<Row of="none" style={{ flex: 9 }}>
+							<Text>
+								{joinElements(
+									composers.map((composer) => (
+										<Text action bold>
+											{getArtistName(composer)}
+										</Text>
+									)),
+									<Text secondary>{", "}</Text>
+								)}
+							</Text>
+						</Row>
 					</Row>
-				</Row>
-				<Row>
-					<Text secondary style={{ flex: 5 }}>
-						{t("workpieceSheet:creation.arrangers")}
-					</Text>
-					<Row of="none" style={{ flex: 9 }}>
-						<Text>
-							{joinElements(
-								mixers.map((mixer) => (
-									<Text action bold>
-										{mixer}
-									</Text>
-								)),
-								<Text secondary>{", "}</Text>
-							)}
+				) : null}
+				{mixers?.length > 0 ? (
+					<Row>
+						<Text secondary style={{ flex: 5 }}>
+							{t("workpieceSheet:creation.arrangers")}
 						</Text>
+						<Row of="none" style={{ flex: 9 }}>
+							<Text>
+								{joinElements(
+									mixers.map((mixer) => (
+										<Text action bold>
+											{mixer}
+										</Text>
+									)),
+									<Text secondary>{", "}</Text>
+								)}
+							</Text>
+						</Row>
 					</Row>
-				</Row>
-				<Row>
-					<Text secondary style={{ flex: 5 }}>
-						{t("workpieceSheet:creation.publishers")}
-					</Text>
-					<Row of="none" style={{ flex: 9 }}>
-						<Text>
-							{joinElements(
-								editors.map((editor) => (
-									<Text action bold>
-										{editor}
-									</Text>
-								)),
-								<Text secondary>{", "}</Text>
-							)}
+				) : null}
+				{editors?.length > 0 ? (
+					<Row>
+						<Text secondary style={{ flex: 5 }}>
+							{t("workpieceSheet:creation.publishers")}
 						</Text>
+						<Row of="none" style={{ flex: 9 }}>
+							<Text>
+								{joinElements(
+									editors.map((editor) => (
+										<Text action bold>
+											{editor}
+										</Text>
+									)),
+									<Text secondary>{", "}</Text>
+								)}
+							</Text>
+						</Row>
 					</Row>
-				</Row>
+				) : null}
 			</Column>
 		</Column>
 	)
 })
 
 export const GeneralInfoSection = observer((props) => {
-	const { length, bmp, genres, styles, influences } = props
-	const [t] = useTranslation()
-
+	const { length, bpm, mainGenre, secondaryGenres, influences } = props
+	const [t, i18n] = useTranslation()
+	const lang = i18n.language
 	return (
 		<Column of="group">
 			<Heading level={4}>{props.category}</Heading>
@@ -268,10 +276,10 @@ export const GeneralInfoSection = observer((props) => {
 			</Row>
 			<Row>
 				<Text secondary style={{ flex: 1 }}>
-					BMP
+					BPM
 				</Text>
 				<Text normal style={{ flex: 3 }}>
-					{bmp}
+					{bpm}
 				</Text>
 			</Row>
 
@@ -280,7 +288,7 @@ export const GeneralInfoSection = observer((props) => {
 					Genre
 				</Text>
 				<Text normal style={{ flex: 3 }}>
-					{genres}
+					{mainGenre.langs[lang]}
 				</Text>
 			</Row>
 
@@ -289,15 +297,15 @@ export const GeneralInfoSection = observer((props) => {
 					Styles
 				</Text>
 				<Text normal style={{ flex: 3 }}>
-					{styles}
+					{secondaryGenres.map((genre) => genre.langs[lang]).join(", ")}
 				</Text>
 			</Row>
 			<Row>
-				<Text secondary style={{ flex: 1 }}>
+				<Text secondary style={{ flex: 2 }}>
 					Influences
 				</Text>
-				<Text normal style={{ flex: 3 }}>
-					{influences}
+				<Text normal style={{ flex: 4 }}>
+					{influences.join(", ")}
 				</Text>
 			</Row>
 		</Column>
@@ -306,33 +314,48 @@ export const GeneralInfoSection = observer((props) => {
 
 const Performance = (props) => {
 	const ColonSpacer = () => <Text>{" : "}</Text>
-	const [t] = useTranslation()
-
+	const [t, i18n] = useTranslation()
+	const lang = i18n.language
 	return (
 		<Column of="component">
-			{props.artists.map((artist) => (
-				<Row>
-					<Text action bold style={{ flex: 4 }}>
-						{artist.name}
-					</Text>
-					<Column of="inside" style={{ flex: 12 }}>
-						<Row style={{ alignSelf: "left" }}>
-							<Text small style={TagStyle.frame}>
-								{artist.tag}
-							</Text>
-						</Row>
-						{artist.roles.map((role) => (
-							<Row of="inside">
-								<Text>
-									{role.title}
-									{ColonSpacer}
+			{props.artists.map((performer) => {
+				return (
+					<Row>
+						<Text action bold style={{ flex: 4 }}>
+							{getArtistName(performer.user)}
+						</Text>
+						<Column of="inside" style={{ flex: 12 }}>
+							<Row style={{ alignSelf: "left" }}>
+								<Text small style={TagStyle.frame}>
+									{t(`document:performance.artistTypes.${performer.type}`)}
 								</Text>
-								<Text secondary>{role.properties}</Text>
 							</Row>
-						))}
-					</Column>
-				</Row>
-			))}
+							{performer.isSinger ? (
+								<Row of="inside">
+									<Text>
+										{t(`document:performance.roles.singer`)}
+										{ColonSpacer}
+									</Text>
+									<Text secondary>
+										{t(`document:performance.vocals.mainVocals`)}
+									</Text>
+								</Row>
+							) : null}
+							{performer.isMusician
+								? performer.instruments.map((player) => (
+										<Row of="inside">
+											<Text>
+												{t(`document:performance.roles.musician`)}
+												{ColonSpacer}
+											</Text>
+											<Text secondary>{player.instrument.langs[lang]}</Text>
+										</Row>
+								  ))
+								: null}
+						</Column>
+					</Row>
+				)
+			})}
 		</Column>
 	)
 }
@@ -465,17 +488,10 @@ export const DownloadsSection = observer((props) => {
 
 export const RecordingSection = observer((props) => {
 	const [t] = useTranslation()
-	const {
-		track,
-		isrc,
-		director,
-		tech,
-		mix,
-		master,
-		production,
-		studio,
-		address,
-	} = props
+	const { track, info } = props
+	function getNameList(list) {
+		return list.map((entry) => getArtistName(entry)).join(", ")
+	}
 	return (
 		<Column of="group">
 			<Heading level={3}>{props.category}</Heading>
@@ -485,51 +501,71 @@ export const RecordingSection = observer((props) => {
 				</Text>
 				<Text style={{ flex: 9 }}>{track}</Text>
 			</Row>
-			<Row>
-				<Text secondary style={{ flex: 5 }}>
-					ISRC
-				</Text>
-				<Text style={{ flex: 9 }}>{isrc}</Text>
-			</Row>
-			<Row>
-				<Text secondary style={{ flex: 5 }}>
-					{t("workpieceSheet:recording.director")}
-				</Text>
-				<Text style={{ flex: 9 }}>{director}</Text>
-			</Row>
-			<Row>
-				<Text secondary style={{ flex: 5 }}>
-					{t("workpieceSheet:recording.tech")}
-				</Text>
-				<Text style={{ flex: 9 }}>{tech}</Text>
-			</Row>
-			<Row>
-				<Text secondary style={{ flex: 5 }}>
-					{t("workpieceSheet:recording.mix")}
-				</Text>
-				<Text style={{ flex: 9 }}>{mix}</Text>
-			</Row>
-			<Row>
-				<Text secondary style={{ flex: 5 }}>
-					{t("workpieceSheet:recording.mastering")}
-				</Text>
-				<Text style={{ flex: 9 }}>{master}</Text>
-			</Row>
-			<Row>
-				<Text secondary style={{ flex: 5 }}>
-					{t("workpieceSheet:recording.production")}
-				</Text>
-				<Text style={{ flex: 9 }}>{production}</Text>
-			</Row>
-			<Row>
-				<Text secondary style={{ flex: 5 }}>
-					{t("workpieceSheet:recording.studio")}
-				</Text>
-				<Column of="inside" style={{ flex: 9 }}>
-					<Text>{studio}</Text>
-					<Text secondary>{address}</Text>
-				</Column>
-			</Row>
+			{info.isrc ? (
+				<Row>
+					<Text secondary style={{ flex: 5 }}>
+						ISRC
+					</Text>
+					<Text style={{ flex: 9 }}>{info.isrc}</Text>
+				</Row>
+			) : null}
+			{info.directors?.length > 0 ? (
+				<Row>
+					<Text secondary style={{ flex: 5 }}>
+						{t("workpieceSheet:recording.director")}
+					</Text>
+					<Text style={{ flex: 9 }}>{getNameList(info.directors)}</Text>
+				</Row>
+			) : null}
+			{info.recording?.length > 0 ? (
+				<Row>
+					<Text secondary style={{ flex: 5 }}>
+						{t("workpieceSheet:recording.tech")}
+					</Text>
+					<Text style={{ flex: 9 }}>
+						{getNameList(info.recording[0].engineers)}
+					</Text>
+				</Row>
+			) : null}
+			{info.mixing?.length > 0 ? (
+				<Row>
+					<Text secondary style={{ flex: 5 }}>
+						{t("workpieceSheet:recording.mix")}
+					</Text>
+					<Text style={{ flex: 9 }}>
+						{getNameList(info.mixing[0].engineers)}
+					</Text>
+				</Row>
+			) : null}
+			{info.mastering?.length > 0 ? (
+				<Row>
+					<Text secondary style={{ flex: 5 }}>
+						{t("workpieceSheet:recording.mastering")}
+					</Text>
+					<Text style={{ flex: 9 }}>
+						{getNameList(info.mastering[0].engineers)}
+					</Text>
+				</Row>
+			) : null}
+			{info.producers?.length > 0 ? (
+				<Row>
+					<Text secondary style={{ flex: 5 }}>
+						{t("workpieceSheet:recording.production")}
+					</Text>
+					<Text style={{ flex: 9 }}>{getNameList(info.producers)}</Text>
+				</Row>
+			) : null}
+			{info.recording?.length > 0 && info.recording[0].studio ? (
+				<Row>
+					<Text secondary style={{ flex: 5 }}>
+						{t("workpieceSheet:recording.studio")}
+					</Text>
+					<Column of="inside" style={{ flex: 9 }}>
+						<Text>{info.recording[0].studio}</Text>
+						{/*<Text secondary>{address}</Text>*/}
+					</Column>
+				</Row>
+			) : null}
 		</Column>
 	)
 })

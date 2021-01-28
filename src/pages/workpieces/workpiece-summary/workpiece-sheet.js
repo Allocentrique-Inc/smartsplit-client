@@ -35,7 +35,8 @@ function getFeaturedArtists(performers) {
 	return featured
 }
 const WorkpieceSheet = observer((props) => {
-	const [t] = useTranslation()
+	const [t, i18n] = useTranslation()
+	const lang = i18n.language
 	const workpiece = useCurrentWorkpiece()
 	const model = useDocsModel(workpiece.id)
 	const user = useStorePath("auth", "user", "data")
@@ -71,38 +72,31 @@ const WorkpieceSheet = observer((props) => {
 							creationDate={summary.creation.date}
 							authors={summary.creation.authors}
 							composers={summary.creation.composers}
-							mixers={sections.creation.mixers}
-							editors={sections.creation.editors}
+							mixers={[]}
+							editors={summary.creation.publishers}
 						/>
-						<PerformanceSection {...sections.performance} />
+						<PerformanceSection artists={summary.performance.performers} />
 						<RecordingSection
 							category={t("workpieceSheet:recording.header")}
-							track={sections.recording.track}
-							isrc={sections.recording.isrc}
-							director={sections.recording.director}
-							tech={sections.recording.tech}
-							mix={sections.recording.mix}
-							master={sections.recording.master}
-							production={sections.recording.production}
-							studio={sections.recording.studio}
-							address={sections.recording.address}
+							track={workInfo.title}
+							info={summary.recording}
 						/>
 						<ReleaseSection
 							category={t("workpieceSheet:release.header")}
-							releaseDate={sections.release.releaseDate}
-							format={sections.release.format}
-							productTitle={sections.release.productTitle}
+							releaseDate={summary.release.date}
+							format={summary.release.format}
+							productTitle={"NO ALBUM FIELD YET"}
 						/>
 					</Column>
 					<Flex flex={1} />
 					<Column of="group" flex={4}>
 						<GeneralInfoSection
 							category={t("workpieceSheet:info.header")}
-							length={sections.general.length}
-							bmp={sections.general.bmp}
-							genres={sections.general.genres}
-							styles={sections.general.styles}
-							influences={sections.general.influences}
+							length={summary.info.length}
+							bpm={summary.info.BPM}
+							mainGenre={summary.info.mainGenre}
+							secondaryGenres={summary.info.secondaryGenres}
+							influences={summary.info.influences}
 						/>
 						<ListeningSection category={t("workpieceSheet:stream.header")} />
 						<DownloadsSection category={t("workpieceSheet:download.header")} />
