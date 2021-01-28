@@ -288,7 +288,7 @@ export const GeneralInfoSection = observer((props) => {
 					Genre
 				</Text>
 				<Text normal style={{ flex: 3 }}>
-					{mainGenre.langs[lang]}
+					{mainGenre ? mainGenre.langs[lang] : ""}
 				</Text>
 			</Row>
 
