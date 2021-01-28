@@ -263,9 +263,9 @@ export const PerformanceOptions = observer((props) => {
 				key: artist,
 				value: (
 					<>
-						<Text>{t(`forms:labels.dropdowns.artistTypes.${artist}`)}</Text>
+						<Text>{t(`document:performance.artistTypes.${artist}`)}</Text>
 						<Text secondary>
-							{t(`forms:labels.dropdowns.artistTypesDescription.${artist}`)}
+							{t(`document:performance.artistTypesDescription.${artist}`)}
 						</Text>
 					</>
 				),
