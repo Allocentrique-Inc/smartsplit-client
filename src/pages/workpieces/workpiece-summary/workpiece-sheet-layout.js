@@ -365,6 +365,30 @@ export function DownloadsRow(props) {
 	}
 	const downloadType = FileTypes[download === true ? "public" : "private"]
 
+	function Copy() {
+		const [copySuccess, setCopySuccess] = useState("")
+		const textAreaRef = useRef(null)
+
+		async function copyToClip() {
+			await navigator.clipboard.writeText(location.href).then(() => {
+				;<>
+					<Text secondary small>
+						{t("workpieceSheet:download.copied")}
+					</Text>
+				</>
+			})
+			setCopySuccess(t("workpieceSheet:download.copy"))
+		}
+
+		return (
+			<>
+				<Text bold action onClick={copyToClip} style={{ cursor: "pointer" }}>
+					{downloadType.link}
+				</Text>
+			</>
+		)
+	}
+
 	return (
 		<Column of="component">
 			<Row valign="center">
@@ -385,9 +409,7 @@ export function DownloadsRow(props) {
 							{" "}
 							{downloadType.dot}{" "}
 						</Text>
-						<Text bold action>
-							{downloadType.link}
-						</Text>
+						<Copy />
 					</Row>
 				</Column>
 			</Row>
