@@ -22,16 +22,16 @@ export default function UnlockDownload(props) {
 			<Path
 				d="M18 11H6C4.89543 11 4 11.8954 4 13V20C4 21.1046 4.89543 22 6 22H8H16H18C19.1046 22 20 21.1046 20 20V13C20 11.8954 19.1046 11 18 11Z"
 				stroke={color}
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeWidth="2"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 			<Path
 				d="M12 12V19M12 19L15 16M12 19L9 16"
 				stroke={color}
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeWidth="2"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 		</Svg>
 	)

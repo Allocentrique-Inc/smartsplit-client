@@ -193,22 +193,14 @@ export const forms = {
 						Artiste invité ((<i>featuring</i>))
 					</>
 				),
-				featured: () => (
-					<>
-						Artiste invité ((<i>featuring</i>))
-					</>
-				),
 				groupMember: "Membre du groupe",
 				backupArtist: "Artiste accompagnateur",
-				session: "Artiste accompagnateur",
 			},
 			artistTypesDescription: {
 				mainArtist: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
 				feature: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
-				featured: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
 				groupMember: "Artiste prenant part à l'entité artistique",
 				backupArtist: "Interprète engagé pendant l'enregistrement",
-				session: "Interprète engagé pendant l'enregistrement",
 			},
 		},
 		defaultRoles: "Rôle(s) par défaut",
@@ -1092,6 +1084,7 @@ export const workpieceSheet = {
 		midi: "Fichier MIDI",
 		download: "Télécharger",
 		copy: "Copier le lien",
+		copied: "Copié",
 		access: "Demander l'accès",
 	},
 	lyrics: {

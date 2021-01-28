@@ -1064,6 +1064,7 @@ export const workpieceSheet = {
 		midi: "MIDI Files",
 		download: "Download",
 		copy: "Copy the link",
+		copied: "Copied",
 		access: "Ask for access",
 	},
 	lyrics: {
