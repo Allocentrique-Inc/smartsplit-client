@@ -22,6 +22,7 @@ import UnlockDownloadIcon from "../../../svg/workpieces/unlock-download"
 import LockDownloadIcon from "../../../svg/workpieces/lock-download"
 import { Metrics, Colors } from "../../../theme"
 import MetricsStyles from "../../../styles/metrics"
+import { FormStyles } from "../documentation/FormStyles"
 import { joinElements } from "../../../utils/react"
 import { observer } from "mobx-react"
 
@@ -93,8 +94,8 @@ export const SheetHeader = observer((props) => {
 				</Text>
 			</Row>
 			<Row valign="center">
-				<Column>
-					<Cover style={MetricsStyles.spacing["huge"]} />
+				<Column margin="component">
+					<Cover style={Metrics.size.cover} />
 				</Column>
 				<Column of="component" flex={1}>
 					<Heading level={1}>
@@ -337,12 +338,12 @@ export const ListeningSection = observer((props) => {
 		<Column of="group">
 			<Heading level={4}>{props.category}</Heading>
 			<Row of="inside" valign="center">
-				<ITunesIcon />
-				<YoutubeIcon />
-				<AmazonIcon />
-				<GooglePlayIcon />
-				<SoundcloudIcon />
-				<SpotifyIcon />
+				<ITunesIcon color={Colors.action} />
+				<YoutubeIcon color={Colors.action} />
+				<AmazonIcon color={Colors.action} />
+				<GooglePlayIcon color={Colors.action} />
+				<SoundcloudIcon color={Colors.action} />
+				<SpotifyIcon color={Colors.action} />
 			</Row>
 		</Column>
 	)
