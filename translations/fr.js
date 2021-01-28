@@ -1060,6 +1060,7 @@ export const copyrightOrgs = {
 }
 
 export const workpieceSheet = {
+	by: "par",
 	creation: {
 		header: "Création",
 		date: "Date de création",

@@ -1037,6 +1037,7 @@ export const copyrightOrgs = {
 }
 
 export const workpieceSheet = {
+	by: "by",
 	creation: {
 		header: "Creation",
 		date: "Creation Date",
