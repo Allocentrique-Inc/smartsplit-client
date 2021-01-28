@@ -15,9 +15,10 @@ import "semantic-ui-css/semantic.min.css"
 import { Colors } from "../../theme"
 import { titleCase } from "../../utils/utils"
 import Label from "../../forms/label"
+
 const DatePickerStyle = StyleSheet.create({
 	container: {
-		borderRadius: 2,
+		//borderRadius: 2,
 		borderColor: Colors.stroke,
 		color: Colors.inactive,
 	},
@@ -63,7 +64,7 @@ export const WebDatePicker = observer((props) => {
 			tooltip={tooltip}
 		>
 			<DateInput
-				//style={DatePickerStyle.container}
+				style={DatePickerStyle.container}
 				name="date"
 				dateFormat="DD-MM-YYYY"
 				placeholder={t("forms:placeholders.date")}
