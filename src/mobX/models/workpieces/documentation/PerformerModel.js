@@ -8,7 +8,7 @@ import PlayerInstrumentModel from "./PlayerInstrumentModel"
 const makeObservable = () => {}
 export const PerformerType = {
 	mainArtist: "mainArtist",
-	featured: "feature",
+	featured: "featured",
 	groupMember: "groupMember",
 	session: "backupArtist",
 }
