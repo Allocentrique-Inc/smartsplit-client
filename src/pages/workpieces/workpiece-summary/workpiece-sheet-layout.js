@@ -392,6 +392,7 @@ export const ListeningSection = observer((props) => {
 export function DownloadsRow(props) {
 	const { downloadTitle, download } = props
 	const [t] = useTranslation()
+	const [copied, setCopied] = useState(false)
 	const FileTypes = {
 		public: {
 			icon: <UnlockDownloadIcon />,
@@ -412,21 +413,25 @@ export function DownloadsRow(props) {
 
 		async function copyToClip() {
 			await navigator.clipboard.writeText(location.href).then(() => {
-				;<>
-					<Text secondary small>
-						{t("workpieceSheet:download.copied")}
-					</Text>
-				</>
+				setCopied(true)
+				setTimeout(() => {
+					setCopied(false)
+				}, 5000)
 			})
 			setCopySuccess(t("workpieceSheet:download.copy"))
 		}
 
 		return (
-			<>
+			<Row>
 				<Text bold action onClick={copyToClip} style={{ cursor: "pointer" }}>
-					{downloadType.link}
+					{downloadType.link}{" "}
 				</Text>
-			</>
+				{copied ? (
+					<Text secondary small style={TagStyle.frame}>
+						{t("workpieceSheet:download.copied")}
+					</Text>
+				) : null}
+			</Row>
 		)
 	}
 
