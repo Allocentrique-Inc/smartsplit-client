@@ -11,6 +11,12 @@ export const PerformerType = {
 	bandMember: "bandMember",
 	session: "session",
 }
+export const PerformerTypeForDocs = {
+	mainArtist: "mainArtist",
+	featured: "featured",
+	groupMember: "groupMember",
+	session: "session",
+}
 export default class PerformerModel extends BaseModel {
 	constructor(parent) {
 		super(parent)
