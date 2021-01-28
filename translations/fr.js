@@ -656,6 +656,10 @@ export const document = {
 	help: "Aide",
 	why: "Pourquoi partager ces informations ?",
 	access: "Accès",
+	pieceType: {
+		remix: "Remix",
+		original: "Piece originale",
+	},
 	creation: {
 		category: "CRÉATION",
 		title: "Qui a participé à la création de {{workpiece}} ?",
@@ -1056,6 +1060,7 @@ export const copyrightOrgs = {
 }
 
 export const workpieceSheet = {
+	by: "par",
 	creation: {
 		header: "Création",
 		date: "Date de création",

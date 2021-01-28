@@ -26,13 +26,14 @@ export function getArtistName(user) {
 	if (artistName) return artistName
 	else return firstName + " " + lastName
 }
-function getFeaturedArtists(performers) {
-	let featured = []
+function getFeaturedArtists(performers): string {
+	let featured = new Array()
 	let _performers = JSON.parse(JSON.stringify(performers))
 	_performers.forEach((performer) => {
-		if (performer.type === "featured") featured.push()
+		if (performer.type === "featured")
+			featured.push(getArtistName(performer.user))
 	})
-	return featured
+	return featured.join(", ")
 }
 const WorkpieceSheet = observer((props) => {
 	const [t, i18n] = useTranslation()
@@ -58,8 +59,10 @@ const WorkpieceSheet = observer((props) => {
 						albumTitle={"Album"}
 						songTitle={workInfo.title}
 						//path={["Inscience", "Album Name", "Love You Baby"]}
-						tag={sections.header.tag}
-						featuredArtists={getFeaturedArtists(summary.performance.performers)}
+						tag={t("document:pieceType.original")}
+						featuredArtists={
+							getFeaturedArtists(summary.performance.performers) || null
+						}
 					/>
 				</Column>
 			</Column>
