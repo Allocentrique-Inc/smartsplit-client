@@ -68,7 +68,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 }
 
 function DragDropItem(props) {
-	const { columns } = props
+	const { columns, onClickSend } = props
 	const { t } = useTranslation()
 	const [waitingToSend, setWaitingToSend] = useState(
 		columns && columns.waitingToSend != undefined ? columns.waitingToSend : []
@@ -140,6 +140,10 @@ function DragDropItem(props) {
 			)
 		}
 	}
+
+	const handleOnClickSend = (item) => {
+		onClickSend(item)
+	}
 	return (
 		<Row style={{ marginTop: 32 }}>
 			<Column flex={12} style={{ alignItems: "center" }}>
@@ -200,7 +204,11 @@ function DragDropItem(props) {
 															provided.draggableProps.style
 														)}
 													>
-														<ItemBox dataItem={item} key={index} />
+														<ItemBox
+															dataItem={item}
+															key={index}
+															onClickSend={handleOnClickSend}
+														/>
 													</div>
 												)}
 											</Draggable>
@@ -232,7 +240,11 @@ function DragDropItem(props) {
 															provided.draggableProps.style
 														)}
 													>
-														<ItemBox dataItem={item} key={index} />
+														<ItemBox
+															dataItem={item}
+															key={index}
+															onClickSend={handleOnClickSend}
+														/>
 													</div>
 												)}
 											</Draggable>
@@ -264,7 +276,11 @@ function DragDropItem(props) {
 															provided.draggableProps.style
 														)}
 													>
-														<ItemBox dataItem={item} key={index} />
+														<ItemBox
+															dataItem={item}
+															key={index}
+															onClickSend={handleOnClickSend}
+														/>
 													</div>
 												)}
 											</Draggable>

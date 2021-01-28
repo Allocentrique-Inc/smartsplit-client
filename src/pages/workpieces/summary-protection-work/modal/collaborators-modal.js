@@ -8,6 +8,8 @@ import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
 import moment from "moment"
 import ModifierSVG from "../../../../svg/modify-svg"
 import ItemVersionDetail from "./item-version-detail"
+import SectionCollaborator from "./section-collaborators"
+import Confidentiality from "./confidentiality"
 
 const Styles = StyleSheet.create({
 	highlightWord: {
@@ -15,8 +17,8 @@ const Styles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	modifyBtn: { borderWidth: 1, borderColor: "#DCDFE1", borderStyle: "solid" },
-	part: {
-		paddingBottom: 16,
+	section: {
+		paddingTop: 56,
 	},
 	item: {
 		paddingTop: 16,
@@ -29,58 +31,25 @@ const roles = [
 	{ id: 3, name: "Arrangeur" },
 ]
 
-const data = {
-	copyright: [
-		{
-			uri: "",
-			name: "Inscience (toi)",
-			role: "Auteur, Compositeur, Arrangeur",
-			percent: "88,8%",
-			status: 1,
-		},
-		{
-			uri: "",
-			name: "Erykah Badu",
-			role: "Auteur, Compositeur, Arrangeur",
-			percent: "88,8%",
-			status: 2,
-		},
-		{
-			uri: "",
-			name: "J-Zone",
-			role: "Auteur, Compositeur, Arrangeur",
-			percent: "88,8%",
-			status: 2,
-		},
-		{
-			uri: "",
-			name: "Quest Love",
-			role: "Auteur, Compositeur, Arrangeur",
-			percent: "88,8%",
-			status: 2,
-		},
-		{
-			uri: "",
-			name: "Ringo Starr",
-			role: "Auteur, Compositeur, Arrangeur",
-			percent: "88,8%",
-			status: 2,
-		},
-	],
-}
-
 function CollaboratorModal(props) {
 	const { t } = useTranslation()
-	const { visible, onRequestClose } = props
+	const { visible, onRequestClose, data } = props
+	console.log("data", data)
+	const copyright = Array.from(data.copyright ? data.copyright : [])
+	const interpretation = Array.from(
+		data.interpretation ? data.interpretation : []
+	)
+	const soundRecording = Array.from(
+		data.soundRecording ? data.soundRecording : []
+	)
 
-	const getSectionTitle = () => {}
 	return (
 		<DialogModal
 			key="collaborator-modal"
 			size="medium"
 			visible={visible}
 			onRequestClose={onRequestClose}
-			title="Version 1"
+			title={t("shareYourRights:tabBar.version", { num: data.version || "" })}
 			titleLevel={3}
 			underTitle={
 				<Text
@@ -88,8 +57,8 @@ function CollaboratorModal(props) {
 					small
 					dangerouslySetInnerHTML={{
 						__html: t("shareYourRights:collaboratorModal.underTitle", {
-							name: "ArtistName",
-							time: moment("01/27/2021 12:00").startOf("minute").fromNow(),
+							name: data.updateBy,
+							time: moment(data.lastUpdate).startOf("minute").fromNow(),
 						}),
 					}}
 				></Text>
@@ -97,7 +66,7 @@ function CollaboratorModal(props) {
 			buttons={
 				<>
 					<Button
-						tertiary
+						secondary
 						text={t("shareYourRights:tabBar.dragDrop.createNewversion")}
 					/>
 					<Button
@@ -109,45 +78,37 @@ function CollaboratorModal(props) {
 			}
 		>
 			<Group>
-				<Column>
-					<Row style={Styles.part}>
-						<Column flex={10}>
-							<Heading level={5}>Droits d’auteur</Heading>
-						</Column>
-						<Column flex={2}>
-							<View>
-								<TouchableWithoutFeedback>
-									<View style={Styles.modifyBtn}>
-										<Row>
-											<Column
-												flex={1}
-												style={{
-													alignItems: "center",
-													justifyContent: "center",
-												}}
-											>
-												<ModifierSVG />
-											</Column>
-											<Column flex={3}>
-												<Text bold action>
-													Modifier
-												</Text>
-											</Column>
-										</Row>
-									</View>
-								</TouchableWithoutFeedback>
-							</View>
-						</Column>
-					</Row>
-					<Hairline />
-					<Row style={Styles.item}>
-						<Flex>
-							<Column>
-								<ItemVersionDetail boldPercent data={data.copyright[1]} />
-							</Column>
-						</Flex>
-					</Row>
-				</Column>
+				<Row>
+					<Flex>
+						{data && data.copyright && (
+							<SectionCollaborator
+								title={t("shareYourRights:collaboratorModal.copyright")}
+								data={copyright}
+								canModify
+							/>
+						)}
+						{data && data.interpretation && (
+							<SectionCollaborator
+								title={t("shareYourRights:collaboratorModal.interpretation")}
+								style={Styles.section}
+								data={interpretation}
+							/>
+						)}
+						{data && data.soundRecording && (
+							<SectionCollaborator
+								title={t("shareYourRights:collaboratorModal.soundRecording")}
+								style={Styles.section}
+								data={soundRecording}
+							/>
+						)}
+						{data && data.confidentiality && (
+							<Confidentiality
+								data={data.confidentiality}
+								style={Styles.section}
+							/>
+						)}
+					</Flex>
+				</Row>
 			</Group>
 		</DialogModal>
 	)

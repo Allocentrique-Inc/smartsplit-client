@@ -48,6 +48,143 @@ const shareInfo = {
 					"",
 					"",
 				],
+				copyright: [
+					{
+						url: "",
+						name: "Inscience (toi)",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 1,
+					},
+					{
+						uri: "",
+						name: "Erykah Badu",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "J-Zone",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Quest Love",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Ringo Starr",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+				],
+				interpretation: [
+					{
+						uri: "",
+						name: "Inscience (toi)",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 1,
+					},
+					{
+						uri: "",
+						name: "Erykah Badu",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "J-Zone",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Quest Love",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Ringo Starr",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+				],
+				soundRecording: [
+					{
+						uri: "",
+						name: "Inscience (toi)",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 1,
+					},
+					{
+						uri: "",
+						name: "Erykah Badu",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "J-Zone",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Quest Love",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Ringo Starr",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+				],
+				confidentiality: {
+					access: 1,
+					userAccess: [
+						{
+							url: "",
+							name: "Inscience (toi)",
+							status: 2,
+						},
+						{
+							url: "",
+							name: "Quest Love",
+							status: 1,
+						},
+						{
+							url: "",
+							name: "Sunday Sauce Records",
+							status: 3,
+						},
+						{
+							url: "",
+							name: "J-Zone",
+							status: 2,
+							note: "abc",
+						},
+					],
+				},
 			},
 			{
 				version: "2",
@@ -84,18 +221,26 @@ const SummaryProtectionWorkPage = observer(() => {
 	}
 
 	const [isEmpty, setIsEmpty] = useState(shareInfo.columns ? false : true)
-	const [isCollaboratorVisible, SetCollaboratorVisible] = useState(true)
+	const [isCollaboratorVisible, SetCollaboratorVisible] = useState(false)
+	const [dataCollaborator, setDataCollaborator] = useState({})
 
 	const clickArrowLeft = () => {
 		navigateToSummary()
 	}
 	const handleCollaboratorClose = () => {
 		SetCollaboratorVisible(false)
+		setDataCollaborator({})
+	}
+
+	const handleOnClickSend = (item) => {
+		setDataCollaborator(item)
+		SetCollaboratorVisible(true)
 	}
 
 	return (
 		<>
 			<CollaboratorModal
+				data={dataCollaborator}
 				visible={isCollaboratorVisible}
 				onRequestClose={handleCollaboratorClose}
 			/>
@@ -151,7 +296,12 @@ const SummaryProtectionWorkPage = observer(() => {
 										bold
 									>
 										{isEmpty && <EmptyStateView />}
-										{!isEmpty && <DragDropItem columns={shareInfo.columns} />}
+										{!isEmpty && (
+											<DragDropItem
+												onClickSend={handleOnClickSend}
+												columns={shareInfo.columns}
+											/>
+										)}
 									</Tab>
 									<Tab
 										key="my-editor"

@@ -28,9 +28,13 @@ const Styles = StyleSheet.create({
 })
 
 function ItemBox(props) {
-	const { dataItem } = props
+	const { dataItem, onClickSend } = props
 	const { t } = useTranslation()
 	const [showPopup, setShowPopup] = useState(false)
+
+	const handleOnClickSend = () => {
+		onClickSend(dataItem)
+	}
 
 	return (
 		<Column>
@@ -115,6 +119,7 @@ function ItemBox(props) {
 			<Row style={{ marginTop: 16 }}>
 				<Column flex={5}>
 					<Button
+						onClick={handleOnClickSend}
 						text={t(
 							"shareYourRights:tabBar.myCollaborators.sendToCollaborators"
 						)}

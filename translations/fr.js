@@ -549,6 +549,11 @@ export const shareYourRights = {
 	collaboratorModal: {
 		underTitle:
 			"Créée par <span style='color:#2DA84F; font-weight: bold;'>{{name}}</span> {{time}}",
+		copyright: "Droits d'auteur",
+		interpretation: "Interprétation",
+		soundRecording: "Enregistrement sonore",
+		edit: "Modifier",
+		confidentiality: "Confidentialité",
 	},
 }
 
