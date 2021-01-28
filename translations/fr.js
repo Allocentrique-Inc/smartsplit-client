@@ -688,6 +688,10 @@ export const document = {
 			release: "Sortie",
 			addPerformer: "Ajouter un interprète...",
 		},
+		vocals: {
+			mainVocals: "chanteur principal",
+			backupVocals: "chanteur backup",
+		},
 		what: "C'est quoi un interprète ?",
 		whichPerformance: "Quel type d'interprétation ?",
 		whichRole: "Quel rôle dans la pièce musicale ?",

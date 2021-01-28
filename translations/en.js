@@ -679,6 +679,10 @@ export const document = {
 			musician: "Musician",
 			addPerformer: "Add a performer...",
 		},
+		vocals: {
+			mainVocals: "main vocals",
+			backupVocals: "backup vocals",
+		},
 		what: "What's a performer?",
 		whichPerformance: "Which type of performance?",
 		whichRole: "Which role in the musical piece?",
