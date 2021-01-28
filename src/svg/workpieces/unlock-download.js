@@ -19,16 +19,16 @@ export default function UnlockDownloadIcon(props) {
 			<Path
 				d="M18.5 11H6.5C5.39543 11 4.5 11.8954 4.5 13V20C4.5 21.1046 5.39543 22 6.5 22H8.5H16.5H18.5C19.6046 22 20.5 21.1046 20.5 20V13C20.5 11.8954 19.6046 11 18.5 11Z"
 				stroke="#8DA0B3"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeWidth="2"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 			<Path
 				d="M12.5 12V19M12.5 19L15.5 16M12.5 19L9.5 16"
 				stroke="#8DA0B3"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeWidth="2"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 		</Svg>
 	)

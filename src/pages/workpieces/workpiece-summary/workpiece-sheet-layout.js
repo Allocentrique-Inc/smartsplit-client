@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { View, StyleSheet } from "react-native"
 import { useSubpath } from "../../../appstate/react"
@@ -79,6 +79,12 @@ export const SheetHeader = observer((props) => {
 		tag,
 	} = props
 
+	function getName(user) {
+		return `${user.firstName} ${user.lastName} ${
+			user.artistName ? ` (${user.artistName})` : ""
+		}`
+	}
+
 	return (
 		<Column
 			of="component"
@@ -152,6 +158,13 @@ export const CreationSection = observer((props) => {
 	const { category, creationDate, authors, composers, mixers, editors } = props
 	const CommaSpacer = () => <Text secondary>{", "}</Text>
 	const [t] = useTranslation()
+	const { firstName, lastName, artistName } = props
+
+	function getName(user) {
+		return `${user.firstName} ${user.lastName} ${
+			user.artistName ? ` (${user.artistName})` : ""
+		}`
+	}
 
 	return (
 		<Column of="group">
@@ -342,12 +355,12 @@ export const ListeningSection = observer((props) => {
 		<Column of="group">
 			<Heading level={4}>{props.category}</Heading>
 			<Row of="inside" valign="center">
-				<ITunesIcon />
-				<YoutubeIcon />
-				<AmazonIcon />
-				<GooglePlayIcon />
-				<SoundcloudIcon />
-				<SpotifyIcon />
+				<ITunesIcon color={Colors.action} />
+				<YoutubeIcon color={Colors.action} />
+				<AmazonIcon color={Colors.action} />
+				<GooglePlayIcon color={Colors.action} />
+				<SoundcloudIcon color={Colors.action} />
+				<SpotifyIcon color={Colors.action} />
 			</Row>
 		</Column>
 	)
@@ -370,6 +383,30 @@ export function DownloadsRow(props) {
 	}
 	const downloadType = FileTypes[download === true ? "public" : "private"]
 
+	function Copy() {
+		const [copySuccess, setCopySuccess] = useState("")
+		const textAreaRef = useRef(null)
+
+		async function copyToClip() {
+			await navigator.clipboard.writeText(location.href).then(() => {
+				;<>
+					<Text secondary small>
+						{t("workpieceSheet:download.copied")}
+					</Text>
+				</>
+			})
+			setCopySuccess(t("workpieceSheet:download.copy"))
+		}
+
+		return (
+			<>
+				<Text bold action onClick={copyToClip} style={{ cursor: "pointer" }}>
+					{downloadType.link}
+				</Text>
+			</>
+		)
+	}
+
 	return (
 		<Column of="component">
 			<Row valign="center">
@@ -390,9 +427,7 @@ export function DownloadsRow(props) {
 							{" "}
 							{downloadType.dot}{" "}
 						</Text>
-						<Text bold action>
-							{downloadType.link}
-						</Text>
+						<Copy />
 					</Row>
 				</Column>
 			</Row>
