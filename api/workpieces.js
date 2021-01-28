@@ -155,7 +155,7 @@ export async function uploadDocFile(
 		// open request
 		xhr.open(
 			"POST",
-			`${API_BASE_URL}/workpieces/${workpieceId}/documentation/files/${type}`
+			`${API_BASE_URL}/workpieces/${workpieceId}/documentation/files/${type}/`
 		)
 
 		xhr.setRequestHeader(
