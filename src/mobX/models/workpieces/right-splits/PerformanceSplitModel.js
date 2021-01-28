@@ -15,6 +15,8 @@ export default class PerformanceSplitModel extends RightSplitModel {
 		)
 	}
 
+	type = "performance"
+
 	statusValues = ["mainArtist", "feature", "groupMember", "backupArtist"]
 
 	@computed get majorShares() {
