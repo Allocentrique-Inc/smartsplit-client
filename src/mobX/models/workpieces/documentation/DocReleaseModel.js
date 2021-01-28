@@ -42,7 +42,8 @@ export default class DocReleaseModel extends BaseModel {
 		let js = super.toJS()
 		js.support =
 			(this.isDigital.value ? "digital," : "") +
-			(this.isPhysical ? "physical" : "")
+			(this.isPhysical.value ? "physical" : "")
+		console.log(js)
 		return js
 	}
 

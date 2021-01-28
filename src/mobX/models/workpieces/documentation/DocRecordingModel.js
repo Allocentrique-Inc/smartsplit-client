@@ -80,7 +80,7 @@ export default class DocRecordingModel extends BaseModel {
 			if (data.recording[0].date)
 				returnData.recordingDate = data.recording[0].date.from
 			if (data.recording[0].studio)
-				returnData.recordingStudio = [data.recording[0].studio]
+				returnData.recordingStudio = data.recording[0].studio
 		}
 		if (data.mixing.length) returnData.mixedBy = data.mixing[0].engineers
 		if (data.mastering.length)
