@@ -269,7 +269,7 @@ export const PerformanceOptions = observer((props) => {
 						</Text>
 					</>
 				),
-				displayValue: t(`forms:labels.dropdowns.artistTypes.${artist}`),
+				displayValue: t(`document:performance.artistTypes.${artist}`),
 			}
 		})
 	}

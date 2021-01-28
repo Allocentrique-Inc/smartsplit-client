@@ -78,6 +78,7 @@ export const SheetHeader = observer((props) => {
 		path = [],
 		tag,
 	} = props
+	console.log(typeof featuredArtists)
 
 	function getName(user) {
 		return `${user.firstName} ${user.lastName} ${
@@ -110,24 +111,22 @@ export const SheetHeader = observer((props) => {
 							{tag}
 						</Text>
 						<Text normal secondary padding="small">
-							{t("workpieceSheet:by")}
+							{t("workpieceSheet:by")}{" "}
 						</Text>
 						<Text action bold>
 							{artistName}{" "}
 						</Text>
-						<Text normal secondary>
-							feat.{" "}
-						</Text>
-						<Text>
-							{featuredArtists.length
-								? (featuredArtists.map((artist) => (
-										<Text action bold>
-											{getArtistName(artist)}
-										</Text>
-								  )),
-								  (<Text secondary>{", "}</Text>))
-								: ""}
-						</Text>
+						{featuredArtists ? (
+							<>
+								<Text normal secondary>
+									{" "}
+									feat.{" "}
+								</Text>
+								<Text action bold>
+									{featuredArtists}
+								</Text>
+							</>
+						) : null}
 						<Flex />
 						<Button
 							small
