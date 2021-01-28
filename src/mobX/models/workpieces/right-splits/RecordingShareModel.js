@@ -29,4 +29,5 @@ export const initShareData = {
 	function: null,
 	comment: "",
 	vote: "undecided",
+	locked: true,
 }

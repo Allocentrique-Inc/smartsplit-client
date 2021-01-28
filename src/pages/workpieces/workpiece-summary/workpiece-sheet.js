@@ -19,15 +19,33 @@ import { useCurrentWorkpiece } from "../context"
 import Scrollable from "../../../widgets/scrollable"
 import { sections } from "./sections"
 import { useDocsModel } from "../../../mobX/hooks"
+import { useStorePath } from "../../../mobX"
 
+export function getArtistName(user) {
+	const { firstName, lastName, artistName } = user
+	if (artistName) return artistName
+	else return firstName + " " + lastName
+}
+function getFeaturedArtists(performers): string {
+	let featured = new Array()
+	let _performers = JSON.parse(JSON.stringify(performers))
+	_performers.forEach((performer) => {
+		if (performer.type === "featured")
+			featured.push(getArtistName(performer.user))
+	})
+	return featured.join(", ")
+}
 const WorkpieceSheet = observer((props) => {
-	const [t] = useTranslation()
+	const [t, i18n] = useTranslation()
+	const lang = i18n.language
 	const workpiece = useCurrentWorkpiece()
 	const model = useDocsModel(workpiece.id)
+	const user = useStorePath("auth", "user", "data")
 	const summary = workpiece.docSummary
 	const workInfo = workpiece.data
 	console.log(toJS(summary))
 	console.log(toJS(workInfo))
+	if (!summary) return null
 	return (
 		<Scrollable>
 			<SheetNavbar />
@@ -36,12 +54,14 @@ const WorkpieceSheet = observer((props) => {
 			<Column of="group">
 				<Column of="group" flex={1} layer="underground" align="center">
 					<SheetHeader
-						artistName={sections.header.name}
-						albumTitle={sections.header.albumTitle}
-						songTitle={sections.header.songTitle}
+						artistName={getArtistName(user)}
+						albumTitle={"Album"}
+						songTitle={workInfo.title}
 						//path={["Inscience", "Album Name", "Love You Baby"]}
-						tag={sections.header.tag}
-						featuredArtist={sections.header.featuredArtist}
+						tag={t("document:pieceType.original")}
+						featuredArtists={
+							getFeaturedArtists(summary.performance.performers) || null
+						}
 					/>
 				</Column>
 			</Column>
@@ -51,41 +71,34 @@ const WorkpieceSheet = observer((props) => {
 					<Column of="group" flex={7}>
 						<CreationSection
 							category={t("workpieceSheet:creation.header")}
-							creationDate={sections.creation.creationDate}
-							authors={sections.creation.authors}
-							composers={sections.creation.composers}
-							mixers={sections.creation.mixers}
-							editors={sections.creation.editors}
+							creationDate={summary.creation.date}
+							authors={summary.creation.authors}
+							composers={summary.creation.composers}
+							mixers={[]}
+							editors={summary.creation.publishers}
 						/>
-						<PerformanceSection {...sections.performance} />
+						<PerformanceSection artists={summary.performance.performers} />
 						<RecordingSection
 							category={t("workpieceSheet:recording.header")}
-							track={sections.recording.track}
-							isrc={sections.recording.isrc}
-							director={sections.recording.director}
-							tech={sections.recording.tech}
-							mix={sections.recording.mix}
-							master={sections.recording.master}
-							production={sections.recording.production}
-							studio={sections.recording.studio}
-							address={sections.recording.address}
+							track={workInfo.title}
+							info={summary.recording}
 						/>
 						<ReleaseSection
 							category={t("workpieceSheet:release.header")}
-							releaseDate={sections.release.releaseDate}
-							format={sections.release.format}
-							productTitle={sections.release.productTitle}
+							releaseDate={summary.release.date}
+							format={summary.release.format}
+							productTitle={"NO ALBUM FIELD YET"}
 						/>
 					</Column>
 					<Flex flex={1} />
 					<Column of="group" flex={4}>
 						<GeneralInfoSection
 							category={t("workpieceSheet:info.header")}
-							length={sections.general.length}
-							bmp={sections.general.bmp}
-							genres={sections.general.genres}
-							styles={sections.general.styles}
-							influences={sections.general.influences}
+							length={summary.info.length}
+							bpm={summary.info.BPM}
+							mainGenre={summary.info.mainGenre}
+							secondaryGenres={summary.info.secondaryGenres}
+							influences={summary.info.influences}
 						/>
 						<ListeningSection category={t("workpieceSheet:stream.header")} />
 						<DownloadsSection category={t("workpieceSheet:download.header")} />

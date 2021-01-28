@@ -25,6 +25,7 @@ export default class CopyrightSplitModel extends RightSplitModel {
 	}
 
 	@observable mode = "equal"
+	type = "copyright"
 
 	/**
 	 *	Id List of lyrics contributors
