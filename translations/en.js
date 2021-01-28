@@ -684,6 +684,19 @@ export const document = {
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
 		addInstrumentDropdown: "Ajouter {{search}} comme instrument",
+		artistTypes: {
+			mainArtist: "Main Artist",
+			featured: "Guest Artist",
+			groupMember: "Group Member",
+			session: "Session Artist",
+		},
+		artistTypesDescription: {
+			mainArtist: 'Also called "Featured Artist " or "Solo Artist"',
+			featured:
+				"Artist or group member invited to collaborate on a musical piece",
+			groupMember: "Musician or singer taking part in the artistic entity",
+			session: "Performer hired during studio recording sessions",
+		},
 	},
 
 	recording: {
