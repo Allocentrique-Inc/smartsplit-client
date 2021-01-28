@@ -22,6 +22,7 @@ import UnlockDownloadIcon from "../../../svg/workpieces/unlock-download"
 import LockDownloadIcon from "../../../svg/workpieces/lock-download"
 import { Metrics, Colors } from "../../../theme"
 import MetricsStyles from "../../../styles/metrics"
+import { FormStyles } from "../documentation/FormStyles"
 import { joinElements } from "../../../utils/react"
 import { observer } from "mobx-react"
 import { getArtistName } from "./workpiece-sheet"
@@ -101,8 +102,8 @@ export const SheetHeader = observer((props) => {
 				</Text>
 			</Row>
 			<Row valign="center">
-				<Column>
-					<Cover style={MetricsStyles.spacing["huge"]} />
+				<Column margin="component">
+					<Cover style={Metrics.size.cover} />
 				</Column>
 				<Column of="component" flex={1}>
 					<Heading level={1}>{songTitle}</Heading>
@@ -391,6 +392,7 @@ export const ListeningSection = observer((props) => {
 export function DownloadsRow(props) {
 	const { downloadTitle, download } = props
 	const [t] = useTranslation()
+	const [copied, setCopied] = useState(false)
 	const FileTypes = {
 		public: {
 			icon: <UnlockDownloadIcon />,
@@ -411,21 +413,25 @@ export function DownloadsRow(props) {
 
 		async function copyToClip() {
 			await navigator.clipboard.writeText(location.href).then(() => {
-				;<>
-					<Text secondary small>
-						{t("workpieceSheet:download.copied")}
-					</Text>
-				</>
+				setCopied(true)
+				setTimeout(() => {
+					setCopied(false)
+				}, 5000)
 			})
 			setCopySuccess(t("workpieceSheet:download.copy"))
 		}
 
 		return (
-			<>
+			<Row>
 				<Text bold action onClick={copyToClip} style={{ cursor: "pointer" }}>
-					{downloadType.link}
+					{downloadType.link}{" "}
 				</Text>
-			</>
+				{copied ? (
+					<Text secondary small style={TagStyle.frame}>
+						{t("workpieceSheet:download.copied")}
+					</Text>
+				) : null}
+			</Row>
 		)
 	}
 
