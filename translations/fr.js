@@ -236,7 +236,7 @@ export const forms = {
 		organisations:
 			"Rechercher parmi les entités corporatives, entreprises, sociétés...",
 		delete: "détruire, Détruire ou detruire",
-		date: "JJ-MM-AAAA",
+		date: "AAAA-MM-JJ",
 		myUri: "https://www.mon-site-web.exemple",
 		groupSearch: "Rechercher parmi les groupes...",
 	},
@@ -693,6 +693,22 @@ export const document = {
 		whichRole: "Quel rôle dans la pièce musicale ?",
 		addInstrument: "Ajouter un instrument...",
 		addInstrumentDropdown: "Add {{search}} as instrument",
+		artistTypes: {
+			mainArtist: "Artiste principal",
+			featured: () => (
+				<>
+					Artiste invité ((<i>featuring</i>))
+				</>
+			),
+			groupMember: "Membre du groupe",
+			session: "Artiste accompagnateur",
+		},
+		artistTypesDescription: {
+			mainArtist: "Aussi appelé « Artiste vedette » ou « Artiste solo »",
+			featured: "Artiste ou membre d'un groupe invité à collaborer", // sur une pièce musicale",
+			groupMember: "Artiste prenant part à l'entité artistique",
+			session: "Interprète engagé pendant l'enregistrement",
+		},
 	},
 	recording: {
 		category: "ENREGISTREMENT",

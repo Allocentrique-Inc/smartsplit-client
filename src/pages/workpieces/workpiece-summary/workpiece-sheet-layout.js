@@ -24,6 +24,7 @@ import { Metrics, Colors } from "../../../theme"
 import MetricsStyles from "../../../styles/metrics"
 import { joinElements } from "../../../utils/react"
 import { observer } from "mobx-react"
+import { getArtistName } from "./workpiece-sheet"
 
 export const SheetNavbar = observer((props) => {
 	return (
@@ -71,7 +72,7 @@ export const SheetHeader = observer((props) => {
 	const {
 		songTitle,
 		artistName,
-		featuredArtist,
+		featuredArtists,
 		albumTitle,
 		workpiece,
 		path = [],
@@ -95,7 +96,7 @@ export const SheetHeader = observer((props) => {
 				<Text bold>{artistName}</Text>
 				<Text bold>{albumTitle}</Text>
 				<Text secondary bold>
-					{songTitle} ({tag})
+					{songTitle}
 				</Text>
 			</Row>
 			<Row valign="center">
@@ -103,9 +104,7 @@ export const SheetHeader = observer((props) => {
 					<Cover style={MetricsStyles.spacing["huge"]} />
 				</Column>
 				<Column of="component" flex={1}>
-					<Heading level={1}>
-						{songTitle} ({tag})
-					</Heading>
+					<Heading level={1}>{songTitle}</Heading>
 					<Row valign="center">
 						<Text small style={TagStyle.frame}>
 							{tag}
@@ -119,9 +118,15 @@ export const SheetHeader = observer((props) => {
 						<Text normal secondary>
 							feat.{" "}
 						</Text>
-
-						<Text action bold>
-							{featuredArtist}
+						<Text>
+							{featuredArtists.length
+								? (featuredArtists.map((artist) => (
+										<Text action bold>
+											{getArtistName(artist)}
+										</Text>
+								  )),
+								  (<Text secondary>{", "}</Text>))
+								: ""}
 						</Text>
 						<Flex />
 						<Button
@@ -182,7 +187,7 @@ export const CreationSection = observer((props) => {
 							{joinElements(
 								authors.map((author) => (
 									<Text action bold>
-										{author}
+										{getArtistName(author)}
 									</Text>
 								)),
 								<Text secondary>{", "}</Text>
@@ -199,7 +204,7 @@ export const CreationSection = observer((props) => {
 							{joinElements(
 								composers.map((composer) => (
 									<Text action bold>
-										{composer}
+										{getArtistName(composer)}
 									</Text>
 								)),
 								<Text secondary>{", "}</Text>
