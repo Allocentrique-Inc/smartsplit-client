@@ -245,7 +245,7 @@ export const CreationSection = observer((props) => {
 								{joinElements(
 									editors.map((editor) => (
 										<Text action bold>
-											{editor}
+											{getArtistName(editor)}
 										</Text>
 									)),
 									<Text secondary>{", "}</Text>
