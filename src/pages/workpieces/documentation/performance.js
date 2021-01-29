@@ -35,7 +35,7 @@ import { useCurrentWorkpieceId } from "../context"
 import ContributorsState from "../../../mobX/states/ContributorsState"
 import ContributorModel from "../../../mobX/models/user/ContributorModel"
 import DocPerformanceModel from "../../../mobX/models/workpieces/documentation/DocPerformanceModel"
-import { PerformerType } from "../../../mobX/models/workpieces/documentation/PerformerModel"
+import { PerformerTypeForDocs } from "../../../mobX/models/workpieces/documentation/PerformerModel"
 import { Tag } from "../../../widgets/tag"
 import { toJS } from "mobx"
 import UserAvatar from "../../../smartsplit/user/avatar"
@@ -258,18 +258,18 @@ export const PerformanceOptions = observer((props) => {
 	} */
 
 	function genSelectOptions() {
-		return Object.keys(PerformerType).map((artist) => {
+		return Object.keys(PerformerTypeForDocs).map((artist) => {
 			return {
 				key: artist,
 				value: (
 					<>
-						<Text>{t(`forms:labels.dropdowns.artistTypes.${artist}`)}</Text>
+						<Text>{t(`document:performance.artistTypes.${artist}`)}</Text>
 						<Text secondary>
-							{t(`forms:labels.dropdowns.artistTypesDescription.${artist}`)}
+							{t(`document:performance.artistTypesDescription.${artist}`)}
 						</Text>
 					</>
 				),
-				displayValue: t(`forms:labels.dropdowns.artistTypes.${artist}`),
+				displayValue: t(`document:performance.artistTypes.${artist}`),
 			}
 		})
 	}

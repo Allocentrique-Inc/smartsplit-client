@@ -1,13 +1,15 @@
 import React from "react"
 import { Svg, Path } from "react-native-svg"
+import { Metrics } from "../theme"
 
 export default function ImageIcon(props) {
 	const color = props.color || "#8DA0B3"
+	const size = props.size || Metrics.size.cover
 
 	return (
 		<Svg
-			width="24"
-			height="24"
+			width={size}
+			height={size}
 			viewBox="0 0 24 24"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"

@@ -18,6 +18,9 @@ export default class CopyrightSplitState extends RightSplitState {
 	titleLeft = i18next.t("rightSplits:lyrics")
 	titleRight = i18next.t("rightSplits:music")
 
+	@computed get disabledLockButton() {
+		return this.shareholders.length === 1
+	}
 	/**
 	 *	Computed array of data objects
 	 *	used by the UI
@@ -35,7 +38,7 @@ export default class CopyrightSplitState extends RightSplitState {
 				shares: shareholder.shares,
 				roles: shareholder.roles,
 				percent: percent,
-				locked: shareholder.locked || this.shareholders.length === 1,
+				locked: shareholder.locked,
 			}
 		})
 	}
