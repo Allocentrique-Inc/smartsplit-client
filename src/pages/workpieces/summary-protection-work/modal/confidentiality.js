@@ -45,6 +45,7 @@ const getAccessString = (accessNum) => {
 function Confidentiality(props) {
 	const { data, isModal, ...nextProp } = props
 	const { t } = useTranslation()
+
 	const userAccess = Array.from(data.userAccess || [])
 	const [tooltip1, setTooltip1] = useState(false)
 	return (

@@ -1,9 +1,8 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
-import { Column, Flex, Hairline, Row } from "../../../../layout"
-import ModifierSVG from "../../../../svg/modify-svg"
-import { Heading, Text } from "../../../../text"
+import { StyleSheet, View } from "react-native"
+import { Column, Flex, Row } from "../../../../layout"
+import { Heading } from "../../../../text"
 import Button from "../../../../widgets/button"
 import ItemVersionDetailOnTouch from "./item-version-detail"
 
@@ -27,7 +26,6 @@ const Styles = StyleSheet.create({
 function SectionCollaborator(props) {
 	const { isModal, canModify, title, data, ...nextProps } = props
 	const { t } = useTranslation()
-
 	const dataArr = Array.from(data || [])
 
 	return (
@@ -56,7 +54,7 @@ function SectionCollaborator(props) {
 							<ItemVersionDetailOnTouch
 								style={{ paddingBottom: 16 }}
 								key={index}
-								boldPercent
+								secondaryPercent
 								data={item}
 								status={item.status}
 								isModal={isModal}

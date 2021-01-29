@@ -21,7 +21,7 @@ export const getStatusString = (status) => {
 const Styles = StyleSheet.create({})
 
 const ItemVersionDetail = observer((props) => {
-	const { showButton, boldPercent, data, ...nextProps } = props
+	const { isModal, showButton, secondaryPercent, data, ...nextProps } = props
 	const [status, setStatus] = useState(
 		data ? (data.status ? getStatusString(data.status) : "") : ""
 	)
@@ -50,7 +50,7 @@ const ItemVersionDetail = observer((props) => {
 						<Column flex={3} style={{ alignItems: "flex-end" }}>
 							{data && data.percent && (
 								<Row>
-									<Text bold={boldPercent}>
+									<Text bold secondary={secondaryPercent && !isModal}>
 										{data ? (data.percent ? data.percent : "") : ""}%
 									</Text>
 								</Row>
@@ -102,11 +102,22 @@ function ItemVersionDetailOnTouch(props) {
 	return (
 		<>
 			{status === 2 && !isModal && (
-				<TouchableWithoutFeedback onPress={() => setShowButton(!showButton)}>
-					<ItemVersionDetail {...nextProps} showButton={showButton} />
+				<TouchableWithoutFeedback
+					onPress={() => {
+						setShowButton(!showButton)
+					}}
+				>
+					<ItemVersionDetail
+						isModal={isModal}
+						{...nextProps}
+						showButton={showButton}
+						secondaryPercent={!showButton}
+					/>
 				</TouchableWithoutFeedback>
 			)}
-			{(status !== 2 || isModal) && <ItemVersionDetail {...nextProps} />}
+			{(status !== 2 || isModal) && (
+				<ItemVersionDetail isModal={isModal} {...nextProps} />
+			)}
 		</>
 	)
 }

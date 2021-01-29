@@ -33,6 +33,7 @@ import { useStorePath, useStores } from "../../mobX"
 import { observer } from "mobx-react"
 import DocumentationPage from "./documentation"
 import SummaryProtectionWorkPage from "./summary-protection-work"
+import VotingPage from "./summary-protection-work/voting-page"
 
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
@@ -55,6 +56,12 @@ const WorkpiecesRouter = observer(() => {
 					]}
 					// component={RightSplitsPage}  ----- component of Francois-Xavier Dueymes
 					component={SummaryProtectionWorkPage}
+				/>
+
+				<Route
+					path="/workpieces/:workpiece_id/voting-page"
+					exact
+					component={VotingPage}
 				/>
 
 				<Route
