@@ -35,7 +35,7 @@ const Styles = StyleSheet.create({
 	},
 })
 
-const shareInfo = {
+export const shareInfo = {
 	updateBy: "Inscience",
 	lastUpdate: "01/22/2021 07:50 AM",
 	columns: {
@@ -196,6 +196,143 @@ const shareInfo = {
 					"https://apiv2-dev.smartsplit.org/v1/users/09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb/avatar",
 					"",
 				],
+				copyright: [
+					{
+						url: "",
+						name: "Inscience (toi)",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 1,
+					},
+					{
+						uri: "",
+						name: "Erykah Badu",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "J-Zone",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Quest Love",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Ringo Starr",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+				],
+				interpretation: [
+					{
+						uri: "",
+						name: "Inscience (toi)",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 1,
+					},
+					{
+						uri: "",
+						name: "Erykah Badu",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "J-Zone",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Quest Love",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Ringo Starr",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+				],
+				soundRecording: [
+					{
+						uri: "",
+						name: "Inscience (toi)",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 1,
+					},
+					{
+						uri: "",
+						name: "Erykah Badu",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "J-Zone",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Quest Love",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Ringo Starr",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+				],
+				confidentiality: {
+					access: 1,
+					userAccess: [
+						{
+							url: "",
+							name: "Inscience (toi)",
+							status: 2,
+						},
+						{
+							url: "",
+							name: "Quest Love",
+							status: 1,
+						},
+						{
+							url: "",
+							name: "Sunday Sauce Records",
+							status: 3,
+						},
+						{
+							url: "",
+							name: "J-Zone",
+							status: 2,
+							note: "abc",
+						},
+					],
+				},
 			},
 			{
 				version: "3",
@@ -206,6 +343,143 @@ const shareInfo = {
 					"",
 					"",
 				],
+				copyright: [
+					{
+						url: "",
+						name: "Inscience (toi)",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 1,
+					},
+					{
+						uri: "",
+						name: "Erykah Badu",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "J-Zone",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Quest Love",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Ringo Starr",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+				],
+				interpretation: [
+					{
+						uri: "",
+						name: "Inscience (toi)",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 1,
+					},
+					{
+						uri: "",
+						name: "Erykah Badu",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "J-Zone",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Quest Love",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Ringo Starr",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+				],
+				soundRecording: [
+					{
+						uri: "",
+						name: "Inscience (toi)",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 1,
+					},
+					{
+						uri: "",
+						name: "Erykah Badu",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "J-Zone",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Quest Love",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+					{
+						uri: "",
+						name: "Ringo Starr",
+						role: "Auteur, Compositeur, Arrangeur",
+						percent: "88,8",
+						status: 2,
+					},
+				],
+				confidentiality: {
+					access: 1,
+					userAccess: [
+						{
+							url: "",
+							name: "Inscience (toi)",
+							status: 2,
+						},
+						{
+							url: "",
+							name: "Quest Love",
+							status: 1,
+						},
+						{
+							url: "",
+							name: "Sunday Sauce Records",
+							status: 3,
+						},
+						{
+							url: "",
+							name: "J-Zone",
+							status: 2,
+							note: "abc",
+						},
+					],
+				},
 			},
 		],
 		awaitingDecision: [],
@@ -277,7 +551,7 @@ const SummaryProtectionWorkPage = observer(() => {
 					</Column>
 					<Column flex={2} style={[Styles.navBarCol]} />
 				</Row>
-				<Scrollable autoScrollToTop>
+				<Scrollable>
 					<Row style={{ width: "100%", paddingTop: 32, paddingBottom: 60 }}>
 						<Column flex={2} />
 						<Column flex={8}>
