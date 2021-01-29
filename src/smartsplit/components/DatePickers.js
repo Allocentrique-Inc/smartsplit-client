@@ -15,6 +15,7 @@ import "semantic-ui-css/semantic.min.css"
 import { Colors } from "../../theme"
 import { titleCase } from "../../utils/utils"
 import Label from "../../forms/label"
+
 const DatePickerStyle = StyleSheet.create({
 	container: {
 		borderRadius: 2,
