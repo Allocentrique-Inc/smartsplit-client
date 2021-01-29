@@ -43,7 +43,7 @@ const getAccessString = (accessNum) => {
 }
 
 function Confidentiality(props) {
-	const { data, isModal, ...nextProp } = props
+	const { canModify, data, isModal, ...nextProp } = props
 	const { t } = useTranslation()
 
 	const userAccess = Array.from(data.userAccess || [])
@@ -56,30 +56,32 @@ function Confidentiality(props) {
 						{t("shareYourRights:collaboratorModal.confidentiality")}
 					</Heading>
 				</Column>
-				<Column flex={2}>
-					<View>
-						<TouchableWithoutFeedback>
-							<View style={Styles.modifyBtn}>
-								<Row>
-									<Column
-										flex={1}
-										style={{
-											alignItems: "center",
-											justifyContent: "center",
-										}}
-									>
-										<ModifierSVG />
-									</Column>
-									<Column flex={3} style={{ alignItems: "center" }}>
-										<Text small bold action>
-											{t("shareYourRights:collaboratorModal.edit")}
-										</Text>
-									</Column>
-								</Row>
-							</View>
-						</TouchableWithoutFeedback>
-					</View>
-				</Column>
+				{canModify && (
+					<Column flex={2}>
+						<View>
+							<TouchableWithoutFeedback>
+								<View style={Styles.modifyBtn}>
+									<Row>
+										<Column
+											flex={1}
+											style={{
+												alignItems: "center",
+												justifyContent: "center",
+											}}
+										>
+											<ModifierSVG />
+										</Column>
+										<Column flex={3} style={{ alignItems: "center" }}>
+											<Text small bold action>
+												{t("shareYourRights:collaboratorModal.edit")}
+											</Text>
+										</Column>
+									</Row>
+								</View>
+							</TouchableWithoutFeedback>
+						</View>
+					</Column>
+				)}
 			</Row>
 			<Row>
 				<Column flex={1}>

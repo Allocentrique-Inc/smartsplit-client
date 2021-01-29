@@ -80,9 +80,7 @@ const VotingPage = observer((props) => {
 									data={data.columns.waitingToSend[0].soundRecording}
 								/>
 								<Confidentiality
-									isModal
 									data={data.columns.waitingToSend[0].confidentiality}
-									canModify
 									style={Styles.section}
 								/>
 							</Flex>
