@@ -68,11 +68,13 @@ function CollaboratorModal(props) {
 					<Button
 						secondary
 						text={t("shareYourRights:tabBar.dragDrop.createNewversion")}
+						onClick={() => onRequestClose(false)}
 					/>
 					<Button
 						text={t(
 							"shareYourRights:tabBar.myCollaborators.sendToCollaborators"
 						)}
+						onClick={() => onRequestClose(true)}
 					/>
 				</>
 			}
@@ -85,6 +87,7 @@ function CollaboratorModal(props) {
 								title={t("shareYourRights:collaboratorModal.copyright")}
 								data={copyright}
 								canModify
+								isModal
 							/>
 						)}
 						{data && data.interpretation && (
@@ -92,6 +95,8 @@ function CollaboratorModal(props) {
 								title={t("shareYourRights:collaboratorModal.interpretation")}
 								style={Styles.section}
 								data={interpretation}
+								canModify
+								isModal
 							/>
 						)}
 						{data && data.soundRecording && (
@@ -99,11 +104,15 @@ function CollaboratorModal(props) {
 								title={t("shareYourRights:collaboratorModal.soundRecording")}
 								style={Styles.section}
 								data={soundRecording}
+								canModify
+								isModal
 							/>
 						)}
 						{data && data.confidentiality && (
 							<Confidentiality
+								isModal
 								data={data.confidentiality}
+								canModify
 								style={Styles.section}
 							/>
 						)}

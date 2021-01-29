@@ -548,7 +548,22 @@ export const shareYourRights = {
 		edit: "Edit",
 		access:
 			"Sharing of rights <span style='font-weight: bold'>{{access}}</span>",
+		permissionAccess:
+			"{{name}} wants to make this sharing of rights {{access}}",
+		permissionPublicDesc:
+			"<b>{{name}}</b> encourages the transparency of information on these rights sharing, so that the whole community can benefit from good examples.",
 		confidentiality: "Confidentiality",
+		refuse: "Refuse",
+		accept: "Accept",
+		approved: "Approved",
+	},
+	sendCollaboratorModal: {
+		title: "Send rights sharing",
+		desc:
+			"To finalize this sharing, you must invite his collaborators to validate everything. Indicate the email addresses to send your sharing proposal to.",
+		enterEmailAddress: "Enter email address ...",
+		toSend: "To send",
+		toCancel: "To cancel",
 	},
 }
 

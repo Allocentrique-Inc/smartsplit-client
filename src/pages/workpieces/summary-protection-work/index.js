@@ -15,6 +15,7 @@ import EmptyState from "../../../svg/empty-state"
 import Button from "../../../widgets/button"
 import DragDropItem from "./dragdrop-item"
 import CollaboratorModal from "./modal/collaborators-modal"
+import SendCollaboratorsModal from "./modal/send-collaborators-modal"
 
 const Styles = StyleSheet.create({
 	navBarCol: {
@@ -222,12 +223,16 @@ const SummaryProtectionWorkPage = observer(() => {
 
 	const [isEmpty, setIsEmpty] = useState(shareInfo.columns ? false : true)
 	const [isCollaboratorVisible, SetCollaboratorVisible] = useState(false)
+	const [sendModalVisible, setSendModalVisible] = useState(false)
 	const [dataCollaborator, setDataCollaborator] = useState({})
 
 	const clickArrowLeft = () => {
 		navigateToSummary()
 	}
-	const handleCollaboratorClose = () => {
+	const handleCollaboratorClose = (isClickSend) => {
+		if (isClickSend) {
+			setSendModalVisible(true)
+		}
 		SetCollaboratorVisible(false)
 		setDataCollaborator({})
 	}
@@ -237,12 +242,20 @@ const SummaryProtectionWorkPage = observer(() => {
 		SetCollaboratorVisible(true)
 	}
 
+	const handleOnSendModalClosed = () => {
+		setSendModalVisible(false)
+	}
+
 	return (
 		<>
 			<CollaboratorModal
 				data={dataCollaborator}
 				visible={isCollaboratorVisible}
 				onRequestClose={handleCollaboratorClose}
+			/>
+			<SendCollaboratorsModal
+				visible={sendModalVisible}
+				onRequestClose={handleOnSendModalClosed}
 			/>
 			<View style={{ height: "100%" }}>
 				<Row style={{ width: "100%" }}>

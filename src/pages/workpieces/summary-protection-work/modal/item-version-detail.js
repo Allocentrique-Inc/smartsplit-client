@@ -5,14 +5,16 @@ import { Column, Flex, Hairline, Row } from "../../../../layout"
 import UserAvatar from "../../../../smartsplit/user/avatar"
 import { Text } from "../../../../text"
 import Button from "../../../../widgets/button"
+import { useTranslation } from "react-i18next"
 
 export const getStatusString = (status) => {
+	const { t } = useTranslation()
 	return status === 1
-		? "Approuvé"
+		? t("shareYourRights:collaboratorModal.approved")
 		: status === 2
-		? "En attente d’envoi"
+		? t("shareYourRights:tabBar.dragDrop.waitingToSend")
 		: status === 3
-		? "Refusé"
+		? t("shareYourRights:collaboratorModal.refuse")
 		: ""
 }
 
@@ -23,6 +25,7 @@ const ItemVersionDetail = observer((props) => {
 	const [status, setStatus] = useState(
 		data ? (data.status ? getStatusString(data.status) : "") : ""
 	)
+	const { t } = useTranslation()
 	return (
 		<Row {...nextProps}>
 			<Flex>
@@ -36,18 +39,22 @@ const ItemVersionDetail = observer((props) => {
 							<Row>
 								<Text>{data ? (data.name ? data.name : "") : ""}</Text>
 							</Row>
-							<Row>
-								<Text small secondary>
-									{data ? (data.role ? data.role : "") : ""}
-								</Text>
-							</Row>
+							{data && data.role && (
+								<Row>
+									<Text small secondary>
+										{data ? (data.role ? data.role : "") : ""}
+									</Text>
+								</Row>
+							)}
 						</Column>
 						<Column flex={3} style={{ alignItems: "flex-end" }}>
-							<Row>
-								<Text bold={boldPercent}>
-									{data ? (data.percent ? data.percent : "") : ""}%
-								</Text>
-							</Row>
+							{data && data.percent && (
+								<Row>
+									<Text bold={boldPercent}>
+										{data ? (data.percent ? data.percent : "") : ""}%
+									</Text>
+								</Row>
+							)}
 							<Row>
 								<Text
 									small
@@ -65,12 +72,20 @@ const ItemVersionDetail = observer((props) => {
 							<Column flex={2}></Column>
 							<Column flex={5} style={{ paddingRight: 8 }}>
 								<View>
-									<Button bold danger text="Refuser" />
+									<Button
+										bold
+										danger
+										text={t("shareYourRights:collaboratorModal.refuse")}
+									/>
 								</View>
 							</Column>
 							<Column flex={5} style={{ paddingLeft: 8 }}>
 								<View>
-									<Button bold secondary text="Accepter" />
+									<Button
+										bold
+										secondary
+										text={t("shareYourRights:collaboratorModal.accept")}
+									/>
 								</View>
 							</Column>
 						</Row>
@@ -82,16 +97,16 @@ const ItemVersionDetail = observer((props) => {
 })
 
 function ItemVersionDetailOnTouch(props) {
-	const { status, ...nextProps } = props
+	const { isModal, status, ...nextProps } = props
 	const [showButton, setShowButton] = useState(false)
 	return (
 		<>
-			{status === 2 && (
+			{status === 2 && !isModal && (
 				<TouchableWithoutFeedback onPress={() => setShowButton(!showButton)}>
 					<ItemVersionDetail {...nextProps} showButton={showButton} />
 				</TouchableWithoutFeedback>
 			)}
-			{status !== 2 && <ItemVersionDetail {...nextProps} />}
+			{(status !== 2 || isModal) && <ItemVersionDetail {...nextProps} />}
 		</>
 	)
 }

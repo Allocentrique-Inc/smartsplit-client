@@ -53,14 +53,7 @@ const WorkpiecesRouter = observer(() => {
 						"/workpieces/:workpiece_id/right-splits/:split_type",
 						"/workpieces/:workpiece_id/right-splits",
 					]}
-					component={RightSplitsPage}
-				/>
-
-				<Route
-					path={[
-						"/workpieces/:workpiece_id/summary-protection-work/:protection_type",
-						"/workpieces/:workpiece_id/summary-protection-work",
-					]}
+					// component={RightSplitsPage}  ----- component of Francois-Xavier Dueymes
 					component={SummaryProtectionWorkPage}
 				/>
 
@@ -197,9 +190,6 @@ export function WorkpiecePage() {
 									<ShareYourCopyright />
 									<DocumentYourWork />
 									<ProtectYourWork />
-								</Row>
-								<Row wrap style={Styles.cardContainer}>
-									<SummaryProtectionWork />
 								</Row>
 							</Column>
 						</Column>

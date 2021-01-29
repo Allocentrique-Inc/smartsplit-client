@@ -553,7 +553,23 @@ export const shareYourRights = {
 		interpretation: "Interprétation",
 		soundRecording: "Enregistrement sonore",
 		edit: "Modifier",
+		access:
+			"Partage des droits <span style='font-weight: bold'>{{access}}</span>",
+		permissionAccess: "{{name}} veut rendre ce partage des droits {{access}}",
+		permissionPublicDesc:
+			"{{name}} encourages the transparency of information on these rights sharing, so that the whole community can benefit from good examples.",
 		confidentiality: "Confidentialité",
+		refuse: "Refuser",
+		accept: "Accepter",
+		approved: "Approuvé",
+	},
+	sendCollaboratorModal: {
+		title: "Envoyer le partage des droits",
+		desc:
+			"Pour finaliser ce partage, tu dois inviter ses collaborateurs à valider le tout. Indique les adresses courriels auxquelles envoyer ta proposition de partage.",
+		enterEmailAddress: "Entrer l'adresse courriel...",
+		toSend: "Envoyer",
+		toCancel: "Annuler",
 	},
 }
 

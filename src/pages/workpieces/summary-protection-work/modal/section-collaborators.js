@@ -4,6 +4,7 @@ import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
 import { Column, Flex, Hairline, Row } from "../../../../layout"
 import ModifierSVG from "../../../../svg/modify-svg"
 import { Heading, Text } from "../../../../text"
+import Button from "../../../../widgets/button"
 import ItemVersionDetailOnTouch from "./item-version-detail"
 
 const Styles = StyleSheet.create({
@@ -24,7 +25,7 @@ const Styles = StyleSheet.create({
 })
 
 function SectionCollaborator(props) {
-	const { canModify, title, data, ...nextProps } = props
+	const { isModal, canModify, title, data, ...nextProps } = props
 	const { t } = useTranslation()
 
 	const dataArr = Array.from(data || [])
@@ -38,26 +39,12 @@ function SectionCollaborator(props) {
 				{canModify && (
 					<Column flex={2}>
 						<View>
-							<TouchableWithoutFeedback>
-								<View style={Styles.modifyBtn}>
-									<Row>
-										<Column
-											flex={1}
-											style={{
-												alignItems: "center",
-												justifyContent: "center",
-											}}
-										>
-											<ModifierSVG />
-										</Column>
-										<Column flex={3} style={{ alignItems: "center" }}>
-											<Text small bold action>
-												{t("shareYourRights:collaboratorModal.edit")}
-											</Text>
-										</Column>
-									</Row>
-								</View>
-							</TouchableWithoutFeedback>
+							<Button
+								small
+								secondary
+								bold
+								text={t("shareYourRights:collaboratorModal.edit")}
+							/>
 						</View>
 					</Column>
 				)}
@@ -72,6 +59,7 @@ function SectionCollaborator(props) {
 								boldPercent
 								data={item}
 								status={item.status}
+								isModal={isModal}
 							/>
 						))}
 					</Column>

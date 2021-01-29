@@ -8,6 +8,7 @@ import EyeIcon from "../../../../svg/eye"
 import QuestionMark from "../../../../svg/question-mark"
 import UserAvatar from "../../../../smartsplit/user/avatar"
 import { getStatusString } from "./item-version-detail"
+import Button from "../../../../widgets/button"
 
 const Styles = StyleSheet.create({
 	part: {
@@ -42,7 +43,7 @@ const getAccessString = (accessNum) => {
 }
 
 function Confidentiality(props) {
-	const { data, ...nextProp } = props
+	const { data, isModal, ...nextProp } = props
 	const { t } = useTranslation()
 	const userAccess = Array.from(data.userAccess || [])
 	const [tooltip1, setTooltip1] = useState(false)
@@ -83,7 +84,7 @@ function Confidentiality(props) {
 				<Column flex={1}>
 					<EyeIcon />
 				</Column>
-				<Column flex={8}>
+				<Column flex={11}>
 					<Row>
 						<Column>
 							<Text
@@ -111,14 +112,32 @@ function Confidentiality(props) {
 						</Column>
 					</Row>
 				</Column>
-				<Column flex={3}></Column>
 			</Row>
+			{!isModal && (
+				<Row style={{ paddingTop: 16 }}>
+					<Column flex={1} />
+					<Column flex={11}>
+						<Text
+							small
+							dangerouslySetInnerHTML={{
+								__html: t(
+									"shareYourRights:collaboratorModal.permissionPublicDesc",
+									{
+										name: getAccessString(data.access),
+									}
+								),
+							}}
+						/>
+					</Column>
+				</Row>
+			)}
 			{userAccess.map((item, index) => (
 				<ConfidentialityItemOnTouch
 					key={index}
 					data={item}
 					style={{ paddingTop: 24 }}
 					status={item.status}
+					isModal={isModal}
 				/>
 			))}
 		</Column>
@@ -126,11 +145,10 @@ function Confidentiality(props) {
 }
 
 function ConfidentialityItem(props) {
-	const { showButton, ...nextProp } = props
-	const data = props.props.data
-	const style = props.props.style
+	const { showButton, isModal, data, ...nextProp } = props
+	const { t } = useTranslation()
 	return (
-		<Row style={style}>
+		<Row {...nextProp}>
 			<Column flex={1} />
 			<Column flex={11}>
 				<Row>
@@ -169,23 +187,54 @@ function ConfidentialityItem(props) {
 						</Text>
 					</Column>
 				</Row>
+				{showButton && (
+					<Row style={{ paddingTop: 16 }}>
+						<Column flex={1}></Column>
+						<Column
+							flex={11}
+							style={{ justifyContent: "center", paddingLeft: 16 }}
+						>
+							<Row>
+								<Column flex={1} style={{ paddingRight: 8 }}>
+									<View>
+										<Button
+											bold
+											megaError={isModal}
+											danger={!isModal}
+											text={t("shareYourRights:collaboratorModal.refuse")}
+										/>
+									</View>
+								</Column>
+								<Column flex={1} style={{ paddingLeft: 8 }}>
+									<View>
+										<Button
+											bold
+											secondary
+											text={t("shareYourRights:collaboratorModal.accept")}
+										/>
+									</View>
+								</Column>
+							</Row>
+						</Column>
+					</Row>
+				)}
 			</Column>
 		</Row>
 	)
 }
 
 function ConfidentialityItemOnTouch(props) {
-	const { status, ...nextProp } = { props }
+	const { status, isModal, ...nextProp } = props
 
 	const [showButton, setShowButton] = useState(false)
 	return (
 		<>
-			{status === 2 && (
+			{status === 2 && !isModal && (
 				<TouchableWithoutFeedback onPress={() => setShowButton(!showButton)}>
 					<ConfidentialityItem showButton={showButton} {...nextProp} />
 				</TouchableWithoutFeedback>
 			)}
-			{status !== 2 && <ConfidentialityItem {...nextProp} />}
+			{(status !== 2 || isModal) && <ConfidentialityItem {...nextProp} />}
 		</>
 	)
 }

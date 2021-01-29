@@ -5,7 +5,6 @@ import { Column, Row } from "../../layout"
 import SplitLogo from "../../../assets/svg/split.svg"
 import ProtectionLogo from "../../../assets/svg/protection.svg"
 import DocumentLogo from "../../../assets/svg/document.svg"
-import ShareYourRights from "../../svg/share-your-rights-logo"
 import { Heading, Text } from "../../text"
 import { useTranslation } from "react-i18next"
 import { Metrics } from "../../theme"
@@ -115,34 +114,6 @@ export function DocumentYourWork() {
 						secondary
 						bold
 						text={t("general:buttons.toBegin")}
-						onClick={toNextPage}
-					/>
-				</Row>
-			</Column>
-		</Card>
-	)
-}
-
-export function SummaryProtectionWork() {
-	const { t } = useTranslation()
-	const workpieceId = useCurrentWorkpiece().id
-	const toNextPage = useNavigation(workpieceId, "summary-protection-work")
-
-	return (
-		<Card style={styles.card}>
-			<Column of="group" style={styles.innerContainer}>
-				<ShareYourRights />
-				<Column of="inside">
-					<Heading level={4}>
-						{t("workpieces:cards.shareYourRight.title")}
-					</Heading>
-					<Text tertiary>{t("workpieces:cards.shareYourRight.desc")}</Text>
-				</Column>
-				<Row style={styles.buttonContainer}>
-					<Button
-						secondary
-						bold
-						text={t("general:buttons.toConsult")}
 						onClick={toNextPage}
 					/>
 				</Row>
