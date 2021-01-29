@@ -16,6 +16,12 @@ export default class RecordingSplitState extends RightSplitState {
 	logo = CircledP
 	pageTitle = i18next.t("rightSplits:recording.title")
 
+	@computed get disabledLockButton() {
+		return (
+			this.shareholders.filter((shareholder) => shareholder.shares).length === 1
+		)
+	}
+
 	@computed get shareholdersData() {
 		return this.shareholders.map((shareholder) => {
 			let percent
@@ -29,7 +35,7 @@ export default class RecordingSplitState extends RightSplitState {
 				shares: shareholder.shares,
 				function: shareholder.function,
 				percent: percent,
-				locked: shareholder.locked || this.shareholders.length === 1,
+				locked: shareholder.locked,
 			}
 		})
 	}

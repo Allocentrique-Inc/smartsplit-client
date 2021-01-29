@@ -37,7 +37,7 @@ function StoreDump() {
 	// }, [version])
 
 	function dumpToConsole() {
-		console.log("State Store:", stores)
+		//	console.log("State Store:", stores)
 		window.stores = stores
 	}
 

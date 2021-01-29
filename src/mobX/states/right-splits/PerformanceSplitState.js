@@ -16,6 +16,9 @@ export default class PerformanceSplitState extends RightSplitState {
 	form = PerformanceForm
 	logo = CircledStar
 	pageTitle = i18next.t("rightSplits:performance.title")
+	@computed get startAngle() {
+		return this.domainState.mode === "equal" ? 0 : 216
+	}
 
 	@computed get shareholdersData() {
 		const sharesData = []
@@ -68,9 +71,12 @@ export default class PerformanceSplitState extends RightSplitState {
 	}
 
 	genChartProps() {
-		return super.genChartProps([
-			...this.domainState.majorShares,
-			...this.domainState.minorShares,
-		])
+		return {
+			...super.genChartProps([
+				...this.domainState.majorShares,
+				...this.domainState.minorShares,
+			]),
+			startAngle: this.startAngle,
+		}
 	}
 }

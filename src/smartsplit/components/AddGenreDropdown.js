@@ -30,6 +30,7 @@ class AddGenreDropdown extends React.PureComponent {
 	}
 	constructor(props) {
 		super(props)
+		console.log(props)
 		this.state = {
 			searchText: "",
 			value: props.field.value || null,

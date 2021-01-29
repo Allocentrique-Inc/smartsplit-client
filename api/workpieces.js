@@ -1,5 +1,5 @@
 import { client, createCrudClient } from "./api-client"
-import { action, runInAction } from "mobx"
+import { runInAction } from "mobx"
 import { API_BASE_URL } from "../config"
 
 export default createCrudClient("/workpieces")
@@ -55,7 +55,7 @@ export async function saveDocumentation(workpieceId, section, data) {
 	if (section) {
 		url += `/${section}`
 	}
-	console.log(`API patch to save documentation is "${url}"`)
+	// console.log(`API patch to save documentation is "${url}"`)
 	return await client.request({
 		method: "patch",
 		url: url,
@@ -68,7 +68,7 @@ export async function getDocumentation(workpieceId, section) {
 	if (section) {
 		url += `/${section}`
 	}
-	console.log(`API patch to get documentation is "${url}"`)
+	// console.log(`API patch to get documentation is "${url}"`)
 	return await client.request({
 		method: "get",
 		url: url,
@@ -83,7 +83,7 @@ export async function saveProtection(workpieceId, section, data) {
 	var bodyFormData = new FormData()
 	bodyFormData.append("file", data.file)
 
-	console.log(`API patch to save documentation is "${url}"`)
+	// console.log(`API patch to save documentation is "${url}"`)
 	return await client.request({
 		method: "patch",
 		url: url,
@@ -96,7 +96,7 @@ export async function getProtection(workpieceId, section) {
 	if (section) {
 		url += `/${section}`
 	}
-	console.log(`API patch to get protect is "${url}"`)
+	// console.log(`API patch to get protect is "${url}"`)
 	return await client.request({
 		method: "get",
 		url: url,
@@ -155,7 +155,7 @@ export async function uploadDocFile(
 		// open request
 		xhr.open(
 			"POST",
-			`${API_BASE_URL}/workpieces/${workpieceId}/documentation/files/`
+			`${API_BASE_URL}/workpieces/${workpieceId}/documentation/files/${type}/`
 		)
 
 		xhr.setRequestHeader(
@@ -167,7 +167,6 @@ export async function uploadDocFile(
 		const formData = new FormData()
 		formData.append("file", file.file, file.file.name)
 		formData.append("visibility", visibility)
-		formData.append("type", type)
 
 		// send request
 		xhr.send(formData)

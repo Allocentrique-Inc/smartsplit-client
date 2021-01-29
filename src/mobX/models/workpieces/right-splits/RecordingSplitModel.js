@@ -17,6 +17,8 @@ export default class RecordingSplitModel extends RightSplitModel {
 		"studio",
 		"illustratorDesigner",
 	]
+
+	type = "recording"
 	@observable mode = "equal"
 	@action setShareFunction(id, value) {
 		this.updateShareField(id, "function", value)

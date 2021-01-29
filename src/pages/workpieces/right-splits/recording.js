@@ -6,14 +6,12 @@ import { Colors, Metrics } from "../../../theme"
 import { RadioGroup, RadioGroupButton, Select } from "../../../forms"
 import ShareCard from "../../../smartsplit/components/share-card"
 import AddCollaboratorDropdown from "../../../smartsplit/components/AddCollaboratorDropdown"
-import { View, TouchableWithoutFeedback } from "react-native"
+import { View } from "react-native"
 import SplitChart from "../../../smartsplit/components/split-chart"
 import CircledP from "../../../svg/circled-p"
-import Lock from "../../../svg/lock"
-import Unlock from "../../../svg/unlock"
 import { Observer, observer } from "mobx-react"
-
 import Slider from "../../../widgets/slider"
+import LockButton from "../../../widgets/lock-button"
 import { PercentageInput } from "../../../forms/percentage"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
@@ -48,29 +46,30 @@ const RecordingForm = observer(() => {
 		})
 	}
 
-	const LockButton = observer(({ id, locked }) => (
-		<TouchableWithoutFeedback onPress={() => domainState.toggleShareLock(id)}>
-			<View>{locked ? <Lock /> : <Unlock />}</View>
-		</TouchableWithoutFeedback>
-	))
-
-	const ShareCardView = observer(({ share }) => (
+	const ShareCardView = observer(({ shareholder }) => (
 		<ShareCard
-			shareholderId={share.id}
-			color={splitState.shareholderColors.get(share.id)}
-			sharePercent={share.percent}
-			onClose={() => domainState.removeShareholder(share.id)}
+			shareholderId={shareholder.id}
+			color={splitState.shareholderColors.get(shareholder.id)}
+			sharePercent={shareholder.percent}
+			onClose={() => domainState.removeShareholder(shareholder.id)}
 			bottomAction={
 				domainState.mode === "manual" ? (
-					<LockButton id={share.id} locked={share.locked} />
+					<LockButton
+						id={shareholder.id}
+						locked={shareholder.locked}
+						disabled={splitState.disabledLockButton}
+						onClick={() => domainState.toggleShareLock(shareholder.id)}
+					/>
 				) : null
 			}
 		>
 			<Select
 				placeholder={t("function")}
 				options={genSelectOptions()}
-				value={share.function}
-				onChange={(value) => domainState.setShareFunction(share.id, value)}
+				value={shareholder.function}
+				onChange={(value) =>
+					domainState.setShareFunction(shareholder.id, value)
+				}
 				style={styles.selectFrame}
 			/>
 			<Row of="component" valign="center">
@@ -81,20 +80,20 @@ const RecordingForm = observer(() => {
 								<Slider
 									min={0}
 									max={shareTotal}
-									color={splitState.shareholderColors.get(share.id)}
+									color={splitState.shareholderColors.get(shareholder.id)}
 									step={0.01}
-									value={share.shares}
-									disabled={share.locked}
+									value={shareholder.shares}
+									disabled={shareholder.locked}
 									onChange={(value) =>
-										domainState.updateSharesProRata(share.id, value)
+										domainState.updateSharesProRata(shareholder.id, value)
 									}
 								/>
 								<PercentageInput
-									value={share.percent}
+									value={shareholder.percent}
 									digits={2}
 									onChange={(percentage) =>
 										domainState.updateSharesProRata(
-											share.id,
+											shareholder.id,
 											(percentage * shareTotal) / 100
 										)
 									}
@@ -106,12 +105,12 @@ const RecordingForm = observer(() => {
 				{domainState.mode !== "manual" && (
 					<>
 						<ProgressBar
-							progress={share.percent}
+							progress={shareholder.percent}
 							size="xsmall"
 							style={{ flex: 1 }}
-							color={splitState.shareholderColors.get(share.id)}
+							color={splitState.shareholderColors.get(shareholder.id)}
 						/>
-						<Text bold>{formatPercentage(share.percent)}</Text>
+						<Text bold>{formatPercentage(shareholder.percent)}</Text>
 					</>
 				)}
 			</Row>
@@ -148,8 +147,8 @@ const RecordingForm = observer(() => {
 						</Column>
 					</RadioGroup>
 					<Column of="component">
-						{shareholdersData.map((share) => (
-							<ShareCardView share={share} key={share.id} />
+						{shareholdersData.map((shareholder) => (
+							<ShareCardView shareholder={shareholder} key={shareholder.id} />
 						))}
 						<AddCollaboratorDropdown
 							onSelect={(user) => domainState.addShareholder(user.user_id)}

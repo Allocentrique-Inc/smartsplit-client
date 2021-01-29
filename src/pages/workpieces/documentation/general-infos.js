@@ -153,6 +153,7 @@ export const GeneralInfosForm = observer((props) => {
 				<Spacer of="group" />
 
 				<Row of="component">
+					{console.log(model.toJS())}
 					<TextField field={model.length} />
 					<TextField field={model.BPM} />
 				</Row>

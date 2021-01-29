@@ -37,7 +37,7 @@ import SummaryProtectionWorkPage from "./summary-protection-work"
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
 	const workpiece = useStorePath("workpieces").fetch(match.params.workpiece_id)
-	console.log("WORKPIECE INDEX", workpiece)
+	//	console.log("WORKPIECE INDEX", workpiece)
 
 	return (
 		<WorkpieceContext.Provider value={workpiece}>

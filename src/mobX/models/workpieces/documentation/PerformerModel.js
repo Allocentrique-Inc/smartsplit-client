@@ -3,14 +3,19 @@ import BaseModel, {
 	Field,
 	ModelCollection,
 } from "../../../BaseModel"
-import { observable, action, computed } from "mobx"
 import PlayerInstrumentModel from "./PlayerInstrumentModel"
 const makeObservable = () => {}
 export const PerformerType = {
+	principal: "principal",
+	featured: "featured",
+	bandMember: "bandMember",
+	session: "session",
+}
+export const PerformerTypeForDocs = {
 	mainArtist: "mainArtist",
 	featured: "featured",
 	groupMember: "groupMember",
-	session: "backupArtist",
+	session: "session",
 }
 export default class PerformerModel extends BaseModel {
 	constructor(parent) {
