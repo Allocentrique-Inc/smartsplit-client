@@ -9,6 +9,7 @@ import ItemVersionDetailOnTouch from "./item-version-detail"
 import SplitChart from "../../../../smartsplit/components/split-chart"
 import { useRightSplits } from "../../../../mobX/hooks"
 import { useCurrentWorkpieceId } from "../../context"
+import { useStores } from "../../../../mobX"
 
 const Styles = StyleSheet.create({
 	highlightWord: {
@@ -35,16 +36,24 @@ function SectionCollaborator(props) {
 		canModify,
 		title,
 		data,
+		chart,
 		...nextProps
 	} = props
-	console.log(splitState.genChartProps)
-	console.log(typeof splitState.shareholders)
+	const { collaborators } = useStores()
+	let shares = toJS(splitState.shareholdersData)
+	shares = shares.map((share) => ({
+		...share,
+		user: toJS(collaborators.map[share.id]),
+	}))
+	console.log(shares)
 	if (!splitState || !splitState.shareholders.filter) return null
-	const domainState = splitState.domainState
-	console.log(splitState.genChartProps())
+
 	const [styles, setStyles] = useState({})
 	useEffect(() => {
-		const chartStyles = splitState.getStyles(1024)
+		let chartStyles = splitState.getStyles(1024)
+		chartStyles.chart.position = "relative"
+		chartStyles.chart.justifyContent = "center"
+		chartStyles.chart.alignItems = "center"
 		console.log(chartStyles)
 		setStyles(chartStyles)
 	}, [])
@@ -86,9 +95,7 @@ function SectionCollaborator(props) {
 					))}
 				</Column>
 				<Column flex={1}>
-					<View style={styles.chart}>
-						{/*<SplitChart {...splitState.genChartProps(domainState.mode)} />*/}
-					</View>
+					<View style={styles.chart}>{chart}</View>
 				</Column>
 			</Row>
 		</Column>

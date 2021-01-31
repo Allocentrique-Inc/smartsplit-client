@@ -13,6 +13,9 @@ import Confidentiality from "./confidentiality"
 import { useRightSplits } from "../../../../mobX/hooks"
 import { useCurrentWorkpieceId } from "../../context"
 import { observer } from "mobx-react"
+import SplitChart, {
+	DualSplitChart,
+} from "../../../../smartsplit/components/split-chart"
 
 const Styles = StyleSheet.create({
 	highlightWord: {
@@ -90,6 +93,23 @@ const CollaboratorModal = observer((props) => {
 							<SectionCollaborator
 								title={t("shareYourRights:collaboratorModal.copyright")}
 								splitState={rightSplits.copyright}
+								chart={
+									rightSplits.copyright.domainState.mode === "roles" ? (
+										<DualSplitChart
+											{...rightSplits.copyright.genChartProps(
+												rightSplits.copyright.domainState.mode
+											)}
+											size={300}
+										/>
+									) : (
+										<SplitChart
+											{...rightSplits.copyright.genChartProps(
+												rightSplits.copyright.domainState.mode
+											)}
+											size={300}
+										/>
+									)
+								}
 								data={copyright}
 								canModify
 								isModal
@@ -99,6 +119,13 @@ const CollaboratorModal = observer((props) => {
 							<SectionCollaborator
 								title={t("shareYourRights:collaboratorModal.interpretation")}
 								splitState={rightSplits.performance}
+								chart={
+									<SplitChart
+										{...rightSplits.performance.genChartProps()}
+										startAngle={rightSplits.performance.startAngle}
+										size={300}
+									/>
+								}
 								style={Styles.section}
 								data={interpretation}
 								canModify
@@ -111,6 +138,12 @@ const CollaboratorModal = observer((props) => {
 								splitState={rightSplits.recording}
 								style={Styles.section}
 								data={soundRecording}
+								chart={
+									<SplitChart
+										{...rightSplits.recording.genChartProps()}
+										size={300}
+									/>
+								}
 								canModify
 								isModal
 							/>
