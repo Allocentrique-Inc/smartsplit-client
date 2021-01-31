@@ -80,12 +80,12 @@ const ReleaseForm = observer((props) => {
 				/>
 				<Select
 					label={t("document:release.format")}
-					placeholder=""
+					placeholder={model.format.value}
 					tooltip=""
 					options={[
 						{ key: "EP", value: "EP" },
 						{ key: "LP", value: "LP" },
-						{ key: "Double Album", value: "Double" },
+						{ key: "Double LP", value: "Double LP" },
 						{ key: "Single", value: "Single" },
 					]}
 					onChange={(v) => {
@@ -96,14 +96,22 @@ const ReleaseForm = observer((props) => {
 				{showEP && <EP />}
 				<CheckBoxGroup label={t("document:release.supports.support")}>
 					<CheckBox
-						onChange={setShowDigitalOptions}
-						checked={showDigitalOptions}
+						onChange={(v) => {
+							model.isDigital.setValue(v)
+						}}
+						checked={model.isDigital.value}
 						label={t("document:release.supports.digital")}
 					/>
 				</CheckBoxGroup>
-				{showDigitalOptions && <DigitalOptions />}
+				{model.isDigital.value && <DigitalOptions />}
 
-				<CheckBox label={t("document:release.supports.physical")} />
+				<CheckBox
+					label={t("document:release.supports.physical")}
+					checked={model.isPhysical.value}
+					onChange={(v) => {
+						model.isPhysical.setValue(v)
+					}}
+				/>
 			</Column>
 			<Flex />
 			<Column of="group" flex={4}>
