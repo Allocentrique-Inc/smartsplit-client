@@ -10,6 +10,9 @@ import ModifierSVG from "../../../../svg/modify-svg"
 import ItemVersionDetail from "./item-version-detail"
 import SectionCollaborator from "./section-collaborators"
 import Confidentiality from "./confidentiality"
+import { useRightSplits } from "../../../../mobX/hooks"
+import { useCurrentWorkpieceId } from "../../context"
+import { observer } from "mobx-react"
 
 const Styles = StyleSheet.create({
 	highlightWord: {
@@ -31,7 +34,8 @@ const roles = [
 	{ id: 3, name: "Arrangeur" },
 ]
 
-function CollaboratorModal(props) {
+const CollaboratorModal = observer((props) => {
+	const rightSplits = useRightSplits(useCurrentWorkpieceId())
 	const { t } = useTranslation()
 	const { visible, onRequestClose, data } = props
 	console.log("data", data)
@@ -46,7 +50,7 @@ function CollaboratorModal(props) {
 	return (
 		<DialogModal
 			key="collaborator-modal"
-			size="medium"
+			size="large"
 			visible={visible}
 			onRequestClose={onRequestClose}
 			title={t("shareYourRights:tabBar.version", { num: data.version || "" })}
@@ -85,6 +89,7 @@ function CollaboratorModal(props) {
 						{data && data.copyright && (
 							<SectionCollaborator
 								title={t("shareYourRights:collaboratorModal.copyright")}
+								splitState={rightSplits.copyright}
 								data={copyright}
 								canModify
 								isModal
@@ -93,6 +98,7 @@ function CollaboratorModal(props) {
 						{data && data.interpretation && (
 							<SectionCollaborator
 								title={t("shareYourRights:collaboratorModal.interpretation")}
+								splitState={rightSplits.performance}
 								style={Styles.section}
 								data={interpretation}
 								canModify
@@ -102,6 +108,7 @@ function CollaboratorModal(props) {
 						{data && data.soundRecording && (
 							<SectionCollaborator
 								title={t("shareYourRights:collaboratorModal.soundRecording")}
+								splitState={rightSplits.recording}
 								style={Styles.section}
 								data={soundRecording}
 								canModify
@@ -121,5 +128,5 @@ function CollaboratorModal(props) {
 			</Group>
 		</DialogModal>
 	)
-}
+})
 export default CollaboratorModal

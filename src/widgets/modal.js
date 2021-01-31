@@ -42,6 +42,12 @@ export const ModalStyles = StyleSheet.create({
 		borderRadius: Metrics.borderRadius.modals,
 		maxHeight: "90%",
 	},
+	large: {
+		maxWidth: 1024,
+		minWidth: 624,
+		borderRadius: Metrics.borderRadius.modals,
+		maxHeight: "90%",
+	},
 
 	header: {
 		height: Metrics.size.xlarge,
@@ -96,6 +102,7 @@ export class Modal extends React.PureComponent {
 export const DialogModal = observer((props) => {
 	const {
 		title,
+		size,
 		underTitle,
 		titleLevel,
 		buttons,
@@ -105,8 +112,8 @@ export const DialogModal = observer((props) => {
 	} = props
 
 	return (
-		<Modal {...nextProps}>
-			<Column style={{ maxWidth: MODAL_WIDTH, flex: 1 }}>
+		<Modal size={size} {...nextProps}>
+			<Column style={{ maxWidth: ModalStyles[size].maxWidth, flex: 1 }}>
 				<Row
 					of="component"
 					layer="overground_moderate"
