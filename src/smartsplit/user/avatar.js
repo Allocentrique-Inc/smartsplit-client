@@ -26,8 +26,8 @@ export default function UserAvatar({
 		} else if (!initials && user.firstName) {
 			//console.dir(toJS(user))
 			initials =
-				user.firstName.toUpperCase().charAt(0) +
-				user.lastName.toUpperCase().charAt(0)
+				(user.firstName ? user.firstName.toUpperCase().charAt(0) : "") +
+				(user.lastName?.user.lastName.toUpperCase().charAt(0): "")
 		}
 	}
 
