@@ -461,6 +461,11 @@ export const workpieces = {
 			desc:
 				"Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
 		},
+		shareYourRight: {
+			title: "Partage tes droits",
+			desc:
+				"Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
+		},
 		protectYourWork: {
 			title: "Protège ton œuvre",
 			desc:
@@ -502,6 +507,62 @@ export const identity = {
 			avec {workpiece}.
 		</>
 	),
+}
+
+export const shareYourRights = {
+	sharingRights: "Partage des droits",
+	updateBy:
+		"Créé par <span style='color:#2DA84F; font-weight: bold;'>{{name}}</span> · Mis à jour {{hour}}",
+	summarySharing: "Résumé du partage",
+	tabBar: {
+		version: "Version {{num}}",
+		sendToEditor: "Envoyer à l'éditeur",
+		myManager: {
+			title: "Mon manager",
+		},
+		myCollaborators: {
+			title: "Mes collaborateurs",
+			sendToCollaborators: "Envoyer aux collaborateurs",
+		},
+		myEditor: {
+			title: "Mon éditeur",
+			why: "Pourquoi faire affaire avec un éditeur?",
+			whyContent: "Un éditeur sert à explication explication explication.",
+			addEditor: "Ajouter un éditeur",
+		},
+		dragDrop: {
+			waitingToSend: "En attente d’envoi",
+			awaitingDecision: "En attente de décision",
+			decided: "Décidées",
+			createNewversion: "Créer une nouvelle version",
+			deleteThisVersion: "Supprimer cette version",
+		},
+	},
+	collaboratorModal: {
+		underTitle:
+			"Créée par <span style='color:#2DA84F; font-weight: bold;'>{{name}}</span> {{time}}",
+		copyright: "Droits d'auteur",
+		interpretation: "Interprétation",
+		soundRecording: "Enregistrement sonore",
+		edit: "Modifier",
+		access:
+			"Partage des droits <span style='font-weight: bold'>{{access}}</span>",
+		permissionAccess: "{{name}} veut rendre ce partage des droits {{access}}",
+		permissionPublicDesc:
+			"{{name}} encourages the transparency of information on these rights sharing, so that the whole community can benefit from good examples.",
+		confidentiality: "Confidentialité",
+		refuse: "Refuser",
+		accept: "Accepter",
+		approved: "Approuvé",
+	},
+	sendCollaboratorModal: {
+		title: "Envoyer le partage des droits",
+		desc:
+			"Pour finaliser ce partage, tu dois inviter ses collaborateurs à valider le tout. Indique les adresses courriels auxquelles envoyer ta proposition de partage.",
+		enterEmailAddress: "Entrer l'adresse courriel...",
+		toSend: "Envoyer",
+		toCancel: "Annuler",
+	},
 }
 
 export const rightSplits = {

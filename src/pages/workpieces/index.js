@@ -22,11 +22,19 @@ import { useTranslation } from "react-i18next"
 import { Tab, TabBar } from "../../widgets/tabs"
 import UserAvatar from "../../smartsplit/user/avatar"
 import ChevronDown from "../../svg/chevron-down"
-import { DocumentYourWork, ProtectYourWork, ShareYourCopyright } from "./cards"
+import {
+	DocumentYourWork,
+	ProtectYourWork,
+	ShareYourCopyright,
+	SummaryProtectionWork,
+} from "./cards"
 import WorkpieceSheet from "./workpiece-summary/workpiece-sheet"
 import { useStorePath, useStores } from "../../mobX"
 import { observer } from "mobx-react"
 import DocumentationPage from "./documentation"
+import SummaryProtectionWorkPage from "./summary-protection-work"
+import SummaryPage from "./right-splits/send"
+import PrivacyPage from "./right-splits/privacy"
 
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
@@ -47,8 +55,10 @@ const WorkpiecesRouter = observer(() => {
 						"/workpieces/:workpiece_id/right-splits/:split_type",
 						"/workpieces/:workpiece_id/right-splits",
 					]}
+					// component={RightSplitsPage}  ----- component of Francois-Xavier Dueymes
 					component={RightSplitsPage}
 				/>
+
 				<Route
 					path={[
 						"/workpieces/:workpiece_id/documentation/:type",
