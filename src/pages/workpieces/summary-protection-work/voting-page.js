@@ -9,6 +9,11 @@ import { Heading, Text } from "../../../text"
 import SectionCollaborator from "./modal/section-collaborators"
 import { shareInfo } from "."
 import Confidentiality from "./modal/confidentiality"
+import SplitChart, {
+	DualSplitChart,
+} from "../../../smartsplit/components/split-chart"
+import { useRightSplits } from "../../../mobX/hooks"
+import { useCurrentWorkpieceId } from "../context"
 
 const Styles = StyleSheet.create({
 	layout: { paddingHorizontal: "17%" },
@@ -33,6 +38,8 @@ const Styles = StyleSheet.create({
 const VotingPage = observer((props) => {
 	const { t } = useTranslation()
 	const data = shareInfo
+	const rightSplits = useRightSplits(useCurrentWorkpieceId())
+
 	return (
 		<Column flex={1}>
 			<Scrollable>
@@ -65,27 +72,56 @@ const VotingPage = observer((props) => {
 						</Column>
 					</Row>
 					<Row style={Styles.voteView}>
-						<Column flex={1}>
-							<Flex>
-								<SectionCollaborator
-									title={t("shareYourRights:collaboratorModal.copyright")}
-									data={data.columns.waitingToSend[0].copyright}
-								/>
-								<SectionCollaborator
-									title={t("shareYourRights:collaboratorModal.copyright")}
-									data={data.columns.waitingToSend[0].interpretation}
-								/>
-								<SectionCollaborator
-									title={t("shareYourRights:collaboratorModal.copyright")}
-									data={data.columns.waitingToSend[0].soundRecording}
-								/>
-								<Confidentiality
-									data={data.columns.waitingToSend[0].confidentiality}
-									style={Styles.section}
-								/>
-							</Flex>
-						</Column>
-						<Column flex={1}></Column>
+						<Flex>
+							<SectionCollaborator
+								title={t("shareYourRights:collaboratorModal.copyright")}
+								data={data.columns.waitingToSend[0].copyright}
+								splitState={rightSplits.copyright}
+								chart={
+									rightSplits.copyright.domainState.mode === "roles" ? (
+										<DualSplitChart
+											{...rightSplits.copyright.genChartProps(
+												rightSplits.copyright.domainState.mode
+											)}
+											size={300}
+										/>
+									) : (
+										<SplitChart
+											{...rightSplits.copyright.genChartProps(
+												rightSplits.copyright.domainState.mode
+											)}
+											size={300}
+										/>
+									)
+								}
+							/>
+							<SectionCollaborator
+								title={t("shareYourRights:collaboratorModal.copyright")}
+								data={data.columns.waitingToSend[0].interpretation}
+								splitState={rightSplits.performance}
+								chart={
+									<SplitChart
+										{...rightSplits.performance.genChartProps()}
+										startAngle={rightSplits.performance.startAngle}
+										size={300}
+									/>
+								}
+							/>
+							<SectionCollaborator
+								title={t("shareYourRights:collaboratorModal.copyright")}
+								data={data.columns.waitingToSend[0].soundRecording}
+								chart={
+									<SplitChart
+										{...rightSplits.recording.genChartProps()}
+										size={300}
+									/>
+								}
+							/>
+							<Confidentiality
+								data={data.columns.waitingToSend[0].confidentiality}
+								style={Styles.section}
+							/>
+						</Flex>
 					</Row>
 				</Column>
 			</Scrollable>

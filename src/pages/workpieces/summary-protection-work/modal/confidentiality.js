@@ -31,11 +31,6 @@ const Styles = StyleSheet.create({
 		right: 0,
 		zIndex: 1,
 	},
-	questionMark: {
-		":hover": {
-			display: "block",
-		},
-	},
 })
 
 const getAccessString = (accessNum) => {
@@ -49,101 +44,104 @@ function Confidentiality(props) {
 	const userAccess = Array.from(data.userAccess || [])
 	const [tooltip1, setTooltip1] = useState(false)
 	return (
-		<Column {...nextProp}>
-			<Row style={Styles.part}>
-				<Column flex={10}>
-					<Heading level={5}>
-						{t("shareYourRights:collaboratorModal.confidentiality")}
-					</Heading>
-				</Column>
-				{canModify && (
-					<Column flex={2}>
-						<View>
-							<TouchableWithoutFeedback>
-								<View style={Styles.modifyBtn}>
-									<Row>
-										<Column
-											flex={1}
-											style={{
-												alignItems: "center",
-												justifyContent: "center",
-											}}
-										>
-											<ModifierSVG />
-										</Column>
-										<Column flex={3} style={{ alignItems: "center" }}>
-											<Text small bold action>
-												{t("shareYourRights:collaboratorModal.edit")}
-											</Text>
-										</Column>
-									</Row>
-								</View>
-							</TouchableWithoutFeedback>
-						</View>
+		<Row {...nextProp}>
+			<Column flex={1}>
+				<Row style={Styles.part}>
+					<Column flex={10}>
+						<Heading level={5}>
+							{t("shareYourRights:collaboratorModal.confidentiality")}
+						</Heading>
 					</Column>
-				)}
-			</Row>
-			<Row>
-				<Column flex={1}>
-					<EyeIcon />
-				</Column>
-				<Column flex={11}>
-					<Row>
-						<Column>
-							<Text
-								dangerouslySetInnerHTML={{
-									__html: t("shareYourRights:collaboratorModal.access", {
-										access: getAccessString(data.access),
-									}),
-								}}
-							/>
-						</Column>
-						<Column
-							style={{
-								alignItems: "center",
-								justifyContent: "center",
-								marginLeft: 6,
-							}}
-						>
+					{canModify && (
+						<Column flex={2}>
 							<View>
 								<TouchableWithoutFeedback>
-									<View style={Styles.questionMark}>
-										<QuestionMark />
+									<View style={Styles.modifyBtn}>
+										<Row>
+											<Column
+												flex={1}
+												style={{
+													alignItems: "center",
+													justifyContent: "center",
+												}}
+											>
+												<ModifierSVG />
+											</Column>
+											<Column flex={3} style={{ alignItems: "center" }}>
+												<Text small bold action>
+													{t("shareYourRights:collaboratorModal.edit")}
+												</Text>
+											</Column>
+										</Row>
 									</View>
 								</TouchableWithoutFeedback>
 							</View>
 						</Column>
-					</Row>
-				</Column>
-			</Row>
-			{!isModal && (
-				<Row style={{ paddingTop: 16 }}>
-					<Column flex={1} />
+					)}
+				</Row>
+				<Row>
+					<Column flex={1}>
+						<EyeIcon />
+					</Column>
 					<Column flex={11}>
-						<Text
-							small
-							dangerouslySetInnerHTML={{
-								__html: t(
-									"shareYourRights:collaboratorModal.permissionPublicDesc",
-									{
-										name: getAccessString(data.access),
-									}
-								),
-							}}
-						/>
+						<Row>
+							<Column>
+								<Text
+									dangerouslySetInnerHTML={{
+										__html: t("shareYourRights:collaboratorModal.access", {
+											access: getAccessString(data.access),
+										}),
+									}}
+								/>
+							</Column>
+							<Column
+								style={{
+									alignItems: "center",
+									justifyContent: "center",
+									marginLeft: 6,
+								}}
+							>
+								<View>
+									<TouchableWithoutFeedback>
+										<View>
+											<QuestionMark />
+										</View>
+									</TouchableWithoutFeedback>
+								</View>
+							</Column>
+						</Row>
 					</Column>
 				</Row>
-			)}
-			{userAccess.map((item, index) => (
-				<ConfidentialityItemOnTouch
-					key={index}
-					data={item}
-					style={{ paddingTop: 24 }}
-					status={item.status}
-					isModal={isModal}
-				/>
-			))}
-		</Column>
+				{!isModal && (
+					<Row style={{ paddingTop: 16 }}>
+						<Column flex={1} />
+						<Column flex={11}>
+							<Text
+								small
+								dangerouslySetInnerHTML={{
+									__html: t(
+										"shareYourRights:collaboratorModal.permissionPublicDesc",
+										{
+											name: getAccessString(data.access),
+										}
+									),
+								}}
+							/>
+						</Column>
+					</Row>
+				)}
+				{userAccess.map((item, index) => (
+					<ConfidentialityItemOnTouch
+						key={index}
+						data={item}
+						style={{ paddingTop: 24 }}
+						status={item.status}
+						isModal={isModal}
+					/>
+				))}
+			</Column>
+			<Column flex={1} />
+		</Row>
 	)
 }
 

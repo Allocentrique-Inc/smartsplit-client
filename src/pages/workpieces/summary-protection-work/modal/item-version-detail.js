@@ -1,11 +1,17 @@
 import React, { useState } from "react"
 import { observer } from "mobx-react"
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
+import {
+	StyleSheet,
+	TextInput,
+	TouchableWithoutFeedback,
+	View,
+} from "react-native"
 import { Column, Flex, Hairline, Row } from "../../../../layout"
 import UserAvatar from "../../../../smartsplit/user/avatar"
 import { Text } from "../../../../text"
 import Button from "../../../../widgets/button"
 import { useTranslation } from "react-i18next"
+import { TextField } from "../../../../forms"
 
 export const getStatusString = (status) => {
 	const { t } = useTranslation()
@@ -18,83 +24,103 @@ export const getStatusString = (status) => {
 		: ""
 }
 
-const Styles = StyleSheet.create({})
+const Styles = StyleSheet.create({
+	textAreaContainer: {
+		borderColor: "#DCDFE1",
+		borderWidth: 1,
+		padding: 8,
+		borderRadius: 2,
+		borderStyle: "solid",
+	},
+	textArea: {
+		height: 72,
+		justifyContent: "flex-start",
+	},
+	title: {
+		fontSize: 24,
+		margin: 10,
+	},
+})
+
+const chart_wh = 250
+const series = [123, 321, 123, 789, 537]
+const sliceColor = ["#F44336", "#2196F3", "#FFEB3B", "#4CAF50", "#FF9800"]
 
 const ItemVersionDetail = observer((props) => {
-<<<<<<< HEAD
-	const { isModal, showButton, secondaryPercent, data, ...nextProps } = props
-=======
-	const { showButton, boldPercent, data, ...nextProps } = props
->>>>>>> dev
-	const [status, setStatus] = useState(
-		data ? (data.status ? getStatusString(data.status) : "") : ""
-	)
+	const { status, isModal, secondaryPercent, data, ...nextProps } = props
+
 	const { t } = useTranslation()
+	const [showButton, setShowButton] = useState(false)
 	return (
 		<Row {...nextProps}>
 			<Flex>
 				<Column>
 					<Hairline />
 					<Row style={{ paddingTop: 16 }}>
-						<Column flex={2}>
-							<UserAvatar picture={data ? (data.uri ? data.uri : "") : ""} />
-						</Column>
-						<Column flex={7}>
-							<Row>
-								<Text>{data ? (data.name ? data.name : "") : ""}</Text>
-							</Row>
-							{data && data.role && (
-								<Row>
-									<Text small secondary>
-										{data ? (data.role ? data.role : "") : ""}
-									</Text>
-								</Row>
-							)}
-						</Column>
-						<Column flex={3} style={{ alignItems: "flex-end" }}>
-							{data && data.percent && (
-								<Row>
-<<<<<<< HEAD
-									<Text bold secondary={secondaryPercent && !isModal}>
-=======
-									<Text bold={boldPercent}>
->>>>>>> dev
-										{data ? (data.percent ? data.percent : "") : ""}%
-									</Text>
-								</Row>
-							)}
-							<Row>
-								<Text
-									small
-									action={data && data.status && data.status === 1}
-									bold={data && data.status && data.status === 1}
-									secondary={data && data.status && data.status === 2}
+						<Column flex={1}>
+							{!isModal && status === 2 && (
+								<TouchableWithoutFeedback
+									onPress={() => setShowButton(!showButton)}
 								>
-									{status}
-								</Text>
-							</Row>
+									<View>
+										<RowViewItem
+											isModal={isModal}
+											secondaryPercent={!showButton}
+											data={data}
+										/>
+									</View>
+								</TouchableWithoutFeedback>
+							)}
+							{(isModal || status !== 2) && (
+								<RowViewItem
+									isModal={isModal}
+									secondaryPercent={!showButton}
+									data={data}
+								/>
+							)}
 						</Column>
 					</Row>
 					{showButton && (
 						<Row style={{ paddingTop: 16 }}>
-							<Column flex={2}></Column>
-							<Column flex={5} style={{ paddingRight: 8 }}>
-								<View>
-									<Button
-										bold
-										danger
-										text={t("shareYourRights:collaboratorModal.refuse")}
-									/>
-								</View>
-							</Column>
-							<Column flex={5} style={{ paddingLeft: 8 }}>
-								<View>
-									<Button
-										bold
-										secondary
-										text={t("shareYourRights:collaboratorModal.accept")}
-									/>
-								</View>
+							<Column flex={1}>
+								<Row>
+									<Column flex={2} />
+									<Column flex={5} style={{ paddingRight: 8 }}>
+										<View>
+											<Button
+												bold
+												danger
+												text={t("shareYourRights:collaboratorModal.refuse")}
+											/>
+										</View>
+									</Column>
+									<Column flex={5} style={{ paddingLeft: 8 }}>
+										<View>
+											<Button
+												bold
+												secondary
+												text={t("shareYourRights:collaboratorModal.accept")}
+											/>
+										</View>
+									</Column>
+								</Row>
+								<Row style={{ paddingTop: 16 }}>
+									<Column flex={2} />
+									<Column flex={10}>
+										<View style={Styles.textAreaContainer}>
+											<TextInput
+												style={Styles.textArea}
+												underlineColorAndroid="transparent"
+												placeholder={t(
+													"shareYourRights:votingPage.explainReason"
+												)}
+												placeholderTextColor="#8DA0B2"
+												numberOfLines={10}
+												multiline={true}
+											/>
+										</View>
+									</Column>
+								</Row>
 							</Column>
 						</Row>
 					)}
@@ -104,27 +130,76 @@ const ItemVersionDetail = observer((props) => {
 	)
 })
 
+function RowViewItem(props) {
+	const { secondaryPercent, isModal, data } = props
+	const [status, setStatus] = useState(
+		data ? (data.status ? getStatusString(data.status) : "") : ""
+	)
+	return (
+		<Row>
+			<Column flex={2} style={{ justifyContent: "center" }}>
+				<UserAvatar
+					size="small"
+					picture={data ? (data.uri ? data.uri : "") : ""}
+				/>
+			</Column>
+			<Column flex={7}>
+				<Row>
+					<Text>{data ? (data.name ? data.name : "") : ""}</Text>
+				</Row>
+				{data && data.role && (
+					<Row>
+						<Text small secondary>
+							{data ? (data.role ? data.role : "") : ""}
+						</Text>
+					</Row>
+				)}
+			</Column>
+			<Column flex={3} style={{ alignItems: "flex-end" }}>
+				{data && data.percent && (
+					<Row>
+						<Text bold secondary={secondaryPercent && !isModal}>
+							{data ? (data.percent ? data.percent : "") : ""}%
+						</Text>
+					</Row>
+				)}
+				<Row>
+					<Text
+						small
+						action={data && data.status && data.status === 1}
+						bold={data && data.status && data.status === 1}
+						secondary={data && data.status && data.status === 2}
+					>
+						{status}
+					</Text>
+				</Row>
+			</Column>
+		</Row>
+	)
+}
+
 function ItemVersionDetailOnTouch(props) {
 	const { isModal, status, ...nextProps } = props
 	const [showButton, setShowButton] = useState(false)
 	return (
 		<>
 			{status === 2 && !isModal && (
-				<TouchableWithoutFeedback
-					onPress={() => {
-						setShowButton(!showButton)
-					}}
-				>
-					<ItemVersionDetail
-						isModal={isModal}
-						{...nextProps}
-						showButton={showButton}
-						secondaryPercent={!showButton}
-					/>
-				</TouchableWithoutFeedback>
+				// <TouchableWithoutFeedback
+				// 	onPress={() => {
+				// 		setShowButton(!showButton)
+				// 	}}
+				// >
+				<ItemVersionDetail
+					status={status}
+					isModal={isModal}
+					{...nextProps}
+					showButton={showButton}
+					secondaryPercent={!showButton}
+				/>
+				// </TouchableWithoutFeedback>
 			)}
 			{(status !== 2 || isModal) && (
-				<ItemVersionDetail isModal={isModal} {...nextProps} />
+				<ItemVersionDetail isModal={isModal} status={status} {...nextProps} />
 			)}
 		</>
 	)

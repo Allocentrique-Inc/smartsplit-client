@@ -40,7 +40,10 @@ function SectionCollaborator(props) {
 		...nextProps
 	} = props
 	const { collaborators } = useStores()
-	let shares = toJS(splitState.shareholdersData)
+	let shares =
+		splitState && splitState.shareholdersData
+			? toJS(splitState.shareholdersData)
+			: []
 	shares = shares.map((share) => ({
 		...share,
 		user: toJS(collaborators.map[share.id]),
@@ -65,21 +68,26 @@ function SectionCollaborator(props) {
 	return (
 		<Column {...nextProps}>
 			<Row style={Styles.part}>
-				<Column flex={10}>
-					<Heading level={5}>{title}</Heading>
+				<Column flex={1}>
+					<Row>
+						<Column flex={10}>
+							<Heading level={5}>{title}</Heading>
+						</Column>
+						{canModify && (
+							<Column flex={2}>
+								<View>
+									<Button
+										small
+										secondary
+										bold
+										text={t("shareYourRights:collaboratorModal.edit")}
+									/>
+								</View>
+							</Column>
+						)}
+					</Row>
 				</Column>
-				{canModify && (
-					<Column flex={2}>
-						<View>
-							<Button
-								small
-								secondary
-								bold
-								text={t("shareYourRights:collaboratorModal.edit")}
-							/>
-						</View>
-					</Column>
-				)}
+				<Column flex={1} />
 			</Row>
 			<Row>
 				<Column flex={1}>

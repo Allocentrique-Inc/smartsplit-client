@@ -565,6 +565,9 @@ export const shareYourRights = {
 		toSend: "To send",
 		toCancel: "To cancel",
 	},
+	votingPage: {
+		explainReason: "Explain your reason here ... (optional)",
+	},
 }
 
 export const rightSplits = {
