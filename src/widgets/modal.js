@@ -3,7 +3,7 @@ import { Platform, View, StyleSheet } from "react-native"
 
 import { Overlay } from "../portals"
 import { Row, Column, Flex } from "../layout"
-import { Heading } from "../text"
+import { Heading, Text } from "../text"
 import Button from "./button"
 import Scrollable from "./scrollable"
 import LayoutStyles from "../styles/layout"
@@ -39,6 +39,12 @@ export const ModalStyles = StyleSheet.create({
 	medium: {
 		maxWidth: 624,
 		minWidth: 280,
+		borderRadius: Metrics.borderRadius.modals,
+		maxHeight: "90%",
+	},
+	large: {
+		maxWidth: 1024,
+		minWidth: 624,
 		borderRadius: Metrics.borderRadius.modals,
 		maxHeight: "90%",
 	},
@@ -94,29 +100,60 @@ export class Modal extends React.PureComponent {
 }
 
 export const DialogModal = observer((props) => {
-	const { title, buttons, children, noScroll, ...nextProps } = props
+	const {
+		title,
+		size,
+		underTitle,
+		titleLevel,
+		buttons,
+		children,
+		noScroll,
+		...nextProps
+	} = props
 
 	return (
-		<Modal {...nextProps}>
-			<Column style={{ maxWidth: MODAL_WIDTH, flex: 1 }}>
+		<Modal size={size ? size : "medium"} {...nextProps}>
+			<Column
+				style={{
+					maxWidth: ModalStyles[size ? size : "medium"].maxWidth,
+					flex: 1,
+				}}
+			>
 				<Row
 					of="component"
 					layer="overground_moderate"
 					style={ModalStyles.header}
 				>
-					<Flex>
-						{typeof title === "string" ? (
-							<Heading level="4">{title}</Heading>
-						) : (
-							title
+					<Column flex={1}>
+						<Row>
+							<Flex>
+								{typeof title === "string" ? (
+									<Heading level={titleLevel ? titleLevel : 4}>{title}</Heading>
+								) : (
+									title
+								)}
+							</Flex>
+							<Button
+								small
+								icon={<XIcon />}
+								onClick={props.onRequestClose}
+								style={ModalStyles.header_button}
+							/>
+						</Row>
+						{underTitle && (
+							<Row>
+								<Flex>
+									{typeof underTitle === "string" ? (
+										<Text small secondary>
+											{underTitle}
+										</Text>
+									) : (
+										underTitle
+									)}
+								</Flex>
+							</Row>
 						)}
-					</Flex>
-					<Button
-						small
-						icon={<XIcon />}
-						onClick={props.onRequestClose}
-						style={ModalStyles.header_button}
-					/>
+					</Column>
 				</Row>
 
 				{noScroll ? (

@@ -462,6 +462,11 @@ export const workpieces = {
 			desc:
 				"Create the shares on your rights using our guide. You'll see, it's much easier than you think :)",
 		},
+		shareYourRight: {
+			title: "Share your right",
+			desc:
+				"Create the shares on your rights using our guide. You'll see, it's much easier than you think :)",
+		},
 		protectYourWork: {
 			title: "Protect your work",
 			desc:
@@ -501,6 +506,65 @@ export const identity = {
 			{workpiece}.
 		</>
 	),
+}
+
+export const shareYourRights = {
+	sharingRights: "Sharing of rights",
+	updateBy:
+		"Created by <span style='color: #2DA84F; font-weight: bold;'>{{name}}</span> · Updated {{hour}}",
+	ago: "· Updated {{hour}}",
+	summarySharing: "Summary of sharing",
+	tabBar: {
+		version: "Version {{num}}",
+
+		myManager: {
+			title: "My manager",
+		},
+		myCollaborators: {
+			title: "My collaborators",
+			sendToCollaborators: "Send to collaborators",
+		},
+		myEditor: {
+			title: "My editor",
+			why: "Why do business with a publisher?",
+			whyContent: "An editor serves for explanation explanation explanation.",
+			addEditor: "Add editor",
+			sendToEditor: "Send to editor",
+		},
+		dragDrop: {
+			waitingToSend: "Waiting to send",
+			awaitingDecision: "Awaiting decision",
+			decided: "Decided",
+			createNewversion: "Create a new version",
+			deleteThisVersion: "Delete this version",
+		},
+	},
+	collaboratorModal: {
+		underTitle:
+			"Created by <span style='color: #2DA84F; font-weight: bold;'>{{name}}</span> {{time}}",
+		copyright: "Copyright",
+		interpretation: "Interpretation",
+		soundRecording: "Sound recording",
+		edit: "Edit",
+		access:
+			"Sharing of rights <span style='font-weight: bold'>{{access}}</span>",
+		permissionAccess:
+			"{{name}} wants to make this sharing of rights {{access}}",
+		permissionPublicDesc:
+			"<b>{{name}}</b> encourages the transparency of information on these rights sharing, so that the whole community can benefit from good examples.",
+		confidentiality: "Confidentiality",
+		refuse: "Refuse",
+		accept: "Accept",
+		approved: "Approved",
+	},
+	sendCollaboratorModal: {
+		title: "Send rights sharing",
+		desc:
+			"To finalize this sharing, you must invite his collaborators to validate everything. Indicate the email addresses to send your sharing proposal to.",
+		enterEmailAddress: "Enter email address ...",
+		toSend: "To send",
+		toCancel: "To cancel",
+	},
 }
 
 export const rightSplits = {
