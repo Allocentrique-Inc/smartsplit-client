@@ -44,6 +44,10 @@ const RightSplitsPage = observer(() => {
 			history.push(`/workpieces/${workpiece.id}/right-splits/copyright`)
 		currentSplit === "recording" &&
 			history.push(`/workpieces/${workpiece.id}/right-splits/performance`)
+		currentSplit === "privacy" &&
+			history.push(`/workpieces/${workpiece.id}/right-splits/recording`)
+		currentSplit === "summary" &&
+			history.push(`/workpieces/${workpiece.id}/right-splits/privacy`)
 	}
 
 	function toNextPage() {
@@ -51,7 +55,10 @@ const RightSplitsPage = observer(() => {
 			history.push(`/workpieces/${workpiece.id}/right-splits/performance`)
 		currentSplit === "performance" &&
 			history.push(`/workpieces/${workpiece.id}/right-splits/recording`)
-		currentSplit === "recording" && navigateToSummary()
+		currentSplit === "recording" &&
+			history.push(`/workpieces/${workpiece.id}/right-splits/privacy`)
+		currentSplit === "privacy" &&
+			history.push(`/workpieces/${workpiece.id}/right-splits/summary`)
 	}
 
 	return (

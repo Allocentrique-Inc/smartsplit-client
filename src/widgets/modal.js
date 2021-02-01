@@ -112,8 +112,13 @@ export const DialogModal = observer((props) => {
 	} = props
 
 	return (
-		<Modal size={size} {...nextProps}>
-			<Column style={{ maxWidth: ModalStyles[size].maxWidth, flex: 1 }}>
+		<Modal size={size ? size : "medium"} {...nextProps}>
+			<Column
+				style={{
+					maxWidth: ModalStyles[size ? size : "medium"].maxWidth,
+					flex: 1,
+				}}
+			>
 				<Row
 					of="component"
 					layer="overground_moderate"
