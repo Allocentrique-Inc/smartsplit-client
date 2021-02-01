@@ -23,11 +23,11 @@ export default function UserAvatar({
 	} else if (user) {
 		if (!picture && user.avatarUrl) {
 			picture = { uri: user.avatarUrl }
-		} else if (!initials && user.firstName) {
+		} else if (!initials && user) {
 			//console.dir(toJS(user))
 			initials =
 				(user.firstName ? user.firstName.toUpperCase().charAt(0) : "") +
-				(user.lastName?.user.lastName.toUpperCase().charAt(0): "")
+				(user.lastName ? user.lastName.toUpperCase().charAt(0) : "")
 		}
 	}
 
