@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, TextInput } from "react-native"
 import { useSubpath } from "../../../appstate/react"
 import { useStorePath } from "../../../appstate/react"
-import { Row, Flex, Hairline, Column, Spacer } from "../../../layout"
+import { Row, Flex, Hairline, Column, Spacer, Group } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import Button from "../../../widgets/button"
 import Cover from "../../../smartsplit/media/cover"
@@ -26,6 +26,9 @@ import { FormStyles } from "../documentation/FormStyles"
 import { joinElements } from "../../../utils/react"
 import { observer } from "mobx-react"
 import { getArtistName } from "./workpiece-sheet"
+import { DialogModal } from "../../../widgets/modal"
+import { TextField } from "../../../forms"
+import LayoutStyles from "../../../styles/layout"
 
 export const SheetNavbar = observer((props) => {
 	return (
@@ -86,6 +89,7 @@ export const SheetHeader = observer((props) => {
 			user.artistName ? ` (${user.artistName})` : ""
 		}`
 	}
+	const [accessModal, setAccessModal] = useState(false)
 
 	return (
 		<Column
@@ -140,8 +144,13 @@ export const SheetHeader = observer((props) => {
 								/>
 							}
 							text={t("general:buttons.access")}
+							onClick={() => setAccessModal(true)}
 						/>
 					</Row>
+					<AskAccessModal
+						visible={accessModal}
+						onRequestClose={() => setAccessModal(false)}
+					/>
 					<Hairline />
 					<Row>
 						<Text secondary small>
@@ -153,6 +162,54 @@ export const SheetHeader = observer((props) => {
 		</Column>
 	)
 })
+
+export function AskAccessModal(props) {
+	const { t } = useTranslation()
+	return (
+		<DialogModal
+			visible={props.visible}
+			onRequestClose={props.onRequestClose}
+			title={t("workpieceSheet:accessModal.title")}
+			text={
+				<>
+					<Text action bold>
+						Inviter des membres
+					</Text>
+					<Text secondary> à modifier le contenu.</Text>
+				</>
+			}
+			buttons={
+				<Row valign="center">
+					<Button
+						tertiary
+						text={t("general:buttons.cancel")}
+						onClick={props.onRequestClose}
+					/>
+					<Button text={t("general:buttons.send")} />
+				</Row>
+			}
+		>
+			<Group of="group">
+				<Text secondary>{t("workpieceSheet:accessModal.paragraph")}</Text>
+				<Column of="component">
+					<TextField name="name" label={t("workpieceSheet:accessModal.name")} />
+					<TextField
+						name="name"
+						label={t("workpieceSheet:accessModal.email")}
+					/>
+					<Heading level={4}>Message</Heading>
+					<TextInput
+						style={[
+							FormStyles.textAreaContainer,
+							FormStyles.messageAreaContainer,
+						]}
+						multiline={true}
+					/>
+				</Column>
+			</Group>
+		</DialogModal>
+	)
+}
 
 export const CreationSection = observer((props) => {
 	const { category, creationDate, authors, composers, mixers, editors } = props
