@@ -6,6 +6,7 @@ import UserAvatar from "../../../../smartsplit/user/avatar"
 import { Text } from "../../../../text"
 import Button from "../../../../widgets/button"
 import { useTranslation } from "react-i18next"
+import { getArtistName } from "../../workpiece-summary/workpiece-sheet"
 
 export const getStatusString = (status) => {
 	const { t } = useTranslation()
@@ -33,16 +34,22 @@ const ItemVersionDetail = observer((props) => {
 					<Hairline />
 					<Row style={{ paddingTop: 16 }}>
 						<Column flex={2}>
-							<UserAvatar picture={data ? (data.uri ? data.uri : "") : ""} />
+							<UserAvatar user={data.user} />
 						</Column>
 						<Column flex={7}>
 							<Row>
-								<Text>{data ? (data.name ? data.name : "") : ""}</Text>
+								<Text>{getArtistName(data.user)}</Text>
 							</Row>
-							{data && data.role && (
+							{data && (
 								<Row>
 									<Text small secondary>
-										{data ? (data.role ? data.role : "") : ""}
+										{data
+											? data.roles
+												? data.roles.join(", ")
+												: data.function
+												? data.function
+												: ""
+											: ""}
 									</Text>
 								</Row>
 							)}
@@ -51,7 +58,7 @@ const ItemVersionDetail = observer((props) => {
 							{data && data.percent && (
 								<Row>
 									<Text bold={boldPercent}>
-										{data ? (data.percent ? data.percent : "") : ""}%
+										{data ? (data.percent ? data.percent.toFixed(1) : "") : ""}%
 									</Text>
 								</Row>
 							)}

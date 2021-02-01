@@ -131,7 +131,7 @@ function Confidentiality(props) {
 					</Column>
 				</Row>
 			)}
-			{userAccess.map((item, index) => (
+			{/*userAccess.map((item, index) => (
 				<ConfidentialityItemOnTouch
 					key={index}
 					data={item}
@@ -139,7 +139,7 @@ function Confidentiality(props) {
 					status={item.status}
 					isModal={isModal}
 				/>
-			))}
+			))*/}
 		</Column>
 	)
 }

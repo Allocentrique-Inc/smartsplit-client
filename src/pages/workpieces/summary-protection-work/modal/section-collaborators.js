@@ -9,7 +9,7 @@ import ItemVersionDetailOnTouch from "./item-version-detail"
 import SplitChart from "../../../../smartsplit/components/split-chart"
 import { useRightSplits } from "../../../../mobX/hooks"
 import { useCurrentWorkpieceId } from "../../context"
-import { useStores } from "../../../../mobX"
+import { useStorePath, useStores } from "../../../../mobX"
 
 const Styles = StyleSheet.create({
 	highlightWord: {
@@ -29,6 +29,7 @@ const Styles = StyleSheet.create({
 })
 
 function SectionCollaborator(props) {
+	const users = useStorePath("users")
 	const {
 		splitState,
 		section,
@@ -39,13 +40,14 @@ function SectionCollaborator(props) {
 		chart,
 		...nextProps
 	} = props
-	const { collaborators } = useStores()
+	const { collaborators, auth } = useStores()
 	let shares = toJS(splitState.shareholdersData)
 	shares = shares.map((share) => ({
 		...share,
-		user: toJS(collaborators.map[share.id]),
+		user:
+			auth.user_id === share.id ? auth.user.data : collaborators.map[share.id],
 	}))
-	console.log(shares)
+	console.log(toJS(shares))
 	if (!splitState || !splitState.shareholders.filter) return null
 
 	const [styles, setStyles] = useState({})
@@ -83,7 +85,7 @@ function SectionCollaborator(props) {
 			</Row>
 			<Row>
 				<Column flex={1}>
-					{dataArr.map((item, index) => (
+					{shares.map((item, index) => (
 						<ItemVersionDetailOnTouch
 							style={{ paddingBottom: 16 }}
 							key={index}
