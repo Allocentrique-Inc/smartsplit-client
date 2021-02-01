@@ -21,7 +21,11 @@ export const getStatusString = (status) => {
 const Styles = StyleSheet.create({})
 
 const ItemVersionDetail = observer((props) => {
+<<<<<<< HEAD
 	const { isModal, showButton, secondaryPercent, data, ...nextProps } = props
+=======
+	const { showButton, boldPercent, data, ...nextProps } = props
+>>>>>>> dev
 	const [status, setStatus] = useState(
 		data ? (data.status ? getStatusString(data.status) : "") : ""
 	)
@@ -50,7 +54,11 @@ const ItemVersionDetail = observer((props) => {
 						<Column flex={3} style={{ alignItems: "flex-end" }}>
 							{data && data.percent && (
 								<Row>
+<<<<<<< HEAD
 									<Text bold secondary={secondaryPercent && !isModal}>
+=======
+									<Text bold={boldPercent}>
+>>>>>>> dev
 										{data ? (data.percent ? data.percent : "") : ""}%
 									</Text>
 								</Row>

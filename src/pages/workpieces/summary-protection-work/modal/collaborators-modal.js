@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react"
-import { Column, Flex, Group, Hairline, Row } from "../../../../layout"
+import React from "react"
+import { Flex, Group, Row } from "../../../../layout"
 import { useTranslation } from "react-i18next"
 import { DialogModal } from "../../../../widgets/modal"
 import Button from "../../../../widgets/button"
-import { Heading, Text } from "../../../../text"
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
+import { Text } from "../../../../text"
+import { StyleSheet } from "react-native"
 import moment from "moment"
-import ModifierSVG from "../../../../svg/modify-svg"
-import ItemVersionDetail from "./item-version-detail"
 import SectionCollaborator from "./section-collaborators"
 import Confidentiality from "./confidentiality"
+import { useRightSplits } from "../../../../mobX/hooks"
+import { useCurrentWorkpieceId } from "../../context"
+import { observer } from "mobx-react"
+import SplitChart, {
+	DualSplitChart,
+} from "../../../../smartsplit/components/split-chart"
 
 const Styles = StyleSheet.create({
 	highlightWord: {
@@ -31,7 +35,8 @@ const roles = [
 	{ id: 3, name: "Arrangeur" },
 ]
 
-function CollaboratorModal(props) {
+const CollaboratorModal = observer((props) => {
+	const rightSplits = useRightSplits(useCurrentWorkpieceId())
 	const { t } = useTranslation()
 	const { visible, onRequestClose, data } = props
 	console.log("data", data)
@@ -46,7 +51,7 @@ function CollaboratorModal(props) {
 	return (
 		<DialogModal
 			key="collaborator-modal"
-			size="medium"
+			size="large"
 			visible={visible}
 			onRequestClose={onRequestClose}
 			title={t("shareYourRights:tabBar.version", { num: data.version || "" })}
@@ -85,6 +90,24 @@ function CollaboratorModal(props) {
 						{data && data.copyright && (
 							<SectionCollaborator
 								title={t("shareYourRights:collaboratorModal.copyright")}
+								splitState={rightSplits.copyright}
+								chart={
+									rightSplits.copyright.domainState.mode === "roles" ? (
+										<DualSplitChart
+											{...rightSplits.copyright.genChartProps(
+												rightSplits.copyright.domainState.mode
+											)}
+											size={300}
+										/>
+									) : (
+										<SplitChart
+											{...rightSplits.copyright.genChartProps(
+												rightSplits.copyright.domainState.mode
+											)}
+											size={300}
+										/>
+									)
+								}
 								data={copyright}
 								canModify
 								isModal
@@ -93,6 +116,14 @@ function CollaboratorModal(props) {
 						{data && data.interpretation && (
 							<SectionCollaborator
 								title={t("shareYourRights:collaboratorModal.interpretation")}
+								splitState={rightSplits.performance}
+								chart={
+									<SplitChart
+										{...rightSplits.performance.genChartProps()}
+										startAngle={rightSplits.performance.startAngle}
+										size={300}
+									/>
+								}
 								style={Styles.section}
 								data={interpretation}
 								canModify
@@ -102,8 +133,15 @@ function CollaboratorModal(props) {
 						{data && data.soundRecording && (
 							<SectionCollaborator
 								title={t("shareYourRights:collaboratorModal.soundRecording")}
+								splitState={rightSplits.recording}
 								style={Styles.section}
 								data={soundRecording}
+								chart={
+									<SplitChart
+										{...rightSplits.recording.genChartProps()}
+										size={300}
+									/>
+								}
 								canModify
 								isModal
 							/>
@@ -121,5 +159,5 @@ function CollaboratorModal(props) {
 			</Group>
 		</DialogModal>
 	)
-}
+})
 export default CollaboratorModal
