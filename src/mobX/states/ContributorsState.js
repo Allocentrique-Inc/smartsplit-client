@@ -22,6 +22,8 @@ export default class ContributorsState extends BaseState {
 	@observable
 	list = []
 
+	@observable map = {}
+
 	@observable adding = false
 	@observable editing = false
 	@observable model = new ContributorModel()
@@ -52,9 +54,12 @@ export default class ContributorsState extends BaseState {
 	async load() {
 		this.loading = true
 		try {
-			const list = await this.api.list()
+			const list: Array = await this.api.list()
 			runInAction(() => {
 				this.list = list
+				list.forEach((item) => {
+					this.map[item.user_id] = item
+				})
 			})
 		} catch (e) {
 			//	console.log(e)
