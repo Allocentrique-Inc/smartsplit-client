@@ -12,7 +12,7 @@ import CircledP from "../../../svg/circled-p"
 import { Observer, observer } from "mobx-react"
 import Slider from "../../../widgets/slider"
 import LockButton from "../../../widgets/lock-button"
-import { PercentageInput } from "../../../forms/percentage"
+import PercentageInput from "../../../forms/percentage"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
 import { runInAction } from "mobx"
@@ -57,7 +57,7 @@ const RecordingForm = observer(() => {
 					<LockButton
 						id={shareholder.id}
 						locked={shareholder.locked}
-						disabled={splitState.disabledLockButton}
+						disabled={shareholder.disabledLock}
 						onClick={() => domainState.toggleShareLock(shareholder.id)}
 					/>
 				) : null
@@ -72,48 +72,47 @@ const RecordingForm = observer(() => {
 				}
 				style={styles.selectFrame}
 			/>
-			<Row of="component" valign="center">
-				{domainState.mode === "manual" && (
-					<Observer>
-						{() => (
-							<>
-								<Slider
-									min={0}
-									max={shareTotal}
-									color={splitState.shareholderColors.get(shareholder.id)}
-									step={0.01}
-									value={shareholder.shares}
-									disabled={shareholder.locked}
-									onChange={(value) =>
-										domainState.updateSharesProRata(shareholder.id, value)
-									}
-								/>
-								<PercentageInput
-									value={shareholder.percent}
-									digits={2}
-									onChange={(percentage) =>
-										domainState.updateSharesProRata(
-											shareholder.id,
-											(percentage * shareTotal) / 100
-										)
-									}
-								/>
-							</>
-						)}
-					</Observer>
-				)}
-				{domainState.mode !== "manual" && (
-					<>
-						<ProgressBar
-							progress={shareholder.percent}
-							size="xsmall"
-							style={{ flex: 1 }}
-							color={splitState.shareholderColors.get(shareholder.id)}
-						/>
-						<Text bold>{formatPercentage(shareholder.percent)}</Text>
-					</>
-				)}
-			</Row>
+			{domainState.mode === "manual" && (
+				<Observer>
+					{() => (
+						<Row of="inside">
+							<Slider
+								min={0}
+								max={shareTotal}
+								color={splitState.shareholderColors.get(shareholder.id)}
+								step={0.01}
+								value={shareholder.shares}
+								disabled={shareholder.locked}
+								onChange={(value) =>
+									domainState.updateProratedShares(shareholder.id, value)
+								}
+							/>
+							<PercentageInput
+								value={shareholder.percent}
+								digits={2}
+								onChange={(percentage) =>
+									domainState.updateProratedShares(
+										shareholder.id,
+										(percentage * shareTotal) / 100
+									)
+								}
+								disabled={shareholder.locked}
+							/>
+						</Row>
+					)}
+				</Observer>
+			)}
+			{domainState.mode !== "manual" && (
+				<Row of="inside" valign="center">
+					<ProgressBar
+						progress={shareholder.percent}
+						size="xsmall"
+						style={{ flex: 1 }}
+						color={splitState.shareholderColors.get(shareholder.id)}
+					/>
+					<Text bold>{formatPercentage(shareholder.percent)}</Text>
+				</Row>
+			)}
 		</ShareCard>
 	))
 

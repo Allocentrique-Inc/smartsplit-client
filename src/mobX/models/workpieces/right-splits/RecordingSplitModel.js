@@ -21,7 +21,7 @@ export default class RecordingSplitModel extends RightSplitModel {
 	type = "recording"
 	@observable mode = "equal"
 	@action setShareFunction(id, value) {
-		this.updateShareField(id, "function", value)
-		this.updateShareField(id, "shares", 1)
+		this.updateShareholderField(id, "function", value)
+		this.updateShareholderField(id, "shares", 1)
 	}
 }

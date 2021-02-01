@@ -78,7 +78,7 @@ export function lightenDarkenColor(color, amount) {
 }
 
 export function formatPercentage(percent, digits = 2) {
-	return percent ? `${percent.toFixed(digits)} %` : "0.00 %"
+	return percent ? `${percent.toFixed(digits)}%` : "0.00%"
 }
 
 export function highlightMatchedStrings(str, pattern) {

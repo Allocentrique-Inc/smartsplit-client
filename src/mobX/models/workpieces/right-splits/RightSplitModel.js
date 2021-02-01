@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx"
+import { action, computed, observable, reaction } from "mobx"
 import BaseModel, { ModelCollection } from "../../../BaseModel"
 
 /**
@@ -28,6 +28,29 @@ export default class RightSplitModel extends BaseModel {
 		})
 	}
 
+	init(data) {
+		if (this.type === "copyright" || this.type === "recording") {
+			reaction(
+				() =>
+					this.shareholdersValues.map((shareholder) => ({
+						id: shareholder.id,
+						shares: shareholder.shares,
+						locked: shareholder.locked,
+					})),
+				(shareholders) => {
+					const unlocked = shareholders.filter(
+						(shareholder) => !shareholder.locked
+					)
+					if (unlocked.length === 1) {
+						this.updateShareholderField(unlocked[0].id, "locked", true)
+					}
+				},
+				{ fireImmediately: true }
+			)
+		}
+		super.init(data)
+	}
+
 	@computed get shareTotal() {
 		return this.shareholdersValues.reduce((n, current) => n + current.shares, 0)
 	}
@@ -51,7 +74,7 @@ export default class RightSplitModel extends BaseModel {
 	 *	Allows you to update the value of one of the observable Fields of a
 	 *	a shareholder directly from the UI
 	 **/
-	@action updateShareField(id, field, value) {
+	@action updateShareholderField(id, field, value) {
 		if (!this.includes(id)) {
 			throw new Error("Error: provided id not found")
 		}
@@ -78,13 +101,10 @@ export default class RightSplitModel extends BaseModel {
 	 * @param diff: float
 	 * @param shares: Array<ShareModel>
 	 */
-	@action applyDiffToShares(diff, shares) {
-		shares.forEach((share) => {
-			const index = this.indexOf(share.id)
-			if (index) {
-				const newValue = this.shareholdersValues[index].shares + diff
-				this.updateShareField(share.id, "shares", newValue)
-			}
+	@action applyDiffToShares(diff, shareholders) {
+		shareholders.forEach((shareholder) => {
+			const newValue = this.get(shareholder.id).shares.value + diff
+			this.updateShareholderField(shareholder.id, "shares", newValue)
 		})
 	}
 
@@ -98,7 +118,7 @@ export default class RightSplitModel extends BaseModel {
 	 **/
 	@action setShares(shares = this.shareholdersValues, value = 1) {
 		shares.forEach((share) => {
-			this.updateShareField(share.id, "shares", value)
+			this.updateShareholderField(share.id, "shares", value)
 		})
 	}
 
@@ -106,61 +126,71 @@ export default class RightSplitModel extends BaseModel {
 	 *	Update shareholder shares with provided id and value. Then
 	 *	update the other shareholders shares on an inverse pro rata basis
 	 **/
-	@action updateSharesProRata(id, value) {
+	@action updateProratedShares(id, value) {
+		function computeOtherShareholders(shareholders) {
+			return shareholders
+				.filter(
+					(shareholder) =>
+						shareholder.id !== id &&
+						typeof shareholder.shares === "number" &&
+						!shareholder.locked
+				)
+				.sort((a, b) => a.shares - b.shares)
+		}
+
 		if (!this.includes(id)) {
 			throw new Error(
-				`Error in updateSharesProRata: share holder ${id} not found`
+				`Error in updateProratedShares: share holder ${id} not found`
 			)
 		}
+		// console.log("DEBUG VALUE PRORATA", value, id)
 		// Difference between actual share and value to apply
 		// console.log("UPDATE SHARE", this.shareholders.get(id))
-		const oldValue = this.get(id).shares
+		const oldValue = this.get(id).shares.value
 		const diff = value - oldValue
-		// Select other candidate shares
-		const sortedShares = this.shareholdersValues
-			.filter((share) => share.id !== id && !share.locked)
-			.sort((a, b) => a.shares - b.shares)
-		if (sortedShares.length === 0) {
-			return
-		}
+		if (diff === 0) return
 		// If diff < 0, we subtract a portion from the shareholder and then
 		// splitting it between other shareholders
 		if (diff < 0) {
-			this.applyDiffToShares(-diff / sortedShares.length, sortedShares)
+			const otherShareholders = computeOtherShareholders(
+				this.shareholdersValues
+			)
+			this.applyDiffToShares(
+				-diff / otherShareholders.length,
+				otherShareholders
+			)
 		} else {
-			//	Algorithm to split as equally as possible the
+			//	Algorithm that splits as equally as possible the
 			//	difference (value - shareholder shares)
 			//	Difference is equally subtracted to other shares as
-			//	much as the current smallest share > 0, and so on
+			//	long as the current smallest share > 0, and so on
 			//	until difference = 0
 			let toSplit = diff
 			while (toSplit > 0) {
 				// 1. Filter shares equal to 0
-				const shares = sortedShares.filter((share) => share.shares > 0)
-
+				const otherShareholders = computeOtherShareholders(
+					this.shareholdersValues
+				).filter((shareholder) => shareholder.shares > 0)
+				// console.log("sorted non-zero shares", otherShareholders)
 				// 2. Select smallest non-zero share
-				let smallestShare
-				try {
-					smallestShare = shares[0]
-				} catch (e) {
-					console.error("Error with smallest share", e, shares)
-				}
+				let smallestShare = otherShareholders[0]
+				// console.log("SMALLEST SHARE", smallestShare)
 
 				// 3. Try an equal split of toSplit
-				toSplit = toSplit - shares.length * smallestShare.shares
+				toSplit = toSplit - otherShareholders.length * smallestShare.shares
 
 				if (toSplit > 0) {
-					this.applyDiffToShares(-smallestShare.shares, shares)
+					this.applyDiffToShares(-smallestShare.shares, otherShareholders)
 				} else {
 					this.applyDiffToShares(
-						-(smallestShare.shares + toSplit / shares.length),
-						shares
+						-(smallestShare.shares + toSplit / otherShareholders.length),
+						otherShareholders
 					)
 				}
 			}
 		}
 
-		this.updateShareField(id, "shares", value)
+		this.updateShareholderField(id, "shares", value)
 	}
 
 	/**
@@ -181,16 +211,16 @@ export default class RightSplitModel extends BaseModel {
 				(share) => share.id !== id && share.locked
 			)
 			otherShares.forEach((share) =>
-				this.updateShareField(share.id, "locked", false)
+				this.updateShareholderField(share.id, "locked", false)
 			)
 		} else {
 			const otherShares = this.shareholdersValues.filter(
 				(share) => share.id !== id && !share.locked
 			)
 			if (otherShares.length === 1) {
-				this.updateShareField(otherShares[0].id, "locked", true)
+				this.updateShareholderField(otherShares[0].id, "locked", true)
 			}
 		}
-		this.updateShareField(id, "locked", !share.locked)
+		this.updateShareholderField(id, "locked", !share.locked)
 	}
 }

@@ -7,7 +7,7 @@ import {
 	PanResponder,
 	TouchableWithoutFeedback,
 } from "react-native"
-import { observable, reaction } from "mobx"
+import { action, observable, reaction, toJS, trace } from "mobx"
 import { observer } from "mobx-react"
 import { assignEnumProps, capValueWithinRange } from "../utils/utils"
 import { useInterpolators } from "../utils/hooks"
@@ -42,6 +42,7 @@ const getStyles = (disabled) =>
 			borderWidth: 1,
 			borderColor: Colors.stroke,
 			borderRadius: 1000,
+			flex: 1,
 		},
 
 		bar: {
@@ -60,58 +61,33 @@ const Slider = observer(
 		step,
 		vertical,
 	}) => {
+		// trace(true)
 		const [barLayout] = useState(() =>
 			observable({
 				px: 0,
 				py: 0,
 				width: 0,
-				heigth: 0,
+				height: 0,
 			})
 		)
 
+		const [interpolators] = useState(() =>
+			observable({
+				valueToDp: () => 0,
+				dpToValue: () => 0,
+			})
+		)
+
+		const [sliderState] = useState(() =>
+			observable({
+				handlePosition: interpolators.valueToDp(value),
+				offset: 0,
+			})
+		)
 		const styles = getStyles(disabled)
 
-		let [valueToDp, dpToValue] = useInterpolators(
-			[min, max],
-			[0, vertical ? barLayout.height : barLayout.width]
-		)
-		let dpStep = step ? valueToDp(step) : 1
-
-		useEffect(() => {
-			const position = capValueWithinRange(valueToDp(value), [
-				0,
-				vertical ? barLayout.height : barLayout.width,
-			])
-			handlePosition.set(position)
-		}, [value])
-
-		reaction(
-			() => value,
-			() => {
-				const position = capValueWithinRange(valueToDp(value), [
-					0,
-					vertical ? barLayout.height : barLayout.width,
-				])
-				handlePosition.set(position)
-			}
-		)
-		// Update interpolators and dpStep on bar layout change
-		reaction(
-			() => {
-				return { ...barLayout }
-			},
-			() => {
-				;[valueToDp, dpToValue] = useInterpolators(
-					[min, max],
-					[0, vertical ? barLayout.height : barLayout.width]
-				)
-				dpStep = step ? valueToDp(step) : 1
-			}
-		)
-
-		const [touchOffset] = useState(() => observable.box(0))
+		// const dpStep = step ? valueToDp(step) : 1
 		const containerRef = useRef(null)
-		const [handlePosition] = useState(() => observable.box(0))
 		const panResponder = useRef(
 			PanResponder.create({
 				onMoveShouldSetPanResponderCapture: () => true,
@@ -123,45 +99,56 @@ const Slider = observer(
 
 		function onBarLayout() {
 			containerRef.current.measure((fx, fy, width, height, px, py) => {
+				// console.log("ONBARLAYOUT", width, height, px, py)
 				assignEnumProps(barLayout, { px, py, width, height })
-				if (value && value > 0) handlePosition.set(valueToDp(value))
+				// if (value && value > 0) sliderState.handlePosition = valueToDp(value)
+				const [fun1, fun2] = useInterpolators(
+					[min, max],
+					[0, vertical ? barLayout.height : barLayout.width]
+				)
+				interpolators.valueToDp = fun1
+				interpolators.dpToValue = fun2
+				// console.log("whoohooo", barLayout)
+
+				if (value && value > 0)
+					sliderState.handlePosition = interpolators.valueToDp(value)
 			})
 		}
 
 		function initHandleMove(e) {
-			touchOffset.set(
-				vertical
-					? e.nativeEvent.pageY - barLayout.py
-					: e.nativeEvent.pageX - barLayout.px
-			)
+			// console.log("BAARRRLOAYOUT ANFLW MOC", barLayout)
+
+			sliderState.offset = vertical
+				? e.nativeEvent.pageY - barLayout.py
+				: e.nativeEvent.pageX - barLayout.px
 		}
 
 		function onHandleMove(gestureState) {
 			const position = capValueWithinRange(
-				(vertical ? gestureState.dy : gestureState.dx) + touchOffset.get(),
+				(vertical ? gestureState.dy : gestureState.dx) + sliderState.offset,
 				[0, vertical ? barLayout.height : barLayout.width]
 			)
-			handlePosition.set(position)
+			sliderState.handlePosition = position
+			// console.log("DP TO VALUE POSITION", interpolators.dpToValue(position) )
+			onChange(interpolators.dpToValue(position))
 
 			// Trigger onChange only when accumulated distance is
 			// around a multiple of dpStep
-			if (Math.abs(gestureState.dx % dpStep) < 0.5) {
-				onChange(dpToValue(position))
-			}
-		}
-
-		function onTouchRelease() {
-			touchOffset.set(0)
+			// if (Math.abs(gestureState.dx % dpStep) < 0.5) {
+			// }
 		}
 
 		function onBarPressIn(e) {
 			if (disabled) return
-			handlePosition.set(
-				vertical
-					? e.nativeEvent.pageY - barLayout.py
-					: e.nativeEvent.pageX - barLayout.px
-			)
-			onChange(dpToValue(handlePosition.get()))
+			const position = vertical
+				? e.nativeEvent.pageY - barLayout.py
+				: e.nativeEvent.pageX - barLayout.px
+			sliderState.handlePosition = position
+			onChange(interpolators.dpToValue(position))
+		}
+
+		function onTouchRelease() {
+			sliderState.offset = 0
 		}
 
 		return (
@@ -174,7 +161,10 @@ const Slider = observer(
 					>
 						<ProgressBar
 							size="xsmall"
-							progress={(dpToValue(handlePosition.get()) / max) * 100}
+							progress={
+								(interpolators.dpToValue(sliderState.handlePosition) / max) *
+								100
+							}
 							barStyle={styles.bar}
 							style={styles.barContainer}
 							color={color}
@@ -186,7 +176,7 @@ const Slider = observer(
 						style={[
 							styles.handleContainer,
 							{
-								transform: [{ translateX: handlePosition.get() }],
+								transform: [{ translateX: sliderState.handlePosition }],
 							},
 						]}
 						{...panResponder.panHandlers}

@@ -61,7 +61,7 @@ const PerformanceForm = observer(() => {
 						<CheckBoxGroup
 							selection={share.roles}
 							onChange={(roles) =>
-								domainState.updateShareField(share.id, "roles", roles)
+								domainState.updateShareholderField(share.id, "roles", roles)
 							}
 						>
 							<Row style={styles.checkboxesContainer}>

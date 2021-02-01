@@ -13,6 +13,7 @@ export default class RightSplitState extends BaseModel {
 	constructor(parent) {
 		super(parent)
 		this.shareholderColors = parent.shareholderColors
+		this.shareholderNames = parent.shareholderNames
 	}
 	progress
 	@observable _chartSize = 0
@@ -41,7 +42,7 @@ export default class RightSplitState extends BaseModel {
 			.filter((share) => share.shares)
 			.map((share) => ({
 				key: share.id,
-				name: share.id,
+				name: this.shareholderNames.get(share.id),
 				share: share.shares,
 				color: this.shareholderColors.get(share.id),
 			}))

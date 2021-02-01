@@ -2,6 +2,7 @@ import React, { useState, useRef, useLayoutEffect } from "react"
 import { forEachChildren } from "./react"
 import { Platform } from "../platform"
 import { TouchableWithoutFeedback } from "react-native"
+import { observable } from "mobx"
 
 export function useFocusGroup(nodes, onFocus, onBlur) {
 	if (nodes === null) return
