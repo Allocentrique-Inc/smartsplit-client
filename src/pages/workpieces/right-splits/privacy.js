@@ -23,7 +23,7 @@ import { CHART_WINDOW_RATIO } from "../../../mobX/states/right-splits/RightSplit
 const PrivacyPage = observer(() => {
 	const splitState = useRightSplits(useCurrentWorkpieceId(), "recording")
 	const domainState = splitState.domainState
-
+	const { t } = useTranslation()
 	return (
 		<Row
 			onLayout={(e) =>

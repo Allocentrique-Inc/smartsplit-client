@@ -10,7 +10,7 @@ import {
 import { lightenDarkenColor } from "../../../utils/utils"
 import BaseModel from "../../BaseModel"
 import PrivacyPage from "../../../pages/workpieces/right-splits/privacy"
-import SummaryPage from "../../../pages/workpieces/right-splits/summary"
+import SendPage from "../../../pages/workpieces/right-splits/send"
 
 /**
  *	Contains the 3 right split states (copyright, performance, recording). Manage a list of unique sets of shareholder ID - color, which is used in the split pages. Save in and load split
@@ -64,8 +64,16 @@ export default class RightSplitsState extends BaseModel {
 	@observable copyright
 	@observable performance
 	@observable recording
-	@observable privacy = { form: PrivacyPage }
-	@observable summary = { form: SummaryPage }
+	@observable privacy = {
+		form: PrivacyPage,
+		pageTitle: "Privacy",
+		progress: 100,
+	}
+	@observable send = {
+		form: SendPage,
+		pageTitle: "Send to Collaborators",
+		progress: 100,
+	}
 	@observable _state = "draft"
 	// Pool of available colors, i.e. color not already assignated to a shareholder ID
 	availableColors = Object.values(Colors.secondaries)

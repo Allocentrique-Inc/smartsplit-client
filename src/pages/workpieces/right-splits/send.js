@@ -20,8 +20,9 @@ import { useRightSplits } from "../../../mobX/hooks"
 import { useCurrentWorkpieceId } from "../context"
 import { CHART_WINDOW_RATIO } from "../../../mobX/states/right-splits/RightSplitState"
 import SendCollaboratorsModal from "../summary-protection-work/modal/send-collaborators-modal"
-
-const SummaryPage = observer(() => {
+import CollaboratorModal from "../summary-protection-work/modal/collaborators-modal"
+import { shareInfo } from "../summary-protection-work/index"
+const SendPage = observer((props) => {
 	const splitState = useRightSplits(useCurrentWorkpieceId(), "recording")
 	const domainState = splitState.domainState
 
@@ -31,9 +32,13 @@ const SummaryPage = observer(() => {
 				(splitState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
 			}
 		>
-			<SendCollaboratorsModal visible={true} />
+			<CollaboratorModal
+				visible={true}
+				data={shareInfo.columns.waitingToSend[0]}
+				onRequestClose={props.back}
+			/>
 		</Row>
 	)
 })
 
-export default SummaryPage
+export default SendPage

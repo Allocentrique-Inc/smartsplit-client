@@ -46,7 +46,7 @@ const RightSplitsPage = observer(() => {
 			history.push(`/workpieces/${workpiece.id}/right-splits/performance`)
 		currentSplit === "privacy" &&
 			history.push(`/workpieces/${workpiece.id}/right-splits/recording`)
-		currentSplit === "summary" &&
+		currentSplit === "send" &&
 			history.push(`/workpieces/${workpiece.id}/right-splits/privacy`)
 	}
 
@@ -58,7 +58,7 @@ const RightSplitsPage = observer(() => {
 		currentSplit === "recording" &&
 			history.push(`/workpieces/${workpiece.id}/right-splits/privacy`)
 		currentSplit === "privacy" &&
-			history.push(`/workpieces/${workpiece.id}/right-splits/summary`)
+			history.push(`/workpieces/${workpiece.id}/right-splits/send`)
 	}
 
 	return (
@@ -86,7 +86,7 @@ const RightSplitsPage = observer(() => {
 						<Button
 							primary
 							text={t("general:buttons.continue")}
-							onClick={currentSplit === "recording" ? saveAndQuit : toNextPage}
+							onClick={toNextPage}
 						/>
 					</Row>
 					<Row flex={1}>
@@ -98,7 +98,9 @@ const RightSplitsPage = observer(() => {
 			}
 		>
 			{!workpieces.isLoading &&
-				React.createElement(rightSplits[currentSplit].form)}
+				React.createElement(rightSplits[currentSplit].form, {
+					back: navigateToSummary,
+				})}
 		</Layout>
 	)
 })

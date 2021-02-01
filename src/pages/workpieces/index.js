@@ -33,7 +33,7 @@ import { useStorePath, useStores } from "../../mobX"
 import { observer } from "mobx-react"
 import DocumentationPage from "./documentation"
 import SummaryProtectionWorkPage from "./summary-protection-work"
-import SummaryPage from "./right-splits/summary"
+import SummaryPage from "./right-splits/send"
 import PrivacyPage from "./right-splits/privacy"
 
 const WorkpiecesRouter = observer(() => {
