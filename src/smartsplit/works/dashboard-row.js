@@ -2,7 +2,7 @@ import React from "react"
 import moment from "moment"
 import { View } from "react-native"
 import { useHistory } from "react-router"
-import { Column, Row } from "../../layout"
+import { Column, Hairline, Row, Spacer } from "../../layout"
 import { Text } from "../../text"
 import { Button } from "../../widgets/button"
 import ProgressBar from "../../widgets/progress-bar"
@@ -77,7 +77,10 @@ function RightHoldersRow({ rightHolders }) {
 	return (
 		<Row>
 			{rightHolders.map((rh) => (
-				<Avatar key={rh} id={rh} />
+				<>
+					<Avatar key={rh} id={rh} />
+					<Spacer of="xtiny" />
+				</>
 			))}
 		</Row>
 	)

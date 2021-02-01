@@ -27,6 +27,8 @@ export const Metrics = {
 		// Marge standard entre les petits éléments visuels
 		xsmall: 4,
 		tiny: 4,
+		xtiny: 2,
+		hairline: 1,
 	},
 
 	// Taille des widgets: boutons, images, etc.

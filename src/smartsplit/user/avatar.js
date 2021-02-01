@@ -18,6 +18,7 @@ export default function UserAvatar({
 			: UserStyles.avatar_size.medium
 
 	const small = ["small", "xsmall", "tiny"].includes(size)
+	const tiny = size === "xsmall"
 	if (field) {
 		picture = { uri: field.value }
 	} else if (user) {
@@ -40,7 +41,7 @@ export default function UserAvatar({
 			{picture ? (
 				<Image source={picture} style={[border, sizeStyle]} />
 			) : (
-				<Text small={small} bold secondary>
+				<Text small={small} tiny={tiny} bold secondary>
 					{initials}
 				</Text>
 			)}
