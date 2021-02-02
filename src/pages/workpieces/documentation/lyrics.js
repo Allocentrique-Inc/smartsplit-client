@@ -55,7 +55,7 @@ export const LyricsForm = observer((props) => {
 
 					<Column of="tiny">
 						<Column of="component">
-							<Heading level={4}>{t("document:lyrics.label")}</Heading>
+							<Heading level={5}>{t("document:lyrics.label")}</Heading>
 							<TextInput
 								value={model.text.value}
 								multiline={true}

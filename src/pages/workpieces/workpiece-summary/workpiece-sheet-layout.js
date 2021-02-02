@@ -4,7 +4,7 @@ import { View, StyleSheet, TextInput } from "react-native"
 import { useSubpath } from "../../../appstate/react"
 import { useStorePath } from "../../../appstate/react"
 import { Row, Flex, Hairline, Column, Spacer, Group } from "../../../layout"
-import { Text, Heading, Paragraph } from "../../../text"
+import { Text, Heading, Paragraph, Link } from "../../../text"
 import Button from "../../../widgets/button"
 import Cover from "../../../smartsplit/media/cover"
 import LogoSmartSplit from "../../../svg/logo-smartsplit"
@@ -197,7 +197,7 @@ export function AskAccessModal(props) {
 						name="name"
 						label={t("workpieceSheet:accessModal.email")}
 					/>
-					<Heading level={4}>Message</Heading>
+					<Heading level={5}>Message</Heading>
 					<TextInput
 						style={[
 							FormStyles.textAreaContainer,
@@ -463,6 +463,7 @@ export function DownloadsRow(props) {
 		},
 	}
 	const downloadType = FileTypes[download === true ? "public" : "private"]
+	const [accessModal, setAccessModal] = useState(false)
 
 	function Copy() {
 		const [copySuccess, setCopySuccess] = useState("")
@@ -505,9 +506,21 @@ export function DownloadsRow(props) {
 						</Text>
 					</Row>
 					<Row style={{ flex: 3 }}>
-						<Text bold action>
-							{downloadType.action}
-						</Text>
+						{download === false ? (
+							<>
+								<Link action bold onClick={() => setAccessModal(true)}>
+									{downloadType.action}
+								</Link>
+								<AskAccessModal
+									visible={accessModal}
+									onRequestClose={() => setAccessModal(false)}
+								/>
+							</>
+						) : (
+							<Text bold action>
+								{downloadType.action}
+							</Text>
+						)}
 						<Text secondary bold>
 							{" "}
 							{downloadType.dot}{" "}
@@ -522,6 +535,7 @@ export function DownloadsRow(props) {
 
 export const DownloadsSection = observer((props) => {
 	const [t] = useTranslation()
+
 	return (
 		<Column of="group">
 			<Heading level={4}>{props.category}</Heading>
