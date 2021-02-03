@@ -148,12 +148,18 @@ function RowViewItem(props) {
 			</Column>
 			<Column flex={7}>
 				<Row>
-					<Text>{data ? (data.name ? data.name : "") : ""}</Text>
+					<Text>{data ? getArtistName(data.user) : ""}</Text>
 				</Row>
-				{data && data.role && (
+				{data && (
 					<Row>
 						<Text small secondary>
-							{data ? (data.role ? data.role : "") : ""}
+							{data
+								? data.roles
+									? data.roles.join(", ")
+									: data.function
+									? data.function
+									: ""
+								: ""}
 						</Text>
 					</Row>
 				)}
@@ -162,7 +168,7 @@ function RowViewItem(props) {
 				{data && data.percent && (
 					<Row>
 						<Text bold secondary={secondaryPercent && !isModal}>
-							{data ? (data.percent ? data.percent : "") : ""}%
+							{data ? (data.percent ? data.percent.toFixed(1) : "") : ""}%
 						</Text>
 					</Row>
 				)}

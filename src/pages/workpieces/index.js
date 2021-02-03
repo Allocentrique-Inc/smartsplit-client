@@ -55,7 +55,7 @@ const WorkpiecesRouter = observer(() => {
 						"/workpieces/:workpiece_id/right-splits",
 					]}
 					// component={RightSplitsPage}  ----- component of Francois-Xavier Dueymes
-					component={SummaryProtectionWorkPage}
+					component={RightSplitsPage}
 				/>
 
 				<Route

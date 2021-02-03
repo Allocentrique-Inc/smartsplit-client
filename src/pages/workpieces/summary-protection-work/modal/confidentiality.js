@@ -153,7 +153,7 @@ function Confidentiality(props) {
 }
 
 function ConfidentialityItem(props) {
-	const { showButton, isModal, data, ...nextProp } = props
+	const { isModal, data, ...nextProp } = props
 	const { t } = useTranslation()
 	const [showButton, setShowButton] = useState(false)
 	return (
