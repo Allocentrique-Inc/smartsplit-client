@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react"
-import { Column, Flex, Group, Hairline, Row } from "../../../../layout"
+import React from "react"
+import { Flex, Group, Row } from "../../../../layout"
 import { useTranslation } from "react-i18next"
 import { DialogModal } from "../../../../widgets/modal"
 import Button from "../../../../widgets/button"
-import { Heading, Text } from "../../../../text"
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
+import { Text } from "../../../../text"
+import { StyleSheet } from "react-native"
 import moment from "moment"
-import ModifierSVG from "../../../../svg/modify-svg"
-import ItemVersionDetail from "./item-version-detail"
 import SectionCollaborator from "./section-collaborators"
 import Confidentiality from "./confidentiality"
 import { useRightSplits } from "../../../../mobX/hooks"
-import { useCurrentWorkpieceId } from "../../context"
+import { useCurrentWorkpiece, useCurrentWorkpieceId } from "../../context"
 import { observer } from "mobx-react"
 import SplitChart, {
 	DualSplitChart,
 } from "../../../../smartsplit/components/split-chart"
+import { useStores } from "../../../../mobX"
+import { getArtistName } from "../../workpiece-summary/workpiece-sheet"
 
 const Styles = StyleSheet.create({
 	highlightWord: {
@@ -38,7 +38,9 @@ const roles = [
 ]
 
 const CollaboratorModal = observer((props) => {
-	const rightSplits = useRightSplits(useCurrentWorkpieceId())
+	const { auth, collaborators } = useStores()
+	const workpiece = useCurrentWorkpiece()
+	const rightSplits = useRightSplits(workpiece.id)
 	const { t } = useTranslation()
 	const { visible, onRequestClose, data } = props
 	console.log("data", data)
@@ -49,7 +51,8 @@ const CollaboratorModal = observer((props) => {
 	const soundRecording = Array.from(
 		data.soundRecording ? data.soundRecording : []
 	)
-
+	if (workpiece.state === "loading") return
+	console.log(toJS(workpiece))
 	return (
 		<DialogModal
 			key="collaborator-modal"
@@ -64,7 +67,10 @@ const CollaboratorModal = observer((props) => {
 					small
 					dangerouslySetInnerHTML={{
 						__html: t("shareYourRights:collaboratorModal.underTitle", {
-							name: data.updateBy,
+							name:
+								workpiece.data.owner === auth.user_id
+									? getArtistName(auth.user.data)
+									: getArtistName(collaborators.map[workpiece.owner]),
 							time: moment(data.lastUpdate).startOf("minute").fromNow(),
 						}),
 					}}
@@ -76,6 +82,7 @@ const CollaboratorModal = observer((props) => {
 						secondary
 						text={t("shareYourRights:tabBar.dragDrop.createNewversion")}
 						onClick={() => onRequestClose(false)}
+						disabled
 					/>
 					<Button
 						text={t(
@@ -110,7 +117,6 @@ const CollaboratorModal = observer((props) => {
 										/>
 									)
 								}
-								data={copyright}
 								canModify
 								isModal
 							/>
@@ -127,7 +133,6 @@ const CollaboratorModal = observer((props) => {
 									/>
 								}
 								style={Styles.section}
-								data={interpretation}
 								canModify
 								isModal
 							/>
@@ -137,7 +142,6 @@ const CollaboratorModal = observer((props) => {
 								title={t("shareYourRights:collaboratorModal.soundRecording")}
 								splitState={rightSplits.recording}
 								style={Styles.section}
-								data={soundRecording}
 								chart={
 									<SplitChart
 										{...rightSplits.recording.genChartProps()}
