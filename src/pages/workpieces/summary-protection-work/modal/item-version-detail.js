@@ -11,6 +11,7 @@ import { Text } from "../../../../text"
 import Button from "../../../../widgets/button"
 import { useTranslation } from "react-i18next"
 import AvatarProgress from "../circular-progress"
+import { getArtistName } from "../../workpiece-summary/workpiece-sheet"
 
 export const getStatusString = (status) => {
 	const { t } = useTranslation()

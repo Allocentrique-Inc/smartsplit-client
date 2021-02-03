@@ -11,6 +11,7 @@ export function Text(props) {
 		bold,
 		italic,
 		small,
+		tiny,
 		regular,
 		reversed,
 		secondary,
@@ -24,7 +25,7 @@ export function Text(props) {
 
 	const styles = [
 		TypographyStyles.text.base,
-		TypographyStyles.text[small ? "small" : "medium"],
+		TypographyStyles.text[tiny ? "tiny" : small ? "small" : "medium"],
 	]
 
 	function add(key) {
