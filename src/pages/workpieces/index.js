@@ -32,8 +32,8 @@ import WorkpieceSheet from "./workpiece-summary/workpiece-sheet"
 import { useStorePath, useStores } from "../../mobX"
 import { observer } from "mobx-react"
 import DocumentationPage from "./documentation"
-import SummaryProtectionWorkPage from "./summary-protection-work"
-import VotingPage from "./summary-protection-work/voting-page"
+import SummaryProtectionWorkPage from "./summary-contributors"
+import VotingPage from "./summary-contributors/voting-page"
 
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")

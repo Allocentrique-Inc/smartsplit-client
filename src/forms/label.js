@@ -54,8 +54,9 @@ export default function Label(props) {
 					<Row of="inside" valign="center">
 						<LabelText>{label}</LabelText>
 						{tooltip && <TooltipIcon text={tooltip} />}
-						<Flex />
-						<Text style={FormStyles.label_hint}>{label_hint}</Text>
+						<Text secondary style={FormStyles.label_hint}>
+							{label_hint}
+						</Text>
 					</Row>
 					<Row of="inside">{subLabel && <Text secondary>{subLabel}</Text>}</Row>
 				</>

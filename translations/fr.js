@@ -569,6 +569,18 @@ export const shareYourRights = {
 		submitVote: "Soumettre mon vote",
 		selectionsMade: "{num}/{total} sélections effectuées",
 	},
+	sensitiveInfoModal: {
+		label: "Télécharger le contrat",
+		desc:
+			"Afin de préparer l’entente entre vous, Smartsplit a besoin d’information plus sensible au sujet de tous. Cette information est nécessaire afin de produire le document légal que vous pourrez imprimer et signer.",
+		usualFirstNames: "Prénoms usuels",
+		usualName: "Nom usuel",
+		dateOfBirth: "Date de naissance",
+		streetAddress: "Adresse civique",
+		email: "Courriel",
+		optional: "Optionnel",
+		ipi: "IPI",
+	},
 }
 
 export const rightSplits = {
