@@ -163,7 +163,7 @@ const stubWorkpiece = {
 export function WorkpiecePage() {
 	const history = useHistory()
 	const { t } = useTranslation()
-
+	const { auth } = useStores()
 	return (
 		<Column style={Styles.outerContainer}>
 			<Navbar
@@ -171,7 +171,7 @@ export function WorkpiecePage() {
 				actions={
 					<TouchableWithoutFeedback>
 						<Row of="inside" valign="center">
-							<UserAvatar />
+							<UserAvatar user={auth.user.data} />
 							<ChevronDown />
 						</Row>
 					</TouchableWithoutFeedback>
