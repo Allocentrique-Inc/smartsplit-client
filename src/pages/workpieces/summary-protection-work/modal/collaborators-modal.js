@@ -42,7 +42,7 @@ const CollaboratorModal = observer((props) => {
 	const workpiece = useCurrentWorkpiece()
 	const rightSplits = useRightSplits(workpiece.id)
 	const { t } = useTranslation()
-	const { visible, onRequestClose, data } = props
+	const { visible, onRequestClose, data, onClickSend } = props
 	console.log("data", data)
 	const copyright = Array.from(data.copyright ? data.copyright : [])
 	const interpretation = Array.from(
@@ -88,7 +88,9 @@ const CollaboratorModal = observer((props) => {
 						text={t(
 							"shareYourRights:tabBar.myCollaborators.sendToCollaborators"
 						)}
-						onClick={() => onRequestClose(true)}
+						onClick={() => {
+							onClickSend()
+						}}
 					/>
 				</>
 			}

@@ -25,7 +25,7 @@ import { shareInfo } from "../summary-protection-work/index"
 const SendPage = observer((props) => {
 	const splitState = useRightSplits(useCurrentWorkpieceId(), "recording")
 	const domainState = splitState.domainState
-
+	const [sendVisible, setSendVisible] = useState(false)
 	return (
 		<Row
 			onLayout={(e) =>
@@ -36,6 +36,13 @@ const SendPage = observer((props) => {
 				visible={true}
 				data={shareInfo.columns.waitingToSend[0]}
 				onRequestClose={props.back}
+				onClickSend={() => {
+					setSendVisible(true)
+				}}
+			/>
+			<SendCollaboratorsModal
+				visible={sendVisible}
+				onRequestClose={() => setSendVisible(false)}
 			/>
 		</Row>
 	)

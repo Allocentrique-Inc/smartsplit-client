@@ -6,8 +6,17 @@ import UserAvatar from "../../../../smartsplit/user/avatar"
 import { Text } from "../../../../text"
 import Button from "../../../../widgets/button"
 import { DialogModal } from "../../../../widgets/modal"
-
+import { useStores } from "../../../../mobX"
+import { useCurrentWorkpiece, useCurrentWorkpieceId } from "../../context"
+import { getArtistName } from "../../workpiece-summary/workpiece-sheet"
 function SendCollaboratorsModal(props) {
+	const { collaborators, auth } = useStores()
+	const workpiece = useCurrentWorkpiece()
+	const rightHolderIds = workpiece.data.rightHolders
+	if (!rightHolderIds) return null
+	const rightHolders = rightHolderIds.map((id) =>
+		id === auth.user_id ? auth.user.data : collaborators.map[id]
+	)
 	const { onRequestClose, visible, data, ...nextProp } = props
 	const { t } = useTranslation()
 	const [value1, setValue1] = useState("")
@@ -45,16 +54,16 @@ function SendCollaboratorsModal(props) {
 						{t("shareYourRights:sendCollaboratorModal.desc")}
 					</Text>
 				</Row>
-				{dataArr.map((item, index) => (
+				{rightHolders.map((user, index) => (
 					<AvatarTextField
-						picture={item.url}
+						picture={user.url}
 						key={index}
-						title={item.name}
+						title={getArtistName(user)}
 						placeholder={t(
 							"shareYourRights:sendCollaboratorModal.enterEmailAddress"
 						)}
 						style={{ paddingTop: 40 }}
-						value={item.email}
+						value={user.email}
 					/>
 				))}
 			</Group>

@@ -25,9 +25,11 @@ export class Workpiece extends WorkpieceObservable {
 	@observable protection: ProtectionModel
 	@observable rightSplits: RightSplitsState
 	@observable docSummary
+	@observable rightHolders
 	constructor(id, initData = null, initState) {
 		const { files, rightSplit, ...data } = initData || {}
 		super(id, data, initState)
+		this.rightHolders = data.rightHolders
 		this.rightSplits = new RightSplitsState(this)
 		this.rightSplits.init(rightSplit)
 		// initialising the documentation by passing the workpiece for id, etc
