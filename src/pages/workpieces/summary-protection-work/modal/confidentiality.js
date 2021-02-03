@@ -1,14 +1,19 @@
 import React, { useState } from "react"
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
+import {
+	StyleSheet,
+	TextInput,
+	TouchableWithoutFeedback,
+	View,
+} from "react-native"
 import { Column, Flex, Row } from "../../../../layout"
 import { useTranslation } from "react-i18next"
 import { Heading, Text } from "../../../../text"
 import ModifierSVG from "../../../../svg/modify-svg"
 import EyeIcon from "../../../../svg/eye"
 import QuestionMark from "../../../../svg/question-mark"
-import UserAvatar from "../../../../smartsplit/user/avatar"
-import { getStatusString } from "./item-version-detail"
+import { defaultPicture, getStatusString } from "./item-version-detail"
 import Button from "../../../../widgets/button"
+import AvatarProgress from "../circular-progress"
 
 const Styles = StyleSheet.create({
 	part: {
@@ -21,15 +26,16 @@ const Styles = StyleSheet.create({
 		paddingVertical: 4,
 		paddingHorizontal: 8,
 	},
-	dropdownContent: {
-		display: "none",
-		position: "absolute",
-		backgroundColor: "#FFFFFF",
-		minWidth: 296,
-		boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
-		top: 30,
-		right: 0,
-		zIndex: 1,
+	textAreaContainer: {
+		borderColor: "#DCDFE1",
+		borderWidth: 1,
+		padding: 8,
+		borderRadius: 2,
+		borderStyle: "solid",
+	},
+	textArea: {
+		height: 72,
+		justifyContent: "flex-start",
 	},
 })
 
@@ -42,7 +48,6 @@ function Confidentiality(props) {
 	const { t } = useTranslation()
 
 	const userAccess = Array.from(data.userAccess || [])
-	const [tooltip1, setTooltip1] = useState(false)
 	return (
 		<Row {...nextProp}>
 			<Column flex={1}>
@@ -122,7 +127,7 @@ function Confidentiality(props) {
 									__html: t(
 										"shareYourRights:collaboratorModal.permissionPublicDesc",
 										{
-											name: getAccessString(data.access),
+											name: "Inscience",
 										}
 									),
 								}}
@@ -135,10 +140,12 @@ function Confidentiality(props) {
 						key={index}
 						data={item}
 						style={{ paddingTop: 24 }}
-						status={item.status}
 						isModal={isModal}
 					/>
 				))}
+				<Row>
+					<Flex></Flex>
+				</Row>
 			</Column>
 			<Column flex={1} />
 		</Row>
@@ -146,48 +153,22 @@ function Confidentiality(props) {
 }
 
 function ConfidentialityItem(props) {
-	const { showButton, isModal, data, ...nextProp } = props
+	const { isModal, data, ...nextProp } = props
 	const { t } = useTranslation()
+	const [showButton, setShowButton] = useState(false)
 	return (
 		<Row {...nextProp}>
 			<Column flex={1} />
 			<Column flex={11}>
-				<Row>
-					<Column flex={1}>
-						<UserAvatar
-							size="small"
-							picture={data && data.url ? data.url : ""}
-						/>
-					</Column>
-					<Column
-						flex={7}
-						style={{ justifyContent: "center", paddingLeft: 16 }}
-					>
-						<Row>
-							<Text>{data && data.name ? data.name : ""}</Text>
-
-							{data && data.note && (
-								<View style={{ justifyContent: "center", paddingLeft: 6 }}>
-									<QuestionMark />
-								</View>
-							)}
-						</Row>
-					</Column>
-					<Column
-						flex={4}
-						style={{ justifyContent: "center", alignItems: "flex-end" }}
-					>
-						<Text
-							small
-							secondary={data && data.status === 2}
-							action={data && data.status === 1}
-							error={data && data.status === 3}
-							bold={(data && data.status === 1) || (data && data.status === 3)}
-						>
-							{data && data.status ? getStatusString(data.status) : ""}
-						</Text>
-					</Column>
-				</Row>
+				{data && data.status === 2 && !isModal && (
+					<TouchableWithoutFeedback onPress={() => setShowButton(!showButton)}>
+						<View>
+							<RowConfidentialityItem data={data} />
+						</View>
+					</TouchableWithoutFeedback>
+				)}
+				{isModal ||
+					(data && data.status !== 2 && <RowConfidentialityItem data={data} />)}
 				{showButton && (
 					<Row style={{ paddingTop: 16 }}>
 						<Column flex={1}></Column>
@@ -216,6 +197,22 @@ function ConfidentialityItem(props) {
 									</View>
 								</Column>
 							</Row>
+							<Row style={{ paddingTop: 16 }}>
+								<Flex>
+									<View style={Styles.textAreaContainer}>
+										<TextInput
+											style={Styles.textArea}
+											underlineColorAndroid="transparent"
+											placeholder={t(
+												"shareYourRights:votingPage.explainReason"
+											)}
+											placeholderTextColor="#8DA0B2"
+											numberOfLines={10}
+											multiline={true}
+										/>
+									</View>
+								</Flex>
+							</Row>
 						</Column>
 					</Row>
 				)}
@@ -224,18 +221,62 @@ function ConfidentialityItem(props) {
 	)
 }
 
-function ConfidentialityItemOnTouch(props) {
-	const { status, isModal, ...nextProp } = props
+function RowConfidentialityItem(props) {
+	const { data } = props
+	return (
+		<Row>
+			<Column flex={1}>
+				<AvatarProgress
+					percent={80}
+					size={40}
+					borderWidth={4}
+					borderBgColor="#F5F2F3"
+					percentColor="#D9ACF7"
+					picture={defaultPicture}
+				/>
+			</Column>
+			<Column flex={7} style={{ justifyContent: "center", paddingLeft: 16 }}>
+				<Row>
+					<Text>{data && data.name ? data.name : ""}</Text>
 
-	const [showButton, setShowButton] = useState(false)
+					{data && data.note && (
+						<View style={{ justifyContent: "center", paddingLeft: 6 }}>
+							<QuestionMark />
+						</View>
+					)}
+				</Row>
+			</Column>
+			<Column
+				flex={4}
+				style={{ justifyContent: "center", alignItems: "flex-end" }}
+			>
+				<Text
+					small
+					secondary={data && data.status === 2}
+					action={data && data.status === 1}
+					error={data && data.status === 3}
+					bold={(data && data.status === 1) || (data && data.status === 3)}
+				>
+					{data && data.status ? getStatusString(data.status) : ""}
+				</Text>
+			</Column>
+		</Row>
+	)
+}
+
+function ConfidentialityItemOnTouch(props) {
+	const { isModal, ...nextProp } = props
+
 	return (
 		<>
 			{status === 2 && !isModal && (
-				<TouchableWithoutFeedback onPress={() => setShowButton(!showButton)}>
-					<ConfidentialityItem showButton={showButton} {...nextProp} />
-				</TouchableWithoutFeedback>
+				// <TouchableWithoutFeedback onPress={() => setShowButton(!showButton)}>
+				<ConfidentialityItem status={status} {...nextProp} />
+				// </TouchableWithoutFeedback>
 			)}
-			{(status !== 2 || isModal) && <ConfidentialityItem {...nextProp} />}
+			{(status !== 2 || isModal) && (
+				<ConfidentialityItem status={status} {...nextProp} />
+			)}
 		</>
 	)
 }

@@ -7,11 +7,10 @@ import {
 	View,
 } from "react-native"
 import { Column, Flex, Hairline, Row } from "../../../../layout"
-import UserAvatar from "../../../../smartsplit/user/avatar"
 import { Text } from "../../../../text"
 import Button from "../../../../widgets/button"
 import { useTranslation } from "react-i18next"
-import { TextField } from "../../../../forms"
+import AvatarProgress from "../circular-progress"
 
 export const getStatusString = (status) => {
 	const { t } = useTranslation()
@@ -42,12 +41,11 @@ const Styles = StyleSheet.create({
 	},
 })
 
-const chart_wh = 250
-const series = [123, 321, 123, 789, 537]
-const sliceColor = ["#F44336", "#2196F3", "#FFEB3B", "#4CAF50", "#FF9800"]
+export const defaultPicture =
+	"https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png"
 
 const ItemVersionDetail = observer((props) => {
-	const { status, isModal, secondaryPercent, data, ...nextProps } = props
+	const { isModal, data, ...nextProps } = props
 
 	const { t } = useTranslation()
 	const [showButton, setShowButton] = useState(false)
@@ -58,7 +56,7 @@ const ItemVersionDetail = observer((props) => {
 					<Hairline />
 					<Row style={{ paddingTop: 16 }}>
 						<Column flex={1}>
-							{!isModal && status === 2 && (
+							{!isModal && data && data.status === 2 && (
 								<TouchableWithoutFeedback
 									onPress={() => setShowButton(!showButton)}
 								>
@@ -71,7 +69,7 @@ const ItemVersionDetail = observer((props) => {
 									</View>
 								</TouchableWithoutFeedback>
 							)}
-							{(isModal || status !== 2) && (
+							{(isModal || (data && data.status !== 2)) && (
 								<RowViewItem
 									isModal={isModal}
 									secondaryPercent={!showButton}
@@ -82,7 +80,7 @@ const ItemVersionDetail = observer((props) => {
 					</Row>
 					{showButton && (
 						<Row style={{ paddingTop: 16 }}>
-							<Column flex={1}>
+							<Flex>
 								<Row>
 									<Column flex={2} />
 									<Column flex={5} style={{ paddingRight: 8 }}>
@@ -121,7 +119,7 @@ const ItemVersionDetail = observer((props) => {
 										</View>
 									</Column>
 								</Row>
-							</Column>
+							</Flex>
 						</Row>
 					)}
 				</Column>
@@ -138,9 +136,13 @@ function RowViewItem(props) {
 	return (
 		<Row>
 			<Column flex={2} style={{ justifyContent: "center" }}>
-				<UserAvatar
-					size="small"
-					picture={data ? (data.uri ? data.uri : "") : ""}
+				<AvatarProgress
+					percent={80}
+					size={40}
+					borderWidth={4}
+					borderBgColor="#F5F2F3"
+					percentColor="#D9ACF7"
+					picture={defaultPicture}
 				/>
 			</Column>
 			<Column flex={7}>
@@ -180,7 +182,6 @@ function RowViewItem(props) {
 
 function ItemVersionDetailOnTouch(props) {
 	const { isModal, status, ...nextProps } = props
-	const [showButton, setShowButton] = useState(false)
 	return (
 		<>
 			{status === 2 && !isModal && (
@@ -189,17 +190,11 @@ function ItemVersionDetailOnTouch(props) {
 				// 		setShowButton(!showButton)
 				// 	}}
 				// >
-				<ItemVersionDetail
-					status={status}
-					isModal={isModal}
-					{...nextProps}
-					showButton={showButton}
-					secondaryPercent={!showButton}
-				/>
+				<ItemVersionDetail isModal={isModal} {...nextProps} />
 				// </TouchableWithoutFeedback>
 			)}
 			{(status !== 2 || isModal) && (
-				<ItemVersionDetail isModal={isModal} status={status} {...nextProps} />
+				<ItemVersionDetail isModal={isModal} {...nextProps} />
 			)}
 		</>
 	)

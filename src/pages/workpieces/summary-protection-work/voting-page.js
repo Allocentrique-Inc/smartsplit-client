@@ -14,6 +14,7 @@ import SplitChart, {
 } from "../../../smartsplit/components/split-chart"
 import { useRightSplits } from "../../../mobX/hooks"
 import { useCurrentWorkpieceId } from "../context"
+import moment from "moment"
 
 const Styles = StyleSheet.create({
 	layout: { paddingHorizontal: "17%" },
@@ -39,6 +40,8 @@ const VotingPage = observer((props) => {
 	const { t } = useTranslation()
 	const data = shareInfo
 	const rightSplits = useRightSplits(useCurrentWorkpieceId())
+	const num = 3
+	const total = 3
 
 	return (
 		<Column flex={1}>
@@ -46,14 +49,22 @@ const VotingPage = observer((props) => {
 				<Column style={[Styles.layout, Styles.bodyLayout]} flex={1}>
 					<Row>
 						<Column>
-							<Heading level={2}>Valider le split de Love You Baby</Heading>
+							<Heading level={2}>
+								{t("shareYourRights:votingPage.validateSplit", {
+									name: "Love You Baby",
+								})}
+							</Heading>
 							<Text
 								secondary
 								style={{ paddingTop: 8 }}
 								small
 								dangerouslySetInnerHTML={{
-									__html:
-										"Créé par <span style='color: #2DA84F; font-weight: bold'>Inscience</span> · Mis à jour il y a 3 heures",
+									__html: t("shareYourRights:updateBy", {
+										name: "Inscience ",
+										hour: moment("02/02/2021 11:02")
+											.startOf("second")
+											.fromNow(),
+									}),
 								}}
 							/>
 						</Column>
@@ -65,8 +76,12 @@ const VotingPage = observer((props) => {
 								secondary
 								small
 								dangerouslySetInnerHTML={{
-									__html:
-										"Créé par <span style='color: #2DA84F; font-weight: bold'>ArtistName</span> il y a 3 heures",
+									__html: t("shareYourRights:collaboratorModal.underTitle", {
+										name: "ArtistName",
+										time: moment("02/02/2021 11:06")
+											.startOf("second")
+											.fromNow(),
+									}),
 								}}
 							/>
 						</Column>
@@ -96,7 +111,7 @@ const VotingPage = observer((props) => {
 								}
 							/>
 							<SectionCollaborator
-								title={t("shareYourRights:collaboratorModal.copyright")}
+								title={t("shareYourRights:collaboratorModal.interpretation")}
 								data={data.columns.waitingToSend[0].interpretation}
 								splitState={rightSplits.performance}
 								chart={
@@ -108,7 +123,7 @@ const VotingPage = observer((props) => {
 								}
 							/>
 							<SectionCollaborator
-								title={t("shareYourRights:collaboratorModal.copyright")}
+								title={t("shareYourRights:collaboratorModal.soundRecording")}
 								data={data.columns.waitingToSend[0].soundRecording}
 								chart={
 									<SplitChart
@@ -116,6 +131,7 @@ const VotingPage = observer((props) => {
 										size={300}
 									/>
 								}
+								splitState={rightSplits.performance}
 							/>
 							<Confidentiality
 								data={data.columns.waitingToSend[0].confidentiality}
@@ -127,7 +143,21 @@ const VotingPage = observer((props) => {
 			</Scrollable>
 			<Hairline />
 			<Row style={[Styles.bottomLayout, Styles.layout]}>
-				<Button bold disabled text="Soumettre mon vote" />
+				<Column style={{ justifyContent: "center", paddingRight: 32 }}>
+					<Text secondary align="center">
+						{t("shareYourRights:votingPage.selectionsMade", {
+							num: num,
+							total: total,
+						})}
+					</Text>
+				</Column>
+				<Column>
+					<Button
+						bold
+						disabled
+						text={t("shareYourRights:votingPage.submitVote")}
+					/>
+				</Column>
 			</Row>
 		</Column>
 	)

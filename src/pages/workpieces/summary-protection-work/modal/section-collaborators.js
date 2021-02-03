@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
-import { Column, Flex, Hairline, Row } from "../../../../layout"
-import ModifierSVG from "../../../../svg/modify-svg"
-import { Heading, Text } from "../../../../text"
+import { StyleSheet, View } from "react-native"
+import { Column, Row } from "../../../../layout"
+import { Heading } from "../../../../text"
 import Button from "../../../../widgets/button"
 import ItemVersionDetailOnTouch from "./item-version-detail"
-import SplitChart from "../../../../smartsplit/components/split-chart"
-import { useRightSplits } from "../../../../mobX/hooks"
-import { useCurrentWorkpieceId } from "../../context"
 import { useStores } from "../../../../mobX"
 
 const Styles = StyleSheet.create({
