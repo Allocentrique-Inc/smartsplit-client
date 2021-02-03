@@ -138,12 +138,12 @@ function RowViewItem(props) {
 		<Row>
 			<Column flex={2} style={{ justifyContent: "center" }}>
 				<AvatarProgress
-					percent={80}
+					percent={data.percent}
 					size={40}
 					borderWidth={4}
 					borderBgColor="#F5F2F3"
-					percentColor="#D9ACF7"
-					picture={defaultPicture}
+					percentColor={data.color}
+					user={data.user}
 				/>
 			</Column>
 			<Column flex={7}>

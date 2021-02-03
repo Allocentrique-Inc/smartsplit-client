@@ -117,7 +117,6 @@ const CollaboratorModal = observer((props) => {
 										/>
 									)
 								}
-								data={copyright}
 								canModify
 								isModal
 							/>
@@ -134,7 +133,6 @@ const CollaboratorModal = observer((props) => {
 									/>
 								}
 								style={Styles.section}
-								data={interpretation}
 								canModify
 								isModal
 							/>
@@ -144,7 +142,6 @@ const CollaboratorModal = observer((props) => {
 								title={t("shareYourRights:collaboratorModal.soundRecording")}
 								splitState={rightSplits.recording}
 								style={Styles.section}
-								data={soundRecording}
 								chart={
 									<SplitChart
 										{...rightSplits.recording.genChartProps()}

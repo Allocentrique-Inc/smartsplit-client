@@ -41,6 +41,7 @@ function SectionCollaborator(props) {
 		...share,
 		user:
 			auth.user_id === share.id ? auth.user.data : collaborators.map[share.id],
+		color: splitState.shareholderColors.get(share.id),
 	}))
 	console.log(toJS(shares))
 	if (!splitState || !splitState.shareholders.filter) return null
