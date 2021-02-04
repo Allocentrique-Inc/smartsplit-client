@@ -42,9 +42,11 @@ function SectionCollaborator(props) {
 			: []
 	shares = shares.map((share) => ({
 		...share,
-		user: toJS(collaborators.map[share.id]),
+		user:
+			auth.user_id === share.id ? auth.user.data : collaborators.map[share.id],
+		color: splitState.shareholderColors.get(share.id),
 	}))
-	console.log(shares)
+	console.log(toJS(shares))
 	if (!splitState || !splitState.shareholders.filter) return null
 
 	const [styles, setStyles] = useState({})
@@ -87,7 +89,7 @@ function SectionCollaborator(props) {
 			</Row>
 			<Row>
 				<Column flex={1}>
-					{dataArr.map((item, index) => (
+					{shares.map((item, index) => (
 						<ItemVersionDetailOnTouch
 							style={{ paddingBottom: 16 }}
 							key={index}
