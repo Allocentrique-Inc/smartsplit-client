@@ -208,7 +208,7 @@ export function WorkpiecePage() {
 	)
 }
 
-function InfoBar() {
+export function InfoBar() {
 	const { t } = useTranslation()
 
 	const { workpiece_id, type } = useParams()
