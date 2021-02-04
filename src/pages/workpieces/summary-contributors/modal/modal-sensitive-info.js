@@ -26,14 +26,20 @@ const SensitiveInfoModal = observer((props) => {
 	const dataValue = Array.from(data || [])
 	return (
 		<DialogModal
-			visible={true}
+			visible={visible}
 			key="sensitive-info-modal"
-			title="Télécharger le contrat"
+			title={t("shareYourRights:sensitiveInfoModal.label")}
 			onRequestClose={onRequestClose}
 			buttons={
 				<>
-					<Button text="Annuler" tertiary />
-					<Button text="Télécharger en PDF" />
+					<Button
+						text={t("general:buttons.cancel")}
+						tertiary
+						onClick={onRequestClose}
+					/>
+					<Button
+						text={t("shareYourRights:sensitiveInfoModal.downloadAsPDF")}
+					/>
 				</>
 			}
 		>
@@ -41,10 +47,7 @@ const SensitiveInfoModal = observer((props) => {
 				<Column flex={1}>
 					<Row>
 						<Text secondary>
-							Afin de préparer l’entente entre vous, Smartsplit a besoin
-							d’information plus sensible au sujet de tous. Cette information
-							est nécessaire afin de produire le document légal que vous pourrez
-							imprimer et signer.
+							{t("shareYourRights:sensitiveInfoModal.desc")}
 						</Text>
 					</Row>
 					{dataValue.map((item, index) => {

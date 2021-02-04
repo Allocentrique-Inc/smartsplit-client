@@ -582,6 +582,9 @@ export const shareYourRights = {
 		email: "Email",
 		optional: "Optional",
 		ipi: "IPI",
+		downloadAsPDF: "Download as PDF",
+		ipiTooltip:
+			"description information description information description information",
 	},
 }
 

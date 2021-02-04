@@ -580,6 +580,9 @@ export const shareYourRights = {
 		email: "Courriel",
 		optional: "Optionnel",
 		ipi: "IPI",
+		downloadAsPDF: "Télécharger en PDF",
+		ipiTooltip:
+			"informations de description informations de description informations de description",
 	},
 }
 

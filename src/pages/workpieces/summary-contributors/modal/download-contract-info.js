@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { observer } from "mobx-react"
 import { StyleSheet, View } from "react-native"
 import { Column, Hairline, Row } from "../../../../layout"
@@ -21,6 +22,7 @@ const Styles = StyleSheet.create({
 
 const DownloadContractInfo = observer((props) => {
 	const { data, isLast, ...nextProps } = props
+	const { t } = useTranslation()
 
 	let nameOfWork = data && data.nameOfWork ? data.nameOfWork : ""
 
@@ -66,17 +68,23 @@ const DownloadContractInfo = observer((props) => {
 				<Column flex={11}>
 					<Row style={Styles.rowTextInput}>
 						<Column flex={1} style={Styles.fieldColumn}>
-							<TextField label="Prénoms usuels" value={usualFirstNames} />
+							<TextField
+								label={t("shareYourRights:sensitiveInfoModal.usualFirstNames")}
+								value={usualFirstNames}
+							/>
 						</Column>
 						<Column flex={1}>
-							<TextField label="Nom usuel" value={usualName} />
+							<TextField
+								label={t("shareYourRights:sensitiveInfoModal.usualName")}
+								value={usualName}
+							/>
 						</Column>
 					</Row>
 					<Row style={Styles.rowTextInput}>
 						<Column flex={1} style={Styles.fieldColumn}>
 							<DatePickers
 								value={dateOfBirth}
-								label="Date de naissance"
+								label={t("shareYourRights:sensitiveInfoModal.dateOfBirth")}
 								icon={"calendar outline"}
 								format="DD/MM/YYYY"
 								maxWidth
@@ -85,16 +93,23 @@ const DownloadContractInfo = observer((props) => {
 						</Column>
 						<Column flex={1}>
 							<TextField
-								tooltip={<Text>Hello</Text>}
+								tooltip={
+									<Text>
+										{t("shareYourRights:sensitiveInfoModal.ipiTooltip")}
+									</Text>
+								}
 								label="IPI"
-								label_hint="Optionnel"
+								label_hint={t("shareYourRights:sensitiveInfoModal.optional")}
 								value={ipi}
 							/>
 						</Column>
 					</Row>
 					<Row style={Styles.rowTextInput}>
 						<Column flex={1}>
-							<SearchAndTag label="Adresse civique" search={streetAddress} />
+							<SearchAndTag
+								label={t("shareYourRights:sensitiveInfoModal.streetAddress")}
+								search={streetAddress}
+							/>
 						</Column>
 					</Row>
 					<Row
@@ -104,7 +119,10 @@ const DownloadContractInfo = observer((props) => {
 						]}
 					>
 						<Column flex={1} style={Styles.fieldColumn}>
-							<TextField label="Courriel" value={email} />
+							<TextField
+								label={t("shareYourRights:sensitiveInfoModal.email")}
+								value={email}
+							/>
 						</Column>
 					</Row>
 				</Column>
