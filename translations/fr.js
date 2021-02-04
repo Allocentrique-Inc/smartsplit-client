@@ -584,6 +584,20 @@ export const shareYourRights = {
 		ipiTooltip:
 			"informations de description informations de description informations de description",
 	},
+	agreement: {
+		toPrint: "Imprimer",
+		sharingAgreement: "Entente de partage de droits",
+		desc:
+			"Droit d'auteur sur l'oeuvre et Droits voisins des artistes-interprètes et producteurs",
+
+		agreementConcerningThe: "Entente concernant la pièce musicale originale :",
+		workInformation:
+			"<b>{{musicName}}</b> ({{descMusic}}) interprétée par {{performer}}, ci-après la «pièce» musicale.",
+		agreementBetween: "Entente intervenue entre",
+		and: "Et",
+		nameAndArtistName:
+			"<b>{{fullName}}</b> portant le nom d’artiste «<b>{{artistName}}</b>»",
+	},
 }
 
 export const rightSplits = {

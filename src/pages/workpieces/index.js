@@ -34,6 +34,7 @@ import { observer } from "mobx-react"
 import DocumentationPage from "./documentation"
 import SummaryProtectionWorkPage from "./summary-contributors"
 import VotingPage from "./summary-contributors/voting-page"
+import AgreementPage from "./summary-contributors/agreement-page"
 
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
@@ -65,9 +66,9 @@ const WorkpiecesRouter = observer(() => {
 				/>
 
 				<Route
-					path="/workpieces/:workpiece_id/voting-page"
+					path="/workpieces/:workpiece_id/agreement"
 					exact
-					component={VotingPage}
+					component={AgreementPage}
 				/>
 
 				<Route
