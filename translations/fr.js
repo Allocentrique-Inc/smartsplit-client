@@ -569,6 +569,41 @@ export const shareYourRights = {
 		submitVote: "Soumettre mon vote",
 		selectionsMade: "{num}/{total} sélections effectuées",
 	},
+	sensitiveInfoModal: {
+		label: "Télécharger le contrat",
+		desc:
+			"Afin de préparer l’entente entre vous, Smartsplit a besoin d’information plus sensible au sujet de tous. Cette information est nécessaire afin de produire le document légal que vous pourrez imprimer et signer.",
+		usualFirstNames: "Prénoms usuels",
+		usualName: "Nom usuel",
+		dateOfBirth: "Date de naissance",
+		streetAddress: "Adresse civique",
+		email: "Courriel",
+		optional: "Optionnel",
+		ipi: "IPI",
+		downloadAsPDF: "Télécharger en PDF",
+		ipiTooltip:
+			"informations de description informations de description informations de description",
+	},
+	agreement: {
+		toPrint: "Imprimer",
+		sharingAgreement: "Entente de partage de droits",
+		desc:
+			"Droit d'auteur sur l'oeuvre et Droits voisins des artistes-interprètes et producteurs",
+
+		agreementConcerningThe: "Entente concernant la pièce musicale originale :",
+		workInformation:
+			"<b>{{musicName}}</b> ({{descMusic}}) interprétée par {{performer}}, ci-après la «pièce» musicale.",
+		agreementBetween: "Entente intervenue entre",
+		and: "Et",
+		nameAndArtistName:
+			"<b>{{fullName}}</b> portant le nom d’artiste «<b>{{artistName}}</b>»",
+		allOfTheAbove:
+			"Tous ci-dessus collectivement nommés les «contributeurs» ou les «parties»",
+		sign:
+			"Les contributeurs s'entendent sur ces partages de droits en lien avec la «pièce» :",
+		address: "Adresse",
+		phone: "Téléphone",
+	},
 }
 
 export const rightSplits = {
