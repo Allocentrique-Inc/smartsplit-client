@@ -597,6 +597,12 @@ export const shareYourRights = {
 		and: "Et",
 		nameAndArtistName:
 			"<b>{{fullName}}</b> portant le nom d’artiste «<b>{{artistName}}</b>»",
+		allOfTheAbove:
+			"Tous ci-dessus collectivement nommés les «contributeurs» ou les «parties»",
+		sign:
+			"Les contributeurs s'entendent sur ces partages de droits en lien avec la «pièce» :",
+		address: "Adresse",
+		phone: "Téléphone",
 	},
 }
 

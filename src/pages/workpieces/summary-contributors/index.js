@@ -535,7 +535,6 @@ const SummaryProtectionWorkPage = observer(() => {
 	const [isCollaboratorVisible, SetCollaboratorVisible] = useState(false)
 	const [sendModalVisible, setSendModalVisible] = useState(false)
 	const [dataCollaborator, setDataCollaborator] = useState({})
-	const [showModalSensitive, setShowModalSensitive] = useState(false)
 
 	const clickArrowLeft = () => {
 		navigateToSummary()
@@ -558,10 +557,6 @@ const SummaryProtectionWorkPage = observer(() => {
 		setSendModalVisible(false)
 	}
 
-	const handleShowSensitiveInfo = () => {
-		setShowModalSensitive(!showModalSensitive)
-	}
-
 	return (
 		<>
 			<CollaboratorModal
@@ -572,11 +567,6 @@ const SummaryProtectionWorkPage = observer(() => {
 			<SendCollaboratorsModal
 				visible={sendModalVisible}
 				onRequestClose={handleOnSendModalClosed}
-			/>
-			<SensitiveInfoModal
-				data={sensitiveInfo}
-				visible={showModalSensitive}
-				onRequestClose={handleShowSensitiveInfo}
 			/>
 			<View style={{ height: "100%" }}>
 				<Row style={{ width: "100%" }}>
@@ -652,13 +642,6 @@ const SummaryProtectionWorkPage = observer(() => {
 										<EmptyStateView />
 									</Tab>
 								</TabBar>
-							</Row>
-							<Row>
-								<Button
-									text="Modal Sensitive Info"
-									onClick={handleShowSensitiveInfo}
-									small
-								/>
 							</Row>
 						</Column>
 						<Column flex={2} />

@@ -59,17 +59,19 @@ const WorkpiecesRouter = observer(() => {
 					component={SummaryProtectionWorkPage}
 				/>
 
-				<Route
+				{/*Task 1222_create-the-new-voting-pages */}
+				{/* <Route
 					path="/workpieces/:workpiece_id/voting-page"
 					exact
 					component={VotingPage}
-				/>
+				/> */}
 
-				<Route
+				{/*Task 1331_agreement_page_and__download */}
+				{/* <Route
 					path="/workpieces/:workpiece_id/agreement"
 					exact
 					component={AgreementPage}
-				/>
+				/> */}
 
 				<Route
 					path={[

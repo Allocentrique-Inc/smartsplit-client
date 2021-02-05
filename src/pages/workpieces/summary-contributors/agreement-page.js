@@ -96,12 +96,19 @@ const AgreementPage = observer((props) => {
 				{data.map((item, index) => {
 					return (
 						<PartiesAgreement
+							key={index}
 							index={index}
 							data={item}
 							style={{ paddingTop: index === 0 ? 56 : 32 }}
 						/>
 					)
 				})}
+				<Row style={{ paddingTop: Metrics.spacing.large }}>
+					<Text secondary>{t("shareYourRights:agreement.allOfTheAbove")}</Text>
+				</Row>
+				<Row style={{ paddingVertical: 77 }}>
+					<Text bold>{t("shareYourRights:agreement.sign")}</Text>
+				</Row>
 			</Column>
 		</Scrollable>
 	)
@@ -136,36 +143,38 @@ function PartiesAgreement(props) {
 				</Row>
 				<Row style={{ paddingTop: 16 }}>
 					<Column flex={flexConfig.info.title}>
-						<Text secondary>IPI: </Text>
-					</Column>
-					<Column flex={flexConfig.info.value}>
-						<Text secondary>#518507355</Text>
-					</Column>
-				</Row>
-				<Row>
-					<Column flex={flexConfig.info.title}>
-						<Text secondary>Adresse: </Text>
-					</Column>
-					<Column flex={flexConfig.info.value}>
 						<Text secondary>
-							5540, 5e avenue, Montréal, Québec, Canada, H1Y 2S7
+							{t("shareYourRights:sensitiveInfoModal.ipi")}:
 						</Text>
 					</Column>
-				</Row>
-				<Row>
-					<Column flex={flexConfig.info.title}>
-						<Text secondary>Téléphone: </Text>
-					</Column>
 					<Column flex={flexConfig.info.value}>
-						<Text secondary>(514) 771-8322</Text>
+						<Text secondary>{data.ipi}</Text>
 					</Column>
 				</Row>
 				<Row>
 					<Column flex={flexConfig.info.title}>
-						<Text secondary>Courriel: </Text>
+						<Text secondary>{t("shareYourRights:agreement.address")}:</Text>
 					</Column>
 					<Column flex={flexConfig.info.value}>
-						<Text secondary>debbie@debbietebbs.com</Text>
+						<Text secondary>{data.address}</Text>
+					</Column>
+				</Row>
+				<Row>
+					<Column flex={flexConfig.info.title}>
+						<Text secondary>{t("shareYourRights:agreement.phone")}:</Text>
+					</Column>
+					<Column flex={flexConfig.info.value}>
+						<Text secondary>{data.phone}</Text>
+					</Column>
+				</Row>
+				<Row>
+					<Column flex={flexConfig.info.title}>
+						<Text secondary>
+							{t("shareYourRights:sensitiveInfoModal.email")}:
+						</Text>
+					</Column>
+					<Column flex={flexConfig.info.value}>
+						<Text secondary>{data.email}</Text>
 					</Column>
 				</Row>
 			</Column>
