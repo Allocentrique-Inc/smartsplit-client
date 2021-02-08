@@ -19,7 +19,7 @@ export default class CopyrightSplitState extends RightSplitState {
 	titleRight = i18next.t("rightSplits:music")
 
 	@computed get disabledLockButton() {
-		return this.shareholders.length === 1
+		return this.shareholders.length <= 1
 	}
 	/**
 	 *	Computed array of data objects

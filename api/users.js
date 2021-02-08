@@ -14,6 +14,12 @@ export async function getEmail(email) {
 	return await client.head(`/users/email/${encodeURI(email)}`)
 }
 
+export async function getUser(user_id) {
+	return await client.request({
+		url: `/users/${user_id}`,
+		method: "get",
+	})
+}
 export function forgotPassword(email) {
 	return client.request({
 		url: "/users/request-password-reset",

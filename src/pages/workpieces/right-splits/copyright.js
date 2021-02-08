@@ -87,48 +87,47 @@ const CopyrightForm = observer(() => {
 					</CheckBoxGroup>
 				)}
 			</Observer>
-			<Row of="component" valign="center">
-				{domainState.mode === "manual" && (
-					<Observer>
-						{() => (
-							<>
-								<Slider
-									min={0}
-									max={shareTotal}
-									color={splitState.shareholderColors.get(shareholder.id)}
-									step={0.01}
-									value={shareholder.shares}
-									disabled={shareholder.locked}
-									onChange={(value) =>
-										domainState.updateSharesProRata(shareholder.id, value)
-									}
-								/>
-								<PercentageInput
-									value={shareholder.percent}
-									digits={2}
-									onChange={(percentage) =>
-										domainState.updateSharesProRata(
-											shareholder.id,
-											(percentage * shareTotal) / 100
-										)
-									}
-								/>
-							</>
-						)}
-					</Observer>
-				)}
-				{domainState.mode !== "manual" && (
-					<>
-						<ProgressBar
-							progress={shareholder.percent}
-							size="xsmall"
-							style={{ flex: 1 }}
-							color={splitState.shareholderColors.get(shareholder.id)}
-						/>
-						<Text bold>{formatPercentage(shareholder.percent)}</Text>
-					</>
-				)}
-			</Row>
+			{domainState.mode === "manual" && (
+				<Observer>
+					{() => (
+						<Row of="inside">
+							<Slider
+								min={0}
+								max={shareTotal}
+								color={splitState.shareholderColors.get(shareholder.id)}
+								step={0.01}
+								value={shareholder.shares}
+								disabled={shareholder.locked}
+								onChange={(value) =>
+									domainState.updateProratedShares(shareholder.id, value)
+								}
+							/>
+							<PercentageInput
+								value={shareholder.percent}
+								digits={2}
+								onChange={(percentage) =>
+									domainState.updateProratedShares(
+										shareholder.id,
+										(percentage * shareTotal) / 100
+									)
+								}
+								disabled={shareholder.locked}
+							/>
+						</Row>
+					)}
+				</Observer>
+			)}
+			{domainState.mode !== "manual" && (
+				<Row of="inside" valign="center">
+					<ProgressBar
+						progress={shareholder.percent}
+						size="xsmall"
+						style={{ flex: 1 }}
+						color={splitState.shareholderColors.get(shareholder.id)}
+					/>
+					<Text bold>{formatPercentage(shareholder.percent)}</Text>
+				</Row>
+			)}
 		</ShareCard>
 	))
 

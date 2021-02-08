@@ -43,7 +43,7 @@ export default class PerformanceSplitModel extends RightSplitModel {
 	}
 
 	@action setShareStatus(id, status) {
-		this.updateShareField(id, "status", status)
+		this.updateShareholderField(id, "status", status)
 		this.updateShares()
 	}
 

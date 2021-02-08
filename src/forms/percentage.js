@@ -3,12 +3,27 @@ import { TextInput } from "react-native"
 import { observer } from "mobx-react"
 import { percentageValidator } from "../../helpers/validators"
 import { formatPercentage } from "../utils/utils"
-import FormStyles from "../styles/forms"
+import TypographyStyles from "../styles/typography"
 
-export const PercentageInput = observer((props) => {
-	const { viewRef, style, value, onChange, digits, ...nextProps } = props
+const PercentageInput = observer((props) => {
+	const {
+		viewRef,
+		style,
+		value,
+		onChange,
+		digits,
+		disabled,
+		...nextProps
+	} = props
 	//console.log(nextProps)
 	const [displayValue, setDisplayValue] = useState("")
+
+	const baseStyle = {
+		width: 58,
+		fontSize: 16,
+		lineHeight: 24,
+		cursor: disabled ? "not-allowed" : "pointer",
+	}
 
 	function onBlur() {
 		let isValid = percentageValidator(displayValue)
@@ -23,7 +38,7 @@ export const PercentageInput = observer((props) => {
 
 	//Update displayed value on prop value change
 	useEffect(() => {
-		setDisplayValue(formatPercentage(value))
+		setDisplayValue(formatPercentage(value, value === 100 ? 1 : 2))
 	}, [value])
 
 	return (
@@ -35,7 +50,13 @@ export const PercentageInput = observer((props) => {
 			onFocus={() =>
 				setDisplayValue(value.toFixed(digits ? digits : 0).toString())
 			}
-			style={[FormStyles.input_text, style]}
+			disabled={disabled}
+			style={[
+				TypographyStyles.text.base,
+				TypographyStyles.text.bold,
+				baseStyle,
+				style,
+			]}
 			ref={viewRef}
 		/>
 	)

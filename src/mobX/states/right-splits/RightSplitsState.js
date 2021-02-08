@@ -11,6 +11,7 @@ import { lightenDarkenColor } from "../../../utils/utils"
 import BaseModel from "../../BaseModel"
 import PrivacyPage from "../../../pages/workpieces/right-splits/privacy"
 import SendPage from "../../../pages/workpieces/right-splits/send"
+import { getUser } from "../../../../api/users"
 
 /**
  *	Contains the 3 right split states (copyright, performance, recording). Manage a list of unique sets of shareholder ID - color, which is used in the split pages. Save in and load split
@@ -47,20 +48,29 @@ export default class RightSplitsState extends BaseModel {
 				}
 
 				// Check for new shareholder and assign him an available color
-				uniqueIds.forEach((id) => {
-					if (!this.shareholderColors.has(id)) {
-						this.availableColors.length === 0 && this.replenishColors()
-						this.shareholderColors.set(id, this.availableColors.shift())
-					}
-				})
-			},
-			{ fireImmediately: true }
+				uniqueIds.forEach(
+					(id) => {
+						if (!this.shareholderColors.has(id)) {
+							this.availableColors.length === 0 && this.replenishColors()
+							this.shareholderColors.set(id, this.availableColors.shift())
+						}
+						if (!this.shareholderNames.has(id)) {
+							getUser(id).then(({ data }) => {
+								const name = `${data.firstName} ${data.lastName}`
+								this.shareholderNames.set(id, name)
+							})
+						}
+					},
+					{ fireImmediately: true }
+				)
+			}
 		)
 	}
 
 	// Map <shareholder ID, Color(hex)> that holds unique pairs of shareholder
 	// Id and color
 	@observable shareholderColors = new Map()
+	@observable shareholderNames = new Map()
 	@observable copyright
 	@observable performance
 	@observable recording

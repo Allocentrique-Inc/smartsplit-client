@@ -86,7 +86,7 @@ export default class CopyrightSplitModel extends RightSplitModel {
 
 	@action computeEqualMode() {
 		this.shareholdersValues.forEach((share) => {
-			this.updateShareField(share.id, "shares", 1)
+			this.updateShareholderField(share.id, "shares", 1)
 		})
 	}
 
@@ -112,7 +112,7 @@ export default class CopyrightSplitModel extends RightSplitModel {
 						musicContribNb
 				}
 			})
-			this.updateShareField(share.id, "shares", score)
+			this.updateShareholderField(share.id, "shares", score)
 		})
 	}
 
@@ -122,7 +122,7 @@ export default class CopyrightSplitModel extends RightSplitModel {
 	}
 
 	@action setRoles(id, roles) {
-		this.updateShareField(id, "roles", roles)
+		this.updateShareholderField(id, "roles", roles)
 		if (this.mode === "roles") {
 			this.computeRolesMode()
 		}

@@ -189,8 +189,6 @@ function useTooltips(data, slices, center) {
 						visible={visible}
 						x={tooltipData.vector.x + center.x}
 						y={tooltipData.vector.y + center.y}
-						width={200}
-						height={100}
 						backgroundColor={Colors.background.underground_reversed}
 					>
 						<Column of="tiny" style={{ padding: Metrics.spacing.inside }}>
