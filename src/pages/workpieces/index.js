@@ -59,11 +59,11 @@ const WorkpiecesRouter = observer(() => {
 				/>
 
 				{/*Task 1222_create-the-new-voting-pages */}
-				{/* <Route
+				<Route
 					path="/workpieces/:workpiece_id/voting-page"
 					exact
 					component={VotingPage}
-				/> */}
+				/>
 
 				<Route
 					path={[

@@ -71,7 +71,9 @@ const VotingPage = observer((props) => {
 					</Row>
 					<Row style={{ paddingTop: 64 }}>
 						<Column>
-							<Heading level={3}>Version 1</Heading>
+							<Heading level={3}>
+								Version {data.columns.waitingToSend[0].version}
+							</Heading>
 							<Text
 								secondary
 								small

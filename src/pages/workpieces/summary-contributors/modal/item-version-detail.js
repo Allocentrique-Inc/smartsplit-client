@@ -180,24 +180,4 @@ function RowViewItem(props) {
 	)
 }
 
-function ItemVersionDetailOnTouch(props) {
-	const { isModal, status, ...nextProps } = props
-	return (
-		<>
-			{status === 2 && !isModal && (
-				// <TouchableWithoutFeedback
-				// 	onPress={() => {
-				// 		setShowButton(!showButton)
-				// 	}}
-				// >
-				<ItemVersionDetail isModal={isModal} {...nextProps} />
-				// </TouchableWithoutFeedback>
-			)}
-			{(status !== 2 || isModal) && (
-				<ItemVersionDetail isModal={isModal} {...nextProps} />
-			)}
-		</>
-	)
-}
-
-export default ItemVersionDetailOnTouch
+export default ItemVersionDetail

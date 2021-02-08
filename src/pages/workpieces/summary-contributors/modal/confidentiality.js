@@ -15,6 +15,9 @@ import { defaultPicture, getStatusString } from "./item-version-detail"
 import Button from "../../../../widgets/button"
 import AvatarProgress from "../circular-progress"
 import { TooltipIcon } from "../../../../widgets/tooltip"
+import { useStores } from "../../../../mobX"
+import { useRightSplits } from "../../../../mobX/hooks"
+import { useCurrentWorkpieceId } from "../../context"
 
 const Styles = StyleSheet.create({
 	part: {
@@ -61,26 +64,17 @@ function Confidentiality(props) {
 					{canModify && (
 						<Column flex={2}>
 							<View>
-								<TouchableWithoutFeedback>
-									<View style={Styles.modifyBtn}>
-										<Row>
-											<Column
-												flex={1}
-												style={{
-													alignItems: "center",
-													justifyContent: "center",
-												}}
-											>
-												<ModifierSVG />
-											</Column>
-											<Column flex={3} style={{ alignItems: "center" }}>
-												<Text small bold action>
-													{t("shareYourRights:collaboratorModal.edit")}
-												</Text>
-											</Column>
-										</Row>
-									</View>
-								</TouchableWithoutFeedback>
+								<Button
+									icon={
+										<View>
+											<ModifierSVG />
+										</View>
+									}
+									small
+									secondary
+									bold
+									text={t("shareYourRights:collaboratorModal.edit")}
+								/>
 							</View>
 						</Column>
 					)}
@@ -108,7 +102,7 @@ function Confidentiality(props) {
 								}}
 							>
 								<View>
-									<TooltipIcon text={<Text>Hello</Text>} />
+									<TooltipIcon text="Hello" />
 								</View>
 							</Column>
 						</Row>
@@ -133,7 +127,7 @@ function Confidentiality(props) {
 					</Row>
 				)}
 				{userAccess.map((item, index) => (
-					<ConfidentialityItemOnTouch
+					<ConfidentialityItem
 						key={index}
 						data={item}
 						style={{ paddingTop: 24 }}
@@ -153,6 +147,7 @@ function ConfidentialityItem(props) {
 	const { isModal, data, ...nextProp } = props
 	const { t } = useTranslation()
 	const [showButton, setShowButton] = useState(false)
+	const rightSplits = useRightSplits(useCurrentWorkpieceId())
 	return (
 		<Row {...nextProp}>
 			<Column flex={1} />
@@ -164,8 +159,9 @@ function ConfidentialityItem(props) {
 						</View>
 					</TouchableWithoutFeedback>
 				)}
-				{isModal ||
-					(data && data.status !== 2 && <RowConfidentialityItem data={data} />)}
+				{(isModal || (data && data.status !== 2)) && (
+					<RowConfidentialityItem data={data} />
+				)}
 				{showButton && (
 					<Row style={{ paddingTop: 16 }}>
 						<Column flex={1}></Column>
@@ -258,23 +254,6 @@ function RowConfidentialityItem(props) {
 				</Text>
 			</Column>
 		</Row>
-	)
-}
-
-function ConfidentialityItemOnTouch(props) {
-	const { isModal, ...nextProp } = props
-
-	return (
-		<>
-			{status === 2 && !isModal && (
-				// <TouchableWithoutFeedback onPress={() => setShowButton(!showButton)}>
-				<ConfidentialityItem status={status} {...nextProp} />
-				// </TouchableWithoutFeedback>
-			)}
-			{(status !== 2 || isModal) && (
-				<ConfidentialityItem status={status} {...nextProp} />
-			)}
-		</>
 	)
 }
 

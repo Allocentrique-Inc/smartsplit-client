@@ -13,10 +13,10 @@ import moment from "moment"
 import { Tab, TabBar } from "../../../widgets/tabs"
 import EmptyState from "../../../svg/empty-state"
 import Button from "../../../widgets/button"
-import DragDropItem from "./dragdrop-item"
-import CollaboratorModal from "./modal/collaborators-modal"
-import SendCollaboratorsModal from "./modal/send-collaborators-modal"
 import SensitiveInfoModal from "./modal/modal-sensitive-info"
+import DragDropItem from "./dragdrop-item"
+import SendCollaboratorsModal from "./modal/send-collaborators-modal"
+import CollaboratorModal from "./modal/collaborators-modal"
 
 const Styles = StyleSheet.create({
 	navBarCol: {
