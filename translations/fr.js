@@ -664,6 +664,21 @@ export const rightSplits = {
 		},
 	},
 
+	privacy: {
+		title: "Confidentialité",
+		header: "Veux-tu rendre ce partage public ?", 
+		description: "Expliquer ou est-ce que ça va se retrouver et que ca va etre soumis au vote.",
+		radiosLabel: "Confidentialité du partage",
+		private: "Privée",
+		public: "Publique",
+		helpCard: {
+			title: "Aide",
+			header: "Pourquoi rendre un partage public ?",
+			content: "Parfois, lorsqu’on est vraiment fier de son split, on peut avoir envie de le dire à la planète entière. En plus, lorsqu’on partage cette information de manière ouverte, ça peut en inspirer d’autres sur la façon de partager leurs propres droits. Faites comme le groupe Valaire et partagez cette information inspirante !",
+			example: "Voir un exemple de split",
+		} 
+	},
+
 	radios: {
 		equal: "Partager de façon égale",
 		roles: "Partager selon les rôles",

@@ -15,12 +15,12 @@ export const CardStyles = StyleSheet.create({
 	},
 })
 
-export default function Card({ style, children }) {
+export default function Card({ style, children, grounded }) {
 	return (
 		<Column
 			of="component"
 			padding="component"
-			layer="overground_moderate"
+			layer={!grounded && "overground_moderate"}
 			style={[CardStyles.frame, CardStyles.frame_neutral, style]}
 		>
 			{children}
