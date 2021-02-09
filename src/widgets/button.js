@@ -131,11 +131,12 @@ export function Button({
 	dangerWithIcon,
 	onClick,
 	style,
+	styleText,
 	children,
 	viewRef,
 }) {
 	const frameStyle = [ButtonStyles.frame]
-	const textStyle = []
+	const textStyle = [styleText]
 	let content = children
 
 	const addFrame = (key) => frameStyle.push(ButtonStyles[key])

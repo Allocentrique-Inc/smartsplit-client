@@ -658,6 +658,22 @@ export const rightSplits = {
 				"Person investing in the creation of visual material related to the work (cover, vidéo).",
 		},
 	},
+
+	privacy: {
+		title: "confidentiality",
+		header: "Do you want to make this right split public ?", 
+		description: "Explain where it will be and used for",
+		radiosLabel: "Split confidentiality",
+		private: "Private",
+		public: "Public",
+		helpCard: {
+			title: "Help",
+			header: "Why make a share public?",
+			content: "Sometimes when you're really proud of your split, you might want to tell the whole planet about it. Plus, when you share this information in an open way, it can inspire others on how to share their own rights. Do like the Valaire group and share this inspiring information !",
+			example: "See an example of a split",
+		} 
+	},
+
 	radios: {
 		equal: "Split evenly",
 		roles: "Split according to roles",
