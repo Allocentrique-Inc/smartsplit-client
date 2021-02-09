@@ -140,9 +140,13 @@ function RowViewItem(props) {
 					percent={80}
 					size={40}
 					borderWidth={4}
-					borderBgColor="#F5F2F3"
-					percentColor="#D9ACF7"
-					picture={defaultPicture}
+					borderBgColor={
+						data && data.borderBgColor ? data.borderBgColor : "#F5F2F3"
+					}
+					percentColor={
+						data && data.percentColor ? data.percentColor : "#D9ACF7"
+					}
+					picture={data && data.picture ? data.picture : defaultPicture}
 				/>
 			</Column>
 			<Column flex={7}>

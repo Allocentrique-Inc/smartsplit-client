@@ -147,7 +147,6 @@ function ConfidentialityItem(props) {
 	const { isModal, data, ...nextProp } = props
 	const { t } = useTranslation()
 	const [showButton, setShowButton] = useState(false)
-	const rightSplits = useRightSplits(useCurrentWorkpieceId())
 	return (
 		<Row {...nextProp}>
 			<Column flex={1} />
@@ -220,12 +219,16 @@ function RowConfidentialityItem(props) {
 		<Row>
 			<Column flex={1}>
 				<AvatarProgress
-					percent={80}
+					percent={data && data.percent ? data.percent : 0}
 					size={40}
 					borderWidth={4}
-					borderBgColor="#F5F2F3"
-					percentColor="#D9ACF7"
-					picture={defaultPicture}
+					borderBgColor={
+						data && data.borderBgColor ? data.borderBgColor : "#F5F2F3"
+					}
+					percentColor={
+						data && data.percentColor ? data.percentColor : "#D9ACF7"
+					}
+					picture={data && data.url ? data.url : defaultPicture}
 				/>
 			</Column>
 			<Column flex={7} style={{ justifyContent: "center", paddingLeft: 16 }}>

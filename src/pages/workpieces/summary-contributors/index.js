@@ -605,7 +605,7 @@ const SummaryProtectionWorkPage = observer(() => {
 										__html: t("shareYourRights:updateBy", {
 											name: shareInfo.updateBy,
 											hour: moment(shareInfo.lastUpdate)
-												.startOf("hour")
+												.startOf("second")
 												.fromNow(),
 										}),
 									}}
