@@ -108,6 +108,7 @@ export const DialogModal = observer((props) => {
 		buttons,
 		children,
 		noScroll,
+		text,
 		...nextProps
 	} = props
 
@@ -163,13 +164,17 @@ export const DialogModal = observer((props) => {
 				)}
 
 				<Row
-					align="right"
+					valign="center"
 					of="component"
 					layer="overground_moderate"
 					padding="component"
 					style={ModalStyles.buttonBar}
 				>
-					{buttons}
+					<Row valign="center">
+						<Text align="left">{text}</Text>
+					</Row>
+					<Flex />
+					<Row align="right">{buttons}</Row>
 				</Row>
 			</Column>
 		</Modal>

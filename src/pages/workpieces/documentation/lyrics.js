@@ -54,15 +54,17 @@ export const LyricsForm = observer((props) => {
 					/> */}
 
 					<Column of="tiny">
-						<TextInput
-							label={t("document:lyrics.label")}
-							value={model.text.value}
-							multiline={true}
-							style={FormStyles.textAreaContainer}
-							onChangeText={(text) => {
-								model.text.setValue(text)
-							}}
-						/>
+						<Column of="component">
+							<Heading level={5}>{t("document:lyrics.label")}</Heading>
+							<TextInput
+								value={model.text.value}
+								multiline={true}
+								style={FormStyles.textAreaContainer}
+								onChangeText={(text) => {
+									model.text.setValue(text)
+								}}
+							/>
+						</Column>
 						<Text secondary small>
 							{t("document:lyrics.undertext")}
 						</Text>

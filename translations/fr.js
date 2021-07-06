@@ -938,6 +938,7 @@ export const document = {
 		dropdown: {
 			public: "Public - Rendre l'information publique",
 		},
+		label: "Paroles",
 	},
 	links: {
 		category: "LIENS D'ÉCOUTE",
@@ -1205,5 +1206,12 @@ export const workpieceSheet = {
 	lyrics: {
 		header: "Paroles",
 		check: "Voir les paroles",
+	},
+	accessModal: {
+		title: "Demander l'accès au fichier",
+		paragraph:
+			"Entrez votre courriel pour être contacté par l'administrateur de cette pièce musicale.",
+		name: "Your name",
+		email: "Your email",
 	},
 }

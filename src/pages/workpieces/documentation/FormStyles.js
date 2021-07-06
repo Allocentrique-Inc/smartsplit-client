@@ -37,7 +37,7 @@ export const FormStyles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	textAreaContainer: {
-		padding: 5,
+		padding: 8,
 		borderWidth: 1,
 		borderRadius: 2,
 		borderColor: Colors.stroke,
@@ -50,8 +50,12 @@ export const FormStyles = StyleSheet.create({
 			boxShadow: Colors.stroke,
 			outline: Colors.stroke,
 		},
+		justifyContent: "flex-start",
 	},
-	textArea: {
+	messageAreaContainer: {
+		minHeight: 72,
+	},
+	alignInvitation: {
 		justifyContent: "flex-start",
 	},
 })

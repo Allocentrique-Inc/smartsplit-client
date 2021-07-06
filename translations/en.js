@@ -924,6 +924,7 @@ export const document = {
 		dropdown: {
 			public: "Public - Make the information public",
 		},
+		label: "Lyrics",
 	},
 	links: {
 		category: "LISTENING LINKS",
@@ -1182,5 +1183,12 @@ export const workpieceSheet = {
 	lyrics: {
 		header: "Lyrics",
 		check: "See the lyrics",
+	},
+	accessModal: {
+		title: "Ask File Access",
+		paragraph:
+			"Entrer your email to be contacter by the administrator of this musical workpiece.",
+		name: "Votre nom",
+		email: "Votre courriel",
 	},
 }
