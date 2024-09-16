@@ -136,7 +136,7 @@ function Confidentiality(props) {
 					</Row>
 				)}
 				{userAccess.map((item, index) => (
-					<ConfidentialityItemOnTouch
+					<ConfidentialityItem
 						key={index}
 						data={item}
 						style={{ paddingTop: 24 }}
@@ -261,23 +261,6 @@ function RowConfidentialityItem(props) {
 				</Text>
 			</Column>
 		</Row>
-	)
-}
-
-function ConfidentialityItemOnTouch(props) {
-	const { isModal, ...nextProp } = props
-
-	return (
-		<>
-			{status === 2 && !isModal && (
-				// <TouchableWithoutFeedback onPress={() => setShowButton(!showButton)}>
-				<ConfidentialityItem status={status} {...nextProp} />
-				// </TouchableWithoutFeedback>
-			)}
-			{(status !== 2 || isModal) && (
-				<ConfidentialityItem status={status} {...nextProp} />
-			)}
-		</>
 	)
 }
 

@@ -13,9 +13,10 @@ import moment from "moment"
 import { Tab, TabBar } from "../../../widgets/tabs"
 import EmptyState from "../../../svg/empty-state"
 import Button from "../../../widgets/button"
+import SensitiveInfoModal from "./modal/modal-sensitive-info"
 import DragDropItem from "./dragdrop-item"
-import CollaboratorModal from "./modal/collaborators-modal"
 import SendCollaboratorsModal from "./modal/send-collaborators-modal"
+import CollaboratorModal from "./modal/collaborators-modal"
 
 const Styles = StyleSheet.create({
 	navBarCol: {
@@ -486,6 +487,41 @@ export const shareInfo = {
 		decided: [],
 	},
 }
+const sensitiveInfo = [
+	{
+		url: "",
+		nameOfWork: "Inscience (toi)",
+		roles: "Auteur, Compositeur, Arrangeur",
+		usualFirstNames: "Joel",
+		usualName: "Lamour",
+		dateOfBirth: "01/01/1992",
+		ipi: "",
+		streetAddress: "285 rue Lac-Long",
+		email: "questlove@theroots.com",
+	},
+	{
+		url: "",
+		nameOfWork: "Quest Love",
+		roles: "Auteur, Compositeur, Arrangeur",
+		usualFirstNames: "Joel",
+		usualName: "Lamour",
+		dateOfBirth: "01/01/1992",
+		ipi: "",
+		streetAddress: "285 rue Lac-Long",
+		email: "questlove@theroots.com",
+	},
+	{
+		url: "",
+		nameOfWork: "Georges Benson",
+		roles: "Auteur, Compositeur, Arrangeur",
+		usualFirstNames: "Joel",
+		usualName: "Lamour",
+		dateOfBirth: "01/01/1992",
+		ipi: "",
+		streetAddress: "285 rue Lac-Long",
+		email: "questlove@theroots.com",
+	},
+]
 
 const SummaryProtectionWorkPage = observer(() => {
 	const history = useHistory()
@@ -503,6 +539,7 @@ const SummaryProtectionWorkPage = observer(() => {
 	const clickArrowLeft = () => {
 		navigateToSummary()
 	}
+
 	const handleCollaboratorClose = (isClickSend) => {
 		if (isClickSend) {
 			setSendModalVisible(true)
@@ -568,7 +605,7 @@ const SummaryProtectionWorkPage = observer(() => {
 										__html: t("shareYourRights:updateBy", {
 											name: shareInfo.updateBy,
 											hour: moment(shareInfo.lastUpdate)
-												.startOf("hour")
+												.startOf("second")
 												.fromNow(),
 										}),
 									}}

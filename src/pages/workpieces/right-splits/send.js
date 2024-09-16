@@ -19,9 +19,9 @@ import { runInAction } from "mobx"
 import { useRightSplits } from "../../../mobX/hooks"
 import { useCurrentWorkpieceId } from "../context"
 import { CHART_WINDOW_RATIO } from "../../../mobX/states/right-splits/RightSplitState"
-import SendCollaboratorsModal from "../summary-protection-work/modal/send-collaborators-modal"
-import CollaboratorModal from "../summary-protection-work/modal/collaborators-modal"
-import { shareInfo } from "../summary-protection-work/index"
+import SendCollaboratorsModal from "../summary-contributors/modal/send-collaborators-modal"
+import CollaboratorModal from "../summary-contributors/modal/collaborators-modal"
+import { shareInfo } from "../summary-contributors/index"
 const SendPage = observer((props) => {
 	const splitState = useRightSplits(useCurrentWorkpieceId(), "recording")
 	const domainState = splitState.domainState

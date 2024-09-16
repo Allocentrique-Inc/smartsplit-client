@@ -4,8 +4,9 @@ import { StyleSheet, View } from "react-native"
 import { Column, Row } from "../../../../layout"
 import { Heading } from "../../../../text"
 import Button from "../../../../widgets/button"
-import ItemVersionDetailOnTouch from "./item-version-detail"
+import ItemVersionDetail from "./item-version-detail"
 import { useStores } from "../../../../mobX"
+import ModifierSVG from "../../../../svg/modify-svg"
 
 const Styles = StyleSheet.create({
 	highlightWord: {
@@ -35,8 +36,11 @@ function SectionCollaborator(props) {
 		chart,
 		...nextProps
 	} = props
-	const { collaborators, auth } = useStores()
-	let shares = toJS(splitState.shareholdersData)
+	const { collaborators } = useStores()
+	let shares =
+		splitState && splitState.shareholdersData
+			? toJS(splitState.shareholdersData)
+			: []
 	shares = shares.map((share) => ({
 		...share,
 		user:
@@ -72,6 +76,11 @@ function SectionCollaborator(props) {
 							<Column flex={2}>
 								<View>
 									<Button
+										icon={
+											<View>
+												<ModifierSVG />
+											</View>
+										}
 										small
 										secondary
 										bold
@@ -87,7 +96,7 @@ function SectionCollaborator(props) {
 			<Row>
 				<Column flex={1}>
 					{shares.map((item, index) => (
-						<ItemVersionDetailOnTouch
+						<ItemVersionDetail
 							style={{ paddingBottom: 16 }}
 							key={index}
 							boldPercent

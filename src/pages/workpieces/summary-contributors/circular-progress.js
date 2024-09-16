@@ -61,6 +61,7 @@ const AvatarProgress = (props) => {
 		borderBgColor,
 		percentColor,
 		user,
+		picture,
 		...nextProps
 	} = props
 
@@ -112,7 +113,7 @@ const AvatarProgress = (props) => {
 					borderBgColorValue,
 					percentColorValue
 				)}
-				<UserAvatar size="small" user={user} />
+				<UserAvatar size="small" picture={picture} />
 			</View>
 		</View>
 	)

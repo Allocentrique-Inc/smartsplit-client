@@ -1,9 +1,8 @@
 import { observer } from "mobx-react"
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import moment from "moment"
 import TextField from "../../../forms/text"
-import { Column, Group, NoSpacer, Row } from "../../../layout"
+import { Column, Flex, Group, NoSpacer, Row } from "../../../layout"
 import Button from "../../../widgets/button"
 import { DialogModal } from "../../../widgets/modal"
 import DatePickers from "../../../smartsplit/components/DatePickers"
@@ -32,7 +31,7 @@ export default observer(function CompleteIdentityModal(props) {
 	const [email, setEmail] = useState("")
 	const [showEncryption, setShowEncryption] = useState(false)
 
-	const handleChangeDate = (e, { value }) => {
+	const handleChangeDate = (value) => {
 		setStartDate(value)
 	}
 
@@ -111,7 +110,7 @@ export default observer(function CompleteIdentityModal(props) {
 						icon={"calendar outline"}
 						onChange={handleChangeDate}
 						dateFormat={displayFormat}
-						style={{ width: "100%" }}
+						maxWidth
 					/>
 				</NoSpacer>
 				<NoSpacer>

@@ -10,9 +10,6 @@ import { DialogModal } from "../../../../widgets/modal"
 function SendCollaboratorsModal(props) {
 	const { onRequestClose, visible, data, ...nextProp } = props
 	const { t } = useTranslation()
-	const [value1, setValue1] = useState("")
-	const [value2, setValue2] = useState("Erykahbadu@gmail.com")
-	const [value3, setValue3] = useState("georgesbenson@gmail.com")
 	const dataArr = Array.from(
 		data || [
 			{ url: "", name: "Quest Love", email: "" },
@@ -20,6 +17,7 @@ function SendCollaboratorsModal(props) {
 			{ url: "", name: "Georges Benson", email: "georgesbenson@gmail.com" },
 		]
 	)
+
 	return (
 		<DialogModal
 			visible={visible}
