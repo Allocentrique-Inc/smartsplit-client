@@ -14,6 +14,7 @@ import QuestionMark from "../../../../svg/question-mark"
 import { defaultPicture, getStatusString } from "./item-version-detail"
 import Button from "../../../../widgets/button"
 import AvatarProgress from "../circular-progress"
+import { TooltipIcon } from "../../../../widgets/tooltip"
 
 const Styles = StyleSheet.create({
 	part: {
@@ -107,11 +108,7 @@ function Confidentiality(props) {
 								}}
 							>
 								<View>
-									<TouchableWithoutFeedback>
-										<View>
-											<QuestionMark />
-										</View>
-									</TouchableWithoutFeedback>
+									<TooltipIcon text={<Text>Hello</Text>} />
 								</View>
 							</Column>
 						</Row>

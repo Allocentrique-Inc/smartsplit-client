@@ -43,7 +43,6 @@ const CollaboratorModal = observer((props) => {
 	const rightSplits = useRightSplits(workpiece.id)
 	const { t } = useTranslation()
 	const { visible, onRequestClose, data } = props
-	console.log("data", data)
 	const copyright = Array.from(data.copyright ? data.copyright : [])
 	const interpretation = Array.from(
 		data.interpretation ? data.interpretation : []
@@ -52,7 +51,6 @@ const CollaboratorModal = observer((props) => {
 		data.soundRecording ? data.soundRecording : []
 	)
 	if (workpiece.state === "loading") return
-	console.log(toJS(workpiece))
 	return (
 		<DialogModal
 			key="collaborator-modal"

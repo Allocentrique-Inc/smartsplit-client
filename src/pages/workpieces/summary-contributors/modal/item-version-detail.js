@@ -11,7 +11,6 @@ import { Text } from "../../../../text"
 import Button from "../../../../widgets/button"
 import { useTranslation } from "react-i18next"
 import AvatarProgress from "../circular-progress"
-import { getArtistName } from "../../workpiece-summary/workpiece-sheet"
 
 export const getStatusString = (status) => {
 	const { t } = useTranslation()
@@ -138,28 +137,22 @@ function RowViewItem(props) {
 		<Row>
 			<Column flex={2} style={{ justifyContent: "center" }}>
 				<AvatarProgress
-					percent={data.percent}
+					percent={80}
 					size={40}
 					borderWidth={4}
 					borderBgColor="#F5F2F3"
-					percentColor={data.color}
-					user={data.user}
+					percentColor="#D9ACF7"
+					picture={defaultPicture}
 				/>
 			</Column>
 			<Column flex={7}>
 				<Row>
-					<Text>{data ? getArtistName(data.user) : ""}</Text>
+					<Text>{data ? (data.name ? data.name : "") : ""}</Text>
 				</Row>
-				{data && (
+				{data && data.role && (
 					<Row>
 						<Text small secondary>
-							{data
-								? data.roles
-									? data.roles.join(", ")
-									: data.function
-									? data.function
-									: ""
-								: ""}
+							{data ? (data.role ? data.role : "") : ""}
 						</Text>
 					</Row>
 				)}
@@ -168,7 +161,7 @@ function RowViewItem(props) {
 				{data && data.percent && (
 					<Row>
 						<Text bold secondary={secondaryPercent && !isModal}>
-							{data ? (data.percent ? data.percent.toFixed(1) : "") : ""}%
+							{data ? (data.percent ? data.percent : "") : ""}%
 						</Text>
 					</Row>
 				)}

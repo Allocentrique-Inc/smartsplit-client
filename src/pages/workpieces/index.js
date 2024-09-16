@@ -32,8 +32,9 @@ import WorkpieceSheet from "./workpiece-summary/workpiece-sheet"
 import { useStorePath, useStores } from "../../mobX"
 import { observer } from "mobx-react"
 import DocumentationPage from "./documentation"
-import SummaryProtectionWorkPage from "./summary-protection-work"
-import VotingPage from "./summary-protection-work/voting-page"
+import SummaryProtectionWorkPage from "./summary-contributors"
+import VotingPage from "./summary-contributors/voting-page"
+import AgreementPage from "./summary-contributors/agreement-page"
 
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
@@ -55,14 +56,22 @@ const WorkpiecesRouter = observer(() => {
 						"/workpieces/:workpiece_id/right-splits",
 					]}
 					// component={RightSplitsPage}  ----- component of Francois-Xavier Dueymes
-					component={RightSplitsPage}
+					component={SummaryProtectionWorkPage}
 				/>
 
-				<Route
+				{/*Task 1222_create-the-new-voting-pages */}
+				{/* <Route
 					path="/workpieces/:workpiece_id/voting-page"
 					exact
 					component={VotingPage}
-				/>
+				/> */}
+
+				{/*Task 1331_agreement_page_and__download */}
+				{/* <Route
+					path="/workpieces/:workpiece_id/agreement"
+					exact
+					component={AgreementPage}
+				/> */}
 
 				<Route
 					path={[

@@ -37,16 +37,26 @@ const DatePickerStyle = StyleSheet.create({
 } */
 
 export const WebDatePicker = observer((props) => {
-	const { field, onChange, label, subLabel, label_hint, tooltip } = props
+	const {
+		field,
+		onChange,
+		label,
+		subLabel,
+		label_hint,
+		tooltip,
+		icon,
+		maxWidth,
+		value,
+	} = props
 
-	const [value, setValue] = useState(null) //new créer un nouvel objet, comme constructor, par défaut existe dans browser JS
+	const [valueSelect, setValueSelect] = useState(value) //new créer un nouvel objet, comme constructor, par défaut existe dans browser JS
 
 	const { t, i18n } = useTranslation()
 
 	const handleChange = (event, { name, value }) => {
 		//console.log(`${name}: ${value}`)
 		//name === "date" ? setValue(value) : t("forms:placeholders.date")
-		if (name === "date") field ? field.setValue(value) : setValue(value)
+		if (name === "date") field ? field.setValue(value) : setValueSelect(value)
 		if (onChange) {
 			onChange(value)
 		}
@@ -69,10 +79,11 @@ export const WebDatePicker = observer((props) => {
 				dateFormat="YYYY-MM-DD"
 				placeholder={t("forms:placeholders.date")}
 				//label={t("document:creation.date")}
-				value={field ? field.value : value}
+				value={field ? field.value : valueSelect}
 				onChange={handleChange}
-				icon={null}
+				icon={icon}
 				localization={i18n.language}
+				style={maxWidth && { width: "100%" }}
 			/>
 		</Label>
 	)
@@ -140,8 +151,17 @@ export class MobileDatePicker extends React.Component {
 }
 
 export default function DatePickers(props) {
-	const { field, onChange, label, subLabel, label_hint, tooltip } = props
-	const [date, setDate] = useState(null) //En attendant de binder
+	const {
+		field,
+		onChange,
+		label,
+		subLabel,
+		label_hint,
+		tooltip,
+		icon,
+		maxWidth,
+		value,
+	} = props
 	return (
 		<View>
 			{Platform.OS === "web" ? (
@@ -152,6 +172,9 @@ export default function DatePickers(props) {
 					subLabel={subLabel}
 					label_hint={label_hint}
 					tooltip={tooltip}
+					icon={icon}
+					maxWidth={maxWidth}
+					value={value}
 				/>
 			) : (
 				<MobileDatePicker />

@@ -35,8 +35,11 @@ function SectionCollaborator(props) {
 		chart,
 		...nextProps
 	} = props
-	const { collaborators, auth } = useStores()
-	let shares = toJS(splitState.shareholdersData)
+	const { collaborators } = useStores()
+	let shares =
+		splitState && splitState.shareholdersData
+			? toJS(splitState.shareholdersData)
+			: []
 	shares = shares.map((share) => ({
 		...share,
 		user:
